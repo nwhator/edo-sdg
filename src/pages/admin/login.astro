@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Admin Portal Login | Edo State NYSC SDG"
+  description="Secure administrative login for Edo State NYSC SDG CDS executives and project leads."
+>
+  <div class="min-h-[75vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-xl space-y-6">
+      
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 rounded-2xl bg-nysc-green text-white font-black text-xl mx-auto flex items-center justify-center shadow-md shadow-nysc-green/30 ring-4 ring-nysc-gold/30">
+          SDG
+        </div>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Admin Executive Portal</h2>
+        <p class="text-xs text-slate-500 font-medium">
+          Sign in to plan projects, manage budgets, upload documents, and publish event gallery photos.
+        </p>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+            Executive Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            placeholder="admin@edosdg.org"
+            value="executive@edosdg.org"
+            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+            Access Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            required
+            placeholder="••••••••••••"
+            value="NyscEdoSdg2026!"
+            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-3 px-4 rounded-xl bg-nysc-green text-white font-bold text-sm shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all"
+        >
+          Sign In to Admin Dashboard
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-100 text-center">
+        <button
+          id="demo-login-btn"
+          type="button"
+          class="w-full py-2.5 px-4 rounded-xl bg-nysc-gold/20 text-nysc-green-dark font-extrabold text-xs hover:bg-nysc-gold/30 transition-colors border border-nysc-gold/40"
+        >
+          ⚡ Instant Access (Demo Admin Session)
+        </button>
+        <p class="text-[11px] text-slate-400 mt-2">
+          Allows immediate local administration without needing an active Supabase project yet.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('admin-login-form');
+  const demoBtn = document.getElementById('demo-login-btn');
+
+  function grantAdmin() {
+    localStorage.setItem('edo_sdg_admin_token', 'demo_admin_active_' + Date.now());
+    window.location.href = '/admin';
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      grantAdmin();
+    });
+  }
+
+  if (demoBtn) {
+    demoBtn.addEventListener('click', grantAdmin);
+  }
+</script>

@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { FundingDirectory } from '../../components/portal/FundingDirectory';
+import { fetchFundingPartners } from '../../lib/supabase';
+
+const partners = await fetchFundingPartners();
+---
+
+<Layout
+  title="Benin City NGO & Funding Directory"
+  description="Verified directory of non-governmental organizations, foundations, and government offices in Benin City & Edo State to fund sanitary pads and cleaning materials."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-nysc-green-deep via-nysc-green to-nysc-green-dark rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-3xl space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nysc-gold/20 text-nysc-gold text-xs font-bold border border-nysc-gold/30">
+          🤝 Resource & Sponsorship Center
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          Benin City NGO Funding Directory
+        </h1>
+        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+          Curated research connecting our CDS initiatives with vetted local partners in Benin City and Edo State. Focused on securing in-kind and financial support for our primary urgent needs: <strong>sanitary pads for adolescent schoolgirls</strong> and <strong>materials for community environmental cleaning</strong>.
+        </p>
+
+        <div class="pt-2 flex flex-wrap gap-3">
+          <a
+            href="/portal/pitch-kit"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-gold text-nysc-green-deep text-xs font-extrabold hover:bg-white transition-all shadow-md"
+          >
+            <span>Download Sponsorship Pitch Letters</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Directory Component -->
+    <FundingDirectory client:load initialPartners={partners} />
+
+  </div>
+</Layout>

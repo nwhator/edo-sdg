@@ -1,0 +1,345 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { fetchIdeas, fetchProjects, fetchEvents, fetchFundingPartners } from '../lib/supabase';
+import { SDG_METADATA } from '../types/database';
+import { IdeaCard } from '../components/ideas/IdeaCard';
+
+const ideas = await fetchIdeas();
+const projects = await fetchProjects();
+const { events, photos } = await fetchEvents();
+const partners = await fetchFundingPartners();
+
+// Get top 3 trending ideas
+const topIdeas = [...ideas].sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0)).slice(0, 3);
+const sdgList = Object.values(SDG_METADATA);
+---
+
+<Layout
+  title="Home | Edo State NYSC SDG CDS Platform"
+  description="Official platform for Edo State NYSC Sustainable Development Goals (SDG) CDS Group. Anonymous youth ideation, project planning, community outreach gallery, and Benin City NGO directory."
+>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-green-50/70 via-white to-slate-50 border-b border-slate-200/80 overflow-hidden pt-12 pb-20">
+    <div class="absolute inset-0 bg-[radial-gradient(#006633_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center space-y-6">
+        
+        <!-- Chapter Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-nysc-green/10 text-nysc-green-dark border border-nysc-green/20 text-xs font-bold shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-nysc-gold animate-ping"></span>
+          <span>National Youth Service Corps · Edo State Chapter</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
+          Localizing the <span class="text-nysc-green underline decoration-nysc-gold decoration-wavy decoration-2">Global Goals</span> Across Edo State
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+          An open platform for NYSC corps members to propose grassroots ideas anonymously, plan community projects with transparent budgets, and partner with local NGOs in Benin City.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="/ideas"
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-nysc-green text-white font-extrabold text-sm shadow-lg shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all hover:-translate-y-0.5"
+          >
+            <svg class="w-4 h-4 text-nysc-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
+            </svg>
+            <span>Drop Anonymous Idea</span>
+          </a>
+
+          <a
+            href="/projects"
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white text-slate-800 font-bold text-sm border border-slate-300 shadow-xs hover:bg-slate-50 transition-all hover:-translate-y-0.5"
+          >
+            <span>Explore Projects & Budgets</span>
+            <span>→</span>
+          </a>
+
+          <a
+            href="/portal/funding"
+            class="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-amber-50 text-amber-900 font-bold text-sm border border-amber-200/80 hover:bg-amber-100 transition-all"
+          >
+            <span>Benin NGO Directory</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Live Impact Counter Strip -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
+          <div class="text-3xl font-black text-nysc-green">17</div>
+          <p class="text-xs font-semibold text-slate-600 mt-1">UN Global Goals</p>
+        </div>
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
+          <div class="text-3xl font-black text-rose-600">500+</div>
+          <p class="text-xs font-semibold text-slate-600 mt-1">Sanitary Pads Goal</p>
+        </div>
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
+          <div class="text-3xl font-black text-emerald-600">120+</div>
+          <p class="text-xs font-semibold text-slate-600 mt-1">Corps Members</p>
+        </div>
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
+          <div class="text-3xl font-black text-nysc-gold-dark">{partners.length}</div>
+          <p class="text-xs font-semibold text-slate-600 mt-1">Vetted Benin NGOs</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Priority Focus Section: Sanitary Pads & Environmental Sanitation -->
+  <section class="py-16 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-nysc-green">First-Need Priorities</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          Current Urgent Interventions
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500">
+          We are actively rallying corporate and NGO support in Benin City for these two baseline humanitarian causes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Priority 1: Women's Health & Sanitary Pads -->
+        <div class="rounded-3xl border border-rose-200 bg-gradient-to-br from-rose-50/50 via-white to-rose-50/20 p-8 shadow-xs space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🩸</span>
+              <span class="text-xs font-black text-rose-700 bg-rose-100 px-3 py-1 rounded-full">
+                SDG 3 · 4 · 5
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Menstrual Dignity & Sanitary Pad Banks
+              </h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Period poverty forces girls in Benin City to miss up to 20% of the school calendar. We are partnering with <strong>Girls' Power Initiative (GPI)</strong> and the <strong>Edo State SDGs Office</strong> to distribute 500+ packs of sanitary pads and install emergency cabinets in public school clinics.
+              </p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white border border-rose-100 text-xs space-y-1.5">
+              <div class="flex justify-between font-bold text-slate-800">
+                <span>Estimated Target Budget:</span>
+                <span class="text-rose-600">₦385,000 (or in-kind pads)</span>
+              </div>
+              <div class="text-slate-500">
+                Target: Emotan College, Idia College, Western Boys High School.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <a
+              href="/portal/funding"
+              class="text-xs font-bold text-rose-700 hover:text-rose-900 flex items-center gap-1"
+            >
+              <span>View Benin Pad Donors & Contacts</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/portal/pitch-kit"
+              class="px-3.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold shadow-xs hover:bg-rose-700 transition-colors"
+            >
+              Get Pad Pitch Letter
+            </a>
+          </div>
+        </div>
+
+        <!-- Priority 2: Environmental Sanitation & Cleaning Materials -->
+        <div class="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/50 via-white to-emerald-50/20 p-8 shadow-xs space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🧹</span>
+              <span class="text-xs font-black text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                SDG 3 · 6 · 11 · 13
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Community Market Cleanup & Drainage Drive
+              </h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Preventing urban malaria and cholera by clearing storm drains and evacuating plastic waste around Ring Road and Oba Market. Partnering with the <strong>Edo State Waste Management Board (ESWMB)</strong> for logistics and equipment.
+              </p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white border border-emerald-100 text-xs space-y-1.5">
+              <div class="flex justify-between font-bold text-slate-800">
+                <span>Material Needs:</span>
+                <span class="text-emerald-800">200 Heavy bags, 50 brooms, rakes, trucks</span>
+              </div>
+              <div class="text-slate-500">
+                Target: Oba Market, Ring Road, New Benin Market.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <a
+              href="/portal/funding"
+              class="text-xs font-bold text-emerald-800 hover:text-emerald-900 flex items-center gap-1"
+            >
+              <span>View Sanitation Partners</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/portal/pitch-kit"
+              class="px-3.5 py-1.5 rounded-xl bg-nysc-green text-white text-xs font-bold shadow-xs hover:bg-nysc-green-dark transition-colors"
+            >
+              Get ESWMB Requisition Letter
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Trending Community Ideas Preview -->
+  <section class="py-16 bg-slate-50 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green">Peer Democracy</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
+            Trending Community Ideas
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Proposed anonymously by corps members in Edo State. Upvoted by peers.
+          </p>
+        </div>
+        <a
+          href="/ideas"
+          class="inline-flex items-center gap-1 text-xs font-bold text-nysc-green hover:underline self-start sm:self-auto"
+        >
+          <span>View All {ideas.length} Ideas & Vote</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {topIdeas.map((idea) => (
+          <IdeaCard client:load idea={idea} />
+        ))}
+      </div>
+
+      <div class="text-center pt-2">
+        <a
+          href="/ideas"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-nysc-green text-white font-bold text-xs shadow-md shadow-nysc-green/20 hover:bg-nysc-green-dark transition-all"
+        >
+          <span>+ Propose Your Own Project Idea Anonymously</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Featured Outreaches & Photo Album Preview -->
+  <section class="py-16 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green">Visual Proof</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
+            Community Outreaches in Pictures
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Photos grouped strictly by event and outreach campaign.
+          </p>
+        </div>
+        <a
+          href="/gallery"
+          class="inline-flex items-center gap-1 text-xs font-bold text-nysc-green hover:underline self-start sm:self-auto"
+        >
+          <span>Open Full Event Gallery</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {events.slice(0, 3).map((ev) => (
+          <a
+            href={`/gallery#event-${ev.id}`}
+            class="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-200/80 hover:shadow-lg transition-all duration-300 flex flex-col"
+          >
+            <div class="aspect-16/10 overflow-hidden bg-slate-200 relative">
+              <img
+                src={ev.cover_image}
+                alt={ev.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold">
+                📅 {ev.event_date}
+              </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-3">
+              <div>
+                <span class="text-xs text-slate-500 font-semibold block">📍 {ev.location}</span>
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-nysc-green transition-colors mt-1">
+                  {ev.title}
+                </h3>
+              </div>
+              <span class="text-xs font-bold text-nysc-green flex items-center gap-1">
+                <span>View Event Album</span>
+                <span>→</span>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 17 UN Sustainable Development Goals Matrix -->
+  <section class="py-16 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-nysc-gold">UN Agenda 2030</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">
+          The 17 Sustainable Development Goals
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          Our CDS group initiates projects that align with each of these global objectives within Edo State.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {sdgList.map((sdg) => (
+          <div
+            style={{ borderTopColor: sdg.color }}
+            class="bg-white/5 border border-white/10 rounded-2xl p-4 border-t-4 hover:bg-white/10 transition-colors space-y-2"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                style={{ backgroundColor: sdg.color }}
+                class="w-7 h-7 rounded-lg text-white font-black text-xs flex items-center justify-center shadow-xs"
+              >
+                {sdg.number}
+              </span>
+            </div>
+            <h4 class="text-xs font-bold text-white line-clamp-1">{sdg.name}</h4>
+            <p class="text-[10px] text-slate-400 line-clamp-2 leading-relaxed">
+              {sdg.shortDescription}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+</Layout>

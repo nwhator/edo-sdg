@@ -1,0 +1,38 @@
+---
+import { SDG_METADATA } from '../types/database';
+
+interface Props {
+  goal: number;
+  size?: 'sm' | 'md' | 'lg';
+  showLabel?: boolean;
+}
+
+const { goal, size = 'md', showLabel = true } = Astro.props;
+const info = SDG_METADATA[goal] || {
+  number: goal,
+  name: `Goal ${goal}`,
+  color: '#006633',
+  shortDescription: ''
+};
+
+const sizeClasses = {
+  sm: 'text-xs px-2 py-0.5 gap-1',
+  md: 'text-xs px-2.5 py-1 gap-1.5',
+  lg: 'text-sm px-3.5 py-1.5 gap-2 font-medium',
+};
+---
+
+<span
+  class={`inline-flex items-center rounded-full font-semibold text-white shadow-xs ${sizeClasses[size]}`}
+  style={`background-color: ${info.color};`}
+  title={`SDG ${info.number}: ${info.name}`}
+>
+  <span class="w-4 h-4 rounded-full bg-white/25 flex items-center justify-center text-[10px] font-black">
+    {info.number}
+  </span>
+  {showLabel && (
+    <span class="truncate max-w-[140px] sm:max-w-none">
+      {info.name}
+    </span>
+  )}
+</span>

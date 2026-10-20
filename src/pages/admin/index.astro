@@ -1,0 +1,214 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchIdeas, fetchProjects, fetchEvents, fetchFundingPartners } from '../../lib/supabase';
+
+const ideas = await fetchIdeas();
+const projects = await fetchProjects();
+const { events, photos } = await fetchEvents();
+const partners = await fetchFundingPartners();
+
+const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) || 0), 0);
+---
+
+<Layout
+  title="Executive Admin Dashboard | Edo State NYSC SDG"
+  description="Executive management area for planning CDS projects, uploading proposals, managing budgets, and publishing event photos."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    
+    <!-- Admin Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+            Executive Portal Active
+          </span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
+          CDS Executive Management
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500">
+          Edo State NYSC SDG Community Development Service · Benin City Secretariat
+        </p>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          href="/admin/projects/new"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-nysc-green text-white text-xs font-bold hover:bg-nysc-green-dark shadow-xs transition-colors"
+        >
+          <span>+ Plan Project & Budget</span>
+        </a>
+        <a
+          href="/admin/gallery/new"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 shadow-xs transition-colors"
+        >
+          <span>📸 Upload Event Photos</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Metrics Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Card 1: Ideas -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Anonymous Ideas
+          </span>
+          <div class="text-3xl font-black text-slate-900 mt-1">
+            {ideas.length}
+          </div>
+          <span class="text-[11px] text-nysc-green font-semibold">
+            {ideas.filter(i => i.status === 'submitted').length} pending review
+          </span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-nysc-gold-dark flex items-center justify-center text-xl font-bold">
+          💡
+        </div>
+      </div>
+
+      <!-- Card 2: Planned Projects -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Active Projects
+          </span>
+          <div class="text-3xl font-black text-slate-900 mt-1">
+            {projects.length}
+          </div>
+          <span class="text-[11px] text-blue-700 font-semibold">
+            ₦{totalBudget.toLocaleString()} Total Cost
+          </span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-bold">
+          🎯
+        </div>
+      </div>
+
+      <!-- Card 3: Events & Gallery -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Events & Photos
+          </span>
+          <div class="text-3xl font-black text-slate-900 mt-1">
+            {events.length}
+          </div>
+          <span class="text-[11px] text-purple-700 font-semibold">
+            {photos.length} photos grouped
+          </span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl font-bold">
+          📸
+        </div>
+      </div>
+
+      <!-- Card 4: NGO Partners -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Benin NGO Partners
+          </span>
+          <div class="text-3xl font-black text-slate-900 mt-1">
+            {partners.length}
+          </div>
+          <span class="text-[11px] text-emerald-700 font-semibold">
+            Pads & Sanitation focus
+          </span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-nysc-green-dark flex items-center justify-center text-xl font-bold">
+          🤝
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Management Hub Sections -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Section A: Project Planning Shortcuts -->
+      <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-black text-slate-900">Planned Interventions</h2>
+          <a href="/admin/projects/new" class="text-xs font-bold text-nysc-green hover:underline">
+            + New Project
+          </a>
+        </div>
+
+        <div class="space-y-3">
+          {projects.map((p) => (
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+              <div class="space-y-1">
+                <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{p.title}</h4>
+                <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                  <span>₦{p.estimated_cost.toLocaleString()}</span>
+                  <span>•</span>
+                  <span>{p.stakeholders_to_reach.length} stakeholders</span>
+                </div>
+              </div>
+              <a
+                href="/projects"
+                class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+              >
+                View
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Section B: Event Gallery Management -->
+      <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-black text-slate-900">Event Photo Albums</h2>
+          <a href="/admin/gallery/new" class="text-xs font-bold text-nysc-green hover:underline">
+            + Upload Photos
+          </a>
+        </div>
+
+        <div class="space-y-3">
+          {events.map((e) => (
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+              <div class="space-y-1">
+                <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{e.title}</h4>
+                <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                  <span>📅 {e.event_date}</span>
+                  <span>•</span>
+                  <span>📍 {e.location}</span>
+                </div>
+              </div>
+              <a
+                href={`/gallery#event-${e.id}`}
+                class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+              >
+                Gallery
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section C: Idea Moderation Link -->
+    <div class="p-6 rounded-3xl bg-gradient-to-r from-emerald-50 to-amber-50 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="space-y-1">
+        <h3 class="text-base font-bold text-slate-900">Peer Idea Moderation & Approval</h3>
+        <p class="text-xs text-slate-600">
+          Review anonymous ideas submitted by corps members. Approve top-voted ideas to convert them into official CDS planned projects.
+        </p>
+      </div>
+      <a
+        href="/admin/ideas"
+        class="shrink-0 px-5 py-2.5 rounded-xl bg-nysc-green text-white font-bold text-xs shadow-xs hover:bg-nysc-green-dark transition-colors"
+      >
+        Moderate Anonymous Ideas
+      </a>
+    </div>
+
+  </div>
+</Layout>

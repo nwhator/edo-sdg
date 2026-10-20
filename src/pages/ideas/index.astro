@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { IdeasExplorer } from '../../components/ideas/IdeasExplorer';
+import { fetchIdeas } from '../../lib/supabase';
+
+const ideas = await fetchIdeas();
+---
+
+<Layout 
+  title="Anonymous Ideas Hub & Community Voting"
+  description="Drop community project ideas anonymously and vote on grassroots solutions proposed by Edo State NYSC SDG members."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <IdeasExplorer client:load initialIdeas={ideas} />
+  </div>
+</Layout>

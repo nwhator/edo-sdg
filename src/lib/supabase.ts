@@ -1,0 +1,153 @@
+import { createClient } from '@supabase/supabase-js';
+import type { Idea, Project, Event, EventPhoto, FundingPartner } from '../types/database';
+import { 
+  INITIAL_IDEAS, 
+  INITIAL_PROJECTS, 
+  INITIAL_EVENTS, 
+  INITIAL_PHOTOS, 
+  INITIAL_FUNDING_PARTNERS 
+} from '../data/mockData';
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+export const isSupabaseConfigured = Boolean(
+  supabaseUrl && 
+  supabaseAnonKey && 
+  supabaseUrl.startsWith('https://') && 
+  !supabaseUrl.includes('your-project')
+);
+
+export const supabase = isSupabaseConfigured
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
+
+// ==============================================================================
+// DATA FETCHING (Supabase with Mock Fallback)
+// ==============================================================================
+
+export async function fetchIdeas(): Promise<Idea[]> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('ideas')
+        .select('*')
+        .order('upvotes_count', { ascending: false });
+      
+      if (!error && data && data.length > 0) {
+        return data as Idea[];
+      }
+    } catch (e) {
+      console.warn('Failed to fetch from Supabase, using fallback:', e);
+    }
+  }
+  return INITIAL_IDEAS;
+}
+
+export async function fetchProjects(): Promise<Project[]> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*, attachments:project_attachments(*)')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data as Project[];
+      }
+    } catch (e) {
+      console.warn('Failed to fetch projects from Supabase, using fallback:', e);
+    }
+  }
+  return INITIAL_PROJECTS;
+}
+
+export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPhoto[] }> {
+  if (supabase) {
+    try {
+      const { data: events, error: evError } = await supabase
+        .from('events')
+        .select('*')
+        .order('event_date', { ascending: false });
+      
+      const { data: photos, error: phError } = await supabase
+        .from('event_photos')
+        .select('*')
+        .order('display_order', { ascending: true });
+
+      if (!evError && events && events.length > 0) {
+        return {
+          events: events as Event[],
+          photos: (photos || []) as EventPhoto[],
+        };
+      }
+    } catch (e) {
+      console.warn('Failed to fetch events from Supabase, using fallback:', e);
+    }
+  }
+  return {
+    events: INITIAL_EVENTS,
+    photos: INITIAL_PHOTOS,
+  };
+}
+
+export async function fetchFundingPartners(): Promise<FundingPartner[]> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('funding_partners')
+        .select('*')
+        .order('is_benin_city', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data as FundingPartner[];
+      }
+    } catch (e) {
+      console.warn('Failed to fetch funding partners from Supabase, using fallback:', e);
+    }
+  }
+  return INITIAL_FUNDING_PARTNERS;
+}
+
+// ==============================================================================
+// CLIENT OPERATIONS (Upvoting & Submission)
+// ==============================================================================
+
+export async function upvoteIdeaClient(ideaId: string): Promise<number | null> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.rpc('increment_idea_votes', {
+        target_idea_id: ideaId,
+      });
+      if (!error && typeof data === 'number') {
+        return data;
+      }
+    } catch (err) {
+      console.warn('Supabase upvote error:', err);
+    }
+  }
+  return null;
+}
+
+export async function submitIdeaClient(newIdea: Idea): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('ideas').insert([
+        {
+          title: newIdea.title,
+          description: newIdea.description,
+          category: newIdea.category,
+          target_sdgs: newIdea.target_sdgs,
+          suggested_location: newIdea.suggested_location,
+          author_alias: newIdea.author_alias,
+          upvotes_count: 1,
+          status: 'submitted',
+        },
+      ]);
+      if (!error) return true;
+    } catch (err) {
+      console.warn('Supabase submit idea error:', err);
+    }
+  }
+  return false;
+}

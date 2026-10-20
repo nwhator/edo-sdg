@@ -1,0 +1,19 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { GalleryUploadForm } from '../../../components/admin/GalleryUploadForm';
+---
+
+<Layout
+  title="Upload Event Photos Grouped by Event | Admin Area"
+  description="Upload and publish outreach photos strictly organized by event."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+      <a href="/admin" class="hover:text-nysc-green">Admin Dashboard</a>
+      <span>›</span>
+      <span>Upload Event Photos</span>
+    </div>
+
+    <GalleryUploadForm client:load />
+  </div>
+</Layout>

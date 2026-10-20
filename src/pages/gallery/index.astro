@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { EventGallery } from '../../components/gallery/EventGallery';
+import { fetchEvents } from '../../lib/supabase';
+
+const { events, photos } = await fetchEvents();
+---
+
+<Layout
+  title="Event Photo Gallery & Community Outreaches"
+  description="Visual record of Edo State NYSC SDG community outreaches, school menstrual health workshops, and environmental sanitation drives grouped by event."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <EventGallery client:load events={events} photos={photos} />
+  </div>
+</Layout>

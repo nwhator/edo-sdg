@@ -1,0 +1,238 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchProjects } from '../../lib/supabase';
+import { SDG_METADATA } from '../../types/database';
+
+const projects = await fetchProjects();
+
+const statusLabels: Record<string, { label: string; bg: string; text: string }> = {
+  concept: { label: 'Concept Stage', bg: 'bg-slate-100 border-slate-200', text: 'text-slate-800' },
+  planning: { label: 'In Active Planning', bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800' },
+  fundraising: { label: 'Fundraising & Seeking Sponsors', bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800' },
+  in_progress: { label: 'Execution In Progress', bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-800' },
+  completed: { label: 'Successfully Completed', bg: 'bg-purple-50 border-purple-200', text: 'text-purple-800' },
+};
+---
+
+<Layout
+  title="Project Initiatives, Budgets & Stakeholders"
+  description="Transparent overview of planned and active Edo State NYSC SDG community projects with full budget breakdowns, UN SDG mapping, and target partners."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-nysc-green-deep via-nysc-green to-nysc-green-dark rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-3xl space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nysc-gold/20 text-nysc-gold text-xs font-bold border border-nysc-gold/30">
+          🎯 Community Interventions & Impact
+        </span>
+        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          Planned Projects & Transparent Budgets
+        </h1>
+        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+          Detailed plans for our CDS community drives in Benin City and across Edo State. Each project outlines the exact budget required, specific UN SDGs it solves, verified partners/stakeholders to reach out to, and attached proposal documents.
+        </p>
+
+        <div class="pt-2 flex flex-wrap gap-3">
+          <a
+            href="/portal/funding"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-gold text-nysc-green-deep text-xs font-extrabold hover:bg-white transition-all shadow-md"
+          >
+            <span>Browse Benin NGO Funding Directory</span>
+            <span>→</span>
+          </a>
+          <a
+            href="/admin"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 text-white text-xs font-bold hover:bg-white/20 border border-white/20 transition-all"
+          >
+            <span>Admin Project Planner</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- First Need Urgent Callout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="p-6 rounded-2xl bg-gradient-to-br from-rose-50 to-amber-50 border border-rose-200/80 shadow-xs flex items-start gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center text-xl shrink-0 shadow-sm">
+          🩸
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-rose-700">Priority Need #1</span>
+          <h3 class="text-base font-bold text-slate-900 mt-0.5">Sanitary Pads & Menstrual Health</h3>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+            Targeting 500+ packs for public school girls in Benin City to eradicate period poverty and school absenteeism. Seeking pad donations from NGOs and manufacturers.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-cyan-50 border border-emerald-200/80 shadow-xs flex items-start gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0 shadow-sm">
+          🧹
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Priority Need #2</span>
+          <h3 class="text-base font-bold text-slate-900 mt-0.5">Cleaning & Environmental Materials</h3>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+            Drainage unblocking, heavy-duty trash bags, rakes, brooms, and sanitizers for public market cleanups in partnership with the Edo State Waste Management Board.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects List -->
+    <div class="space-y-10">
+      {projects.map((project) => {
+        const status = statusLabels[project.status] || statusLabels.planning;
+
+        return (
+          <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+              
+              <!-- Left Cover Image (Optional) -->
+              {project.cover_image && (
+                <div class="lg:col-span-4 relative aspect-16/10 lg:aspect-auto">
+                  <img
+                    src={project.cover_image}
+                    alt={project.title}
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
+                  <div class="absolute top-4 left-4">
+                    <span class={`px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${status.bg} ${status.text}`}>
+                      {status.label}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              <!-- Main Project Details -->
+              <div class={project.cover_image ? "lg:col-span-8 p-6 sm:p-8 space-y-6" : "lg:col-span-12 p-6 sm:p-8 space-y-6"}>
+                
+                {/* Header Row */}
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                    <span>📍 {project.target_location}</span>
+                    {project.target_date && (
+                      <>
+                        <span>•</span>
+                        <span>🎯 Target: {project.target_date}</span>
+                      </>
+                    )}
+                  </div>
+                  {!project.cover_image && (
+                    <span class={`px-3 py-1 rounded-full text-xs font-bold border ${status.bg} ${status.text}`}>
+                      {status.label}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <h2 class="text-2xl font-black text-slate-900 tracking-tight">
+                    {project.title}
+                  </h2>
+                  <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+
+                <!-- SDG Mapping -->
+                <div>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    UN SDGs Solved by this Project:
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {project.sdg_goals.map((g) => {
+                      const meta = SDG_METADATA[g];
+                      if (!meta) return null;
+                      return (
+                        <span
+                          style={{ backgroundColor: meta.color }}
+                          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white shadow-xs"
+                          title={meta.name}
+                        >
+                          <span class="w-4 h-4 rounded-full bg-white/25 flex items-center justify-center text-[10px]">
+                            {g}
+                          </span>
+                          <span>{meta.name}</span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Cost and Budget Breakdown */}
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                  <div class="flex items-baseline justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Total Estimated Budget:
+                    </span>
+                    <span class="text-xl font-black text-nysc-green-dark">
+                      ₦{project.estimated_cost.toLocaleString()}
+                    </span>
+                  </div>
+
+                  {project.budget_breakdown && project.budget_breakdown.length > 0 && (
+                    <div class="space-y-1.5 pt-1">
+                      <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        Itemized Cost Breakdown:
+                      </span>
+                      <ul class="text-xs text-slate-700 divide-y divide-slate-200/60">
+                        {project.budget_breakdown.map((item) => (
+                          <li class="py-1 flex justify-between items-center">
+                            <span>{item.item}</span>
+                            <span class="font-bold text-slate-900">₦{item.cost.toLocaleString()}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Stakeholders to Reach Out To -->
+                {project.stakeholders_to_reach && project.stakeholders_to_reach.length > 0 && (
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                      Key Stakeholders & Partners to Reach:
+                    </h4>
+                    <div class="flex flex-wrap gap-1.5">
+                      {project.stakeholders_to_reach.map((partner) => (
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-green-50 text-nysc-green-dark font-semibold text-xs border border-green-200">
+                          <span>🏢</span>
+                          <span>{partner}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <!-- Attachments & Files -->
+                {project.attachments && project.attachments.length > 0 && (
+                  <div class="pt-2 border-t border-slate-100">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                      Project Documents & Files:
+                    </h4>
+                    <div class="flex flex-wrap gap-2">
+                      {project.attachments.map((file) => (
+                        <a
+                          href={file.file_url}
+                          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-nysc-gold/20 hover:text-nysc-green-dark text-xs font-semibold text-slate-700 transition-colors border border-slate-200"
+                        >
+                          <span>📄</span>
+                          <span>{file.file_name}</span>
+                          {file.file_size && <span class="text-slate-400 font-normal">({file.file_size})</span>}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</Layout>
