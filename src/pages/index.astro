@@ -9,6 +9,40 @@ const projects = await fetchProjects();
 const { events, photos } = await fetchEvents();
 const partners = await fetchFundingPartners();
 
+// EDITABLE CAMPAIGN TARGETS & OUTREACH GOALS
+// Adjust these metrics as outreach goals change or new partners are engaged.
+// NOTE: These represent active outreach targets and mapped pipelines, NOT completed metrics.
+const campaignTargets = [
+  {
+    category: 'Framework',
+    value: '17',
+    label: 'UN Global Goals',
+    subtext: 'Guiding all CDS projects',
+    badgeColor: 'bg-green-50 text-nysc-green-dark border-green-200',
+  },
+  {
+    category: 'Target Goal',
+    value: '500+',
+    label: 'Target Girls to Reach',
+    subtext: 'Sanitary pad campaign goal',
+    badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+  },
+  {
+    category: 'Outreach Pipeline',
+    value: `${partners.length}`,
+    label: 'Benin NGOs Mapped',
+    subtext: 'Prospects for pads & sanitation',
+    badgeColor: 'bg-amber-50 text-amber-800 border-amber-200',
+  },
+  {
+    category: 'CDS Mobilization',
+    value: '120+',
+    label: 'Corps Volunteers',
+    subtext: 'Edo State CDS members ready',
+    badgeColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  },
+];
+
 // Get top 3 trending ideas
 const topIdeas = [...ideas].sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0)).slice(0, 3);
 const sdgList = Object.values(SDG_METADATA);
@@ -71,23 +105,39 @@ const sdgList = Object.values(SDG_METADATA);
 
       </div>
 
-      <!-- Live Impact Counter Strip -->
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
-          <div class="text-3xl font-black text-nysc-green">17</div>
-          <p class="text-xs font-semibold text-slate-600 mt-1">UN Global Goals</p>
+      <!-- Campaign Targets & Outreach Pipeline Strip -->
+      <div class="mt-16 max-w-4xl mx-auto space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-nysc-gold animate-pulse"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Campaign Targets & Outreach Goals
+            </span>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium hidden sm:inline">
+            Active targets for corporate & NGO outreach
+          </span>
         </div>
-        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
-          <div class="text-3xl font-black text-rose-600">500+</div>
-          <p class="text-xs font-semibold text-slate-600 mt-1">Sanitary Pads Goal</p>
-        </div>
-        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
-          <div class="text-3xl font-black text-emerald-600">120+</div>
-          <p class="text-xs font-semibold text-slate-600 mt-1">Corps Members</p>
-        </div>
-        <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-slate-200/80 text-center shadow-xs">
-          <div class="text-3xl font-black text-nysc-gold-dark">{partners.length}</div>
-          <p class="text-xs font-semibold text-slate-600 mt-1">Vetted Benin NGOs</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {campaignTargets.map((item) => (
+            <div class="bg-white/90 backdrop-blur rounded-2xl p-5 border border-slate-200/90 text-center shadow-xs hover:border-nysc-green/40 transition-all flex flex-col justify-between">
+              <div>
+                <span class={`inline-block text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border mb-2 ${item.badgeColor}`}>
+                  {item.category}
+                </span>
+                <div class="text-3xl font-black text-slate-900 tracking-tight">
+                  {item.value}
+                </div>
+                <p class="text-xs font-bold text-slate-700 mt-1">
+                  {item.label}
+                </p>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-2">
+                {item.subtext}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -124,13 +174,13 @@ const sdgList = Object.values(SDG_METADATA);
                 Menstrual Dignity & Sanitary Pad Banks
               </h3>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                Period poverty forces girls in Benin City to miss up to 20% of the school calendar. We are partnering with <strong>Girls' Power Initiative (GPI)</strong> and the <strong>Edo State SDGs Office</strong> to distribute 500+ packs of sanitary pads and install emergency cabinets in public school clinics.
+                Period poverty forces girls in Benin City to miss up to 20% of the school calendar. We are reaching out to prospective partners including <strong>Girls' Power Initiative (GPI)</strong> and the <strong>Edo State SDGs Office</strong> to mobilize 500+ packs of sanitary pads and install emergency cabinets in public school clinics.
               </p>
             </div>
             <div class="p-4 rounded-2xl bg-white border border-rose-100 text-xs space-y-1.5">
               <div class="flex justify-between font-bold text-slate-800">
-                <span>Estimated Target Budget:</span>
-                <span class="text-rose-600">₦385,000 (or in-kind pads)</span>
+                <span>Target In-Kind / Budget Need:</span>
+                <span class="text-rose-600">₦385,000 (or equivalent pads)</span>
               </div>
               <div class="text-slate-500">
                 Target: Emotan College, Idia College, Western Boys High School.
@@ -169,12 +219,12 @@ const sdgList = Object.values(SDG_METADATA);
                 Community Market Cleanup & Drainage Drive
               </h3>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                Preventing urban malaria and cholera by clearing storm drains and evacuating plastic waste around Ring Road and Oba Market. Partnering with the <strong>Edo State Waste Management Board (ESWMB)</strong> for logistics and equipment.
+                Preventing urban malaria and cholera by clearing storm drains and evacuating plastic waste around Ring Road and Oba Market. We are actively engaging the <strong>Edo State Waste Management Board (ESWMB)</strong> and local partners for logistical and equipment support.
               </p>
             </div>
             <div class="p-4 rounded-2xl bg-white border border-emerald-100 text-xs space-y-1.5">
               <div class="flex justify-between font-bold text-slate-800">
-                <span>Material Needs:</span>
+                <span>Target Material In-Kind Needs:</span>
                 <span class="text-emerald-800">200 Heavy bags, 50 brooms, rakes, trucks</span>
               </div>
               <div class="text-slate-500">
