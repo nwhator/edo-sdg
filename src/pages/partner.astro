@@ -1,0 +1,336 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ImpactCalculator } from '../components/partner/ImpactCalculator';
+
+const investmentPillars = [
+  {
+    icon: 'female',
+    sdg: 'SDG 5 & SDG 4',
+    sdgColor: '#FF3A21',
+    title: 'Menstrual Dignity & Girl-Child Retention',
+    problem: 'Over 65% of female students in public secondary schools in Egor face period poverty, missing up to 5 school days monthly.',
+    solution: 'Establish permanent sanitary pad banks in 10 Egor public schools, providing free monthly supplies and menstrual hygiene workshops.',
+    unitCost: '₦1,000 provides 1 girl with a certified 3-month supply.',
+  },
+  {
+    icon: 'water_drop',
+    sdg: 'SDG 6 & SDG 3',
+    sdgColor: '#26BDE2',
+    title: 'School WASH & Clean Water Points',
+    problem: 'Public school students frequently lack basic hand hygiene stations, leading to preventable waterborne infections.',
+    solution: 'Install heavy-duty handwashing drums, antibacterial soap dispensaries, and water purification units in high-density primary schools.',
+    unitCost: '₦35,000 equips an entire school facility with a complete hygiene station.',
+  },
+  {
+    icon: 'cleaning_services',
+    sdg: 'SDG 11 & SDG 13',
+    sdgColor: '#FD9D24',
+    title: 'Drainage De-silting & Anti-Flood Action',
+    problem: 'Seasonal flash floods choke market lanes and access roads in Egor LGA due to unmanaged plastic waste in gutters.',
+    solution: 'Mobilize 50+ corps volunteers for intensive drainage clearing drives, clearing debris and installing covered municipal collection bins.',
+    unitCost: '₦800 clears and de-silts 1 linear meter of flood-risk community drainage.',
+  },
+];
+
+const tiers = [
+  {
+    tier: 'Bronze Partner',
+    range: '₦25,000 – ₦99,000',
+    color: 'border-amber-600/30 bg-amber-600/5',
+    tag: 'Community Supporter',
+    perks: [
+      'Official Certificate of Corporate Citizenship',
+      'Listing on the official Edo SDG platform donor roster',
+      'Comprehensive high-resolution photographic proof of delivery',
+      'Audit receipt countersigned by CDS Schedule Officer',
+    ],
+  },
+  {
+    tier: 'Silver Partner',
+    range: '₦100,000 – ₦349,000',
+    color: 'border-slate-400/30 bg-slate-400/5',
+    tag: 'Key Impact Partner',
+    isPopular: true,
+    perks: [
+      'All Bronze Partner benefits',
+      'Corporate branding on outreach banners and educational collateral',
+      'Special citation during the Wednesday CDS Assembly',
+      'Direct NGO / State Government board co-mention in press releases',
+    ],
+  },
+  {
+    tier: 'Gold Partner',
+    range: '₦350,000 – ₦999,000',
+    color: 'border-yellow-500/30 bg-yellow-500/5',
+    tag: 'Strategic Investor',
+    perks: [
+      'All Silver Partner benefits',
+      'Official Commendation Letter from NYSC Egor Zonal Directorate',
+      'Custom Plaque of Honour presented at the Secretariat',
+      'Dedicated sponsor highlight video shared across youth networks',
+    ],
+  },
+  {
+    tier: 'Flagship Partner',
+    range: '₦1,000,000+',
+    color: 'border-primary/30 bg-primary/5',
+    tag: 'Transformative Co-Sponsor',
+    perks: [
+      'All Gold Partner benefits',
+      'Exclusive Facility Naming Rights (e.g. "[Your Brand] SDG WASH Lab")',
+      'Keynote presentation slot at public commissioning ceremony',
+      'Comprehensive 4K documentary feature and state media coverage',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Corporate CSR & Donor Partnerships"
+  description="Partner with NYSC Egor SDG CDS Group. 100% of funding goes to physical materials and beneficiaries with zero administrative deductions. Certified grassroots community impact."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 space-y-16">
+    
+    <!-- Hero Section -->
+    <div class="relative bg-surface-container-low p-6 sm:p-12 rounded-3xl border border-surface-container-high space-y-6 shadow-card overflow-hidden">
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/30 text-primary text-xs font-bold uppercase tracking-wider shadow-subtle">
+        <span class="material-symbols-outlined text-[16px] text-secondary">handshake</span>
+        <span>Corporate Social Responsibility (CSR) & Donor Gateway</span>
+      </div>
+
+      <div class="max-w-3xl space-y-3">
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
+          Multiply Your CSR Impact in <span class="text-primary">Egor LGA</span>
+        </h1>
+        <p class="text-base sm:text-lg text-on-surface-variant leading-relaxed">
+          The National Youth Service Corps (NYSC) Egor SDG CDS Group provides corporate bodies, donor agencies, and philanthropists with a direct, transparent channel to fund vetted grassroots interventions.
+        </p>
+      </div>
+
+      <!-- Value Propositions Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-surface-container">
+        <div class="flex items-start gap-3 bg-surface-container-lowest p-4 rounded-2xl border border-surface-container shadow-subtle">
+          <div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]">percent</span>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-on-surface">0% Overhead Deduction</div>
+            <div class="text-xs text-on-surface-variant mt-0.5">100% of funds buy materials. Serving corps members volunteer all labor.</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 bg-surface-container-lowest p-4 rounded-2xl border border-surface-container shadow-subtle">
+          <div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]">verified_user</span>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-on-surface">Statutory NYSC Oversight</div>
+            <div class="text-xs text-on-surface-variant mt-0.5">Supervised directly by Egor LGI and SDG Schedule Officer.</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 bg-surface-container-lowest p-4 rounded-2xl border border-surface-container shadow-subtle">
+          <div class="w-10 h-10 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-on-surface">Photographic Closeout</div>
+            <div class="text-xs text-on-surface-variant mt-0.5">Every kobo spent is verified with GPS-tagged receipts and gallery photos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+        <a
+          href="#calculator"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-card active:scale-95 transition-all"
+        >
+          <span class="material-symbols-outlined text-[18px]">calculate</span>
+          <span>Use Impact Calculator</span>
+        </a>
+
+        <a
+          href="#tiers"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-bold text-sm border border-surface-container-high shadow-subtle transition-all"
+        >
+          <span class="material-symbols-outlined text-[18px]">military_tech</span>
+          <span>View Recognition Tiers</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3 Core Investment Pillars -->
+    <div class="space-y-6">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-primary">Targeted Interventions</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
+          Three Verified Civic Investment Pillars
+        </h2>
+        <p class="text-sm text-on-surface-variant">
+          We focus corporate and philanthropic capital on urgent community needs identified across Egor Local Government Area.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {investmentPillars.map((pillar) => (
+          <div class="flex flex-col justify-between p-6 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-subtle space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[28px]">{pillar.icon}</span>
+                </div>
+                <span
+                  style={{ backgroundColor: pillar.sdgColor }}
+                  className="px-2.5 py-0.5 rounded-full text-[11px] font-bold text-white shadow-xs"
+                >
+                  {pillar.sdg}
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-on-surface leading-snug">
+                {pillar.title}
+              </h3>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                <strong class="text-on-surface">The Need:</strong> {pillar.problem}
+              </p>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                <strong class="text-primary">Our Action:</strong> {pillar.solution}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-surface-container">
+              <div class="text-[11px] font-semibold text-secondary flex items-center gap-1">
+                <span class="material-symbols-outlined text-[15px]">sell</span>
+                <span>{pillar.unitCost}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Interactive Sponsorship Calculator -->
+    <ImpactCalculator client:load />
+
+    <!-- Corporate Recognition Tiers -->
+    <div id="tiers" class="space-y-6">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-primary">Corporate Recognition</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
+          Sponsorship Levels & Benefits
+        </h2>
+        <p class="text-sm text-on-surface-variant">
+          We honor our corporate donors with high-visibility branding, verifiable audit reports, and statutory commendation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {tiers.map((t) => (
+          <div class={`flex flex-col justify-between p-6 rounded-3xl border shadow-subtle space-y-4 relative ${t.color}`}>
+            {t.isPopular && (
+              <span class="absolute -top-3 right-6 bg-primary text-on-primary text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                Most Requested
+              </span>
+            )}
+            <div class="space-y-3">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
+                {t.tag}
+              </span>
+              <h3 class="text-xl font-black text-on-surface">{t.tier}</h3>
+              <div class="text-sm font-extrabold text-primary">{t.range}</div>
+              
+              <ul class="space-y-2 pt-2 border-t border-surface-container">
+                {t.perks.map((perk) => (
+                  <li class="flex items-start gap-2 text-xs text-on-surface-variant leading-snug">
+                    <span class="material-symbols-outlined text-[15px] text-primary shrink-0 mt-0.5">check_circle</span>
+                    <span>{perk}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href="#calculator"
+              class="w-full text-center py-2.5 px-4 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-xs border border-surface-container-high transition-all shadow-subtle"
+            >
+              Select Tier
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Official Statutory Accountability & Banking Information -->
+    <div class="bg-surface-container-low p-6 sm:p-10 rounded-3xl border border-surface-container-high space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-container pb-6">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[16px]">account_balance</span>
+            <span>Statutory Accountability</span>
+          </div>
+          <h3 class="text-2xl font-bold text-on-surface">Official CDS Bank Details & Verification</h3>
+        </div>
+        <div class="text-xs text-on-surface-variant max-w-sm">
+          All financial contributions are received exclusively into the audited official CDS account, overseen by the NYSC Local Government Inspector.
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container space-y-2">
+          <div class="text-[11px] font-bold text-outline uppercase tracking-wider">Designated Bank</div>
+          <div class="text-lg font-black text-on-surface">First Bank of Nigeria</div>
+          <div class="text-xs text-on-surface-variant">Branch: Benin City Main / Commercial Banking</div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container space-y-2">
+          <div class="text-[11px] font-bold text-outline uppercase tracking-wider">Account Designation</div>
+          <div class="text-lg font-black text-primary">NYSC Egor SDG CDS Group</div>
+          <div class="text-xs text-on-surface-variant">Regulated under NYSC Community Service Bye-Laws</div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container space-y-2">
+          <div class="text-[11px] font-bold text-outline uppercase tracking-wider">Physical Clearance Location</div>
+          <div class="text-lg font-black text-on-surface">Egor NYSC Secretariat</div>
+          <div class="text-xs text-on-surface-variant">Meeting Assembly: Every Wednesday @ 9:00 AM</div>
+        </div>
+      </div>
+
+      <!-- Security Notice -->
+      <div class="bg-surface-container-lowest p-4 rounded-xl border border-secondary/30 flex items-start gap-3">
+        <span class="material-symbols-outlined text-secondary text-[22px] shrink-0">shield</span>
+        <div class="text-xs text-on-surface-variant leading-relaxed">
+          <strong class="text-on-surface">Compliance Note:</strong> For corporate compliance, donor organizations can request an official requisition letter with the CDS account number countersigned by the NYSC Local Government Inspector before funds disbursement. Contact the CDS Executive Council to schedule an in-person protocol visit at the Secretariat.
+        </div>
+      </div>
+    </div>
+
+    <!-- Final CTA Banner -->
+    <div class="bg-primary text-on-primary p-8 sm:p-12 rounded-3xl text-center space-y-5 shadow-elevated">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+        Ready to Transform Lives in Egor LGA?
+      </h2>
+      <p class="text-sm sm:text-base text-on-primary/80 max-w-2xl mx-auto leading-relaxed">
+        Let us co-design a CSR initiative that meets your corporate sustainability objectives while delivering tangible, life-saving impact to students and residents across Egor.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <a
+          href="#calculator"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-surface-container-lowest hover:bg-surface text-primary font-bold text-sm shadow-card transition-all active:scale-95"
+        >
+          <span class="material-symbols-outlined text-[18px]">calculate</span>
+          <span>Open Impact Calculator</span>
+        </a>
+        <a
+          href="/admin"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary-container hover:bg-primary-container/80 text-on-primary font-bold text-sm border border-white/20 transition-all"
+        >
+          <span class="material-symbols-outlined text-[18px]">lock</span>
+          <span>Executive Portal Login</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

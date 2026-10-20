@@ -26,6 +26,26 @@ const ideas = await fetchIdeas();
       </p>
     </div>
 
+    <!-- Youth Viral Engagement Strip -->
+    <div class="bg-surface-container-lowest p-4 sm:p-5 rounded-2xl border border-surface-container flex flex-col sm:flex-row items-center justify-between gap-4 shadow-subtle">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#25D366]/15 text-[#25D366] flex items-center justify-center font-bold shrink-0">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-on-surface">Share Ideas to Your CDS WhatsApp Group</h4>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant">Click the 1-click WhatsApp button on any idea card to mobilize fellow corps members to vote.</p>
+        </div>
+      </div>
+      <a
+        href="#drop"
+        class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary rounded-xl text-xs font-bold hover:bg-primary-container shrink-0 transition-all shadow-subtle"
+      >
+        <span class="material-symbols-outlined text-[16px]">add_circle</span>
+        <span>Pitch a New Idea</span>
+      </a>
+    </div>
+
     <!-- Interactive Explorer -->
     <IdeasExplorer client:load initialIdeas={ideas} />
 

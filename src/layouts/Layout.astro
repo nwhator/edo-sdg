@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -44,6 +45,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | NYSC Edo SDG CDS`} />
     <meta name="twitter:description" content={description} />
+
+    <!-- Structured Data JSON-LD -->
+    <JsonLd title={title} description={description} url={canonicalURL.toString()} />
 
     <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

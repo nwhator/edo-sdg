@@ -1,0 +1,73 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+}
+
+const {
+  title = "NYSC Egor SDG CDS Group • Edo State",
+  description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Egor Local Government Area, Edo State.",
+  url = "https://edo-sdg.vercel.app"
+} = Astro.props;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NGO",
+      "@id": "https://edo-sdg.vercel.app/#organization",
+      "name": "NYSC Egor SDG CDS Group",
+      "alternateName": "National Youth Service Corps Sustainable Development Goals CDS - Egor LGA",
+      "url": "https://edo-sdg.vercel.app",
+      "logo": "https://edo-sdg.vercel.app/logo.png",
+      "description": description,
+      "foundingLocation": {
+        "@type": "Place",
+        "name": "Egor Local Government Area, Benin City, Edo State"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Egor NYSC Secretariat",
+        "addressLocality": "Benin City",
+        "addressRegion": "Edo State",
+        "addressCountry": "NG"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Egor Local Government Area, Edo State"
+      },
+      "knowsAbout": [
+        "United Nations Sustainable Development Goals (SDGs)",
+        "Zero Hunger (SDG 2)",
+        "Good Health and Well-being (SDG 3)",
+        "Quality Education (SDG 4)",
+        "Gender Equality & Menstrual Hygiene (SDG 5)",
+        "Clean Water and Sanitation (SDG 6)",
+        "Decent Work and Economic Growth (SDG 8)",
+        "Climate Action (SDG 13)"
+      ],
+      "parentOrganization": {
+        "@type": "GovernmentOrganization",
+        "name": "National Youth Service Corps (NYSC) Nigeria",
+        "url": "https://www.nysc.gov.ng"
+      },
+      "sameAs": [
+        "https://www.nysc.gov.ng"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://edo-sdg.vercel.app/#website",
+      "url": "https://edo-sdg.vercel.app",
+      "name": "NYSC Egor SDG CDS Civic & Partnership Hub",
+      "publisher": {
+        "@id": "https://edo-sdg.vercel.app/#organization"
+      },
+      "inLanguage": "en-NG"
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
