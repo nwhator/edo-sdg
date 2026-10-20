@@ -143,7 +143,8 @@ import Layout from '../../layouts/Layout.astro';
       try {
         // 1. Augusta - SDG President Login
         const isAugusta = normalizedUser === 'augusta' || normalizedUser === 'augusta@edosdg.org' || normalizedUser.includes('augusta');
-        if ((isAugusta && passwordInput === 'SDG President') || (passwordInput === 'SDG President' && !userInput.includes('admin'))) {
+        const isAugustaPassword = passwordInput === 'SDG-President' || passwordInput === 'SDG President';
+        if ((isAugusta && isAugustaPassword) || (isAugustaPassword && !userInput.includes('admin'))) {
           localStorage.setItem('edo_sdg_admin_token', 'president_augusta_session_' + Date.now());
           localStorage.setItem('edo_sdg_admin_email', 'augusta@edosdg.org');
           localStorage.setItem('edo_sdg_admin_name', 'Augusta');
