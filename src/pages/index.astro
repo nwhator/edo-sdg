@@ -12,7 +12,7 @@ const sdgList = Object.values(SDG_METADATA);
 
 <Layout
   title="Home • NYSC Egor SDG CDS Group"
-  description="Official platform of the NYSC Sustainable Development Goals (SDG) CDS Group, Egor Local Government Area. Weekly Plenary every Wednesday at Egor NYSC Secretariat."
+  description="Official platform of the NYSC Sustainable Development Goals (SDG) CDS Group, Egor Local Government Area. Weekly Meeting every Wednesday at Egor NYSC Secretariat."
 >
   <div class="flex flex-col w-full space-y-12 md:space-y-16">
     
@@ -27,7 +27,7 @@ const sdgList = Object.values(SDG_METADATA);
             <!-- Live Meeting Schedule Pill -->
             <div class="inline-flex items-center gap-2 bg-surface-container px-3.5 py-1.5 rounded-full border border-outline-variant/30 text-primary text-xs font-bold shadow-subtle">
               <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              <span>Egor LGA • Plenary Every Wednesday @ Egor NYSC Secretariat</span>
+              <span>Egor LGA • Meeting Every Wednesday @ Egor NYSC Secretariat</span>
             </div>
 
             <!-- Main Title -->
@@ -41,7 +41,7 @@ const sdgList = Object.values(SDG_METADATA);
             </p>
 
             <!-- Clean, Easily Understandable CTAs -->
-            <div class="pt-2 flex flex-wrap items-center gap-3">
+            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <a
                 href="/ideas#drop"
                 class="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-card hover:shadow-elevated active:scale-95 transition-all"
@@ -75,7 +75,7 @@ const sdgList = Object.values(SDG_METADATA);
 
           <!-- Right Column: Institutional Focus Card (Egor NYSC Secretariat) -->
           <div class="lg:col-span-5">
-            <div class="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl shadow-card border border-outline-variant/30 space-y-4">
+            <div class="bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-card border border-outline-variant/30 space-y-4">
               
               <!-- Insignia Header -->
               <div class="flex items-center justify-between">
@@ -97,31 +97,31 @@ const sdgList = Object.values(SDG_METADATA);
               <div class="relative h-52 rounded-xl overflow-hidden shadow-subtle">
                 <img
                   class="w-full h-full object-cover"
-                  alt="NYSC corps members in khaki uniforms during plenary assembly in Egor"
+                  alt="NYSC corps members in khaki uniforms during weekly assembly in Egor"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6CsW469yAlDdvPvSi6dFxhgMZ28IdBwXSuWXh3-07dIbw2ZSPQXCGRWNu47hRalg6AlnH5iPSkpwZgbZ8_KPW1PwzB0rlvQ6qI6hc1nhDCEm12mYDCURr14LAJp5juFfJEnrho_xJ6NLChH295F0kCK_CTEbQKf6SmrAs8od5gLr7Sr7dZ62qJSMg_2aoKaH9hOy8UsqjX4p9BISivNoTCuZBrm4SMesjsMd3nHPdtfYFubdGEV2uaw"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-3">
                   <p class="text-xs text-white font-medium">
-                    Egor NYSC Secretariat CDS Plenary Assembly
+                    Egor NYSC Secretariat CDS Weekly Assembly
                   </p>
                 </div>
               </div>
 
               <!-- Quick Info Rows -->
               <div class="space-y-2 pt-1 font-body-sm text-xs text-on-surface">
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
-                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low gap-2">
+                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5 shrink-0">
                     <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
                     Meeting Location
                   </span>
-                  <span class="font-bold text-primary">Egor NYSC Secretariat</span>
+                  <span class="font-bold text-primary text-right">Egor NYSC Secretariat</span>
                 </div>
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
-                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low gap-2">
+                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5 shrink-0">
                     <span class="material-symbols-outlined text-[16px] text-primary">event</span>
-                    Plenary Day
+                    Meeting Day
                   </span>
-                  <span class="font-bold text-on-surface">Every Wednesday @ 9:00 AM</span>
+                  <span class="font-bold text-on-surface text-right">Every Wednesday @ 9:00 AM</span>
                 </div>
               </div>
 
@@ -137,47 +137,47 @@ const sdgList = Object.values(SDG_METADATA);
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         
         <!-- Stat 1: UN Global Goals -->
-        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">UN Framework</span>
-            <span class="material-symbols-outlined text-primary text-[20px]">public</span>
+        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
+          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">UN Framework</span>
+            <span class="material-symbols-outlined text-primary text-[18px] sm:text-[20px]">public</span>
           </div>
-          <div class="text-3xl font-extrabold text-primary font-display">17</div>
-          <p class="text-sm font-bold text-on-surface mt-0.5">Global Goals</p>
-          <p class="text-xs text-on-surface-variant mt-0.5">Guiding all Egor projects</p>
+          <div class="text-2xl sm:text-3xl font-extrabold text-primary font-display">17</div>
+          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Global Goals</p>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Guiding all Egor projects</p>
         </div>
 
         <!-- Stat 2: Ideas Dropped -->
-        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-secondary/40 transition-colors">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Community Voice</span>
-            <span class="material-symbols-outlined text-secondary text-[20px]">lightbulb</span>
+        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-secondary/40 transition-colors">
+          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Community Voice</span>
+            <span class="material-symbols-outlined text-secondary text-[18px] sm:text-[20px]">lightbulb</span>
           </div>
-          <div class="text-3xl font-extrabold text-secondary font-display">{ideas.length}</div>
-          <p class="text-sm font-bold text-on-surface mt-0.5">Ideas Dropped</p>
-          <p class="text-xs text-on-surface-variant mt-0.5">Submitted anonymously</p>
+          <div class="text-2xl sm:text-3xl font-extrabold text-secondary font-display">{ideas.length}</div>
+          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Ideas Dropped</p>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Submitted anonymously</p>
         </div>
 
         <!-- Stat 3: Active Volunteers -->
-        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-tertiary/40 transition-colors">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Volunteer Corps</span>
-            <span class="material-symbols-outlined text-tertiary text-[20px]">groups</span>
+        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-tertiary/40 transition-colors">
+          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Volunteer Corps</span>
+            <span class="material-symbols-outlined text-tertiary text-[18px] sm:text-[20px]">groups</span>
           </div>
-          <div class="text-3xl font-extrabold text-tertiary font-display">120+</div>
-          <p class="text-sm font-bold text-on-surface mt-0.5">Corps Members</p>
-          <p class="text-xs text-on-surface-variant mt-0.5">Serving across Egor LGA</p>
+          <div class="text-2xl sm:text-3xl font-extrabold text-tertiary font-display">120+</div>
+          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Corps Members</p>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Serving across Egor LGA</p>
         </div>
 
         <!-- Stat 4: Civil Alliances -->
-        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Civil Network</span>
-            <span class="material-symbols-outlined text-primary text-[20px]">handshake</span>
+        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
+          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Civil Network</span>
+            <span class="material-symbols-outlined text-primary text-[18px] sm:text-[20px]">handshake</span>
           </div>
-          <div class="text-3xl font-extrabold text-primary font-display">{partners.length || 8}</div>
-          <p class="text-sm font-bold text-on-surface mt-0.5">Partner Contacts</p>
-          <p class="text-xs text-on-surface-variant mt-0.5">Mapped for outreach</p>
+          <div class="text-2xl sm:text-3xl font-extrabold text-primary font-display">{partners.length || 8}</div>
+          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Partner Contacts</p>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Mapped for outreach</p>
         </div>
 
       </div>
@@ -288,7 +288,7 @@ const sdgList = Object.values(SDG_METADATA);
             Want to Collaborate with Egor SDG CDS?
           </h3>
           <p class="text-xs sm:text-sm text-primary-fixed leading-relaxed">
-            Whether you represent a local school, business, or you are a serving corps member in Egor LGA, join our Wednesday plenary at the Egor NYSC Secretariat.
+            Whether you represent a local school, business, or you are a serving corps member in Egor LGA, join our Wednesday meeting at the Egor NYSC Secretariat.
           </p>
         </div>
 

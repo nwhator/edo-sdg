@@ -153,7 +153,7 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
             {/* Understandable CTA */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-primary hover:bg-primary-container text-on-primary text-xs sm:text-sm font-bold rounded-xl shadow-sm transition-all shrink-0 active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-primary hover:bg-primary-container text-on-primary text-xs sm:text-sm font-bold rounded-xl shadow-sm transition-all w-full sm:w-auto shrink-0 active:scale-95"
             >
               <span className="material-symbols-outlined text-[18px]">lightbulb</span>
               <span>Submit an Idea</span>

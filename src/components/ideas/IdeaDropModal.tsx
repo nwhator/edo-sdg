@@ -90,13 +90,13 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-on-surface/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-surface-container-lowest rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-outline-variant/30 relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-on-surface/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-surface-container-lowest rounded-2xl max-w-xl w-full p-5 sm:p-8 shadow-2xl border border-outline-variant/30 relative animate-in fade-in zoom-in-95 duration-200 max-h-[92vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-outline hover:text-on-surface hover:bg-surface-container transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-outline hover:text-on-surface hover:bg-surface-container transition-colors"
           type="button"
         >
           <span className="material-symbols-outlined text-[20px]">close</span>
@@ -109,7 +109,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
             </div>
             <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">Idea Submitted Anonymously!</h3>
             <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
-              Your idea has been added to the community board. Corps members across Edo State can now review and upvote it.
+              Your idea has been added to the community board. Corps members in Egor LGA can now review and upvote it.
             </p>
           </div>
         ) : (

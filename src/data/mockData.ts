@@ -91,7 +91,7 @@ export const INITIAL_FUNDING_PARTNERS: FundingPartner[] = [
     email: 'contact@gwedo.org.ng',
     website: 'https://www.gwedo.org.ng',
     focus_areas: ['Community Health', 'Female Hygiene', 'Adolescent Empowerment'],
-    how_to_reach: 'Visit the Aerodrome Close office with CDS proposal for female hygiene kit distribution in Oredo Local Government Area.',
+    how_to_reach: 'Visit the Aerodrome Close office with CDS proposal for female hygiene kit distribution in Egor Local Government Area.',
     is_benin_city: true,
     created_at: new Date().toISOString(),
   },

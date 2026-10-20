@@ -16,6 +16,21 @@ export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
+// Helper to prevent build hangs if Supabase project is asleep or slow
+async function withTimeout<T>(promise: PromiseLike<T>, ms = 2500): Promise<T> {
+  let timer: any;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('Supabase request timed out')), ms);
+  });
+  return Promise.race([
+    promise.then((res) => {
+      clearTimeout(timer);
+      return res;
+    }),
+    timeoutPromise,
+  ]);
+}
+
 // ==============================================================================
 // DATA FETCHING (Live Supabase - No static fake data fallbacks)
 // ==============================================================================
@@ -23,10 +38,12 @@ export const supabase = isSupabaseConfigured
 export async function fetchIdeas(): Promise<Idea[]> {
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from('ideas')
-        .select('*')
-        .order('upvotes_count', { ascending: false });
+      const { data, error } = await withTimeout(
+        supabase
+          .from('ideas')
+          .select('*')
+          .order('upvotes_count', { ascending: false })
+      );
       
       if (!error && data) {
         return data as Idea[];
@@ -41,10 +58,12 @@ export async function fetchIdeas(): Promise<Idea[]> {
 export async function fetchProjects(): Promise<Project[]> {
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*, attachments:project_attachments(*)')
-        .order('created_at', { ascending: false });
+      const { data, error } = await withTimeout(
+        supabase
+          .from('projects')
+          .select('*, attachments:project_attachments(*)')
+          .order('created_at', { ascending: false })
+      );
 
       if (!error && data) {
         return data as Project[];
@@ -59,15 +78,19 @@ export async function fetchProjects(): Promise<Project[]> {
 export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPhoto[] }> {
   if (supabase) {
     try {
-      const { data: events, error: evError } = await supabase
-        .from('events')
-        .select('*')
-        .order('event_date', { ascending: false });
+      const { data: events, error: evError } = await withTimeout(
+        supabase
+          .from('events')
+          .select('*')
+          .order('event_date', { ascending: false })
+      );
       
-      const { data: photos, error: phError } = await supabase
-        .from('event_photos')
-        .select('*')
-        .order('display_order', { ascending: true });
+      const { data: photos, error: phError } = await withTimeout(
+        supabase
+          .from('event_photos')
+          .select('*')
+          .order('display_order', { ascending: true })
+      );
 
       if (!evError && events) {
         return {
@@ -88,10 +111,12 @@ export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPho
 export async function fetchFundingPartners(): Promise<FundingPartner[]> {
   if (supabase) {
     try {
-      const { data, error } = await supabase
-        .from('funding_partners')
-        .select('*')
-        .order('is_benin_city', { ascending: false });
+      const { data, error } = await withTimeout(
+        supabase
+          .from('funding_partners')
+          .select('*')
+          .order('is_benin_city', { ascending: false })
+      );
 
       if (!error && data && data.length > 0) {
         return data as FundingPartner[];
