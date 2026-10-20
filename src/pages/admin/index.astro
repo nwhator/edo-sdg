@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
 import { fetchIdeas, fetchProjects, fetchEvents, fetchFundingPartners } from '../../lib/supabase';
 
 const ideas = await fetchIdeas();
@@ -11,44 +12,12 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
 ---
 
 <Layout
-  title="Executive Admin Dashboard | Edo State NYSC SDG"
-  description="Executive management area for planning CDS projects, uploading proposals, managing budgets, and publishing event photos."
+  title="Executive Admin Dashboard"
+  description="Executive portal for CDS project planning, budget management, proposal uploads, and event photo albums."
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
     
-    <!-- Admin Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
-            Executive Portal Active
-          </span>
-        </div>
-        <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
-          CDS Executive Management
-        </h1>
-        <p class="text-xs sm:text-sm text-slate-500">
-          Edo State NYSC SDG Community Development Service · Benin City Secretariat
-        </p>
-      </div>
-
-      <!-- Quick Action Buttons -->
-      <div class="flex flex-wrap items-center gap-3">
-        <a
-          href="/admin/projects/new"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-nysc-green text-white text-xs font-bold hover:bg-nysc-green-dark shadow-xs transition-colors"
-        >
-          <span>+ Plan Project & Budget</span>
-        </a>
-        <a
-          href="/admin/gallery/new"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 shadow-xs transition-colors"
-        >
-          <span>📸 Upload Event Photos</span>
-        </a>
-      </div>
-    </div>
+    <AdminHeader />
 
     <!-- Metrics Cards Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -81,7 +50,7 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
             {projects.length}
           </div>
           <span class="text-[11px] text-blue-700 font-semibold">
-            ₦{totalBudget.toLocaleString()} Planned Target Budget
+            ₦{totalBudget.toLocaleString()} Total Budget
           </span>
         </div>
         <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-bold">
@@ -127,38 +96,180 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
 
     </div>
 
+    <!-- CDS Priority Needs & Outreach Working Group (INTERNAL ONLY) -->
+    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-6 shadow-xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green">
+            Executive Outreach Priority
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">
+            Baseline Outreach Campaigns (Pads & Environmental Sanitation)
+          </h2>
+          <p class="text-xs text-slate-500">
+            Internal executive planning for securing NGO sponsorships and material donations.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            href="/admin/funding"
+            class="px-3.5 py-1.5 rounded-xl bg-nysc-green text-white text-xs font-bold hover:bg-nysc-green-dark transition-colors"
+          >
+            Benin NGO Directory →
+          </a>
+          <a
+            href="/admin/pitch-kit"
+            class="px-3.5 py-1.5 rounded-xl bg-amber-500 text-white text-xs font-bold hover:bg-amber-600 transition-colors"
+          >
+            Pitch Letter Drafts →
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Priority 1: Women's Health & Sanitary Pads -->
+        <div class="rounded-2xl border border-rose-200 bg-rose-50/40 p-6 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">🩸</span>
+              <span class="text-xs font-black text-rose-700 bg-rose-100 px-3 py-1 rounded-full">
+                Target: 500+ Packs
+              </span>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900">
+                Menstrual Health & School Sanitary Pad Banks
+              </h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Period poverty causes girls in Benin City to miss classes. Executive goal: secure in-kind pad donations from partners like Girls' Power Initiative (GPI) and distribute to Emotan College, Idia College, and Western Boys High School.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white border border-rose-100 text-xs space-y-1">
+              <div class="flex justify-between font-bold text-slate-800">
+                <span>Estimated Target Budget:</span>
+                <span class="text-rose-600">₦385,000 (or in-kind pads)</span>
+              </div>
+              <div class="text-slate-500 text-[11px]">
+                Contacts: GPI Benin, AWEG, GWEDO, Edo SDGs Office.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <a
+              href="/admin/funding"
+              class="text-xs font-bold text-rose-700 hover:text-rose-900 flex items-center gap-1"
+            >
+              <span>View Pad Donors</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/admin/pitch-kit"
+              class="px-3 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-bold hover:bg-rose-700 transition-colors"
+            >
+              Get Pad Pitch Letter
+            </a>
+          </div>
+        </div>
+
+        <!-- Priority 2: Environmental Sanitation & Cleaning Materials -->
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-6 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">🧹</span>
+              <span class="text-xs font-black text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                Logistics & Gear
+              </span>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900">
+                Market Sanitation & Drainage Clearance
+              </h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Clearing blocked storm drains and market waste around Ring Road and Oba Market. Executive goal: partner with Edo State Waste Management Board (ESWMB) and Rotary Club of Benin for brooms, rakes, waste bags, and truck evacuation.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white border border-emerald-100 text-xs space-y-1">
+              <div class="flex justify-between font-bold text-slate-800">
+                <span>Target Materials:</span>
+                <span class="text-emerald-800">200 Heavy bags, 50 brooms, rakes</span>
+              </div>
+              <div class="text-slate-500 text-[11px]">
+                Contacts: ESWMB Governor's Office, Rotary Club of Benin, ANEEJ.
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <a
+              href="/admin/funding"
+              class="text-xs font-bold text-emerald-800 hover:text-emerald-900 flex items-center gap-1"
+            >
+              <span>View Sanitation Partners</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/admin/pitch-kit"
+              class="px-3 py-1.5 rounded-lg bg-nysc-green text-white text-xs font-bold hover:bg-nysc-green-dark transition-colors"
+            >
+              Get ESWMB Letter
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Management Hub Sections -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       
       <!-- Section A: Project Planning Shortcuts -->
       <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-5">
         <div class="flex items-center justify-between">
-          <h2 class="text-lg font-black text-slate-900">Planned Interventions</h2>
+          <h2 class="text-lg font-black text-slate-900">Published Projects</h2>
           <a href="/admin/projects/new" class="text-xs font-bold text-nysc-green hover:underline">
             + New Project
           </a>
         </div>
 
-        <div class="space-y-3">
-          {projects.map((p) => (
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
-              <div class="space-y-1">
-                <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{p.title}</h4>
-                <div class="flex items-center gap-2 text-[11px] text-slate-500">
-                  <span>₦{p.estimated_cost.toLocaleString()}</span>
-                  <span>•</span>
-                  <span>{p.stakeholders_to_reach.length} stakeholders</span>
-                </div>
-              </div>
+        {projects.length === 0 ? (
+          <div class="p-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200 space-y-2">
+            <p class="text-xs font-bold text-slate-700">No projects planned yet</p>
+            <p class="text-xs text-slate-500">
+              Approved ideas can be converted into planned initiatives with budget breakdowns.
+            </p>
+            <div class="pt-2">
               <a
-                href="/projects"
-                class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                href="/admin/projects/new"
+                class="inline-block px-4 py-2 rounded-xl bg-nysc-green text-white text-xs font-bold hover:bg-nysc-green-dark"
               >
-                View
+                + Plan First Project
               </a>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div class="space-y-3">
+            {projects.map((p) => (
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{p.title}</h4>
+                  <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                    <span>₦{p.estimated_cost.toLocaleString()}</span>
+                    <span>•</span>
+                    <span>{p.stakeholders_to_reach.length} stakeholders</span>
+                  </div>
+                </div>
+                <a
+                  href="/projects"
+                  class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                >
+                  View
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <!-- Section B: Event Gallery Management -->
@@ -170,26 +281,43 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
           </a>
         </div>
 
-        <div class="space-y-3">
-          {events.map((e) => (
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
-              <div class="space-y-1">
-                <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{e.title}</h4>
-                <div class="flex items-center gap-2 text-[11px] text-slate-500">
-                  <span>📅 {e.event_date}</span>
-                  <span>•</span>
-                  <span>📍 {e.location}</span>
-                </div>
-              </div>
+        {events.length === 0 ? (
+          <div class="p-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200 space-y-2">
+            <p class="text-xs font-bold text-slate-700">No event albums uploaded yet</p>
+            <p class="text-xs text-slate-500">
+              Upload photos grouped by outreach event to display in the public gallery.
+            </p>
+            <div class="pt-2">
               <a
-                href={`/gallery#event-${e.id}`}
-                class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                href="/admin/gallery/new"
+                class="inline-block px-4 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold hover:bg-amber-600"
               >
-                Gallery
+                + Upload Event Photos
               </a>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div class="space-y-3">
+            {events.map((e) => (
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <h4 class="text-xs font-bold text-slate-900 line-clamp-1">{e.title}</h4>
+                  <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                    <span>📅 {e.event_date}</span>
+                    <span>•</span>
+                    <span>📍 {e.location}</span>
+                  </div>
+                </div>
+                <a
+                  href={`/gallery#event-${e.id}`}
+                  class="px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                >
+                  Gallery
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
     </div>
@@ -206,7 +334,7 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
         href="/admin/ideas"
         class="shrink-0 px-5 py-2.5 rounded-xl bg-nysc-green text-white font-bold text-xs shadow-xs hover:bg-nysc-green-dark transition-colors"
       >
-        Moderate Anonymous Ideas
+        Moderate Anonymous Ideas ({ideas.length})
       </a>
     </div>
 

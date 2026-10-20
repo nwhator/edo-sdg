@@ -3,70 +3,77 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Admin Portal Login | Edo State NYSC SDG"
-  description="Secure administrative login for Edo State NYSC SDG CDS executives and project leads."
+  title="Admin Portal Login"
+  description="Restricted login for authorized Edo State NYSC SDG CDS executives. Account registration is invite-only."
 >
   <div class="min-h-[75vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-xl space-y-6">
       
       <div class="text-center space-y-2">
         <div class="w-14 h-14 rounded-2xl bg-nysc-green text-white font-black text-xl mx-auto flex items-center justify-center shadow-md shadow-nysc-green/30 ring-4 ring-nysc-gold/30">
-          SDG
+          🔒
         </div>
-        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Admin Executive Portal</h2>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">SDG Executive Portal</h2>
         <p class="text-xs text-slate-500 font-medium">
-          Sign in to plan projects, manage budgets, upload documents, and publish event gallery photos.
+          Restricted access for CDS Executives and Committee Leads.
         </p>
+      </div>
+
+      <!-- Registration Disabled Notice -->
+      <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
+        <span class="text-base shrink-0">⚠️</span>
+        <div class="leading-relaxed">
+          <strong class="font-bold block">No Public Registration Allowed</strong>
+          Accounts are provisioned exclusively by the Super Admin. If you need access, contact the CDS President or State SDGs Coordinator.
+        </div>
+      </div>
+
+      <div id="login-error" class="hidden p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
       </div>
 
       <form id="admin-login-form" class="space-y-4">
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Executive Email Address
+            Admin Email Address
           </label>
           <input
             id="email"
             type="email"
             required
             placeholder="admin@edosdg.org"
-            value="executive@edosdg.org"
             class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
           />
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Access Password
+            Password
           </label>
           <input
             id="password"
             type="password"
             required
             placeholder="••••••••••••"
-            value="NyscEdoSdg2026!"
             class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
           />
         </div>
 
         <button
+          id="submit-btn"
           type="submit"
-          class="w-full py-3 px-4 rounded-xl bg-nysc-green text-white font-bold text-sm shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all"
+          class="w-full py-3 px-4 rounded-xl bg-nysc-green text-white font-bold text-sm shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all disabled:opacity-50"
         >
-          Sign In to Admin Dashboard
+          Sign In to SDG Portal
         </button>
       </form>
 
       <div class="pt-4 border-t border-slate-100 text-center">
-        <button
-          id="demo-login-btn"
-          type="button"
-          class="w-full py-2.5 px-4 rounded-xl bg-nysc-gold/20 text-nysc-green-dark font-extrabold text-xs hover:bg-nysc-gold/30 transition-colors border border-nysc-gold/40"
+        <a
+          href="/"
+          class="text-xs font-bold text-slate-500 hover:text-nysc-green transition-colors"
         >
-          ⚡ Instant Access (Demo Admin Session)
-        </button>
-        <p class="text-[11px] text-slate-400 mt-2">
-          Allows immediate local administration without needing an active Supabase project yet.
-        </p>
+          ← Return to Public Homepage
+        </a>
       </div>
 
     </div>
@@ -74,22 +81,74 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <script>
-  const form = document.getElementById('admin-login-form');
-  const demoBtn = document.getElementById('demo-login-btn');
+  import { supabase } from '../../lib/supabase';
 
-  function grantAdmin() {
-    localStorage.setItem('edo_sdg_admin_token', 'demo_admin_active_' + Date.now());
-    window.location.href = '/admin';
+  const form = document.getElementById('admin-login-form') as HTMLFormElement | null;
+  const errorBox = document.getElementById('login-error');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+
+  // Check if already authenticated
+  async function checkExistingAuth() {
+    if (supabase) {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        window.location.href = '/admin';
+        return;
+      }
+    }
+    const localToken = localStorage.getItem('edo_sdg_admin_token');
+    if (localToken) {
+      window.location.href = '/admin';
+    }
   }
+
+  checkExistingAuth();
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      grantAdmin();
-    });
-  }
+      if (errorBox) {
+        errorBox.classList.add('hidden');
+        errorBox.textContent = '';
+      }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Verifying credentials...';
+      }
 
-  if (demoBtn) {
-    demoBtn.addEventListener('click', grantAdmin);
+      const emailInput = (document.getElementById('email') as HTMLInputElement).value.trim();
+      const passwordInput = (document.getElementById('password') as HTMLInputElement).value;
+
+      try {
+        if (supabase) {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: emailInput,
+            password: passwordInput,
+          });
+
+          if (error) {
+            throw error;
+          }
+
+          if (data.session) {
+            localStorage.setItem('edo_sdg_admin_token', data.session.access_token);
+            window.location.href = '/admin';
+            return;
+          }
+        }
+        
+        throw new Error('Supabase client not connected. Please verify environment settings.');
+      } catch (err: any) {
+        if (errorBox) {
+          errorBox.classList.remove('hidden');
+          errorBox.textContent = err.message || 'Invalid credentials. Only accounts created by the Super Admin can sign in.';
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In to SDG Portal';
+        }
+      }
+    });
   }
 </script>

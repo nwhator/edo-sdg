@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
+import { FundingDirectory } from '../../components/portal/FundingDirectory';
+import { fetchFundingPartners } from '../../lib/supabase';
+
+const partners = await fetchFundingPartners();
+---
+
+<Layout
+  title="Benin NGO Funding Directory (Admin)"
+  description="Restricted directory of NGOs and government partners in Benin City for women health and environmental sanitation drives."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <AdminHeader />
+
+    <!-- Intro Card -->
+    <div class="bg-gradient-to-r from-nysc-green-deep to-nysc-green rounded-3xl p-6 sm:p-8 text-white shadow-md space-y-2">
+      <span class="text-xs font-bold uppercase tracking-wider text-nysc-gold">
+        Internal Outreach Directory
+      </span>
+      <h2 class="text-xl sm:text-2xl font-black">
+        Benin City & Edo State Partner Database
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl">
+        Curated research for reaching out to local NGOs and government bodies. Prioritize partners with physical offices in Benin City for supporting upcoming sanitary pad distributions and market cleanup campaigns.
+      </p>
+    </div>
+
+    <!-- Directory Component -->
+    <FundingDirectory client:load initialPartners={partners} />
+  </div>
+</Layout>

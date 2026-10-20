@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
+import { PitchKitViewer } from '../../components/portal/PitchKitViewer';
+---
+
+<Layout
+  title="Sponsorship Pitch Kit (Admin)"
+  description="Executive pitch kit and sponsorship letters for Edo State NYSC SDG community initiatives."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <AdminHeader />
+
+    <div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-3xl p-6 sm:p-8 text-white shadow-md space-y-2">
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-200">
+        Executive Sponsorship Letters
+      </span>
+      <h2 class="text-xl sm:text-2xl font-black">
+        Official Proposal Drafts & Outreach Kit
+      </h2>
+      <p class="text-xs sm:text-sm text-amber-100 leading-relaxed max-w-2xl">
+        Pre-formatted templates ready for delivery to corporate donors, NGOs (GPI, Rotary), and state boards (ESWMB). Customize project dates, recipient addresses, and budget amounts before printing.
+      </p>
+    </div>
+
+    <PitchKitViewer client:load />
+  </div>
+</Layout>

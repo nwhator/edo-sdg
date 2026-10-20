@@ -1,12 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Idea, Project, Event, EventPhoto, FundingPartner } from '../types/database';
-import { 
-  INITIAL_IDEAS, 
-  INITIAL_PROJECTS, 
-  INITIAL_EVENTS, 
-  INITIAL_PHOTOS, 
-  INITIAL_FUNDING_PARTNERS 
-} from '../data/mockData';
+import { INITIAL_FUNDING_PARTNERS } from '../data/mockData';
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
@@ -23,7 +17,7 @@ export const supabase = isSupabaseConfigured
   : null;
 
 // ==============================================================================
-// DATA FETCHING (Supabase with Mock Fallback)
+// DATA FETCHING (Live Supabase - No static fake data fallbacks)
 // ==============================================================================
 
 export async function fetchIdeas(): Promise<Idea[]> {
@@ -34,14 +28,14 @@ export async function fetchIdeas(): Promise<Idea[]> {
         .select('*')
         .order('upvotes_count', { ascending: false });
       
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data as Idea[];
       }
     } catch (e) {
-      console.warn('Failed to fetch from Supabase, using fallback:', e);
+      console.warn('Failed to fetch from Supabase:', e);
     }
   }
-  return INITIAL_IDEAS;
+  return [];
 }
 
 export async function fetchProjects(): Promise<Project[]> {
@@ -52,14 +46,14 @@ export async function fetchProjects(): Promise<Project[]> {
         .select('*, attachments:project_attachments(*)')
         .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data as Project[];
       }
     } catch (e) {
-      console.warn('Failed to fetch projects from Supabase, using fallback:', e);
+      console.warn('Failed to fetch projects from Supabase:', e);
     }
   }
-  return INITIAL_PROJECTS;
+  return [];
 }
 
 export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPhoto[] }> {
@@ -75,19 +69,19 @@ export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPho
         .select('*')
         .order('display_order', { ascending: true });
 
-      if (!evError && events && events.length > 0) {
+      if (!evError && events) {
         return {
           events: events as Event[],
           photos: (photos || []) as EventPhoto[],
         };
       }
     } catch (e) {
-      console.warn('Failed to fetch events from Supabase, using fallback:', e);
+      console.warn('Failed to fetch events from Supabase:', e);
     }
   }
   return {
-    events: INITIAL_EVENTS,
-    photos: INITIAL_PHOTOS,
+    events: [],
+    photos: [],
   };
 }
 

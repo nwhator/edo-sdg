@@ -1,25 +1,4 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { PitchKitViewer } from '../../components/portal/PitchKitViewer';
+// Redirect public portal route to authenticated admin section
+return Astro.redirect('/admin/pitch-kit');
 ---
-
-<Layout
-  title="Sponsorship Pitch Kit & Official NYSC Solicitation Letters"
-  description="Download official NYSC CDS sponsorship and partnership letter templates for sanitary pad drives and environmental sanitation equipment in Benin City."
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-    <div class="max-w-3xl space-y-3">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nysc-green/10 text-nysc-green-dark text-xs font-bold border border-nysc-green/20">
-        📝 Official NYSC Proposal Templates
-      </div>
-      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-        Sponsorship & Pitch Kit
-      </h1>
-      <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-        Use these structured, field-tested sponsorship letter templates tailored for Benin City ministries, non-profits, and corporate CSR offices. Simply copy, customize the bracketed fields, and deliver with your LGI’s signature.
-      </p>
-    </div>
-
-    <PitchKitViewer client:load />
-  </div>
-</Layout>

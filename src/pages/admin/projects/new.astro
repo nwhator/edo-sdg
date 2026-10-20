@@ -1,19 +1,15 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import AdminHeader from '../../../components/admin/AdminHeader.astro';
 import { ProjectForm } from '../../../components/admin/ProjectForm';
 ---
 
 <Layout
-  title="Plan New Project & Itemize Budget | Admin Area"
+  title="Plan New Project & Itemize Budget (Admin)"
   description="Specify project costs, target SDGs, who to reach out to, and upload project documents."
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
-      <a href="/admin" class="hover:text-nysc-green">Admin Dashboard</a>
-      <span>›</span>
-      <span>Plan New Project</span>
-    </div>
-
+    <AdminHeader />
     <ProjectForm client:load />
   </div>
 </Layout>

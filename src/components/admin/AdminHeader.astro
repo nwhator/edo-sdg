@@ -1,0 +1,106 @@
+---
+const pathname = Astro.url.pathname;
+
+const tabs = [
+  { label: 'Overview', href: '/admin' },
+  { label: 'NGO Directory (Benin)', href: '/admin/funding' },
+  { label: 'Pitch Kit & Letters', href: '/admin/pitch-kit' },
+  { label: 'Idea Moderation', href: '/admin/ideas' },
+  { label: '+ Plan Project', href: '/admin/projects/new' },
+  { label: '📸 Upload Photos', href: '/admin/gallery/new' },
+];
+---
+
+<div class="space-y-6 pb-6 border-b border-slate-200">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+          SDG Executive Portal · Restricted
+        </span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
+        Executive Management & Working Group
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500">
+        Edo State NYSC SDG Community Development Service · Benin City
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/"
+        class="text-xs font-bold text-slate-600 hover:text-nysc-green transition-colors px-3 py-1.5 rounded-lg border border-slate-200 bg-white"
+      >
+        View Public Site
+      </a>
+      <button
+        id="admin-logout-btn"
+        type="button"
+        class="px-3.5 py-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold border border-rose-200 transition-colors"
+      >
+        Sign Out 🚪
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin Sub Navigation Tabs -->
+  <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+    {tabs.map((tab) => {
+      const isCurrent = tab.href === '/admin' ? pathname === '/admin' : pathname.startsWith(tab.href);
+      return (
+        <a
+          href={tab.href}
+          class={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            isCurrent
+              ? 'bg-nysc-green text-white shadow-xs'
+              : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+          }`}
+        >
+          {tab.label}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  import { supabase } from '../../lib/supabase';
+
+  // Client-side guard: enforce authentication on all admin pages
+  async function enforceAuth() {
+    let isAuthenticated = false;
+    if (supabase) {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        isAuthenticated = true;
+      }
+    }
+
+    if (!isAuthenticated) {
+      const localToken = localStorage.getItem('edo_sdg_admin_token');
+      if (localToken) {
+        isAuthenticated = true;
+      }
+    }
+
+    if (!isAuthenticated) {
+      window.location.href = '/admin/login';
+    }
+  }
+
+  enforceAuth();
+
+  // Logout handler
+  const logoutBtn = document.getElementById('admin-logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+      localStorage.removeItem('edo_sdg_admin_token');
+      window.location.href = '/admin/login';
+    });
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
 import { IdeaModerator } from '../../components/admin/IdeaModerator';
 import { fetchIdeas } from '../../lib/supabase';
 
@@ -7,16 +8,11 @@ const ideas = await fetchIdeas();
 ---
 
 <Layout
-  title="Moderate Anonymous Ideas | Admin Area"
+  title="Moderate Anonymous Ideas (Admin)"
   description="Review anonymous peer proposals, approve top ideas for CDS planning, and manage statuses."
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
-      <a href="/admin" class="hover:text-nysc-green">Admin Dashboard</a>
-      <span>›</span>
-      <span>Moderate Ideas</span>
-    </div>
-
+    <AdminHeader />
     <IdeaModerator client:load initialIdeas={ideas} />
   </div>
 </Layout>

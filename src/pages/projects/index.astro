@@ -30,59 +30,46 @@ const statusLabels: Record<string, { label: string; bg: string; text: string }> 
           Planned Projects & Transparent Budgets
         </h1>
         <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
-          Detailed plans for our CDS community drives in Benin City and across Edo State. Each project outlines the exact budget required, specific UN SDGs it solves, verified partners/stakeholders to reach out to, and attached proposal documents.
+          Detailed project plans for our CDS community drives in Benin City and across Edo State. Each initiative will outline the transparent budget required, specific UN SDGs it addresses, target stakeholders, and proposal documentation.
         </p>
 
         <div class="pt-2 flex flex-wrap gap-3">
           <a
-            href="/portal/funding"
+            href="/ideas"
             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-gold text-nysc-green-deep text-xs font-extrabold hover:bg-white transition-all shadow-md"
           >
-            <span>Browse Benin NGO Funding Directory</span>
+            <span>💡 Propose a Community Idea</span>
             <span>→</span>
           </a>
-          <a
-            href="/admin"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 text-white text-xs font-bold hover:bg-white/20 border border-white/20 transition-all"
-          >
-            <span>Admin Project Planner</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- First Need Urgent Callout -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="p-6 rounded-2xl bg-gradient-to-br from-rose-50 to-amber-50 border border-rose-200/80 shadow-xs flex items-start gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center text-xl shrink-0 shadow-sm">
-          🩸
-        </div>
-        <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-rose-700">Priority Need #1</span>
-          <h3 class="text-base font-bold text-slate-900 mt-0.5">Sanitary Pads & Menstrual Health</h3>
-          <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-            Targeting 500+ packs for public school girls in Benin City to eradicate period poverty and school absenteeism. Seeking pad donations from NGOs and manufacturers.
-          </p>
-        </div>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-cyan-50 border border-emerald-200/80 shadow-xs flex items-start gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0 shadow-sm">
-          🧹
-        </div>
-        <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Priority Need #2</span>
-          <h3 class="text-base font-bold text-slate-900 mt-0.5">Cleaning & Environmental Materials</h3>
-          <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-            Drainage unblocking, heavy-duty trash bags, rakes, brooms, and sanitizers for public market cleanups in partnership with the Edo State Waste Management Board.
-          </p>
         </div>
       </div>
     </div>
 
     <!-- Projects List -->
     <div class="space-y-10">
-      {projects.map((project) => {
+      {projects.length === 0 ? (
+        <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-12 sm:p-16 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
+          <div class="w-16 h-16 rounded-2xl bg-amber-50 text-nysc-gold-dark mx-auto flex items-center justify-center text-3xl shadow-xs">
+            📋
+          </div>
+          <h2 class="text-xl font-black text-slate-900 tracking-tight">
+            No CDS Community Projects Published Yet
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+            Our NYSC SDG CDS group is actively crowdsourcing anonymous community ideas from corps members across Edo State. Once an idea is reviewed and approved by the executive committee, full project plans and budgets will be published here with complete transparency.
+          </p>
+          <div class="pt-2">
+            <a
+              href="/ideas"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-green text-white text-xs font-bold shadow-xs hover:bg-nysc-green-dark transition-all"
+            >
+              <span>Submit an Idea in the Ideas Hub</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      ) : (
+        projects.map((project) => {
         const status = statusLabels[project.status] || statusLabels.planning;
 
         return (
@@ -231,7 +218,7 @@ const statusLabels: Record<string, { label: string; bg: string; text: string }> 
             </div>
           </div>
         );
-      })}
+      }))}
     </div>
 
   </div>

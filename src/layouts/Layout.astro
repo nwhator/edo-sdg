@@ -10,8 +10,10 @@ interface Props {
 
 const { 
   title, 
-  description = "Official platform for the Edo State NYSC Sustainable Development Goals (SDG) CDS Group. Anonymous idea submission, project planning, community outreach gallery, and NGO funding partnerships in Benin City." 
+  description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Edo State, Nigeria. Anonymous youth ideation, transparent project planning, and localizing global goals." 
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.vercel.app');
 ---
 
 <!doctype html>
@@ -23,7 +25,24 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Edo State NYSC SDG CDS</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="NYSC Edo State, SDG CDS group, Benin City corps members, youth ideation, Sustainable Development Goals Nigeria, anonymous community ideas" />
     <meta name="theme-color" content="#006633" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Edo State NYSC SDG CDS Platform" />
+    <meta property="og:title" content={`${title} | Edo State NYSC SDG CDS`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="en_NG" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Edo State NYSC SDG CDS`} />
+    <meta name="twitter:description" content={description} />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

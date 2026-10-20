@@ -33,40 +33,55 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) =>
           Edo SDG Community Gallery
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Explore photographic records of our past outreaches across Edo State, from secondary school menstrual hygiene drives to environmental drainage cleanups. All photos are organized by specific outreach event.
+          Photographic records of NYSC SDG CDS outreaches, school programs, and community initiatives across Edo State. All photos are organized by specific outreach events.
         </p>
 
         {/* Event Filter Pills */}
-        <div className="pt-4 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => setSelectedEventId('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              selectedEventId === 'all'
-                ? 'bg-nysc-green text-white shadow-md'
-                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-            }`}
-          >
-            All Events ({events.length})
-          </button>
-          {events.map((ev) => (
+        {events.length > 0 && (
+          <div className="pt-4 flex flex-wrap justify-center gap-2">
             <button
-              key={ev.id}
-              onClick={() => setSelectedEventId(ev.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all max-w-[260px] truncate ${
-                selectedEventId === ev.id
+              onClick={() => setSelectedEventId('all')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                selectedEventId === 'all'
                   ? 'bg-nysc-green text-white shadow-md'
                   : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
               }`}
             >
-              {ev.title}
+              All Events ({events.length})
             </button>
-          ))}
-        </div>
+            {events.map((ev) => (
+              <button
+                key={ev.id}
+                onClick={() => setSelectedEventId(ev.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all max-w-[260px] truncate ${
+                  selectedEventId === ev.id
+                    ? 'bg-nysc-green text-white shadow-md'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                {ev.title}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Events Stream (Grouped strictly by Event) */}
       <div className="space-y-16">
-        {displayedEvents.map((event) => {
+        {events.length === 0 ? (
+          <div className="bg-white rounded-3xl border border-dashed border-slate-300 p-12 sm:p-16 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
+            <div className="w-16 h-16 rounded-2xl bg-green-50 text-nysc-green mx-auto flex items-center justify-center text-3xl shadow-xs">
+              📸
+            </div>
+            <h2 className="text-xl font-black text-slate-900 tracking-tight">
+              No Event Albums Uploaded Yet
+            </h2>
+            <p className="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+              Visual records of upcoming CDS outreach programs, school visits, and community initiatives across Edo State will be documented and published here.
+            </p>
+          </div>
+        ) : (
+          displayedEvents.map((event) => {
           const eventPhotos = photosByEvent[event.id] || [];
 
           return (
@@ -155,7 +170,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) =>
               </div>
             </section>
           );
-        })}
+        }))}
       </div>
 
       {/* Lightbox Modal */}

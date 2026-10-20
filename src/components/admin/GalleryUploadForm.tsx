@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
-import { INITIAL_EVENTS } from '../../data/mockData';
 
 export const GalleryUploadForm: React.FC = () => {
   const [mode, setMode] = useState<'new_event' | 'existing_event'>('new_event');
-  const [selectedEventId, setSelectedEventId] = useState<string>(INITIAL_EVENTS[0]?.id || '');
+  const [selectedEventId, setSelectedEventId] = useState<string>('');
 
   // New Event fields
   const [eventTitle, setEventTitle] = useState('');
@@ -14,12 +13,7 @@ export const GalleryUploadForm: React.FC = () => {
   const [coverImageUrl, setCoverImageUrl] = useState('');
 
   // Photos to upload
-  const [photos, setPhotos] = useState<{ url: string; caption: string }[]>([
-    {
-      url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Distribution of sanitary towels and health education brochures.',
-    },
-  ]);
+  const [photos, setPhotos] = useState<{ url: string; caption: string }[]>([]);
 
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [newPhotoCaption, setNewPhotoCaption] = useState('');
