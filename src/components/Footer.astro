@@ -1,81 +1,89 @@
 ---
-import { SDG_METADATA } from '../types/database';
-
-const sdgGoals = Object.values(SDG_METADATA);
 ---
 
-<footer class="bg-nysc-green-deep text-white border-t-4 border-nysc-gold">
-  <!-- SDG 17 Color Ribbon -->
-  <div class="grid grid-cols-17 h-2 w-full">
-    {sdgGoals.map((sdg) => (
-      <div style={`background-color: ${sdg.color};`} title={`SDG ${sdg.number}: ${sdg.name}`} class="h-full" />
-    ))}
-  </div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+<footer class="w-full bg-on-primary-fixed text-surface-container-lowest mt-space-3xl border-t border-primary-container">
+  <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-space-3xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl">
       
-      <!-- Col 1: Brand & NYSC Crest info -->
-      <div class="md:col-span-2 space-y-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-nysc-gold text-nysc-green-deep font-black flex items-center justify-center text-lg shadow-sm">
-            NYSC
+      <!-- Brand & Zonal Headquarters -->
+      <div class="space-y-space-md">
+        <div class="flex items-center gap-space-sm">
+          <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-bold shadow-sm ring-1 ring-secondary-container">
+            <span class="font-display text-sm tracking-tighter">SDG</span>
           </div>
-          <div>
-            <h3 class="text-lg font-bold tracking-tight text-white">Edo State SDG CDS Group</h3>
-            <p class="text-xs text-nysc-gold font-medium uppercase tracking-wider">Service and Humility · Agenda 2030</p>
-          </div>
+          <span class="font-title-md text-title-md font-bold text-surface-container-lowest">NYSC Edo SDG CDS</span>
         </div>
-        <p class="text-sm text-slate-300 max-w-md leading-relaxed">
-          Uniting corps members across Edo State to advance the 17 United Nations Sustainable Development Goals. Empowering communities through grassroots initiatives, anonymous youth ideation, and strategic partnerships.
+        <p class="font-body-sm text-body-sm text-outline-variant leading-relaxed">
+          Empowering Benin City communities through youth-led sustainable innovations, civic advocacy, and public education aligned with the United Nations 2030 Agenda.
         </p>
-        <div class="pt-2 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/10 border border-white/10">
-            📍 Benin City, Edo State
-          </span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/10 border border-white/10">
-            🎯 Priority: Menstrual Hygiene & Sanitation
-          </span>
+        <div class="pt-space-xs font-label-sm text-label-sm text-secondary-fixed">
+          <p class="font-bold uppercase tracking-wider">Zonal Headquarters</p>
+          <p class="text-surface-variant font-normal">Oba Ovonramwen Square & Egor Secretariat, Benin City, Edo State.</p>
         </div>
       </div>
 
-      <!-- Col 2: Navigation Links -->
-      <div class="space-y-3">
-        <h4 class="text-sm font-bold uppercase tracking-wider text-nysc-gold">Platform Sections</h4>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li><a href="/" class="hover:text-white transition-colors">Home & Overview</a></li>
-          <li><a href="/projects" class="hover:text-white transition-colors">Project Planner & Budgets</a></li>
-          <li><a href="/gallery" class="hover:text-white transition-colors">Event Photo Gallery</a></li>
-          <li><a href="/ideas" class="hover:text-white transition-colors">Anonymous Ideas Hub</a></li>
-          <li><a href="/portal/funding" class="hover:text-white transition-colors">Benin NGO Directory</a></li>
-          <li><a href="/portal/pitch-kit" class="hover:text-white transition-colors">Sponsorship Pitch Kit</a></li>
+      <!-- UN 17 Global Goals -->
+      <div class="space-y-space-md">
+        <h4 class="font-title-md text-title-md font-bold text-secondary-fixed tracking-wide">
+          UN 17 Global Goals
+        </h4>
+        <ul class="space-y-space-xs font-body-sm text-body-sm text-outline-variant">
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 3: Good Health & Well-being</a></li>
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 4: Quality Education</a></li>
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 5: Gender Equality</a></li>
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 6: Clean Water & Sanitation</a></li>
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 11: Sustainable Cities & Communities</a></li>
+          <li class="hover:text-surface-container-lowest transition-colors"><a href="/#sdg-grid">Goal 13: Climate Action & Urban Greenery</a></li>
         </ul>
       </div>
 
-      <!-- Col 3: First Need Initiatives -->
-      <div class="space-y-3">
-        <h4 class="text-sm font-bold uppercase tracking-wider text-nysc-gold">Immediate Outreaches</h4>
-        <div class="space-y-2 text-xs text-slate-300">
-          <div class="p-3 rounded-lg bg-white/5 border border-white/10">
-            <span class="font-bold text-white block">🩸 Sanitary Pad Bank</span>
-            <p class="text-slate-400 mt-1">Free sanitary pad drives in Benin City public secondary schools.</p>
-          </div>
-          <div class="p-3 rounded-lg bg-white/5 border border-white/10">
-            <span class="font-bold text-white block">🧹 Clean Edo Campaign</span>
-            <p class="text-slate-400 mt-1">Drainage clearance and market sanitation in partnership with ESWMB.</p>
+      <!-- Benin City Civil Partners -->
+      <div class="space-y-space-md">
+        <h4 class="font-title-md text-title-md font-bold text-secondary-fixed tracking-wide">
+          Benin City Civil Alliances
+        </h4>
+        <ul class="space-y-space-xs font-body-sm text-body-sm text-outline-variant">
+          <li>Girls' Power Initiative (GPI) Nigeria</li>
+          <li>Edo State Waste Management Board (ESWMB)</li>
+          <li>Edo State SDGs Coordination Office</li>
+          <li>Rotary Club of Benin (District 9141)</li>
+          <li>Africa Network for Environment & Economic Justice</li>
+        </ul>
+      </div>
+
+      <!-- CDS Administrative Info -->
+      <div class="space-y-space-md">
+        <h4 class="font-title-md text-title-md font-bold text-secondary-fixed tracking-wide">
+          CDS Administrative Info
+        </h4>
+        <div class="bg-on-primary-fixed-variant p-space-md rounded-xl space-y-space-xs">
+          <p class="font-label-sm text-label-sm text-primary-fixed font-bold uppercase tracking-wider">
+            Plenary Status: Active CDS
+          </p>
+          <p class="font-body-sm text-body-sm text-surface-variant">
+            Regular CDS Plenary: Thursdays @ 9:00 AM, Imaguero College / Oredo LGA Grounds.
+          </p>
+          <div class="pt-space-xs">
+            <a class="font-label-sm text-label-sm text-secondary-container hover:underline font-bold flex items-center gap-1" href="/admin">
+              <span>Executive Portal Access</span>
+              <span class="material-symbols-outlined text-[15px]">lock</span>
+            </a>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-      <p>© {new Date().getFullYear()} Edo State NYSC Sustainable Development Goals (SDG) CDS Group. All rights reserved.</p>
-      <div class="flex items-center gap-4">
-        <a href="/admin" class="text-slate-400 hover:text-nysc-gold transition-colors">Admin Portal</a>
-        <span>·</span>
-        <a href="https://sdgs.un.org" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors">UN SDG Official</a>
+    <!-- Bottom Strip -->
+    <div class="mt-space-2xl pt-space-lg border-t border-tertiary-container flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-outline-variant">
+      <p class="text-center md:text-left text-xs">
+        © 2026 National Youth Service Corps (NYSC) Edo State SDGs CDS Group. Operating under the official mandate of the Federal Republic of Nigeria.
+      </p>
+      <div class="flex items-center gap-space-lg text-xs">
+        <a class="hover:text-surface-container-lowest transition-colors" href="/projects">Projects</a>
+        <a class="hover:text-surface-container-lowest transition-colors" href="/ideas">Ideas Hub</a>
+        <a class="hover:text-surface-container-lowest transition-colors" href="/gallery">Gallery</a>
+        <a class="hover:text-surface-container-lowest transition-colors" href="/admin">SDG Portal 🔒</a>
       </div>
     </div>
   </div>

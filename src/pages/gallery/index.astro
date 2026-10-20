@@ -8,9 +8,9 @@ const { events, photos } = await fetchEvents();
 
 <Layout
   title="Event Photo Gallery & Community Outreaches"
-  description="Visual record of Edo State NYSC SDG community outreaches, school menstrual health workshops, and environmental sanitation drives grouped by event."
+  description="Visual record of Edo State NYSC SDG community outreaches, school workshops, and sanitation drives grouped by event."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-space-xl">
     <EventGallery client:load events={events} photos={photos} />
   </div>
 </Layout>

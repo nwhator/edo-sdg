@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#131b2e", "error-container": "#ffdad6", "outline-variant": "#bfc9bd", "primary-container": "#006633", "on-secondary-container": "#6f5600", "on-primary-container": "#8ce1a1", "on-secondary-fixed-variant": "#584400", "tertiary": "#004943", "secondary": "#755b00", "on-background": "#131b2e", "surface-container-high": "#e2e7ff", "surface-variant": "#dae2fd", "secondary-container": "#fccc38", "on-primary": "#ffffff", "surface": "#faf8ff", "outline": "#6f7a6f", "on-primary-fixed": "#00210c", "primary-fixed-dim": "#84d999", "surface-bright": "#faf8ff", "surface-dim": "#d2d9f4", "surface-tint": "#0f6d39", "primary": "#004b24", "surface-container": "#eaedff", "inverse-primary": "#84d999", "on-tertiary-fixed-variant": "#005049", "error": "#ba1a1a", "on-tertiary": "#ffffff", "inverse-on-surface": "#eef0ff", "tertiary-fixed-dim": "#6bd8cb", "tertiary-container": "#00635b", "inverse-surface": "#283044", "surface-container-lowest": "#ffffff", "primary-fixed": "#9ff6b4", "on-error": "#ffffff", "on-secondary-fixed": "#241a00", "on-primary-fixed-variant": "#005228", "surface-container-low": "#f2f3ff", "on-tertiary-fixed": "#00201d", "on-secondary": "#ffffff", "secondary-fixed": "#ffdf90", "secondary-fixed-dim": "#f0c12c", "on-error-container": "#93000a", "on-tertiary-container": "#73e0d2", "surface-container-highest": "#dae2fd", "tertiary-fixed": "#89f5e7", "background": "#faf8ff", "on-surface-variant": "#3f4940" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-sm": "0.5rem", "space-2xl": "3rem", "space-3xl": "4rem", "space-lg": "1.5rem", "gutter-desktop": "2rem", "margin-tablet": "2rem", "space-xl": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "gutter": "1.5rem", "margin-mobile": "1rem", "margin": "1.5rem", "margin-desktop": "3rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "label-md": [ "Plus Jakarta Sans" ], "stat-counter": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-lg": [ "Plus Jakarta Sans" ], "display-mobile": [ "Plus Jakarta Sans" ], "title-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display": [ "Plus Jakarta Sans" ], "body-sm": [ "Inter" ] }, "fontSize": { "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-md": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "stat-counter": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "0", "fontWeight": "600" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "display-mobile": [ "34px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "title-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "0", "fontWeight": "600" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "label-sm": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "display": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-sm": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NYSC Edo SDG Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb199__-9fJczvQhd1AD9tpQpWbrGQ1YuVwYQchJEavSD_duLQ-SfRA2dICfO4h1cfB9SKti77-KMI_lFuAiJryzB3CmrCR9pZyewfNXNGkET2zSabYSrXHUNcd2fM0BH2L7rECN2FPo7YYMFqJayhiAl1arq2wAHYVJnUiJCmiZAb45JwMftBU2N3Ufhys5ql3ABwTvk2OuIi_cLM0yBgQ5hmjth_usVPj7GZpiytX7891SUsFP1UXA"/><div class="flex flex-col"><span class="font-label-lg text-label-lg text-primary font-bold">SDG CDS Portal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Executive Panel</span></div></div><div class="p-space-md"><div class="bg-surface-container p-space-sm rounded-lg flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant">Batch Status</span><span class="font-label-sm text-label-sm text-primary font-bold bg-primary-fixed px-space-xs rounded">ED/24B Executive</span></div></div><nav class="flex-1 px-space-md space-y-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-bold rounded-lg" data-path="executive-admin" href="#"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>Executive Admin</a><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="ngo-directory" href="#"><span class="material-symbols-outlined text-[20px]">corporate_fare</span>Benin NGO Directory</a><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="pitch-kit" href="#"><span class="material-symbols-outlined text-[20px]">folder_special</span>SDG Pitch Kit</a><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="attendance-roll" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span>Roll Call Logs</a><div class="pt-space-md pb-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline px-space-md">Public Hub</span></div><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">arrow_back</span>Back to Home</a></nav><div class="p-space-md bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm font-bold text-on-surface">CDS President</span><span class="font-label-sm text-label-sm text-on-surface-variant">ED/24B/1209</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">account_balance</span><span class="font-title-md text-title-md text-on-surface font-semibold">Edo State NYSC Secretariat • SDGs CDS Group</span></div><div class="flex items-center gap-space-md"><span class="inline-flex items-center gap-space-xs text-secondary font-label-sm text-label-sm bg-secondary-fixed/50 px-space-sm py-1 rounded-full"><span class="material-symbols-outlined text-[16px]">location_on</span>Benin City</span><a class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm rounded-lg transition-colors" data-path="drop-idea" href="#">+ Submit Proposal</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop"><div class="flex flex-col w-full pb-space-3xl space-y-space-xl">
+<!-- Executive Context Bar -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-space-md">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[28px]">verified_user</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">CDS Executive Command Center</span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-space-xs py-0.5 rounded uppercase tracking-wider font-bold">Protected Zone</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+          Logged in as <strong class="text-on-surface font-semibold">CDS President (Batch A Stream 1)</strong> • Schedule Officer: <span class="text-primary font-medium">Mrs. A. Osagie (NYSC Secretariat, Benin City)</span>
+</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap self-start md:self-auto">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface">14 Pending Ideas</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span class="font-label-md text-label-md text-on-surface">3 Draft Budgets</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface">24 Field Photos</span>
+</div>
+</div>
+</section>
+<!-- Main Management Layout Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
+<!-- Left Operations Column (Tabs & Workspaces) -->
+<div class="xl:col-span-8 flex flex-col space-y-space-lg min-w-0">
+<!-- Management Navigation Tabs -->
+<nav class="bg-surface-container p-1 rounded-xl shadow-sm flex flex-col sm:flex-row gap-1" id="execTabs">
+<button class="tab-trigger flex-1 flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-sm" data-tab="tab-ideas" type="button">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span>Review Ideas (14)</span>
+</button>
+<button class="tab-trigger flex-1 flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all duration-150" data-tab="tab-budgets" type="button">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+<span>Add Project &amp; Budget</span>
+</button>
+<button class="tab-trigger flex-1 flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all duration-150" data-tab="tab-photos" type="button">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+<span>Upload Field Albums</span>
+</button>
+</nav>
+<!-- TAB 1: Idea Moderation Pipeline -->
+<div class="tab-content flex flex-col space-y-space-lg" id="tab-ideas">
+<!-- Moderation Header & Filter Pills -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Community Innovation Pipeline</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Anonymous and corps submissions across Edo State Local Government Areas</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-sm py-1 bg-primary text-on-primary rounded-full font-label-sm text-label-sm font-semibold shadow-sm" type="button">All (14)</button>
+<button class="px-space-sm py-1 bg-surface-container text-on-surface-variant hover:text-on-surface rounded-full font-label-sm text-label-sm font-medium" type="button">Under Review (8)</button>
+<button class="px-space-sm py-1 bg-surface-container text-on-surface-variant hover:text-on-surface rounded-full font-label-sm text-label-sm font-medium" type="button">Approved (4)</button>
+<button class="px-space-sm py-1 bg-surface-container text-on-surface-variant hover:text-on-surface rounded-full font-label-sm text-label-sm font-medium" type="button">Adopted (2)</button>
+</div>
+</div>
+<!-- Idea Card 1 -->
+<article class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col space-y-space-md">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-start justify-between gap-space-md flex-wrap">
+<div class="flex flex-col space-y-space-xs max-w-2xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="bg-secondary-fixed/50 text-secondary font-label-sm text-label-sm px-space-xs py-0.5 rounded font-bold uppercase">SDG 7 • Clean Energy</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded">Oredo LGA</span>
+<span class="font-label-sm text-label-sm text-outline">Submitted 2 days ago</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">Solar Powered Reading Lamps for Idia College Study Hall</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Provision of 30 standalone DC solar work stations and battery banks to allow female boarding students uninterrupted prep time during persistent municipal power deficits in Iyaro.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">86</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">upvotes</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Priority Candidate: High Campus Impact</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Adopt into Official Project</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Edit Target Budget</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-space-xs bg-error-container/40 text-error hover:bg-error-container font-label-lg text-label-lg rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+<span>Decline / Archive</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Idea Card 2 -->
+<article class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col space-y-space-md">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary"></div>
+<div class="flex items-start justify-between gap-space-md flex-wrap">
+<div class="flex flex-col space-y-space-xs max-w-2xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded font-bold uppercase">SDG 6 • Clean Water</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded">Egor LGA</span>
+<span class="font-label-sm text-label-sm text-outline">Under Review</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">Borehole Filter Rehabilitation at Uselu Market</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Replace deteriorated sand filters and sanitize central overhead reservoirs serving fish mongers and meat sections at Uselu Market to eliminate waterborne contamination.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">64</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">upvotes</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold text-primary">KB</div>
+<span class="font-label-sm text-label-sm text-on-surface">Assigned: <strong>Infrastructure Committee Lead (Corper Kelvin B. - ED/24B/0411)</strong></span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">Inspection Scheduled</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-end gap-space-xs pt-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Approve for Budgeting</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>Send Committee Feedback</span>
+</button>
+</div>
+</article>
+<!-- Idea Card 3 -->
+<article class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col space-y-space-md">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-start justify-between gap-space-md flex-wrap">
+<div class="flex flex-col space-y-space-xs max-w-2xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="bg-secondary-fixed/50 text-secondary font-label-sm text-label-sm px-space-xs py-0.5 rounded font-bold uppercase">SDG 12 • Responsible Consumption</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded">Ikpoba Okha LGA</span>
+<span class="font-label-sm text-label-sm text-outline">New Submission</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">E-Waste Recycling Drop Box at UNIBEN Gate</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Fabricate heavy-gauge locked steel receptacles for discarded laptop lithium cells, cords, and mobile motherboards to prevent open burning in student hostels along Ugbowo corridor.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">52</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">upvotes</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-end gap-space-xs pt-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Approve</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container text-error hover:bg-error-container/40 font-label-lg text-label-lg rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+<span>Flag / Spam</span>
+</button>
+</div>
+</article>
+</div>
+<!-- TAB 2: Planned Projects & Budgets -->
+<div class="tab-content hidden flex-col space-y-space-lg" id="tab-budgets">
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-lg">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Add New Planned CDS Project</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Draft operational blueprints and financial projections for NYSC Zonal Inspectorate clearance.</p>
+</div>
+<form class="flex flex-col space-y-space-md" onsubmit="event.preventDefault();">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Project Title *</label>
+<input class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" placeholder="e.g. Market Solar Light Installation" type="text" value="Sanitary Dignity Kits Outreach: Phase 2"/>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Primary Sustainable Development Goal *</label>
+<select class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+<option selected="">SDG 3: Good Health &amp; Well-being</option>
+<option>SDG 4: Quality Education</option>
+<option>SDG 6: Clean Water &amp; Sanitation</option>
+<option>SDG 7: Affordable &amp; Clean Energy</option>
+<option>SDG 13: Climate Action</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Target Edo LGA *</label>
+<select class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+<option selected="">Oredo Local Government Area</option>
+<option>Ikpoba Okha LGA</option>
+<option>Egor LGA</option>
+<option>Ovia North-East LGA</option>
+<option>Uhunmwonde LGA</option>
+</select>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Execution Timeline</label>
+<input class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" type="text" value="November 28 - December 12, 2024"/>
+</div>
+</div>
+<!-- Identified Benin Stakeholders (Multi-tag) -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Identified Benin City Stakeholders</label>
+<div class="p-space-sm bg-surface rounded-lg flex flex-wrap gap-space-xs shadow-inner">
+<span class="inline-flex items-center gap-space-xs bg-primary-fixed text-on-primary-fixed-variant px-space-sm py-1 rounded font-label-sm text-label-sm font-semibold">
+                  Edo State Ministry of Education <button class="hover:text-error" type="button">×</button>
+</span>
+<span class="inline-flex items-center gap-space-xs bg-primary-fixed text-on-primary-fixed-variant px-space-sm py-1 rounded font-label-sm text-label-sm font-semibold">
+                  Oba Market Traders Association <button class="hover:text-error" type="button">×</button>
+</span>
+<span class="inline-flex items-center gap-space-xs bg-primary-fixed text-on-primary-fixed-variant px-space-sm py-1 rounded font-label-sm text-label-sm font-semibold">
+                  Idia College PTA Board <button class="hover:text-error" type="button">×</button>
+</span>
+<input class="bg-transparent px-space-xs py-1 font-body-sm text-body-sm text-on-surface focus:outline-none flex-1 min-w-[200px]" placeholder="+ Add partner NGO or municipal office..." type="text"/>
+</div>
+</div>
+<!-- Estimated Budget Line Items -->
+<div class="flex flex-col space-y-space-xs pt-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-bold text-on-surface">Estimated Budget Line Items (₦)</label>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:underline" type="button">+ Add Row</button>
+</div>
+<div class="overflow-x-auto bg-surface rounded-lg shadow-inner">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container font-label-sm text-label-sm text-on-surface-variant uppercase">
+<tr>
+<th class="p-space-sm">Line Item Description</th>
+<th class="p-space-sm w-28">Qty</th>
+<th class="p-space-sm w-36">Unit Cost (₦)</th>
+<th class="p-space-sm w-36">Total (₦)</th>
+<th class="p-space-sm w-12"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr>
+<td class="p-space-sm">Sanitary Pad Packs (Cartons of 48)</td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded" type="number" value="15"/></td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded font-mono" type="text" value="18,500"/></td>
+<td class="p-space-sm font-mono font-bold text-primary">₦277,500</td>
+<td class="p-space-sm text-center"><button class="text-error" type="button">×</button></td>
+</tr>
+<tr>
+<td class="p-space-sm">Re-usable Menstrual Hygiene Booklets</td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded" type="number" value="700"/></td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded font-mono" type="text" value="350"/></td>
+<td class="p-space-sm font-mono font-bold text-primary">₦245,000</td>
+<td class="p-space-sm text-center"><button class="text-error" type="button">×</button></td>
+</tr>
+<tr>
+<td class="p-space-sm">Public Address Sound Rental &amp; Logistics</td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded" type="number" value="1"/></td>
+<td class="p-space-sm"><input class="w-full bg-surface-container-lowest px-2 py-1 rounded font-mono" type="text" value="45,000"/></td>
+<td class="p-space-sm font-mono font-bold text-primary">₦45,000</td>
+<td class="p-space-sm text-center"><button class="text-error" type="button">×</button></td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container-low font-bold">
+<tr>
+<td class="p-space-sm text-right" colspan="3">Aggregate Projected Budget:</td>
+<td class="p-space-sm font-mono text-title-md text-primary">₦567,500</td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- PDF Upload Zone -->
+<div class="flex flex-col space-y-space-xs pt-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Official Proposal PDF &amp; Site Assessment</label>
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[36px] text-primary">upload_file</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface mt-1">Drag and drop proposal PDF here</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Max 15MB. Must bear CDS Project Committee signatory page.</span>
+<button class="mt-space-sm px-space-md py-1 bg-surface-container-lowest text-primary rounded-lg font-label-sm text-label-sm font-bold shadow-sm" type="button">Browse Local Files</button>
+</div>
+</div>
+<!-- Form Action Submit -->
+<div class="flex items-center justify-end gap-space-sm pt-space-sm">
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg" type="button">Save Draft</button>
+<button class="px-space-xl py-space-sm rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm" type="submit">Submit to Schedule Officer</button>
+</div>
+</form>
+</div>
+</div>
+<!-- TAB 3: Event Photo Batch Uploader -->
+<div class="tab-content hidden flex-col space-y-space-lg" id="tab-photos">
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-lg">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Field Impact Album Dispatcher</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Batch upload verified project photos for publicity, state bulletin archives, and headquarters reporting.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Event Name &amp; Date *</label>
+<select class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+<option selected="">Nov 2024: Oba Market Clean-Up</option>
+<option>Oct 2024: World Teachers Day at Imaguero</option>
+<option>Sep 2024: Tree Planting at Ring Road</option>
+<option>Aug 2024: Medical Outreach at Egor Health Centre</option>
+</select>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Corper Attendance Count *</label>
+<input class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" type="number" value="48"/>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-md text-label-md font-bold text-on-surface">Target SDG Tag</label>
+<select class="px-space-md py-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner">
+<option selected="">SDG 11 • Sustainable Communities</option>
+<option>SDG 3 • Good Health</option>
+<option>SDG 13 • Climate Action</option>
+</select>
+</div>
+</div>
+<!-- Drag & Drop Visual Uploader -->
+<div class="bg-surface-container-low p-space-xl rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container transition-colors space-y-space-sm">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">cloud_upload</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Drop High-Resolution Field Photos Here</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">PNG, JPG, HEIC accepted up to 25MB per file. Automatic Geo-Tag parsing active.</span>
+</div>
+<button class="px-space-lg py-space-xs bg-primary text-on-primary rounded-lg font-label-md text-label-md font-bold shadow-sm" type="button">Select Batch Files</button>
+</div>
+<!-- Active Upload Staging Queue -->
+<div class="flex flex-col space-y-space-sm">
+<span class="font-label-md text-label-md font-bold text-on-surface">Staged Files (3 of 24 Uploaded)</span>
+<div class="bg-surface p-space-sm rounded-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-primary">image</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Oba_Market_Drainage_Clearing_01.jpg</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4.2 MB</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="w-32 bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+</div>
+</div>
+<div class="bg-surface p-space-sm rounded-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-primary">image</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Sanitation_Team_Group_Photo_WasteTruck.jpg</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3.8 MB</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="w-32 bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full w-3/4"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">75%</span>
+</div>
+</div>
+<div class="bg-surface p-space-sm rounded-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-primary">image</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Sensitization_With_Market_Leader_MamaEdo.jpg</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5.1 MB</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="w-32 bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full w-1/3"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">34%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg" type="button">Cancel Queue</button>
+<button class="px-space-xl py-space-sm rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm" type="button">Publish Album to Public Portal</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Operations Column (Governance & Biometric Roll Call Integration) -->
+<div class="xl:col-span-4 flex flex-col space-y-space-lg">
+<!-- CDS Roll Call Card -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">fingerprint</span>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">Biometric Roll Call</h2>
+</div>
+<span class="font-label-sm text-label-sm bg-primary-fixed text-primary px-space-xs py-0.5 rounded font-bold">Live Synced</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-on-surface">Thursday CDS Gathering</span>
+<span class="font-label-sm text-label-sm text-outline">08:30 AM • Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Imaguero College Main Assembly Hall, Sapele Road, Benin City.</p>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">142 / 168</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Corps Members Verified</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mt-1">
+<div class="bg-primary h-full w-[84%]"></div>
+</div>
+</div>
+<!-- Latest Roll Entries -->
+<div class="flex flex-col space-y-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Recent Biometric Scans</span>
+<div class="flex items-center justify-between p-space-xs hover:bg-surface-container-low rounded transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Osaze Egharevba</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">ED/24B/1892</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:44 AM</span>
+</div>
+<div class="flex items-center justify-between p-space-xs hover:bg-surface-container-low rounded transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Chidinma Okafor</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">ED/24B/0984</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:42 AM</span>
+</div>
+<div class="flex items-center justify-between p-space-xs hover:bg-surface-container-low rounded transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tunde Bakare</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">ED/24B/2104</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Late (08:52 AM)</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs py-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg rounded-lg transition-colors font-bold shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Biometric Roll CSV</span>
+</button>
+</section>
+<!-- Meeting Minutes Quick Record -->
+<section class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">description</span>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">Meeting Minutes Log</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Imaguero Hall</span>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Today's Key Resolutions</span>
+<textarea class="w-full p-space-sm bg-surface rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" placeholder="Record executive resolutions, committee assignees, and inspection dates agreed upon during today's general assembly..." rows="4"></textarea>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs py-space-xs bg-secondary hover:bg-secondary-container text-on-secondary hover:text-on-secondary-container font-label-md text-label-md rounded-lg transition-colors font-bold shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Save Executive Minutes</span>
+</button>
+</section>
+<!-- Schedule Officer Directive Card -->
+<section class="bg-surface-container-high/60 p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-sm">
+<div class="flex items-center gap-space-xs text-primary font-bold">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+<span class="font-label-lg text-label-lg">Officer's Desk Directive</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          "All proposed budget revisions for the Q4 Sanitary Dignity kits outreach must be countersigned by both the CDS President and General Secretary prior to Monday 12:00 PM."
+        </p>
+<div class="flex items-center justify-between pt-space-xs font-label-sm text-label-sm text-outline">
+<span>Mrs. A. Osagie • NYSC Edo Secretariat</span>
+<span>Official Endorsement</span>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const tabTriggers = document.querySelectorAll('#execTabs .tab-trigger');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabTriggers.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
+
+        // Reset tab styles
+        tabTriggers.forEach(t => {
+          t.className = 'tab-trigger flex-1 flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-all duration-150';
+        });
+
+        // Set active style
+        btn.className = 'tab-trigger flex-1 flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-sm';
+
+        // Toggle content
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden');
+            content.classList.add('flex');
+          } else {
+            content.classList.add('hidden');
+            content.classList.remove('flex');
+          }
+        });
+      });
+    });
+  })();
+</script></main></div></body></html>

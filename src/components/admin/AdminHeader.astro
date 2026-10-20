@@ -2,73 +2,79 @@
 const pathname = Astro.url.pathname;
 
 const tabs = [
-  { label: 'Overview', href: '/admin' },
-  { label: 'NGO Directory (Benin)', href: '/admin/funding' },
-  { label: 'Pitch Kit & Letters', href: '/admin/pitch-kit' },
-  { label: 'Idea Moderation', href: '/admin/ideas' },
-  { label: '+ Plan Project', href: '/admin/projects/new' },
-  { label: '📸 Upload Photos', href: '/admin/gallery/new' },
+  { label: 'Command Center', href: '/admin', icon: 'admin_panel_settings' },
+  { label: 'Review Ideas', href: '/admin/ideas', icon: 'lightbulb' },
+  { label: '+ Plan Project', href: '/admin/projects/new', icon: 'account_balance_wallet' },
+  { label: '📸 Upload Photos', href: '/admin/gallery/new', icon: 'add_photo_alternate' },
+  { label: 'Benin NGO Directory', href: '/admin/funding', icon: 'corporate_fare' },
+  { label: 'Pitch Kit & Letters', href: '/admin/pitch-kit', icon: 'folder_special' },
 ];
 ---
 
-<div class="space-y-6 pb-6 border-b border-slate-200">
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-    <div>
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
-          SDG Executive Portal · Restricted
-        </span>
+<div class="space-y-space-md pb-space-lg border-b border-surface-container-high">
+  <!-- Top Command Bar -->
+  <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm border border-surface-container-high flex flex-col md:flex-row md:items-center md:justify-between gap-space-md">
+    <div class="flex items-start md:items-center gap-space-md">
+      <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-[28px]">verified_user</span>
       </div>
-      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
-        Executive Management & Working Group
-      </h1>
-      <p class="text-xs sm:text-sm text-slate-500">
-        Edo State NYSC SDG Community Development Service · Benin City
-      </p>
+      <div class="flex flex-col min-w-0">
+        <div class="flex items-center gap-space-xs flex-wrap">
+          <span class="font-headline-sm text-headline-sm text-on-surface font-bold">
+            CDS Executive Command Center
+          </span>
+          <span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-space-xs py-0.5 rounded uppercase tracking-wider font-bold">
+            Protected Zone
+          </span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+          NYSC Edo State Secretariat • Schedule Officer: <span class="text-primary font-medium">Mrs. A. Osagie (NYSC Secretariat, Benin City)</span>
+        </p>
+      </div>
     </div>
 
-    <div class="flex items-center gap-3">
+    <!-- Quick User & Action Status -->
+    <div class="flex items-center gap-space-sm flex-wrap self-start md:self-auto">
       <a
         href="/"
-        class="text-xs font-bold text-slate-600 hover:text-nysc-green transition-colors px-3 py-1.5 rounded-lg border border-slate-200 bg-white"
+        class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors px-3 py-1.5 rounded-lg border border-surface-container-high bg-surface-container-lowest"
       >
-        View Public Site
+        Public Site ↗
       </a>
       <button
         id="admin-logout-btn"
         type="button"
-        class="px-3.5 py-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold border border-rose-200 transition-colors"
+        class="px-3.5 py-1.5 rounded-lg bg-error-container text-on-error-container hover:opacity-90 font-label-sm text-label-sm font-bold transition-all"
       >
         Sign Out 🚪
       </button>
     </div>
   </div>
 
-  <!-- Admin Sub Navigation Tabs -->
-  <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+  <!-- Workspace Navigation Tabs -->
+  <nav class="bg-surface-container p-1 rounded-xl shadow-sm flex flex-wrap gap-1">
     {tabs.map((tab) => {
       const isCurrent = tab.href === '/admin' ? pathname === '/admin' : pathname.startsWith(tab.href);
       return (
         <a
           href={tab.href}
-          class={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+          class={`flex items-center gap-space-xs px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-all duration-150 ${
             isCurrent
-              ? 'bg-nysc-green text-white shadow-xs'
-              : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+              ? 'bg-primary text-on-primary font-bold shadow-sm'
+              : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-medium'
           }`}
         >
-          {tab.label}
+          <span class="material-symbols-outlined text-[18px]">{tab.icon}</span>
+          <span>{tab.label}</span>
         </a>
       );
     })}
-  </div>
+  </nav>
 </div>
 
 <script>
   import { supabase } from '../../lib/supabase';
 
-  // Client-side guard: enforce authentication on all admin pages
   async function enforceAuth() {
     let isAuthenticated = false;
     if (supabase) {
@@ -92,7 +98,6 @@ const tabs = [
 
   enforceAuth();
 
-  // Logout handler
   const logoutBtn = document.getElementById('admin-logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {

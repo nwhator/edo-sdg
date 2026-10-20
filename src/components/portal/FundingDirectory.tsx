@@ -6,8 +6,8 @@ interface FundingDirectoryProps {
 }
 
 export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartners }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [onlyBeninCity, setOnlyBeninCity] = useState(false);
 
   const categories = [
@@ -15,6 +15,7 @@ export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartn
     'Pads & Women Health',
     'Sanitation & Cleaning',
     'State Government',
+    'Corporate CSR',
     'Community & Youth',
   ];
 
@@ -30,49 +31,44 @@ export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartn
   });
 
   return (
-    <div className="space-y-8">
-      {/* Search and Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs space-y-4">
+    <div className="space-y-space-lg">
+      {/* Search and Filters Nexus */}
+      <div className="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-space-lg shadow-xs space-y-space-md">
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="relative w-full sm:w-96">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+              search
+            </span>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by NGO name, address, or focus..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-hidden focus:ring-2 focus:ring-primary border-none placeholder:text-outline"
             />
-            <svg
-              className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
           </div>
 
-          <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer self-start sm:self-auto">
+          <label className="flex items-center gap-2 text-xs font-bold text-on-surface cursor-pointer self-start sm:self-auto font-label-md">
             <input
               type="checkbox"
               checked={onlyBeninCity}
               onChange={(e) => setOnlyBeninCity(e.target.checked)}
-              className="rounded text-nysc-green focus:ring-nysc-green w-4 h-4"
+              className="rounded text-primary focus:ring-primary w-4 h-4 accent-primary"
             />
             <span>Show Only Benin City Offices</span>
           </label>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+        <div className="flex flex-wrap gap-2 pt-2 border-t border-surface-container">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold transition-all ${
                 selectedCategory === cat
-                  ? 'bg-nysc-green text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-primary text-on-primary shadow-xs'
+                  : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
               }`}
             >
               {cat === 'Pads & Women Health' && '🩸 '}
@@ -85,20 +81,20 @@ export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartn
       </div>
 
       {/* Partners Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
         {filteredPartners.map((partner) => (
-          <div
+          <article
             key={partner.id}
-            className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-7 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+            className="flex flex-col justify-between p-space-lg rounded-2xl bg-surface-container-lowest shadow-xs hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high"
           >
-            <div className="space-y-4">
-              {/* Header Badges */}
+            <div className="space-y-space-sm">
+              {/* Top Indicators */}
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-bold text-nysc-green-dark bg-green-50 px-2.5 py-1 rounded-md border border-green-200">
+                <span className="font-label-sm text-label-sm font-bold text-primary bg-primary-fixed/40 px-2.5 py-1 rounded-md">
                   {partner.category}
                 </span>
                 {partner.is_benin_city && (
-                  <span className="text-[11px] font-extrabold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                  <span className="font-label-sm text-[11px] font-extrabold text-on-secondary-fixed bg-secondary-fixed px-2.5 py-0.5 rounded-full">
                     📍 Benin City Office
                   </span>
                 )}
@@ -106,56 +102,56 @@ export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartn
 
               {/* Title & Address */}
               <div>
-                <h3 className="text-lg font-black text-slate-900 leading-snug">
+                <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">
                   {partner.name}
                 </h3>
-                <p className="mt-1.5 text-xs text-slate-600 flex items-start gap-1.5">
-                  <span className="shrink-0 text-slate-400">🏢</span>
+                <p className="mt-1 font-body-sm text-xs text-on-surface-variant flex items-start gap-1.5">
+                  <span className="shrink-0 text-outline">🏢</span>
                   <span>{partner.address}</span>
                 </p>
               </div>
 
               {/* Focus Areas */}
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 {partner.focus_areas.map((focus, idx) => (
                   <span
                     key={idx}
-                    className="text-[10px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md"
+                    className="font-label-sm text-[10px] font-semibold bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-md"
                   >
                     #{focus}
                   </span>
                 ))}
               </div>
 
-              {/* Recommended Pitch Approach Box */}
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1">
-                <span className="font-bold text-slate-900 block text-[11px] uppercase tracking-wider text-nysc-green-dark">
+              {/* How to Pitch Box */}
+              <div className="p-3.5 rounded-xl bg-surface-container-low border border-surface-container text-xs text-on-surface space-y-1">
+                <span className="font-label-sm text-[11px] font-bold block uppercase tracking-wider text-primary">
                   💡 How to Reach & Pitch for NYSC:
                 </span>
-                <p className="leading-relaxed text-slate-600">
+                <p className="font-body-sm text-xs text-on-surface-variant leading-relaxed">
                   {partner.how_to_reach}
                 </p>
               </div>
             </div>
 
             {/* Direct Contact Links */}
-            <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3 text-xs">
+            <div className="mt-space-md pt-space-sm border-t border-surface-container flex flex-wrap items-center gap-2 text-xs">
               {partner.phone && (
                 <a
                   href={`tel:${partner.phone}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 text-nysc-green-dark font-semibold hover:bg-green-100 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-primary font-bold hover:bg-primary hover:text-on-primary transition-colors font-label-sm text-xs"
                 >
-                  <span>📞</span>
+                  <span className="material-symbols-outlined text-[15px]">call</span>
                   <span>{partner.phone}</span>
                 </a>
               )}
               {partner.email && (
                 <a
                   href={`mailto:${partner.email}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-800 font-semibold hover:bg-blue-100 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-secondary font-bold hover:bg-secondary hover:text-on-secondary transition-colors font-label-sm text-xs"
                 >
-                  <span>✉️</span>
-                  <span>{partner.email}</span>
+                  <span className="material-symbols-outlined text-[15px]">mail</span>
+                  <span>Email Partner</span>
                 </a>
               )}
               {partner.website && (
@@ -163,14 +159,14 @@ export const FundingDirectory: React.FC<FundingDirectoryProps> = ({ initialPartn
                   href={partner.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-slate-200 transition-colors ml-auto"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant font-bold hover:bg-surface-container-high transition-colors font-label-sm text-xs"
                 >
-                  <span>🌐 Website</span>
-                  <span>↗</span>
+                  <span className="material-symbols-outlined text-[15px]">language</span>
+                  <span>Official Site</span>
                 </a>
               )}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </div>

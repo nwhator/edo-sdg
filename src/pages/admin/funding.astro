@@ -8,23 +8,36 @@ const partners = await fetchFundingPartners();
 ---
 
 <Layout
-  title="Benin NGO Funding Directory (Admin)"
+  title="Benin NGO Funding Directory (Executive Admin)"
   description="Restricted directory of NGOs and government partners in Benin City for women health and environmental sanitation drives."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-space-xl">
     <AdminHeader />
 
-    <!-- Intro Card -->
-    <div class="bg-gradient-to-r from-nysc-green-deep to-nysc-green rounded-3xl p-6 sm:p-8 text-white shadow-md space-y-2">
-      <span class="text-xs font-bold uppercase tracking-wider text-nysc-gold">
-        Internal Outreach Directory
-      </span>
-      <h2 class="text-xl sm:text-2xl font-black">
-        Benin City & Edo State Partner Database
-      </h2>
-      <p class="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl">
-        Curated research for reaching out to local NGOs and government bodies. Prioritize partners with physical offices in Benin City for supporting upcoming sanitary pad distributions and market cleanup campaigns.
-      </p>
+    <!-- Civic Header Banner -->
+    <div class="p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+      <div class="space-y-space-xs max-w-3xl">
+        <div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider font-bold">
+          <span class="material-symbols-outlined text-[16px]">hub</span>
+          Validated Civil Stakeholders
+        </div>
+        <h1 class="font-headline-md text-headline-md text-on-surface font-bold">
+          Benin City NGO & Government Partner Registry
+        </h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Curated contact registry of institutional partners located within Oredo, Ikpoba Okha, and Egor LGAs authorized for official NYSC joint-interventions.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/30 shrink-0 shadow-xs">
+        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[24px]">corporate_fare</span>
+        </div>
+        <div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Partner Registry</span>
+          <span class="font-title-md text-title-md text-primary font-bold">{partners.length} Accredited</span>
+        </div>
+      </div>
     </div>
 
     <!-- Directory Component -->

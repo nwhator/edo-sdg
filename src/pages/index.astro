@@ -1,189 +1,304 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { fetchIdeas } from '../lib/supabase';
+import { fetchIdeas, fetchFundingPartners } from '../lib/supabase';
 import { SDG_METADATA } from '../types/database';
 import { IdeaCard } from '../components/ideas/IdeaCard';
 
 const ideas = await fetchIdeas();
+const partners = await fetchFundingPartners();
 const topIdeas = [...ideas].sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0)).slice(0, 3);
 const sdgList = Object.values(SDG_METADATA);
 ---
 
 <Layout
   title="Home"
-  description="Platform for the Edo State NYSC SDG CDS Group. Propose ideas anonymously, review community needs, and advance sustainable development goals in Edo State."
+  description="Edo State NYSC SDGs Community Development Service (CDS) Group, Benin City. Mobilizing graduate youth and grassroots ideas to achieve the Global Goals across Oredo, Egor, and Ikpoba Okha."
 >
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-b from-green-50/70 via-white to-slate-50 border-b border-slate-200/80 overflow-hidden pt-12 pb-20">
-    <div class="absolute inset-0 bg-[radial-gradient(#006633_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+  <div class="flex flex-col w-full">
+    
+    <!-- Hero Section with Institutional NYSC Benin Identity -->
+    <section class="relative overflow-hidden py-space-xl md:py-space-3xl bg-surface">
+      <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+          
+          <!-- Left Column: Headline & Action Nexus -->
+          <div class="lg:col-span-7 space-y-space-lg">
+            
+            <!-- Live Operational Badge -->
+            <div class="inline-flex items-center gap-space-xs bg-surface-container-high px-space-md py-1.5 rounded-full shadow-sm">
+              <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+              <span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wide">
+                Benin City Mandate • Meeting Every Thursday @ Imaguero College
+              </span>
+            </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="max-w-3xl mx-auto text-center space-y-6">
+            <!-- Main Title -->
+            <h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
+              Driving Sustainable <span class="text-primary underline decoration-secondary-container decoration-4">Development</span> Across Edo State
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              Edo State NYSC SDGs Community Development Service (CDS) Group, Benin City. Mobilizing young graduate leaders and grassroots resources to achieve the United Nations Global Goals across Oredo, Egor, and Ikpoba Okha.
+            </p>
+
+            <!-- Dual CTAs -->
+            <div class="pt-space-xs flex flex-wrap items-center gap-space-md">
+              <a
+                href="/ideas#drop"
+                class="inline-flex items-center gap-space-sm px-space-xl py-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-xl shadow-md transition-all hover:translate-y-[-1px]"
+              >
+                <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+                <span>Submit Anonymous Idea</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </a>
+
+              <a
+                href="/projects"
+                class="inline-flex items-center gap-space-sm px-space-xl py-space-md bg-surface-container-lowest text-primary hover:bg-surface-container font-label-lg text-label-lg rounded-xl shadow-sm transition-all border border-surface-container-high"
+              >
+                <span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+                <span>View Planned Projects</span>
+              </a>
+            </div>
+
+            <!-- Micro Verification Strip -->
+            <div class="flex flex-wrap items-center gap-space-lg pt-space-xs text-on-surface-variant">
+              <div class="flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+                <span class="font-label-sm text-label-sm">Official CDS Reg #ED/CDS/SDG/24</span>
+              </div>
+              <div class="flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-secondary text-[20px]">group</span>
+                <span class="font-label-sm text-label-sm">180+ Active Corps Members</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Hero Graphic & CDS Benin Credential Card -->
+          <div class="lg:col-span-5 relative">
+            <div class="absolute -top-10 -right-10 w-72 h-72 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative bg-surface-container-lowest p-space-xl rounded-2xl shadow-xl space-y-space-md border border-surface-container-high">
+              <!-- Insignia Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[32px]">shield</span>
+                  </div>
+                  <div>
+                    <h3 class="font-title-md text-title-md font-bold text-on-surface">NYSC CDS Edo State</h3>
+                    <p class="font-label-sm text-label-sm text-outline">Batch B Stream II • Benin Chapter</p>
+                  </div>
+                </div>
+                <span class="px-space-sm py-1 bg-surface-container text-primary font-label-sm text-label-sm rounded-full font-bold">
+                  LIVE CDS
+                </span>
+              </div>
+
+              <!-- Hero Documentary Photo -->
+              <div class="relative h-56 rounded-xl overflow-hidden shadow-sm">
+                <img
+                  class="w-full h-full object-cover"
+                  alt="NYSC corps members in khaki uniforms organizing community development materials in Benin City"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6CsW469yAlDdvPvSi6dFxhgMZ28IdBwXSuWXh3-07dIbw2ZSPQXCGRWNu47hRalg6AlnH5iPSkpwZgbZ8_KPW1PwzB0rlvQ6qI6hc1nhDCEm12mYDCURr14LAJp5juFfJEnrho_xJ6NLChH295F0kCK_CTEbQKf6SmrAs8od5gLr7Sr7dZ62qJSMg_2aoKaH9hOy8UsqjX4p9BISivNoTCuZBrm4SMesjsMd3nHPdtfYFubdGEV2uaw"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-on-surface/85 via-transparent to-transparent flex items-end p-space-md">
+                  <p class="font-label-md text-label-md text-surface-container-lowest font-medium">
+                    Imaguero College CDS Plenary Assembly & Civic Workshop
+                  </p>
+                </div>
+              </div>
+
+              <!-- Metro Reach Progress Indicator -->
+              <div class="bg-surface-container p-space-md rounded-xl space-y-space-xs">
+                <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant font-bold">
+                  <span>BENIN METROPOLITAN REACH</span>
+                  <span class="text-primary">3 LGAs ACTIVE</span>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-2">
+                  <div class="bg-primary h-2 rounded-full w-4/5"></div>
+                </div>
+                <p class="font-body-sm text-body-sm text-outline text-right">Oredo • Egor • Ikpoba Okha</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Impact Stats Bar -->
+    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-md">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
         
-        <!-- Chapter Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-nysc-green/10 text-nysc-green-dark border border-nysc-green/20 text-xs font-bold shadow-xs">
-          <span class="w-2 h-2 rounded-full bg-nysc-gold animate-ping"></span>
-          <span>National Youth Service Corps · Edo State Chapter</span>
+        <!-- Bento 1: UN Framework -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
+          <div class="flex items-center justify-between mb-space-xs">
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">UN Framework</span>
+            <span class="material-symbols-outlined text-primary text-[20px]">public</span>
+          </div>
+          <div class="font-stat-counter text-stat-counter text-primary">17</div>
+          <p class="font-title-md text-title-md text-on-surface font-semibold">Global Goals</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Guiding all CDS initiatives</p>
         </div>
 
-        <!-- Main Headline -->
-        <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
-          Advancing Sustainable <span class="text-nysc-green underline decoration-nysc-gold decoration-wavy decoration-2">Development</span> in Edo State
-        </h1>
+        <!-- Bento 2: Anonymous Proposals -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-secondary-container"></div>
+          <div class="flex items-center justify-between mb-space-xs">
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Peer Voice</span>
+            <span class="material-symbols-outlined text-secondary text-[20px]">lightbulb</span>
+          </div>
+          <div class="font-stat-counter text-stat-counter text-secondary">{ideas.length}</div>
+          <p class="font-title-md text-title-md text-on-surface font-semibold">Ideas Dropped</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Submitted anonymously</p>
+        </div>
 
-        <!-- Subheading -->
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
-          An open platform for NYSC corps members to propose grassroots ideas anonymously, vote on community initiatives, and align with global goals across Benin City and Edo State.
-        </p>
+        <!-- Bento 3: Active Volunteers -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-tertiary"></div>
+          <div class="flex items-center justify-between mb-space-xs">
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Community Force</span>
+            <span class="material-symbols-outlined text-tertiary text-[20px]">groups</span>
+          </div>
+          <div class="font-stat-counter text-stat-counter text-tertiary">180+</div>
+          <p class="font-title-md text-title-md text-on-surface font-semibold">Corps Members</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ready for community deployment</p>
+        </div>
 
-        <!-- CTA Buttons -->
-        <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="/ideas"
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-nysc-green text-white font-extrabold text-sm shadow-lg shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all hover:-translate-y-0.5"
-          >
-            <svg class="w-4 h-4 text-nysc-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Drop Anonymous Idea</span>
-          </a>
-
-          <a
-            href="/projects"
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white text-slate-800 font-bold text-sm border border-slate-300 shadow-xs hover:bg-slate-50 transition-all hover:-translate-y-0.5"
-          >
-            <span>View Projects</span>
-            <span>→</span>
-          </a>
+        <!-- Bento 4: Civil Alliances -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-primary-container"></div>
+          <div class="flex items-center justify-between mb-space-xs">
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Civil Alliances</span>
+            <span class="material-symbols-outlined text-primary text-[20px]">handshake</span>
+          </div>
+          <div class="font-stat-counter text-stat-counter text-primary">{partners.length || 8}</div>
+          <p class="font-title-md text-title-md text-on-surface font-semibold">Benin Partners</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Mapped in outreach directory</p>
         </div>
 
       </div>
+    </section>
 
-      <!-- Core Process Highlights -->
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="bg-white/90 backdrop-blur rounded-2xl p-6 border border-slate-200/90 text-center shadow-xs space-y-2">
-          <div class="w-10 h-10 rounded-xl bg-green-50 text-nysc-green mx-auto flex items-center justify-center text-lg font-bold">
-            1
-          </div>
-          <h3 class="font-bold text-slate-900 text-sm">Anonymous Proposals</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Any corps member can propose community interventions without revealing identity.
-          </p>
-        </div>
-
-        <div class="bg-white/90 backdrop-blur rounded-2xl p-6 border border-slate-200/90 text-center shadow-xs space-y-2">
-          <div class="w-10 h-10 rounded-xl bg-amber-50 text-nysc-gold-dark mx-auto flex items-center justify-center text-lg font-bold">
-            2
-          </div>
-          <h3 class="font-bold text-slate-900 text-sm">Peer Democracy</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Members review and upvote solutions with the highest potential local impact.
-          </p>
-        </div>
-
-        <div class="bg-white/90 backdrop-blur rounded-2xl p-6 border border-slate-200/90 text-center shadow-xs space-y-2">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 mx-auto flex items-center justify-center text-lg font-bold">
-            3
-          </div>
-          <h3 class="font-bold text-slate-900 text-sm">Executive Review</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Approved concepts undergo budgeting and outreach through the admin portal.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Community Ideas Section -->
-  <section class="py-16 bg-slate-50 border-b border-slate-200/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-      
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <!-- Trending Anonymous Community Ideas -->
+    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-xl bg-surface-container-low/60 rounded-3xl my-space-lg border border-surface-container-high">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-nysc-green">Grassroots Voice</span>
-          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
-            Community Ideas Hub
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-500 mt-1">
-            Submitted anonymously by Edo State corps members.
-          </p>
+          <div class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider mb-space-xs">
+            <span class="material-symbols-outlined text-[16px]">forum</span> Civic Incubation
+          </div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">Trending Corps Member Ideas</h2>
         </div>
-        <a
-          href="/ideas"
-          class="inline-flex items-center gap-1 text-xs font-bold text-nysc-green hover:underline self-start sm:self-auto"
-        >
-          <span>View All Ideas</span>
-          <span>→</span>
-        </a>
+        <div class="flex items-center gap-space-md">
+          <a class="font-label-lg text-label-lg text-primary hover:underline flex items-center gap-1 font-bold" href="/ideas">
+            <span>Explore All Ideas ({ideas.length})</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
       </div>
 
       {topIdeas.length === 0 ? (
-        <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-12 text-center space-y-4 max-w-xl mx-auto shadow-xs">
-          <div class="w-14 h-14 rounded-2xl bg-amber-50 text-nysc-gold-dark mx-auto flex items-center justify-center text-2xl">
+        <div class="bg-surface-container-lowest rounded-2xl p-space-2xl text-center space-y-space-sm border border-dashed border-outline-variant max-w-xl mx-auto">
+          <div class="w-14 h-14 rounded-2xl bg-secondary-container/30 text-secondary mx-auto flex items-center justify-center text-2xl font-bold">
             💡
           </div>
-          <h3 class="text-lg font-bold text-slate-900">No Ideas Submitted Yet</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Be the first corps member to share an anonymous community development idea for Edo State.
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">No Community Ideas Yet</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
+            Be the first corps member to drop an anonymous grassroots solution for Benin City or your host LGA.
           </p>
-          <div>
+          <div class="pt-space-xs">
             <a
-              href="/ideas"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-green text-white text-xs font-bold shadow-xs hover:bg-nysc-green-dark transition-all"
+              href="/ideas#drop"
+              class="inline-flex items-center gap-space-xs px-space-lg py-space-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm hover:bg-primary-container transition-all"
             >
-              <span>Submit First Idea</span>
-              <span>→</span>
+              <span>+ Propose First Idea</span>
             </a>
           </div>
         </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
           {topIdeas.map((idea) => (
             <IdeaCard client:load idea={idea} />
           ))}
         </div>
       )}
+    </section>
 
-    </div>
-  </section>
-
-  <!-- 17 Goals Matrix -->
-  <section class="py-16 bg-slate-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-bold uppercase tracking-wider text-nysc-gold">Framework</span>
-        <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">
-          17 Global Goals
+    <!-- UN 17 SDGs Interactive Grid -->
+    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-3xl" id="sdg-grid">
+      <div class="text-center max-w-3xl mx-auto mb-space-2xl space-y-space-xs">
+        <span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-widest">
+          Global Framework • Local Edo Execution
+        </span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface">
+          The 17 Sustainable Development Goals
         </h2>
-        <p class="text-xs sm:text-sm text-slate-400">
-          Our CDS initiatives align with these focus areas across Edo State.
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Our CDS committee initiates projects and public awareness drives aligned with each of these global objectives across Edo State.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-space-sm">
         {sdgList.map((sdg) => (
           <div
-            style={{ borderTopColor: sdg.color }}
-            class="bg-white/5 border border-white/10 rounded-2xl p-4 border-t-4 hover:bg-white/10 transition-colors space-y-2"
+            style={{ backgroundColor: sdg.color }}
+            class="group relative rounded-xl p-space-md text-surface-container-lowest transition-all hover:scale-[1.03] shadow-sm min-h-[140px] flex flex-col justify-between"
           >
-            <div class="flex items-center justify-between">
-              <span
-                style={{ backgroundColor: sdg.color }}
-                class="w-7 h-7 rounded-lg text-white font-black text-xs flex items-center justify-center shadow-xs"
-              >
-                {sdg.number}
+            <div class="flex justify-between items-start">
+              <span class="font-headline-md text-headline-md font-extrabold opacity-70">
+                {String(sdg.number).padStart(2, '0')}
               </span>
+              <span class="material-symbols-outlined text-[20px] opacity-80">public</span>
             </div>
-            <h4 class="text-xs font-bold text-white line-clamp-1">{sdg.name}</h4>
-            <p class="text-[10px] text-slate-400 line-clamp-2 leading-relaxed">
-              {sdg.shortDescription}
-            </p>
+            <div>
+              <h5 class="font-title-md text-title-md font-bold leading-tight">
+                {sdg.name}
+              </h5>
+              <p class="text-[11px] font-body-sm opacity-90 mt-1 line-clamp-1">
+                {sdg.shortDescription}
+              </p>
+            </div>
           </div>
         ))}
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- CDS Partnership & Action Banner -->
+    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full pb-space-2xl">
+      <div class="bg-primary text-on-primary rounded-3xl p-space-xl md:p-space-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-space-xl shadow-lg">
+        <div class="space-y-space-sm max-w-2xl relative z-10">
+          <span class="px-space-sm py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full font-bold">
+            CALL FOR CIVIL PARTNERS & SPONSORS
+          </span>
+          <h3 class="font-display-mobile md:font-display text-display-mobile md:text-display font-extrabold leading-tight">
+            Ready to Make an Impact in Benin City?
+          </h3>
+          <p class="font-body-md text-body-md text-primary-fixed-dim leading-relaxed">
+            Whether you represent an NGO, corporate CSR entity, or you are an incoming NYSC corps member posted to Edo State, join our Thursday plenary at Imaguero College.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-space-md relative z-10 shrink-0 w-full md:w-auto">
+          <a
+            href="/ideas#drop"
+            class="text-center px-space-xl py-space-md bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-label-lg text-label-lg rounded-xl shadow-md transition-all font-bold"
+          >
+            Submit Project Proposal
+          </a>
+          <a
+            href="/admin"
+            class="text-center px-space-xl py-space-md bg-on-primary-fixed-variant text-surface-container-lowest hover:bg-primary-container font-label-lg text-label-lg rounded-xl transition-all"
+          >
+            CDS Executive Portal 🔒
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </Layout>

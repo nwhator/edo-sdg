@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#131b2e", "error-container": "#ffdad6", "outline-variant": "#bfc9bd", "primary-container": "#006633", "on-secondary-container": "#6f5600", "on-primary-container": "#8ce1a1", "on-secondary-fixed-variant": "#584400", "tertiary": "#004943", "secondary": "#755b00", "on-background": "#131b2e", "surface-container-high": "#e2e7ff", "surface-variant": "#dae2fd", "secondary-container": "#fccc38", "on-primary": "#ffffff", "surface": "#faf8ff", "outline": "#6f7a6f", "on-primary-fixed": "#00210c", "primary-fixed-dim": "#84d999", "surface-bright": "#faf8ff", "surface-dim": "#d2d9f4", "surface-tint": "#0f6d39", "primary": "#004b24", "surface-container": "#eaedff", "inverse-primary": "#84d999", "on-tertiary-fixed-variant": "#005049", "error": "#ba1a1a", "on-tertiary": "#ffffff", "inverse-on-surface": "#eef0ff", "tertiary-fixed-dim": "#6bd8cb", "tertiary-container": "#00635b", "inverse-surface": "#283044", "surface-container-lowest": "#ffffff", "primary-fixed": "#9ff6b4", "on-error": "#ffffff", "on-secondary-fixed": "#241a00", "on-primary-fixed-variant": "#005228", "surface-container-low": "#f2f3ff", "on-tertiary-fixed": "#00201d", "on-secondary": "#ffffff", "secondary-fixed": "#ffdf90", "secondary-fixed-dim": "#f0c12c", "on-error-container": "#93000a", "on-tertiary-container": "#73e0d2", "surface-container-highest": "#dae2fd", "tertiary-fixed": "#89f5e7", "background": "#faf8ff", "on-surface-variant": "#3f4940" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-sm": "0.5rem", "space-2xl": "3rem", "space-3xl": "4rem", "space-lg": "1.5rem", "gutter-desktop": "2rem", "margin-tablet": "2rem", "space-xl": "2rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "gutter": "1.5rem", "margin-mobile": "1rem", "margin": "1.5rem", "margin-desktop": "3rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "label-md": [ "Plus Jakarta Sans" ], "stat-counter": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-sm": [ "Plus Jakarta Sans" ], "label-lg": [ "Plus Jakarta Sans" ], "display-mobile": [ "Plus Jakarta Sans" ], "title-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display": [ "Plus Jakarta Sans" ], "body-sm": [ "Inter" ] }, "fontSize": { "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-md": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "stat-counter": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "0", "fontWeight": "600" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "display-mobile": [ "34px", { "lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "title-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "0", "fontWeight": "600" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "label-sm": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "display": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-sm": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NYSC Edo SDG Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb199__-9fJczvQhd1AD9tpQpWbrGQ1YuVwYQchJEavSD_duLQ-SfRA2dICfO4h1cfB9SKti77-KMI_lFuAiJryzB3CmrCR9pZyewfNXNGkET2zSabYSrXHUNcd2fM0BH2L7rECN2FPo7YYMFqJayhiAl1arq2wAHYVJnUiJCmiZAb45JwMftBU2N3Ufhys5ql3ABwTvk2OuIi_cLM0yBgQ5hmjth_usVPj7GZpiytX7891SUsFP1UXA"/><div class="flex flex-col"><span class="font-label-lg text-label-lg text-primary font-bold">SDG CDS Portal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Executive Panel</span></div></div><div class="p-space-md"><div class="bg-surface-container p-space-sm rounded-lg flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant">Batch Status</span><span class="font-label-sm text-label-sm text-primary font-bold bg-primary-fixed px-space-xs rounded">ED/24B Executive</span></div></div><nav class="flex-1 px-space-md space-y-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="executive-admin" href="#"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>Executive Admin</a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-bold rounded-lg" data-path="ngo-directory" href="#"><span class="material-symbols-outlined text-[20px]">corporate_fare</span>Benin NGO Directory</a><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="pitch-kit" href="#"><span class="material-symbols-outlined text-[20px]">folder_special</span>SDG Pitch Kit</a><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="attendance-roll" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span>Roll Call Logs</a><div class="pt-space-md pb-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline px-space-md">Public Hub</span></div><a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors font-label-lg text-label-lg" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">arrow_back</span>Back to Home</a></nav><div class="p-space-md bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm font-bold text-on-surface">CDS President</span><span class="font-label-sm text-label-sm text-on-surface-variant">ED/24B/1209</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">account_balance</span><span class="font-title-md text-title-md text-on-surface font-semibold">Edo State NYSC Secretariat • SDGs CDS Group</span></div><div class="flex items-center gap-space-md"><span class="inline-flex items-center gap-space-xs text-secondary font-label-sm text-label-sm bg-secondary-fixed/50 px-space-sm py-1 rounded-full"><span class="material-symbols-outlined text-[16px]">location_on</span>Benin City</span><a class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm rounded-lg transition-colors" data-path="drop-idea" href="#">+ Submit Proposal</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop"><div class="flex flex-col w-full pb-space-3xl">
+<!-- Interactive State Controller Script -->
+<script>
+    function switchTab(tabId) {
+      const ngoSec = document.getElementById('ngo-directory-section');
+      const pitchSec = document.getElementById('pitch-kit-section');
+      const tabNgoBtn = document.getElementById('tab-ngo-btn');
+      const tabPitchBtn = document.getElementById('tab-pitch-btn');
+
+      if (tabId === 'ngo') {
+        ngoSec.classList.remove('hidden');
+        pitchSec.classList.add('hidden');
+        tabNgoBtn.className = 'flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md transition-all duration-200';
+        tabPitchBtn.className = 'flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-all duration-200';
+      } else {
+        ngoSec.classList.add('hidden');
+        pitchSec.classList.remove('hidden');
+        tabPitchBtn.className = 'flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md transition-all duration-200';
+        tabNgoBtn.className = 'flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-all duration-200';
+      }
+    }
+
+    function switchTemplate(templateId) {
+      const t1 = document.getElementById('template-content-1');
+      const t2 = document.getElementById('template-content-2');
+      const t3 = document.getElementById('template-content-3');
+
+      const b1 = document.getElementById('tnav-btn-1');
+      const b2 = document.getElementById('tnav-btn-2');
+      const b3 = document.getElementById('tnav-btn-3');
+
+      [t1, t2, t3].forEach(el => el.classList.add('hidden'));
+      [b1, b2, b3].forEach(btn => {
+        btn.classList.remove('bg-surface-container-highest', 'text-primary', 'font-bold');
+        btn.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+
+      if (templateId === 1) {
+        t1.classList.remove('hidden');
+        b1.classList.add('bg-surface-container-highest', 'text-primary', 'font-bold');
+        b1.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      } else if (templateId === 2) {
+        t2.classList.remove('hidden');
+        b2.classList.add('bg-surface-container-highest', 'text-primary', 'font-bold');
+        b2.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      } else {
+        t3.classList.remove('hidden');
+        b3.classList.add('bg-surface-container-highest', 'text-primary', 'font-bold');
+        b3.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      }
+    }
+
+    function copyLetter(btn, targetId) {
+      const textToCopy = document.getElementById(targetId).innerText;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Copied to Clipboard!';
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-tertiary-container', 'text-on-tertiary');
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.classList.add('bg-primary');
+          btn.classList.remove('bg-tertiary-container', 'text-on-tertiary');
+        }, 2500);
+      });
+    }
+  </script>
+<!-- Civic Header Banner & Context -->
+<section class="relative pt-space-xl pb-space-lg mb-space-xl">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+<div class="max-w-3xl space-y-space-xs">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+          Federal Republic of Nigeria • NYSC CDS Framework
+        </div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">
+          Benin City NGO Directory &amp; Sponsorship Pitch Kit
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Official partnership registry and pre-drafted CDS requisition templates for youth corps members mobilizing local resources across Edo State.
+        </p>
+</div>
+<!-- Quick Operational Metrics Card -->
+<div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">handshake</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Accredited Civic Partners</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">24 Active NGOs</span>
+</div>
+<div class="h-8 w-px bg-surface-variant"></div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Requisition Kits</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">3 Templates</span>
+</div>
+</div>
+</div>
+<!-- Dual Tab Main Navigation Bar -->
+<div class="mt-space-xl p-1.5 bg-surface-container-low rounded-full inline-flex flex-wrap items-center gap-space-xs shadow-sm">
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md transition-all duration-200" id="tab-ngo-btn" onclick="switchTab('ngo')">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+        🏛️ Benin Partner NGOs Directory
+      </button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-all duration-200" id="tab-pitch-btn" onclick="switchTab('pitch')">
+<span class="material-symbols-outlined text-[20px]">description</span>
+        📝 Requisition &amp; Pitch Templates
+      </button>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- TAB 1: LOCAL NGO & CIVIC PARTNER DIRECTORY -->
+<!-- ========================================== -->
+<div class="flex flex-col space-y-space-xl" id="ngo-directory-section">
+<!-- Directory Filter & Quick Info Strip -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="p-space-sm rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[24px]">hub</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Vetted Civil Society Stakeholders</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Validated partner organisations located within Oredo, Ikpoba Okha, and Egor LGAs authorized for official NYSC joint-interventions.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap">Target SDGs:</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">SDG 1 • Poverty</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">SDG 3/5 • Health</span>
+<span class="px-space-sm py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">SDG 11/12/13 • Climate</span>
+</div>
+</div>
+<!-- 4-Card Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Card 1: Lift Above Poverty Organization (LAPO) -->
+<article class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-primary"></div>
+<div>
+<div class="flex items-start justify-between gap-space-md mb-space-md">
+<div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold mb-space-xs">
+                SDG 1 (No Poverty) &amp; SDG 8 (Decent Work)
+              </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Lift Above Poverty Organization (LAPO)</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Microfinance &amp; Grassroots Poverty Alleviation</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[28px]">payments</span>
+</div>
+</div>
+<!-- Headquarters & Contact -->
+<div class="space-y-space-sm mb-space-md p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">location_on</span>
+<span class="font-body-sm text-body-sm font-medium">LAPO Place, Dawson Road, Benin City, Edo State</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">person</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface">Dr. Godwin Ehigiamusoe</strong> (CSR &amp; Community Liaison)</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">call</span>
+<span class="font-body-sm text-body-sm font-mono">+234 803 000 1234</span>
+</div>
+</div>
+<!-- Funding Scope & History -->
+<div class="space-y-space-xs mb-space-lg">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Funding &amp; Support Scope</span>
+<p class="font-body-sm text-body-sm text-on-surface">Youth enterprise grants, women cooperative funding, educational sponsorships, and smallholder agro-vouchers.</p>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">CDS Collaboration History</span>
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[16px] text-primary">history_edu</span>
+                Partnered on 3 CDS skill acquisition drives in Egor and Oredo.
+              </div>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-md">
+<a class="flex-1 py-space-xs px-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg text-center shadow-sm transition-colors flex items-center justify-center gap-1" href="mailto:csr@lapo-nigeria.org?subject=NYSC%20SDG%20CDS%20Direct%20Partnership%20Inquiry">
+<span class="material-symbols-outlined text-[18px]">send</span> Direct Partnership Inquiry
+          </a>
+<button class="py-space-xs px-space-md bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-1" onclick="alert('Viewing archival Memorandum of Understanding between NYSC Edo State and LAPO Development Foundation (2023-2025 renewals).')">
+<span class="material-symbols-outlined text-[18px]">folder</span> View MoUs
+          </button>
+</div>
+</article>
+<!-- Card 2: Girls' Power Initiative (GPI) Nigeria -->
+<article class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-[#e11d48]"></div>
+<div>
+<div class="flex items-start justify-between gap-space-md mb-space-md">
+<div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-[#fff1f2] text-[#e11d48] font-label-sm text-label-sm font-semibold mb-space-xs">
+                SDG 3 (Good Health) &amp; SDG 5 (Gender Equality)
+              </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Girls' Power Initiative (GPI) Nigeria</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Adolescent Reproductive Health &amp; Gender Rights</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-[#fff1f2] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[#e11d48] text-[28px]">volunteer_activism</span>
+</div>
+</div>
+<!-- Headquarters & Contact -->
+<div class="space-y-space-sm mb-space-md p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-[#e11d48]">location_on</span>
+<span class="font-body-sm text-body-sm font-medium">24 Forestry Road, Benin City, Edo State</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-[#e11d48]">person</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface">Grace Osakue</strong> (Executive Director)</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-[#e11d48]">call</span>
+<span class="font-body-sm text-body-sm font-mono">+234 802 111 5678</span>
+</div>
+</div>
+<!-- Funding Scope & History -->
+<div class="space-y-space-xs mb-space-lg">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Funding &amp; Support Scope</span>
+<p class="font-body-sm text-body-sm text-on-surface">Co-sponsorship of sanitary pad drives, legal advocacy, mentorship trainers, psychosocial toolkits for secondary schools.</p>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">CDS Collaboration History</span>
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-[#fff1f2] text-[#ba1a1a] font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                Supported Pad-a-Girl outreach across 8 municipal schools in Ikpoba Hill.
+              </div>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-md">
+<a class="w-full py-space-xs px-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg text-center shadow-sm transition-colors flex items-center justify-center gap-1" href="mailto:ed@gpinigeria.org?subject=NYSC%20Edo%20SDGs%20-%20Request%20Joint%20School%20Outreach">
+<span class="material-symbols-outlined text-[18px]">school</span> Request Joint School Outreach
+          </a>
+</div>
+</article>
+<!-- Card 3: Edo State Waste Management Board (ESWMB) -->
+<article class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-tertiary"></div>
+<div>
+<div class="flex items-start justify-between gap-space-md mb-space-md">
+<div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold mb-space-xs">
+                SDG 11 (Sustainable Cities) &amp; SDG 12 (Consumption)
+              </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Edo State Waste Management Board (ESWMB)</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Government Agency / Municipal Environmental Sanitation</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed-dim/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[28px]">local_shipping</span>
+</div>
+</div>
+<!-- Headquarters & Contact -->
+<div class="space-y-space-sm mb-space-md p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary">location_on</span>
+<span class="font-body-sm text-body-sm font-medium">Sapele Road Secretariat Complex, Benin City</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary">engineering</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface">Engr. O. Osaze</strong> (Director of Operations)</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary">radio</span>
+<span class="font-body-sm text-body-sm font-mono">Secretariat Operations Desks Room 14B</span>
+</div>
+</div>
+<!-- Logistics Scope & Equipment -->
+<div class="space-y-space-xs mb-space-lg">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Logistics &amp; Machinery Scope</span>
+<p class="font-body-sm text-body-sm text-on-surface">Tipper trucks, hydraulic compactor vehicles, disinfectant fumigation equipment, municipal dumpsite access passes.</p>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Clearance Window</span>
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">event_available</span>
+                Requires requisition letter submitted minimum 5 days prior to CDS Thursday.
+              </div>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-md">
+<button class="w-full py-space-xs px-space-md bg-tertiary hover:bg-tertiary-container text-on-tertiary font-label-lg text-label-lg rounded-lg text-center shadow-sm transition-colors flex items-center justify-center gap-1" onclick="switchTab('pitch'); switchTemplate(2);">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span> Book Equipment for CDS Thursday
+          </button>
+</div>
+</article>
+<!-- Card 4: Environmental Rights Action (ERA / Friends of the Earth) -->
+<article class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-primary-container"></div>
+<div>
+<div class="flex items-start justify-between gap-space-md mb-space-md">
+<div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold mb-space-xs">
+                SDG 13 (Climate Action) &amp; SDG 15 (Life on Land)
+              </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Environmental Rights Action (ERA)</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Friends of the Earth Nigeria / Community Ecology</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[28px]">eco</span>
+</div>
+</div>
+<!-- Headquarters & Contact -->
+<div class="space-y-space-sm mb-space-md p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">location_on</span>
+<span class="font-body-sm text-body-sm font-medium">214 Uselu-Lagos Road, Benin City, Edo State</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">person</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface">Chima Williams</strong> (Executive Coordinator)</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">mail</span>
+<span class="font-body-sm text-body-sm font-mono">eraction@erafoen.org</span>
+</div>
+</div>
+<!-- Funding Scope & History -->
+<div class="space-y-space-xs mb-space-lg">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Support &amp; Provision Scope</span>
+<p class="font-body-sm text-body-sm text-on-surface">Indigenous tree sapling donations, climate change educational curriculum, mangrove/soil testing kits, civic activist workshops.</p>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">CDS Collaboration History</span>
+<div class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[16px] text-primary">park</span>
+                Supplied 350 shade trees planted across University of Benin perimeter road.
+              </div>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-md">
+<a class="w-full py-space-xs px-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg text-center shadow-sm transition-colors flex items-center justify-center gap-1" href="mailto:eraction@erafoen.org?subject=NYSC%20SDGs%20Sapling%20and%20Climate%20Sensitization%20Proposal">
+<span class="material-symbols-outlined text-[18px]">forest</span> Request Tree Saplings &amp; Climate Kit
+          </a>
+</div>
+</article>
+</div>
+<!-- Visual Anchor / Fieldwork Highlight -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-center gap-space-xl">
+<div class="w-full lg:w-1/3 h-52 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="NYSC corps members in crisp khaki uniforms and green caps conducting a community SDG town hall in Benin City surrounded by local civil society leaders under bright daytime lighting, documentary photojournalism style, realistic textures and genuine community engagement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3bP3Di8XV1iC9EjEo64pcMMa-5c1tptrIetJJDWGAXhhTPZMFYMRHitvC4fEj1w4CpZ5NrJ1XJHOrtc9Z5SC_wA-7edtX7GWBpmB0x6BO5DErLgY4wfc3KT_8Sh3_qnEBEpRKcSqt_RNLOH-W2Y1dhhfaw_p1VEupcnNxSCHpvL2zPti15_Z1xKc0TiSdS3xYHCT8AH-0UEmYNEdoT1bD9VkidSOBgnJvrWITbh0pmigF1KFGfHCqhA"/>
+</div>
+<div class="space-y-space-xs">
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Protocol Advisory</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Guidelines for CDS Contact with Civic Donors</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          When approaching registered NGOs, always attach an endorsed letter of introduction carrying the official NYSC Secretariat stamp signed by your CDS Schedule Officer and Local Government Inspector (LGI). Do not accept direct cash payments; all monetary endorsements must flow through designated state CDS bank instruments.
+        </p>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- TAB 2: SPONSORSHIP PITCH KIT (TEMPLATES)   -->
+<!-- ========================================== -->
+<div class="hidden flex flex-col space-y-space-xl" id="pitch-kit-section">
+<!-- Template Sub-Navigation Pills -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm p-1.5 bg-surface-container-low rounded-xl">
+<button class="p-space-md rounded-lg text-left bg-surface-container-highest text-primary font-bold shadow-sm transition-all duration-150 flex items-center gap-space-sm" id="tnav-btn-1" onclick="switchTemplate(1)">
+<span class="material-symbols-outlined text-[24px]">sanitizer</span>
+<div>
+<span class="block font-label-lg text-label-lg">Template 01</span>
+<span class="block font-label-sm text-label-sm opacity-80">Sanitary Pad Donation Letter</span>
+</div>
+</button>
+<button class="p-space-md rounded-lg text-left bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all duration-150 flex items-center gap-space-sm" id="tnav-btn-2" onclick="switchTemplate(2)">
+<span class="material-symbols-outlined text-[24px]">front_loader</span>
+<div>
+<span class="block font-label-lg text-label-lg">Template 02</span>
+<span class="block font-label-sm text-label-sm opacity-80">Heavy Sanitation Equipment</span>
+</div>
+</button>
+<button class="p-space-md rounded-lg text-left bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all duration-150 flex items-center gap-space-sm" id="tnav-btn-3" onclick="switchTemplate(3)">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+<div>
+<span class="block font-label-lg text-label-lg">Template 03</span>
+<span class="block font-label-sm text-label-sm opacity-80">Youth Innovation Lab Proposal</span>
+</div>
+</button>
+</div>
+<!-- TEMPLATE 1: SANITARY PADS DONATION -->
+<div class="flex flex-col space-y-space-lg" id="template-content-1">
+<!-- Toolbar & Export Controls -->
+<div class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">mark_email_read</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Letter Requesting Sanitary Pads for Secondary Schools</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Recommended for: Corporate Brands, Pharmaceutical Distributors, International Donors</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg shadow-sm transition-all flex items-center gap-1.5" onclick="copyLetter(this, 'letter-sanitary-copy')">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> 📋 Copy Letter Template
+          </button>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-1.5" onclick="alert('Downloading compiled editable Word Document: NYSC_ED_Sanitary_Outreach_Pitch.docx')">
+<span class="material-symbols-outlined text-[18px]">download</span> ⬇️ Download Signed Word (.docx)
+          </button>
+</div>
+</div>
+<!-- Formal Letter Paper Simulation -->
+<div class="p-space-2xl rounded-2xl bg-surface-container-lowest shadow-md max-w-4xl mx-auto w-full relative">
+<div class="space-y-space-md font-body-md text-body-md text-on-surface leading-relaxed" id="letter-sanitary-copy">
+<!-- Letterhead Banner -->
+<div class="text-center pb-space-lg mb-space-md">
+<div class="inline-block mb-space-xs">
+<span class="font-title-md text-title-md tracking-widest uppercase font-bold text-primary block">
+                NATIONAL YOUTH SERVICE CORPS
+              </span>
+<span class="font-label-lg text-label-lg tracking-wider text-on-surface block uppercase">
+                EDO STATE SECRETARIAT • SUSTAINABLE DEVELOPMENT GOALS (SDGs) CDS GROUP
+              </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">
+                NYSC Secretariat, 2 Benin-Agbor Road, Ikpoba Hill, P.M.B. 1384, Benin City, Edo State
+              </span>
+</div>
+<div class="w-full h-1 bg-primary rounded-full mt-2"></div>
+<div class="w-full h-0.5 bg-secondary rounded-full mt-0.5"></div>
+</div>
+<!-- Metadata -->
+<div class="flex justify-between items-start font-body-sm text-body-sm">
+<div>
+<p><strong>Ref No:</strong> NYSC/ED/SDG/2024/08</p>
+<p><strong>Batch:</strong> 2024 Stream B</p>
+</div>
+<div class="text-right">
+<p><strong>Date:</strong> 24th October, 2024</p>
+<p><strong>Jurisdiction:</strong> Oredo Local Government Area</p>
+</div>
+</div>
+<!-- Addressee -->
+<div class="pt-space-sm font-body-sm text-body-sm">
+<p>The Managing Director / CSR Coordinator,</p>
+<p>[Target Corporate Donor / Foundation / Pharmaceutical Company],</p>
+<p>Benin City Metropolis,</p>
+<p>Edo State, Nigeria.</p>
+</div>
+<!-- Subject -->
+<div class="py-space-xs">
+<p class="font-title-md text-title-md font-bold text-on-surface uppercase">
+              REQUISITION FOR CORPORATE CSR PARTNERSHIP: DONATION OF 2,500 SANITARY HYGIENE PACKS FOR PUBLIC SECONDARY SCHOOL GIRLS IN BENIN METROPOLIS (SDG 3 &amp; 5)
+            </p>
+</div>
+<p>Dear Sir/Madam,</p>
+<p>
+            The National Youth Service Corps (NYSC) Edo State Sustainable Development Goals (SDGs) Community Development Service (CDS) Group respectfully presents this urgent requisition for community partnership under our flagship <strong>“Dignity for the Girl-Child Project”</strong>.
+          </p>
+<p>
+            Our grassroots baseline assessment conducted in September 2024 revealed that over 43% of teenage adolescent girls across municipal schools in Ikpoba-Okha and Oredo LGAs experience periodic absenteeism due to lack of access to hygienic menstrual protection products and adequate reproductive wellness guidance.
+          </p>
+<!-- Core Deliverables Box -->
+<div class="p-space-md rounded-lg bg-surface-container-low space-y-space-xs">
+<p class="font-label-lg text-label-lg font-bold text-primary">PROJECT IMPACT TARGETS:</p>
+<ul class="list-disc pl-space-lg space-y-1 text-on-surface-variant">
+<li>Direct distribution of 2,500 sanitary pad packages across 10 municipal secondary schools.</li>
+<li>Free adolescent reproductive hygiene and peer empowerment workshops facilitated alongside qualified NYSC medical doctors and GPI Nigeria facilitators.</li>
+<li>Establishment of permanent sanitary emergency cabinets in recipient school guidance offices.</li>
+</ul>
+</div>
+<p>
+            We formally request your esteemed organization to donate in-kind sanitary packages (or grant financial support of <strong>NGN 1,850,000</strong>) toward product procurement and logistical deployment. Corporate sponsors will receive prime brand placement on all campaign media, state NYSC press releases, and a certificate of social investment issued by the NYSC State Coordinator.
+          </p>
+<!-- Formal Bank Account Details -->
+<div class="p-space-md rounded-lg bg-surface-container space-y-1">
+<p class="font-label-md text-label-md font-bold text-on-surface uppercase">Designated Official Account Details (NYSC Audited):</p>
+<p class="font-body-sm text-body-sm text-on-surface font-mono">Bank Name: First Bank of Nigeria</p>
+<p class="font-body-sm text-body-sm text-on-surface font-mono">Account Name: NYSC Edo State SDG CDS Special Projects</p>
+<p class="font-body-sm text-body-sm text-on-surface font-mono">Account Number: 2048992011</p>
+</div>
+<p>
+            Thank you for your continuous dedication to communal upliftment and human capital development within Edo State. We look forward to an impactful collaborative outreach.
+          </p>
+<p>Yours in National Service,</p>
+<!-- Signature Blocks -->
+<div class="grid grid-cols-2 gap-space-xl pt-space-lg">
+<div class="space-y-1">
+<div class="h-12 flex items-center">
+<span class="font-label-sm text-label-sm text-outline italic">[Official Signature &amp; Stamp]</span>
+</div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Corps Member Osagie E. Donald</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">President, NYSC SDGs CDS Group (ED/24B/1209)</p>
+</div>
+<div class="space-y-1">
+<div class="h-12 flex items-center">
+<span class="font-label-sm text-label-sm text-outline italic">[Verified Endorsement]</span>
+</div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Mrs. A. M. Okojie</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Schedule Officer / LGI Oredo Secretariat</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TEMPLATE 2: HEAVY SANITATION EQUIPMENT -->
+<div class="hidden flex flex-col space-y-space-lg" id="template-content-2">
+<!-- Toolbar & Export Controls -->
+<div class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[24px]">fire_truck</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Request for Heavy Sanitation Equipment &amp; Tipper Trucks</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Recipient: Edo State Waste Management Board (ESWMB) / Ministry of Environment</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg shadow-sm transition-all flex items-center gap-1.5" onclick="copyLetter(this, 'letter-equipment-copy')">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> 📋 Copy Letter Template
+          </button>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-1.5" onclick="alert('Downloading Official Requisition Form: NYSC_ED_ESWMB_Logistics_Form.docx')">
+<span class="material-symbols-outlined text-[18px]">download</span> ⬇️ Download Official Requisition
+          </button>
+</div>
+</div>
+<!-- Formal Letter Paper Simulation -->
+<div class="p-space-2xl rounded-2xl bg-surface-container-lowest shadow-md max-w-4xl mx-auto w-full">
+<div class="space-y-space-md font-body-md text-body-md text-on-surface leading-relaxed" id="letter-equipment-copy">
+<div class="text-center pb-space-lg mb-space-md">
+<span class="font-title-md text-title-md tracking-widest uppercase font-bold text-primary block">
+              NATIONAL YOUTH SERVICE CORPS • EDO STATE
+            </span>
+<span class="font-label-lg text-label-lg tracking-wider text-on-surface block uppercase">
+              SUSTAINABLE DEVELOPMENT GOALS CDS • ENVIRONMENTAL SANITATION SUB-COMMITTEE
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">
+              Secretariat Hub, Benin City • Ref: NYSC/ED/SDG/ESWMB/2024/03
+            </span>
+<div class="w-full h-1 bg-tertiary rounded-full mt-2"></div>
+</div>
+<div class="pt-space-xs font-body-sm text-body-sm">
+<p><strong>The Managing Director,</strong></p>
+<p>Edo State Waste Management Board (ESWMB),</p>
+<p>Sapele Road Secretariat Complex, Benin City, Edo State.</p>
+</div>
+<div class="py-space-xs">
+<p class="font-title-md text-title-md font-bold text-on-surface uppercase">
+              REQUEST FOR LOGISTICAL ASSISTANCE AND DEPLOYMENT OF HEAVY MACHINERY: CDS THURSDAY MEGA CLEARING AT OBA MARKET &amp; RING ROAD DRAINAGES
+            </p>
+</div>
+<p>Respected Sir,</p>
+<p>
+            The NYSC SDGs CDS Group, in alignment with SDG 11 (Sustainable Cities &amp; Communities) and SDG 12 (Responsible Consumption &amp; Sanitation), has scheduled an intensive communal cleanup drive at the historic Oba Market perimeter and adjacent storm drain networks on <strong>Thursday, 14th November 2024</strong> from 07:00 AM to 12:00 PM.
+          </p>
+<p>
+            Over 120 Corps Members have been deployed for manual evacuation, desilting of blocked conduits, and market-stall sanitization. To guarantee safe transit and disposal of excavated heavy silt to the designated state dumpsite, we formally requisition the following fleet deployment:
+          </p>
+<div class="p-space-md rounded-lg bg-surface-container-low">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="text-on-surface-variant font-label-sm text-label-sm uppercase">
+<th class="py-1">Requested Machinery</th>
+<th class="py-1">Quantity</th>
+<th class="py-1">Operational Role</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr>
+<td class="py-2 font-semibold">15-Tonne Tipper Trucks</td>
+<td class="py-2">2 Units</td>
+<td class="py-2">Transport of evacuated silt to Ikhueniro Dumpsite</td>
+</tr>
+<tr>
+<td class="py-2 font-semibold">Rear-Loading Waste Compactor</td>
+<td class="py-2">1 Unit</td>
+<td class="py-2">Compacting organic market food waste and plastics</td>
+</tr>
+<tr>
+<td class="py-2 font-semibold">Protective Heavy Work Gloves &amp; Rakes</td>
+<td class="py-2">40 Sets</td>
+<td class="py-2">Corps member personal occupational safety equipment</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+            Corps logistics liaisons will ensure prompt refueling verification and full security accompaniment by the Nigerian Police Force throughout the Thursday operational hours.
+          </p>
+<p>Anticipating your usual proactive administrative cooperation.</p>
+<div class="grid grid-cols-2 gap-space-xl pt-space-md">
+<div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Corps Member Osagie E. Donald</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CDS President • ED/24B/1209</p>
+</div>
+<div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Dr. (Mrs.) N. Ighodaro</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">NYSC State SDGs Desk Officer</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TEMPLATE 3: CORPORATE PROPOSAL FOR INNOVATION LABS -->
+<div class="hidden flex flex-col space-y-space-lg" id="template-content-3">
+<!-- Toolbar & Export Controls -->
+<div class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px]">lightbulb</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Corporate Partnership Proposal: Youth Innovation Labs</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Comprehensive Pitch Deck Outline &amp; Endorsement Framework</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg shadow-sm transition-all flex items-center gap-1.5" onclick="copyLetter(this, 'letter-proposal-copy')">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> 📋 Copy Letter Template
+          </button>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-1.5" onclick="alert('Downloading Full Pitch Deck: NYSC_Edo_Innovation_Labs_2024.pdf')">
+<span class="material-symbols-outlined text-[18px]">download</span> ⬇️ Download Slide Deck (.pdf)
+          </button>
+</div>
+</div>
+<!-- Formal Letter Paper Simulation -->
+<div class="p-space-2xl rounded-2xl bg-surface-container-lowest shadow-md max-w-4xl mx-auto w-full">
+<div class="space-y-space-md font-body-md text-body-md text-on-surface leading-relaxed" id="letter-proposal-copy">
+<div class="text-center pb-space-lg mb-space-md">
+<span class="font-title-md text-title-md tracking-widest uppercase font-bold text-primary block">
+              NYSC EDO STATE COMMUNITY DEVELOPMENT SERVICE
+            </span>
+<span class="font-label-lg text-label-lg tracking-wider text-on-surface block uppercase">
+              SUSTAINABLE DEVELOPMENT GOALS GROUP • TECH FOR GOOD INITIATIVE
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">
+              Strategic Public-Private Partnership Prospectus
+            </span>
+<div class="w-full h-1 bg-secondary-container rounded-full mt-2"></div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Executive Summary: STEM &amp; Digital Fabrication Lab</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Establishing a decentralized computer coding and renewable solar engineering workshop within the Benin City Youth Center to equip 400 underprivileged public school teenagers with digital economy skills (SDG 4, 8 &amp; 9).
+            </p>
+</div>
+<div>
+<h5 class="font-label-lg text-label-lg font-bold text-primary mb-space-xs uppercase">Key Partnership Tiers:</h5>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-secondary font-bold block">TIER 1 • HARDWARE DONOR</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Donation of 15-20 refurbished laptops or desktop workstations + solar inverter bank.</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-secondary font-bold block">TIER 2 • CONNECTIVITY</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Sponsorship of 12-month high-speed fiber internet subscription and cloud hosting licenses.</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-secondary font-bold block">TIER 3 • BOOTCAMP GRANTS</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Scholarships covering student project kits, graduation awards, and micro-internships.</p>
+</div>
+</div>
+</div>
+<div>
+<h5 class="font-label-lg text-label-lg font-bold text-primary mb-space-xs uppercase">Corps Member Volunteer Cadre:</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              The program will be instructed full-time on Thursday mornings and Saturday afternoons by serving NYSC corps members holding specialized degrees in Computer Engineering, Data Science, and Electrical Technology, guaranteeing zero labor overhead and complete technical execution.
+            </p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-high flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">State Endorsement Reference:</span>
+<span class="font-label-sm text-label-sm font-mono text-primary">ED/NYSC/CDS/PROPOSAL/2024-V4</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Educational Resources / Guidelines Strip -->
+<section class="mt-space-2xl grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">verified_user</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Statutory Compliance</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">All letters must carry the counter-signature of the CDS Schedule Officer prior to physical delivery to the donor.</p>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px]">schedule</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Turnaround Standards</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Government agencies in Benin City require 10-14 working days for formal clearance. File submissions early.</p>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[24px]">receipt_long</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Audit Transparency</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Maintain an acknowledgment copy of every delivered document in the Executive CDS Archive Registry.</p>
+</div>
+</div>
+</section>
+</div></main></div></body></html>

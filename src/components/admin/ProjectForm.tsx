@@ -117,36 +117,36 @@ export const ProjectForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 shadow-sm">
+    <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-6 sm:p-10 shadow-xs">
       {isSaved ? (
         <div className="py-16 text-center space-y-3">
-          <div className="w-16 h-16 rounded-full bg-green-100 text-nysc-green mx-auto flex items-center justify-center text-3xl shadow-sm">
-            ✓
+          <div className="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed mx-auto flex items-center justify-center text-3xl shadow-xs">
+            <span className="material-symbols-outlined text-[36px]">check_circle</span>
           </div>
-          <h3 className="text-2xl font-black text-slate-900">Project Planned Successfully!</h3>
-          <p className="text-sm text-slate-600 max-w-sm mx-auto">
+          <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">Project Planned Successfully!</h3>
+          <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
             Redirecting to public projects directory...
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-space-xl">
           <div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+            <h2 className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">
               Plan New Community Intervention
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Specify the scope, budget breakdown, target UN SDGs, and key stakeholders to reach.
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Specify the scope, budget breakdown, target UN SDGs, and key stakeholders to reach across Edo State.
             </p>
           </div>
 
           {/* Section 1: Basic Info */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+          <div className="space-y-space-md">
+            <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
               1. Project Overview & Scope
             </h3>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                 Project Title *
               </label>
               <input
@@ -155,13 +155,13 @@ export const ProjectForm: React.FC = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g., Free Pad Dispensary & Menstrual Hygiene Outreach"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                   Target Location *
                 </label>
                 <input
@@ -170,30 +170,30 @@ export const ProjectForm: React.FC = () => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g., Oredo / Egor LGA, Benin City"
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                   Target Execution Date
                 </label>
                 <input
                   type="date"
                   value={targetDate}
                   onChange={(e) => setTargetDate(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                   Current Status
                 </label>
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value as any)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                 >
                   <option value="concept">Concept Stage</option>
                   <option value="planning">In Active Planning</option>
@@ -205,7 +205,7 @@ export const ProjectForm: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                 Detailed Objectives & Description *
               </label>
               <textarea
@@ -214,17 +214,17 @@ export const ProjectForm: React.FC = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="State the problem, intervention methodology, direct beneficiaries, and how this moves Edo State forward..."
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden resize-none"
+                className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden resize-none"
               />
             </div>
           </div>
 
           {/* Section 2: UN SDGs Solved */}
-          <div className="space-y-3 pt-4 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+          <div className="space-y-space-sm pt-space-md border-t border-surface-variant">
+            <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
               2. SDG Goals Solved (Select All That Apply)
             </h3>
-            <div className="flex flex-wrap gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+            <div className="flex flex-wrap gap-2 p-3 bg-surface-container-low rounded-xl border border-outline-variant/30">
               {Object.values(SDG_METADATA).map((sdg) => {
                 const isSelected = selectedSDGs.includes(sdg.number);
                 return (
@@ -236,8 +236,8 @@ export const ProjectForm: React.FC = () => {
                       backgroundColor: isSelected ? sdg.color : '#ffffff',
                       color: isSelected ? '#ffffff' : '#334155',
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
-                      isSelected ? 'border-transparent shadow-xs scale-102' : 'border-slate-200 hover:bg-slate-100'
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                      isSelected ? 'border-transparent shadow-xs scale-102' : 'border-outline-variant/40 hover:bg-surface-container'
                     }`}
                   >
                     <span>Goal {sdg.number}: {sdg.name}</span>
@@ -248,17 +248,17 @@ export const ProjectForm: React.FC = () => {
           </div>
 
           {/* Section 3: Cost & Budget Breakdown */}
-          <div className="space-y-4 pt-4 border-t border-slate-100">
+          <div className="space-y-space-md pt-space-md border-t border-surface-variant">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+                <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
                   3. Cost & Itemized Budget
                 </h3>
-                <p className="text-xs text-slate-500">Provide transparent line items for potential donors.</p>
+                <p className="font-body-sm text-body-sm text-on-surface-variant">Provide transparent line items for potential donors.</p>
               </div>
               <div className="text-right">
-                <span className="text-xs text-slate-500">Total Calculated Cost:</span>
-                <div className="text-2xl font-black text-nysc-green-dark">
+                <span className="font-label-sm text-label-sm text-on-surface-variant">Total Calculated Cost:</span>
+                <div className="font-headline-sm text-headline-sm font-extrabold text-primary">
                   ₦{totalCost.toLocaleString()}
                 </div>
               </div>
@@ -272,24 +272,24 @@ export const ProjectForm: React.FC = () => {
                     value={item.item}
                     onChange={(e) => handleUpdateBudgetItem(index, 'item', e.target.value)}
                     placeholder="Expense item description"
-                    className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                    className="flex-1 px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                   />
                   <div className="relative w-44">
-                    <span className="absolute left-3 top-2 text-slate-400 text-sm">₦</span>
+                    <span className="absolute left-3 top-2 text-outline text-sm">₦</span>
                     <input
                       type="number"
                       value={item.cost}
                       onChange={(e) => handleUpdateBudgetItem(index, 'cost', Number(e.target.value))}
-                      className="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden font-bold"
+                      className="w-full pl-8 pr-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden font-bold"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveBudgetItem(index)}
-                    className="p-2 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors"
+                    className="p-2 text-outline hover:text-error rounded-lg hover:bg-error-container/30 transition-colors"
                     title="Remove item"
                   >
-                    ✕
+                    <span className="material-symbols-outlined text-[18px]">close</span>
                   </button>
                 </div>
               ))}
@@ -298,28 +298,29 @@ export const ProjectForm: React.FC = () => {
             <button
               type="button"
               onClick={handleAddBudgetItem}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold transition-colors"
             >
-              <span>+ Add Budget Line Item</span>
+              <span className="material-symbols-outlined text-[16px]">add</span>
+              <span>Add Budget Line Item</span>
             </button>
           </div>
 
           {/* Section 4: Who to Reach Out To (Stakeholders) */}
-          <div className="space-y-3 pt-4 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+          <div className="space-y-space-sm pt-space-md border-t border-surface-variant">
+            <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
               4. Stakeholders & NGOs to Reach Out To
             </h3>
             <div className="flex flex-wrap gap-2">
               {stakeholders.map((sh, idx) => (
                 <span
                   key={idx}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-green-50 text-nysc-green-dark text-xs font-bold border border-green-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold"
                 >
                   <span>{sh}</span>
                   <button
                     type="button"
                     onClick={() => handleRemoveStakeholder(idx)}
-                    className="hover:text-rose-600"
+                    className="hover:text-error ml-1"
                   >
                     ×
                   </button>
@@ -333,12 +334,12 @@ export const ProjectForm: React.FC = () => {
                 value={newStakeholder}
                 onChange={(e) => setNewStakeholder(e.target.value)}
                 placeholder="e.g. Rotary Club of Benin, Ministry of Health"
-                className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
+                className="flex-1 px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
               />
               <button
                 type="button"
                 onClick={handleAddStakeholder}
-                className="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition-colors"
+                className="px-4 py-2 bg-primary hover:bg-primary-container text-on-primary rounded-xl font-label-sm text-label-sm font-bold transition-colors"
               >
                 Add Partner
               </button>
@@ -346,42 +347,45 @@ export const ProjectForm: React.FC = () => {
           </div>
 
           {/* Section 5: File Attachments */}
-          <div className="space-y-3 pt-4 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-nysc-green-dark">
+          <div className="space-y-space-sm pt-space-md border-t border-surface-variant">
+            <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
               5. Upload Project Proposals & Documents
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
               Attach project proposals, approval letters, or receipts (stored securely in Supabase Storage).
             </p>
 
             <div className="flex flex-wrap gap-2">
               {attachedFiles.map((file, i) => (
-                <div key={i} className="px-3 py-1.5 bg-slate-100 rounded-lg text-xs font-medium text-slate-700 flex items-center gap-2">
-                  <span>📄 {file.name}</span>
-                  <span className="text-slate-400">({file.size})</span>
+                <div key={i} className="px-3 py-1.5 bg-surface-container rounded-lg font-label-sm text-label-sm font-medium text-on-surface flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[16px] text-primary">description</span>
+                  <span>{file.name}</span>
+                  <span className="text-outline">({file.size})</span>
                 </div>
               ))}
             </div>
 
-            <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors border border-slate-300">
-              <span>📎 Choose File to Attach</span>
+            <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold cursor-pointer transition-colors border border-outline-variant">
+              <span className="material-symbols-outlined text-[18px]">attach_file</span>
+              <span>Choose File to Attach</span>
               <input type="file" onChange={handleFileUpload} className="hidden" />
             </label>
           </div>
 
           {/* Submit Button */}
-          <div className="pt-6 border-t border-slate-200 flex justify-end gap-3">
+          <div className="pt-6 border-t border-surface-variant flex justify-end gap-3">
             <a
               href="/admin"
-              className="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
+              className="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors"
             >
               Cancel
             </a>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-nysc-green text-white text-sm font-bold shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all"
+              className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold shadow-xs transition-all flex items-center gap-2"
             >
-              Publish Project Plan
+              <span className="material-symbols-outlined text-[18px]">publish</span>
+              <span>Publish Project Plan</span>
             </button>
           </div>
         </form>

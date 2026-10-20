@@ -8,9 +8,26 @@ const ideas = await fetchIdeas();
 
 <Layout 
   title="Anonymous Ideas Hub & Community Voting"
-  description="Drop community project ideas anonymously and vote on grassroots solutions proposed by Edo State NYSC SDG members."
+  description="A democratic civic space for corps members serving across Benin City and Edo State to anonymously drop grassroots community intervention proposals and vote on peer ideas."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-space-xl space-y-space-xl">
+    
+    <!-- Header Block -->
+    <div class="bg-surface-container-low p-space-xl rounded-3xl border border-surface-container-high space-y-space-sm">
+      <div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm uppercase tracking-wider font-bold">
+        <span class="material-symbols-outlined text-[16px]">forum</span>
+        <span>Grassroots Ideation Engine • Edo State NYSC SDGs CDS</span>
+      </div>
+      <h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
+        Civic Ideas & <span class="text-primary">Innovation</span> Hub
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+        A democratic civic space for corps members serving across Benin City and Edo State to anonymously drop grassroots community intervention proposals, upvote impactful solutions, and shape upcoming CDS projects.
+      </p>
+    </div>
+
+    <!-- Interactive Explorer -->
     <IdeasExplorer client:load initialIdeas={ideas} />
+
   </div>
 </Layout>

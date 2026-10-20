@@ -20,7 +20,7 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
         setHasVoted(true);
       }
     } catch {
-      // Ignore localStorage issues
+      // ignore
     }
   }, [idea.id]);
 
@@ -28,66 +28,93 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
     if (hasVoted || isSubmitting) return;
 
     setIsSubmitting(true);
-    const updatedCount = upvotes + 1;
-    setUpvotes(updatedCount);
+    const newCount = upvotes + 1;
+    setUpvotes(newCount);
     setHasVoted(true);
 
     try {
-      // Save to localStorage
       const votedList = JSON.parse(localStorage.getItem('edo_sdg_voted_ideas') || '[]');
-      if (!votedList.includes(idea.id)) {
-        votedList.push(idea.id);
-        localStorage.setItem('edo_sdg_voted_ideas', JSON.stringify(votedList));
-      }
+      votedList.push(idea.id);
+      localStorage.setItem('edo_sdg_voted_ideas', JSON.stringify(votedList));
 
-      // Try direct Supabase RPC if configured
+      // Attempt Supabase RPC
       await upvoteIdeaClient(idea.id);
 
-      if (onVoteSuccess) {
-        onVoteSuccess(idea.id, updatedCount);
-      }
+      // Local fallback sync
+      const stored = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
+      const updated = stored.map((item: Idea) =>
+        item.id === idea.id ? { ...item, upvotes_count: newCount } : item
+      );
+      localStorage.setItem('edo_sdg_custom_ideas', JSON.stringify(updated));
+
+      onVoteSuccess?.(idea.id, newCount);
     } catch (err) {
-      console.warn('Vote submission error:', err);
+      console.warn('Vote registered locally:', err);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const statusBadges: Record<string, { label: string; bg: string; text: string }> = {
-    submitted: { label: 'In Community Voting', bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800' },
-    under_review: { label: 'Under CDS Review', bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800' },
-    approved_for_planning: { label: 'Approved for Planning', bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-800' },
-    completed: { label: 'Project Executed', bg: 'bg-purple-50 border-purple-200', text: 'text-purple-800' },
+    submitted: { label: 'In Voting', bg: 'bg-surface-container', text: 'text-on-surface-variant' },
+    under_review: { label: 'Under Review', bg: 'bg-secondary-fixed/50', text: 'text-secondary' },
+    approved_for_planning: { label: 'Approved', bg: 'bg-primary-fixed', text: 'text-on-primary-fixed' },
+    completed: { label: 'Executed', bg: 'bg-tertiary-fixed', text: 'text-on-tertiary-fixed' },
   };
 
   const currentStatus = statusBadges[idea.status] || statusBadges.submitted;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+    <article className="idea-card group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-lg shadow-xs hover:shadow-md transition-all duration-200 border border-surface-container-high overflow-hidden">
       <div>
-        {/* Header Tags */}
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-bold text-nysc-green-dark bg-green-50 px-2.5 py-1 rounded-md border border-green-200/60">
-            {idea.category}
+        {/* Top Action & Meta Row */}
+        <div className="flex items-center justify-between gap-space-xs mb-space-md">
+          {/* Upvote Pill Button */}
+          <button
+            onClick={handleVote}
+            disabled={hasVoted || isSubmitting}
+            className={`upvote-btn inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full font-label-sm text-label-sm font-extrabold tracking-wide transition-all cursor-pointer shadow-xs ${
+              hasVoted
+                ? 'bg-primary text-on-primary'
+                : 'bg-primary-fixed text-on-primary-fixed hover:bg-primary hover:text-on-primary'
+            }`}
+            title={hasVoted ? 'You have upvoted this idea' : 'Click to upvote anonymously'}
+          >
+            <span className="material-symbols-outlined text-[16px] font-bold">arrow_upward</span>
+            <span>{upvotes} Upvotes</span>
+          </button>
+
+          {/* Location Badge */}
+          <span className="inline-flex items-center gap-1 px-space-sm py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+            <span className="material-symbols-outlined text-[14px]">pin_drop</span>
+            <span>{idea.suggested_location || 'Edo State'}</span>
           </span>
-          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${currentStatus.bg} ${currentStatus.text}`}>
+        </div>
+
+        {/* Category & Status Row */}
+        <div className="flex items-center justify-between gap-2 mb-space-sm">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+            <span className="material-symbols-outlined text-[14px]">label</span>
+            <span>{idea.category}</span>
+          </span>
+          <span className={`px-2 py-0.5 rounded-full font-label-sm text-[10px] font-bold ${currentStatus.bg} ${currentStatus.text}`}>
             {currentStatus.label}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-slate-900 group-hover:text-nysc-green transition-colors leading-snug">
+        <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold leading-snug mb-space-xs group-hover:text-primary transition-colors">
           {idea.title}
         </h3>
 
         {/* Description */}
-        <p className="mt-2.5 text-sm text-slate-600 line-clamp-3 leading-relaxed">
+        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-md line-clamp-3">
           {idea.description}
         </p>
 
-        {/* SDG Badges */}
+        {/* SDG Indicators */}
         {idea.target_sdgs && idea.target_sdgs.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 mb-space-md">
             {idea.target_sdgs.map((goalNum) => {
               const meta = SDG_METADATA[goalNum];
               if (!meta) return null;
@@ -98,10 +125,7 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold text-white shadow-xs"
                   title={`SDG ${goalNum}: ${meta.name}`}
                 >
-                  <span className="w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center text-[9px]">
-                    {goalNum}
-                  </span>
-                  <span className="max-w-[120px] truncate">{meta.name}</span>
+                  <span>SDG {goalNum}</span>
                 </span>
               );
             })}
@@ -109,41 +133,16 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
         )}
       </div>
 
-      {/* Footer Info & Upvote Bar */}
-      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-        <div className="text-xs text-slate-500">
-          <div className="flex items-center gap-1.5 font-medium text-slate-700">
-            <span className="w-2 h-2 rounded-full bg-nysc-gold"></span>
-            <span>{idea.author_alias || 'Anonymous Corper'}</span>
-          </div>
-          <span className="text-[11px] text-slate-400">
-            📍 {idea.suggested_location || 'Edo State'}
-          </span>
-        </div>
-
-        {/* Upvote Button */}
-        <button
-          onClick={handleVote}
-          disabled={hasVoted}
-          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-            hasVoted
-              ? 'bg-nysc-green text-white shadow-xs'
-              : 'bg-slate-100 text-slate-700 hover:bg-nysc-green hover:text-white hover:shadow-xs active:scale-95'
-          }`}
-          title={hasVoted ? 'You have upvoted this idea' : 'Click to upvote anonymously'}
-        >
-          <svg
-            className={`w-4 h-4 transition-transform ${hasVoted ? 'scale-110 text-nysc-gold' : 'text-slate-500 group-hover:text-white'}`}
-            fill={hasVoted ? 'currentColor' : 'none'}
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 15l7-7 7 7" />
-          </svg>
-          <span>{upvotes}</span>
-          <span className="hidden sm:inline font-normal">{hasVoted ? 'Voted' : 'Upvote'}</span>
-        </button>
+      {/* Card Bottom Section: State Code Identifier Badge */}
+      <div className="pt-space-md bg-surface-container-low/50 -mx-space-lg -mb-space-lg p-space-md rounded-b-2xl flex items-center justify-between gap-space-xs border-t border-surface-container">
+        <span className="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-secondary-container bg-secondary-container/30 px-2 py-0.5 rounded font-bold">
+          <span className="material-symbols-outlined text-[13px]">fingerprint</span>
+          <span>{idea.author_alias || 'Anonymous Corper'}</span>
+        </span>
+        <span className="font-label-sm text-label-sm text-outline">
+          {new Date(idea.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+        </span>
       </div>
-    </div>
+    </article>
   );
 };

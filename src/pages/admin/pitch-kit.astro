@@ -5,22 +5,36 @@ import { PitchKitViewer } from '../../components/portal/PitchKitViewer';
 ---
 
 <Layout
-  title="Sponsorship Pitch Kit (Admin)"
-  description="Executive pitch kit and sponsorship letters for Edo State NYSC SDG community initiatives."
+  title="Sponsorship Pitch Kit (Executive Admin)"
+  description="Executive pitch kit and sponsorship requisition templates for Edo State NYSC SDG community initiatives."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-space-xl">
     <AdminHeader />
 
-    <div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-3xl p-6 sm:p-8 text-white shadow-md space-y-2">
-      <span class="text-xs font-bold uppercase tracking-wider text-amber-200">
-        Executive Sponsorship Letters
-      </span>
-      <h2 class="text-xl sm:text-2xl font-black">
-        Official Proposal Drafts & Outreach Kit
-      </h2>
-      <p class="text-xs sm:text-sm text-amber-100 leading-relaxed max-w-2xl">
-        Pre-formatted templates ready for delivery to corporate donors, NGOs (GPI, Rotary), and state boards (ESWMB). Customize project dates, recipient addresses, and budget amounts before printing.
-      </p>
+    <!-- Civic Header Banner -->
+    <div class="p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+      <div class="space-y-space-xs max-w-3xl">
+        <div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase tracking-wider font-bold">
+          <span class="material-symbols-outlined text-[16px]">verified</span>
+          Official NYSC Secretariat Requisition Drafter
+        </div>
+        <h1 class="font-headline-md text-headline-md text-on-surface font-bold">
+          Executive Requisition Letters & Pitch Kit
+        </h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Pre-approved requisition templates for community resource mobilization, sanitary towel drives, heavy waste clearance machinery, and private corporate sponsorships.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/30 shrink-0 shadow-xs">
+        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[24px]">description</span>
+        </div>
+        <div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Official Kits</span>
+          <span class="font-title-md text-title-md text-primary font-bold">3 Templates</span>
+        </div>
+      </div>
     </div>
 
     <PitchKitViewer client:load />

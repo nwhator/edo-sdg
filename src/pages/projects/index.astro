@@ -4,222 +4,269 @@ import { fetchProjects } from '../../lib/supabase';
 import { SDG_METADATA } from '../../types/database';
 
 const projects = await fetchProjects();
+const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) || 0), 0);
 
 const statusLabels: Record<string, { label: string; bg: string; text: string }> = {
-  concept: { label: 'Concept Stage', bg: 'bg-slate-100 border-slate-200', text: 'text-slate-800' },
-  planning: { label: 'In Active Planning', bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800' },
-  fundraising: { label: 'Fundraising & Seeking Sponsors', bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800' },
-  in_progress: { label: 'Execution In Progress', bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-800' },
-  completed: { label: 'Successfully Completed', bg: 'bg-purple-50 border-purple-200', text: 'text-purple-800' },
+  concept: { label: 'Concept Stage', bg: 'bg-surface-container', text: 'text-on-surface-variant' },
+  planning: { label: 'In Active Planning', bg: 'bg-secondary-fixed/50', text: 'text-secondary' },
+  fundraising: { label: 'Fundraising & Seeking Sponsors', bg: 'bg-error-container', text: 'text-on-error-container' },
+  in_progress: { label: 'Execution In Progress', bg: 'bg-primary-fixed', text: 'text-on-primary-fixed' },
+  completed: { label: 'Successfully Completed', bg: 'bg-tertiary-fixed', text: 'text-on-tertiary-fixed' },
 };
 ---
 
 <Layout
-  title="Project Initiatives, Budgets & Stakeholders"
-  description="Transparent overview of planned and active Edo State NYSC SDG community projects with full budget breakdowns, UN SDG mapping, and target partners."
+  title="Planned Projects & Community Budget Tracker"
+  description="Transparent overview of planned Edo State NYSC SDG community projects with itemized budgets, UN SDG mapping, and target partners."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+  <div class="flex flex-col w-full pb-space-3xl">
     
-    <!-- Hero Banner -->
-    <div class="bg-gradient-to-r from-nysc-green-deep via-nysc-green to-nysc-green-dark rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-      <div class="relative z-10 max-w-3xl space-y-3">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nysc-gold/20 text-nysc-gold text-xs font-bold border border-nysc-gold/30">
-          🎯 Community Interventions & Impact
-        </span>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-          Planned Projects & Transparent Budgets
-        </h1>
-        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
-          Detailed project plans for our CDS community drives in Benin City and across Edo State. Each initiative will outline the transparent budget required, specific UN SDGs it addresses, target stakeholders, and proposal documentation.
-        </p>
-
-        <div class="pt-2 flex flex-wrap gap-3">
-          <a
-            href="/ideas"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-gold text-nysc-green-deep text-xs font-extrabold hover:bg-white transition-all shadow-md"
-          >
-            <span>💡 Propose a Community Idea</span>
-            <span>→</span>
-          </a>
+    <!-- Operational Tracker Header Block -->
+    <div class="w-full bg-surface-container-low px-margin-mobile md:px-margin-desktop py-space-2xl border-b border-surface-container-high">
+      <div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+        
+        <!-- Metadata Tag & Live Indicator -->
+        <div class="flex flex-wrap items-center justify-between gap-space-sm">
+          <div class="flex items-center gap-space-xs">
+            <span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              ACTIVE FINANCIAL YEAR 2026
+            </span>
+            <span class="text-outline text-label-sm font-label-sm font-semibold">|</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">EDO STATE CDS TRACKING NO. ED/CDS/SDG/24-B</span>
+          </div>
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+            <span class="font-label-sm text-label-sm text-primary font-bold">State Coordinator Certified Registry</span>
+          </div>
         </div>
+
+        <!-- Title & Civic Manifesto -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+          <div class="max-w-3xl space-y-space-xs">
+            <h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
+              Planned Projects & <span class="text-primary">Community Budget</span> Tracker
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+              Transparent accountability of all upcoming and planned NYSC SDG CDS initiatives across Benin City and Edo State. Itemized disbursements, verified partner sign-offs, and community impact goals.
+            </p>
+          </div>
+          <div class="flex items-center gap-space-sm shrink-0">
+            <a
+              href="/ideas#drop"
+              class="inline-flex items-center gap-space-xs px-space-md py-space-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm hover:bg-primary-container transition-all"
+            >
+              <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+              <span>Propose Idea</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Financial Metrics Ribbon Bento -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md pt-space-md">
+          <!-- Metric 1: Total Capital Target -->
+          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant">
+              <span class="font-label-md text-label-md font-semibold tracking-wider uppercase">Planned Capital Target</span>
+              <span class="p-1.5 rounded-lg bg-surface-container text-primary">
+                <span class="material-symbols-outlined text-[20px]">payments</span>
+              </span>
+            </div>
+            <div class="mt-space-md">
+              <div class="font-stat-counter text-stat-counter text-on-surface font-extrabold leading-none">
+                ₦{totalBudget.toLocaleString()}
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Aggregated requirement ({projects.length} planned initiatives)
+              </p>
+            </div>
+          </div>
+
+          <!-- Metric 2: Published Projects -->
+          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant">
+              <span class="font-label-md text-label-md font-semibold tracking-wider uppercase">Active Initiatives</span>
+              <span class="p-1.5 rounded-lg bg-secondary-container/40 text-on-secondary-container">
+                <span class="material-symbols-outlined text-[20px]">assignment</span>
+              </span>
+            </div>
+            <div class="mt-space-md">
+              <div class="font-stat-counter text-stat-counter text-secondary font-extrabold leading-none">
+                {projects.length}
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Under committee review
+              </p>
+            </div>
+          </div>
+
+          <!-- Metric 3: Active LGAs -->
+          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant">
+              <span class="font-label-md text-label-md font-semibold tracking-wider uppercase">Active LGAs</span>
+              <span class="p-1.5 rounded-lg bg-surface-container text-tertiary">
+                <span class="material-symbols-outlined text-[20px]">location_city</span>
+              </span>
+            </div>
+            <div class="mt-space-md">
+              <div class="font-stat-counter text-stat-counter text-on-surface font-extrabold leading-none">
+                3 LGAs
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Oredo, Ikpoba Okha, & Egor
+              </p>
+            </div>
+          </div>
+
+          <!-- Metric 4: Direct Transparency -->
+          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant">
+              <span class="font-label-md text-label-md font-semibold tracking-wider uppercase">Accountability</span>
+              <span class="p-1.5 rounded-lg bg-surface-container text-primary">
+                <span class="material-symbols-outlined text-[20px]">verified</span>
+              </span>
+            </div>
+            <div class="mt-space-md">
+              <div class="font-stat-counter text-stat-counter text-primary font-extrabold leading-none">
+                100%
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Open itemized budgets & attachments
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Projects List -->
-    <div class="space-y-10">
+    <!-- Main Project Stream -->
+    <div class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-space-xl space-y-space-lg">
+      
       {projects.length === 0 ? (
-        <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-12 sm:p-16 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
-          <div class="w-16 h-16 rounded-2xl bg-amber-50 text-nysc-gold-dark mx-auto flex items-center justify-center text-3xl shadow-xs">
-            📋
+        <div class="bg-surface-container-lowest rounded-2xl border border-dashed border-outline-variant p-space-2xl text-center space-y-space-sm max-w-2xl mx-auto shadow-sm">
+          <div class="w-16 h-16 rounded-2xl bg-surface-container text-primary mx-auto flex items-center justify-center text-3xl font-bold">
+            <span class="material-symbols-outlined text-[36px]">assignment_turned_in</span>
           </div>
-          <h2 class="text-xl font-black text-slate-900 tracking-tight">
-            No CDS Community Projects Published Yet
+          <h2 class="font-headline-md text-headline-md text-on-surface font-bold">
+            No Published Projects Yet
           </h2>
-          <p class="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
-            Our NYSC SDG CDS group is actively crowdsourcing anonymous community ideas from corps members across Edo State. Once an idea is reviewed and approved by the executive committee, full project plans and budgets will be published here with complete transparency.
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto">
+            Our NYSC SDG CDS group is actively crowdsourcing anonymous community proposals from corps members across Edo State. As soon as an initiative is approved and budgeted, full itemized financials will be published here.
           </p>
-          <div class="pt-2">
+          <div class="pt-space-sm">
             <a
-              href="/ideas"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-nysc-green text-white text-xs font-bold shadow-xs hover:bg-nysc-green-dark transition-all"
+              href="/ideas#drop"
+              class="inline-flex items-center gap-space-xs px-space-xl py-space-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm hover:bg-primary-container transition-all"
             >
-              <span>Submit an Idea in the Ideas Hub</span>
-              <span>→</span>
+              <span>+ Submit an Idea in the Ideas Hub</span>
             </a>
           </div>
         </div>
       ) : (
-        projects.map((project) => {
-        const status = statusLabels[project.status] || statusLabels.planning;
+        <div class="space-y-space-lg">
+          {projects.map((project) => {
+            const status = statusLabels[project.status] || statusLabels.planning;
 
-        return (
-          <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-              
-              <!-- Left Cover Image (Optional) -->
-              {project.cover_image && (
-                <div class="lg:col-span-4 relative aspect-16/10 lg:aspect-auto">
-                  <img
-                    src={project.cover_image}
-                    alt={project.title}
-                    class="w-full h-full object-cover"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
-                  <div class="absolute top-4 left-4">
-                    <span class={`px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${status.bg} ${status.text}`}>
-                      {status.label}
-                    </span>
-                  </div>
-                </div>
-              )}
+            return (
+              <div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm hover:shadow-md transition-all">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                  
+                  {project.cover_image && (
+                    <div class="lg:col-span-4 relative aspect-16/10 lg:aspect-auto">
+                      <img
+                        src={project.cover_image}
+                        alt={project.title}
+                        class="w-full h-full object-cover"
+                      />
+                      <div class="absolute top-4 left-4">
+                        <span class={`px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-xs ${status.bg} ${status.text}`}>
+                          {status.label}
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
-              <!-- Main Project Details -->
-              <div class={project.cover_image ? "lg:col-span-8 p-6 sm:p-8 space-y-6" : "lg:col-span-12 p-6 sm:p-8 space-y-6"}>
-                
-                {/* Header Row */}
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
-                    <span>📍 {project.target_location}</span>
-                    {project.target_date && (
-                      <>
-                        <span>•</span>
-                        <span>🎯 Target: {project.target_date}</span>
-                      </>
+                  <div class={project.cover_image ? "lg:col-span-8 p-space-xl space-y-space-md" : "lg:col-span-12 p-space-xl space-y-space-md"}>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+                        <span>📍 {project.target_location}</span>
+                        {project.target_date && <span>• Target: {project.target_date}</span>}
+                      </div>
+                      {!project.cover_image && (
+                        <span class={`px-3 py-1 rounded-full font-label-sm text-label-sm font-bold ${status.bg} ${status.text}`}>
+                          {status.label}
+                        </span>
+                      )}
+                    </div>
+
+                    <h2 class="font-headline-md text-headline-md text-on-surface font-bold leading-tight">
+                      {project.title}
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <!-- SDG Tags -->
+                    {project.sdg_goals && project.sdg_goals.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5">
+                        {project.sdg_goals.map((g) => {
+                          const meta = SDG_METADATA[g];
+                          if (!meta) return null;
+                          return (
+                            <span
+                              key={g}
+                              style={{ backgroundColor: meta.color }}
+                              class="px-2.5 py-0.5 rounded-full text-white text-[11px] font-bold shadow-xs"
+                            >
+                              SDG {g}: {meta.name}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    <!-- Budget & Stakeholders -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md pt-space-xs">
+                      <div class="bg-surface-container-low p-space-md rounded-xl">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Total Estimated Budget</span>
+                        <div class="font-headline-sm text-headline-sm text-primary font-extrabold mt-0.5">
+                          ₦{Number(project.estimated_cost).toLocaleString()}
+                        </div>
+                      </div>
+                      <div class="bg-surface-container-low p-space-md rounded-xl">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Stakeholders to Engage</span>
+                        <p class="font-body-sm text-body-sm text-on-surface font-medium mt-0.5">
+                          {project.stakeholders_to_reach.join(', ')}
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Itemized Budget Table -->
+                    {project.budget_breakdown && project.budget_breakdown.length > 0 && (
+                      <div class="space-y-space-xs pt-space-xs">
+                        <h4 class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">
+                          Itemized Budget Breakdown
+                        </h4>
+                        <div class="bg-surface-container-low rounded-xl overflow-hidden border border-surface-container-high divide-y divide-surface-container-high">
+                          {project.budget_breakdown.map((item) => (
+                            <div class="p-3 flex items-center justify-between text-xs">
+                              <span class="text-on-surface font-medium">{item.item}</span>
+                              <span class="text-primary font-bold">₦{Number(item.cost).toLocaleString()}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
-                  {!project.cover_image && (
-                    <span class={`px-3 py-1 rounded-full text-xs font-bold border ${status.bg} ${status.text}`}>
-                      {status.label}
-                    </span>
-                  )}
+
                 </div>
-
-                <div>
-                  <h2 class="text-2xl font-black text-slate-900 tracking-tight">
-                    {project.title}
-                  </h2>
-                  <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
-
-                <!-- SDG Mapping -->
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    UN SDGs Solved by this Project:
-                  </h4>
-                  <div class="flex flex-wrap gap-2">
-                    {project.sdg_goals.map((g) => {
-                      const meta = SDG_METADATA[g];
-                      if (!meta) return null;
-                      return (
-                        <span
-                          style={{ backgroundColor: meta.color }}
-                          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white shadow-xs"
-                          title={meta.name}
-                        >
-                          <span class="w-4 h-4 rounded-full bg-white/25 flex items-center justify-center text-[10px]">
-                            {g}
-                          </span>
-                          <span>{meta.name}</span>
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Cost and Budget Breakdown */}
-                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-                  <div class="flex items-baseline justify-between border-b border-slate-200 pb-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
-                      Total Estimated Budget:
-                    </span>
-                    <span class="text-xl font-black text-nysc-green-dark">
-                      ₦{project.estimated_cost.toLocaleString()}
-                    </span>
-                  </div>
-
-                  {project.budget_breakdown && project.budget_breakdown.length > 0 && (
-                    <div class="space-y-1.5 pt-1">
-                      <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                        Itemized Cost Breakdown:
-                      </span>
-                      <ul class="text-xs text-slate-700 divide-y divide-slate-200/60">
-                        {project.budget_breakdown.map((item) => (
-                          <li class="py-1 flex justify-between items-center">
-                            <span>{item.item}</span>
-                            <span class="font-bold text-slate-900">₦{item.cost.toLocaleString()}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                <!-- Stakeholders to Reach Out To -->
-                {project.stakeholders_to_reach && project.stakeholders_to_reach.length > 0 && (
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                      Key Stakeholders & Partners to Reach:
-                    </h4>
-                    <div class="flex flex-wrap gap-1.5">
-                      {project.stakeholders_to_reach.map((partner) => (
-                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-green-50 text-nysc-green-dark font-semibold text-xs border border-green-200">
-                          <span>🏢</span>
-                          <span>{partner}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <!-- Attachments & Files -->
-                {project.attachments && project.attachments.length > 0 && (
-                  <div class="pt-2 border-t border-slate-100">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                      Project Documents & Files:
-                    </h4>
-                    <div class="flex flex-wrap gap-2">
-                      {project.attachments.map((file) => (
-                        <a
-                          href={file.file_url}
-                          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-nysc-gold/20 hover:text-nysc-green-dark text-xs font-semibold text-slate-700 transition-colors border border-slate-200"
-                        >
-                          <span>📄</span>
-                          <span>{file.file_name}</span>
-                          {file.file_size && <span class="text-slate-400 font-normal">({file.file_size})</span>}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
               </div>
-            </div>
-          </div>
-        );
-      }))}
-    </div>
+            );
+          })}
+        </div>
+      )}
 
+    </div>
   </div>
 </Layout>

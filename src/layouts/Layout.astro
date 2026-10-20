@@ -6,11 +6,13 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  activeDriveBanner?: boolean;
 }
 
 const { 
   title, 
-  description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Edo State, Nigeria. Anonymous youth ideation, transparent project planning, and localizing global goals." 
+  description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Edo State, Nigeria. Anonymous youth ideation, transparent project planning, and localizing global goals.",
+  activeDriveBanner = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.vercel.app');
@@ -21,36 +23,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23006633'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23F4C430' stroke-width='6'/><text x='50' y='62' font-size='32' font-weight='900' text-anchor='middle' fill='%23ffffff'>SDG</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23004b24'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23fccc38' stroke-width='6'/><text x='50' y='62' font-size='30' font-weight='900' text-anchor='middle' fill='%23ffffff'>SDG</text></svg>" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} | Edo State NYSC SDG CDS</title>
+    <title>{title} | NYSC Edo SDG CDS</title>
     <meta name="description" content={description} />
     <meta name="keywords" content="NYSC Edo State, SDG CDS group, Benin City corps members, youth ideation, Sustainable Development Goals Nigeria, anonymous community ideas" />
-    <meta name="theme-color" content="#006633" />
+    <meta name="theme-color" content="#004b24" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Edo State NYSC SDG CDS Platform" />
-    <meta property="og:title" content={`${title} | Edo State NYSC SDG CDS`} />
+    <meta property="og:site_name" content="NYSC Edo SDG CDS Platform" />
+    <meta property="og:title" content={`${title} | NYSC Edo SDG CDS`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_NG" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | Edo State NYSC SDG CDS`} />
+    <meta name="twitter:title" content={`${title} | NYSC Edo SDG CDS`} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Fonts -->
+    <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   </head>
-  <body class="min-h-full flex flex-col bg-slate-50 text-slate-900">
+  <body class="bg-surface font-body-md text-on-surface antialiased min-h-full flex flex-col">
     <Navbar />
-    <main class="flex-1">
+    <main class="flex-1 w-full pt-20">
       <slot />
     </main>
     <Footer />

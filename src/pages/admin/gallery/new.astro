@@ -2,14 +2,17 @@
 import Layout from '../../../layouts/Layout.astro';
 import AdminHeader from '../../../components/admin/AdminHeader.astro';
 import { GalleryUploadForm } from '../../../components/admin/GalleryUploadForm';
+import { fetchEvents } from '../../../lib/supabase';
+
+const { events } = await fetchEvents();
 ---
 
 <Layout
-  title="Upload Event Photos (Admin)"
+  title="Upload Event Photos (Executive Admin)"
   description="Upload and publish outreach photos strictly organized by event."
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-space-xl">
     <AdminHeader />
-    <GalleryUploadForm client:load />
+    <GalleryUploadForm client:load initialEvents={events} />
   </div>
 </Layout>

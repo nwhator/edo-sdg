@@ -90,47 +90,46 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-on-surface/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-surface-container-lowest rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-outline-variant/30 relative animate-in fade-in zoom-in-95 duration-200">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-full text-outline hover:text-on-surface hover:bg-surface-container transition-colors"
           type="button"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <span className="material-symbols-outlined text-[20px]">close</span>
         </button>
 
         {submittedSuccess ? (
           <div className="py-12 text-center space-y-3">
-            <div className="w-16 h-16 rounded-full bg-green-100 text-nysc-green mx-auto flex items-center justify-center text-3xl shadow-xs">
-              ✓
+            <div className="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed mx-auto flex items-center justify-center text-3xl shadow-xs">
+              <span className="material-symbols-outlined text-[36px]">check_circle</span>
             </div>
-            <h3 className="text-xl font-bold text-slate-900">Idea Submitted Anonymously!</h3>
-            <p className="text-sm text-slate-600 max-w-sm mx-auto">
-              Your idea has been added to the community board. Corps members can now review and upvote it.
+            <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">Idea Submitted Anonymously!</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
+              Your idea has been added to the community board. Corps members across Edo State can now review and upvote it.
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-space-md">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nysc-gold/15 text-nysc-green-dark text-xs font-bold mb-2">
-                <span>🛡️ 100% Anonymous</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold mb-2">
+                <span className="material-symbols-outlined text-[16px]">verified_user</span>
+                <span>100% Anonymous & Democratic</span>
               </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h2 className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">
                 Pitch an SDG Project Idea
               </h2>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
                 Share what Edo State communities need. Top-voted ideas get adopted by the CDS executive committee for funding and implementation.
               </p>
             </div>
 
             {/* Title */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                 Idea Title *
               </label>
               <input
@@ -139,20 +138,20 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g., Free Menstrual Pad Bank for Egor Secondary Schools"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+                className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary"
               />
             </div>
 
             {/* Category & Location Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                   Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -163,7 +162,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                   Target Location
                 </label>
                 <input
@@ -171,14 +170,14 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g. Oredo, Ring Road, Ekewan"
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                 Description & Impact *
               </label>
               <textarea
@@ -187,16 +186,16 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Explain the problem, who it helps, what materials or support would be needed (e.g., pads, trash bags, brooms)..."
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green resize-none"
+                className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
               />
             </div>
 
             {/* SDG Target Picker */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                 Select UN SDGs it Solves (Click to Toggle)
               </label>
-              <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-2 bg-slate-50 rounded-xl border border-slate-200">
+              <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-2 bg-surface-container-low rounded-xl border border-outline-variant/30">
                 {Object.values(SDG_METADATA).map((sdg) => {
                   const isSelected = selectedSDGs.includes(sdg.number);
                   return (
@@ -209,7 +208,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                         color: isSelected ? '#ffffff' : '#475569',
                       }}
                       className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
-                        isSelected ? 'shadow-xs scale-102 ring-1 ring-black/10' : 'hover:bg-slate-200'
+                        isSelected ? 'shadow-2xs scale-102 ring-1 ring-black/10' : 'hover:bg-surface-container'
                       }`}
                     >
                       <span>{sdg.number}.</span>
@@ -222,7 +221,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
 
             {/* Optional Alias */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-on-surface mb-1">
                 Display Name / Tag (Optional)
               </label>
               <input
@@ -230,7 +229,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                 value={alias}
                 onChange={(e) => setAlias(e.target.value)}
                 placeholder="Leave blank for 'Anonymous Corper' or write e.g., 'Health Corper'"
-                className="w-full px-4 py-2 rounded-xl border border-slate-300 text-xs focus:outline-hidden focus:ring-2 focus:ring-nysc-green focus:border-nysc-green"
+                className="w-full px-4 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary"
               />
             </div>
 
@@ -239,16 +238,17 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-2.5 rounded-xl bg-nysc-green text-white text-sm font-bold shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark transition-all disabled:opacity-50"
+                className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold shadow-xs transition-all disabled:opacity-50 flex items-center gap-2"
               >
-                {isSubmitting ? 'Submitting...' : 'Drop Anonymous Idea'}
+                <span className="material-symbols-outlined text-[18px]">send</span>
+                <span>{isSubmitting ? 'Submitting...' : 'Drop Anonymous Idea'}</span>
               </button>
             </div>
           </form>

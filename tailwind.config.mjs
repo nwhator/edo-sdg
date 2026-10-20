@@ -4,38 +4,149 @@ export default {
   theme: {
     extend: {
       colors: {
+        // UI Screens Material Design Tokens
+        "surface": "#faf8ff",
+        "surface-dim": "#d2d9f4",
+        "surface-bright": "#faf8ff",
+        "surface-container-lowest": "#ffffff",
+        "surface-container-low": "#f2f3ff",
+        "surface-container": "#eaedff",
+        "surface-container-high": "#e2e7ff",
+        "surface-container-highest": "#dae2fd",
+        "surface-variant": "#dae2fd",
+        "on-surface": "#131b2e",
+        "on-surface-variant": "#3f4940",
+        "inverse-surface": "#283044",
+        "inverse-on-surface": "#eef0ff",
+        "outline": "#6f7a6f",
+        "outline-variant": "#bfc9bd",
+        "surface-tint": "#0f6d39",
+        
+        "primary": "#004b24",
+        "on-primary": "#ffffff",
+        "primary-container": "#006633",
+        "on-primary-container": "#8ce1a1",
+        "inverse-primary": "#84d999",
+        "primary-fixed": "#9ff6b4",
+        "primary-fixed-dim": "#84d999",
+        "on-primary-fixed": "#00210c",
+        "on-primary-fixed-variant": "#005228",
+
+        "secondary": "#755b00",
+        "on-secondary": "#ffffff",
+        "secondary-container": "#fccc38",
+        "on-secondary-container": "#6f5600",
+        "secondary-fixed": "#ffdf90",
+        "secondary-fixed-dim": "#f0c12c",
+        "on-secondary-fixed": "#241a00",
+        "on-secondary-fixed-variant": "#584400",
+
+        "tertiary": "#004943",
+        "on-tertiary": "#ffffff",
+        "tertiary-container": "#00635b",
+        "on-tertiary-container": "#73e0d2",
+        "tertiary-fixed": "#89f5e7",
+        "tertiary-fixed-dim": "#6bd8cb",
+        "on-tertiary-fixed": "#00201d",
+        "on-tertiary-fixed-variant": "#005049",
+
+        "error": "#ba1a1a",
+        "on-error": "#ffffff",
+        "error-container": "#ffdad6",
+        "on-error-container": "#93000a",
+
+        "background": "#faf8ff",
+        "on-background": "#131b2e",
+
+        // Institutional NYSC Aliases for Backward Compatibility
         nysc: {
           green: '#006633',
           'green-light': '#008744',
-          'green-dark': '#004724',
-          'green-deep': '#002E17',
-          gold: '#F4C430',
-          'gold-light': '#FFDF79',
-          'gold-dark': '#C69A12',
+          'green-dark': '#004b24',
+          'green-deep': '#00210c',
+          gold: '#fccc38',
+          'gold-light': '#ffdf90',
+          'gold-dark': '#755b00',
           khaki: '#C3B091',
         },
+
+        // UN 17 SDGs Standard Palettes
         sdg: {
-          1: '#E5243B', // No Poverty
-          2: '#DDA63A', // Zero Hunger
-          3: '#4C9F38', // Good Health
-          4: '#C5192D', // Quality Education
-          5: '#FF3A21', // Gender Equality
-          6: '#26BDE2', // Clean Water
-          7: '#FCC30B', // Affordable Energy
-          8: '#A21942', // Decent Work
-          9: '#FD6925', // Industry & Innovation
-          10: '#DD1367', // Reduced Inequalities
-          11: '#FD9D24', // Sustainable Cities
-          12: '#BF8B2E', // Responsible Consumption
-          13: '#3F7E44', // Climate Action
-          14: '#0A97D9', // Life Below Water
-          15: '#56C02B', // Life on Land
-          16: '#00689D', // Peace, Justice
-          17: '#19486A', // Partnerships
+          1: '#E5243B',
+          2: '#DDA63A',
+          3: '#4C9F38',
+          4: '#C5192D',
+          5: '#FF3A21',
+          6: '#26BDE2',
+          7: '#FCC30B',
+          8: '#A21942',
+          9: '#FD6925',
+          10: '#DD1367',
+          11: '#FD9D24',
+          12: '#BF8B2E',
+          13: '#3F7E44',
+          14: '#0A97D9',
+          15: '#56C02B',
+          16: '#00689D',
+          17: '#19486A',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+        'display-mobile': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'headline-lg': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'headline-lg-mobile': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'headline-md': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'headline-sm': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title-md': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body-lg': ['Inter', 'sans-serif'],
+        'body-md': ['Inter', 'sans-serif'],
+        'body-sm': ['Inter', 'sans-serif'],
+        'label-lg': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label-md': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'label-sm': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'stat-counter': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      fontSize: {
+        'display': ['48px', { lineHeight: '56px', letterSpacing: '-0.02em', fontWeight: '800' }],
+        'display-mobile': ['34px', { lineHeight: '42px', letterSpacing: '-0.02em', fontWeight: '800' }],
+        'headline-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.01em', fontWeight: '700' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0', fontWeight: '600' }],
+        'title-md': ['18px', { lineHeight: '24px', letterSpacing: '0', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['14px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.01em', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.04em', fontWeight: '700' }],
+        'stat-counter': ['40px', { lineHeight: '48px', letterSpacing: '-0.03em', fontWeight: '800' }],
+      },
+      spacing: {
+        'space-xs': '0.25rem',
+        'space-sm': '0.5rem',
+        'space-md': '1rem',
+        'space-lg': '1.5rem',
+        'space-xl': '2rem',
+        'space-2xl': '3rem',
+        'space-3xl': '4rem',
+        'gutter': '1.5rem',
+        'gutter-mobile': '1rem',
+        'gutter-desktop': '2rem',
+        'margin': '1.5rem',
+        'margin-mobile': '1rem',
+        'margin-tablet': '2rem',
+        'margin-desktop': '3rem',
+      },
+      borderRadius: {
+        'sm': '0.25rem',
+        'DEFAULT': '0.5rem',
+        'md': '0.75rem',
+        'lg': '1rem',
+        'xl': '1.5rem',
+        'full': '9999px',
       }
     },
   },

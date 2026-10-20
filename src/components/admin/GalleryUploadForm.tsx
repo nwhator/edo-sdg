@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 
-export const GalleryUploadForm: React.FC = () => {
+interface GalleryUploadFormProps {
+  initialEvents?: Event[];
+}
+
+export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEvents = [] }) => {
   const [mode, setMode] = useState<'new_event' | 'existing_event'>('new_event');
   const [selectedEventId, setSelectedEventId] = useState<string>('');
+  const [eventsList, setEventsList] = useState<Event[]>(initialEvents);
 
   // New Event fields
   const [eventTitle, setEventTitle] = useState('');
@@ -14,10 +19,22 @@ export const GalleryUploadForm: React.FC = () => {
 
   // Photos to upload
   const [photos, setPhotos] = useState<{ url: string; caption: string }[]>([]);
-
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [newPhotoCaption, setNewPhotoCaption] = useState('');
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('edo_sdg_custom_events') || '[]');
+      const combined = [...initialEvents, ...stored.filter((s: Event) => !initialEvents.some((i) => i.id === s.id))];
+      setEventsList(combined);
+      if (combined.length > 0 && !selectedEventId) {
+        setSelectedEventId(combined[0].id);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const handleAddPhoto = () => {
     if (newPhotoUrl.trim()) {
@@ -84,40 +101,40 @@ export const GalleryUploadForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 shadow-sm max-w-3xl mx-auto">
+    <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-6 sm:p-10 shadow-xs max-w-3xl mx-auto">
       {isSaved ? (
         <div className="py-16 text-center space-y-3">
-          <div className="w-16 h-16 rounded-full bg-green-100 text-nysc-green mx-auto flex items-center justify-center text-3xl shadow-sm">
-            ✓
+          <div className="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed mx-auto flex items-center justify-center text-3xl shadow-xs">
+            <span className="material-symbols-outlined text-[36px]">check_circle</span>
           </div>
-          <h3 className="text-2xl font-black text-slate-900">Photos Published by Event!</h3>
-          <p className="text-sm text-slate-600 max-w-sm mx-auto">
+          <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">Photos Published by Event!</h3>
+          <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
             Redirecting to public event gallery...
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-space-xl">
           <div>
-            <span className="text-xs font-bold text-nysc-gold-dark bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 uppercase tracking-wider">
+            <span className="font-label-sm text-label-sm font-bold text-secondary bg-secondary-fixed/50 px-2.5 py-1 rounded-md uppercase tracking-wider">
               Admin Media Management
             </span>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-2">
+            <h2 className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight mt-2">
               Upload Event Photos
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Photos on the public gallery are always grouped by specific outreach event.
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Photos on the public gallery are always grouped strictly by specific outreach event.
             </p>
           </div>
 
           {/* Mode Switcher */}
-          <div className="flex gap-4 p-1.5 bg-slate-100 rounded-2xl">
+          <div className="flex gap-4 p-1.5 bg-surface-container-low rounded-xl">
             <button
               type="button"
               onClick={() => setMode('new_event')}
-              className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex-1 py-2 rounded-lg font-label-md text-label-md font-bold transition-all ${
                 mode === 'new_event'
-                  ? 'bg-white text-nysc-green shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-surface-container-lowest text-primary shadow-xs'
+                  : 'text-on-surface-variant hover:text-on-surface'
               }`}
             >
               + Create New Event & Group Photos
@@ -125,10 +142,10 @@ export const GalleryUploadForm: React.FC = () => {
             <button
               type="button"
               onClick={() => setMode('existing_event')}
-              className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex-1 py-2 rounded-lg font-label-md text-label-md font-bold transition-all ${
                 mode === 'existing_event'
-                  ? 'bg-white text-nysc-green shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-surface-container-lowest text-primary shadow-xs'
+                  : 'text-on-surface-variant hover:text-on-surface'
               }`}
             >
               Add Photos to Existing Event
@@ -137,13 +154,13 @@ export const GalleryUploadForm: React.FC = () => {
 
           {mode === 'new_event' ? (
             /* New Event Details */
-            <div className="space-y-4 p-5 bg-slate-50 rounded-2xl border border-slate-200">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            <div className="space-y-space-md p-space-md bg-surface-container-low rounded-xl border border-outline-variant/30">
+              <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
                 Event Information
               </h3>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                   Event Title *
                 </label>
                 <input
@@ -152,13 +169,13 @@ export const GalleryUploadForm: React.FC = () => {
                   value={eventTitle}
                   onChange={(e) => setEventTitle(e.target.value)}
                   placeholder="e.g. Sanitary Pad Distribution Outreach at Idia College"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden bg-white"
+                  className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                     Event Date *
                   </label>
                   <input
@@ -166,12 +183,12 @@ export const GalleryUploadForm: React.FC = () => {
                     required
                     value={eventDate}
                     onChange={(e) => setEventDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden bg-white"
+                    className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                     Location in Edo State *
                   </label>
                   <input
@@ -180,13 +197,13 @@ export const GalleryUploadForm: React.FC = () => {
                     value={eventLocation}
                     onChange={(e) => setEventLocation(e.target.value)}
                     placeholder="e.g. Emotan College, Wire Road, Benin City"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden bg-white"
+                    className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                   Brief Event Summary
                 </label>
                 <textarea
@@ -194,62 +211,70 @@ export const GalleryUploadForm: React.FC = () => {
                   value={eventDescription}
                   onChange={(e) => setEventDescription(e.target.value)}
                   placeholder="Summary of what was achieved during this outreach..."
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-nysc-green focus:outline-hidden bg-white resize-none"
+                  className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden resize-none"
                 />
               </div>
             </div>
           ) : (
             /* Select Existing Event */
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block font-label-sm text-label-sm font-bold text-on-surface mb-1">
                 Choose Existing Event *
               </label>
-              <select
-                value={selectedEventId}
-                onChange={(e) => setSelectedEventId(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-nysc-green focus:outline-hidden"
-              >
-                {INITIAL_EVENTS.map((ev) => (
-                  <option key={ev.id} value={ev.id}>
-                    {ev.title} ({ev.event_date})
-                  </option>
-                ))}
-              </select>
+              {eventsList.length === 0 ? (
+                <div className="p-3 bg-surface-container rounded-xl text-xs text-on-surface-variant">
+                  No existing events found. Please create a new event first.
+                </div>
+              ) : (
+                <select
+                  value={selectedEventId}
+                  onChange={(e) => setSelectedEventId(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
+                >
+                  {eventsList.map((ev) => (
+                    <option key={ev.id} value={ev.id}>
+                      {ev.title} ({ev.event_date})
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
           )}
 
           {/* Photos to Attach */}
-          <div className="space-y-4 pt-4 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <div className="space-y-space-md pt-space-md border-t border-surface-variant">
+            <h3 className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
               Photos to Publish for this Event ({photos.length})
             </h3>
 
             {/* List of Photos */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {photos.map((p, idx) => (
-                <div key={idx} className="relative rounded-xl overflow-hidden aspect-4/3 bg-slate-100 group border border-slate-200">
-                  <img src={p.url} alt={p.caption} className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => handleRemovePhoto(idx)}
-                    className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs opacity-80 hover:opacity-100"
-                    title="Remove photo"
-                  >
-                    ✕
-                  </button>
-                  {p.caption && (
-                    <div className="absolute inset-x-0 bottom-0 bg-black/70 p-1 text-[10px] text-white truncate">
-                      {p.caption}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            {photos.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {photos.map((p, idx) => (
+                  <div key={idx} className="relative rounded-xl overflow-hidden aspect-4/3 bg-surface-container group border border-outline-variant/30">
+                    <img src={p.url} alt={p.caption} className="w-full h-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => handleRemovePhoto(idx)}
+                      className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-error text-on-error flex items-center justify-center text-xs opacity-80 hover:opacity-100 shadow-xs"
+                      title="Remove photo"
+                    >
+                      ✕
+                    </button>
+                    {p.caption && (
+                      <div className="absolute inset-x-0 bottom-0 bg-black/70 p-1 text-[10px] text-white truncate">
+                        {p.caption}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Add Photo Input */}
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-              <span className="text-xs font-bold text-slate-700 block">
-                + Add Another Photo:
+            <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 space-y-3">
+              <span className="font-label-sm text-label-sm font-bold text-on-surface block">
+                + Add Photo to Album:
               </span>
 
               <div className="space-y-2">
@@ -258,7 +283,7 @@ export const GalleryUploadForm: React.FC = () => {
                   value={newPhotoUrl}
                   onChange={(e) => setNewPhotoUrl(e.target.value)}
                   placeholder="Paste direct Image URL (or upload local file below)"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-nysc-green bg-white"
+                  className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary"
                 />
 
                 <input
@@ -266,18 +291,19 @@ export const GalleryUploadForm: React.FC = () => {
                   value={newPhotoCaption}
                   onChange={(e) => setNewPhotoCaption(e.target.value)}
                   placeholder="Photo caption (e.g., Corps members sensitizing market traders)"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-nysc-green bg-white"
+                  className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary"
                 />
 
                 <div className="flex items-center justify-between pt-1">
-                  <label className="text-xs font-semibold text-nysc-green hover:underline cursor-pointer">
-                    📁 Or Choose Local Image File
+                  <label className="font-label-sm text-label-sm font-semibold text-primary hover:underline cursor-pointer flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[16px]">add_photo_alternate</span>
+                    <span>Or Choose Local Image File</span>
                     <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                   </label>
                   <button
                     type="button"
                     onClick={handleAddPhoto}
-                    className="px-4 py-1.5 rounded-xl bg-slate-800 text-white text-xs font-bold hover:bg-slate-900"
+                    className="px-4 py-1.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-bold transition-colors"
                   >
                     Add to Album
                   </button>
@@ -287,18 +313,19 @@ export const GalleryUploadForm: React.FC = () => {
           </div>
 
           {/* Submit */}
-          <div className="pt-4 flex justify-end gap-3">
+          <div className="pt-4 flex justify-end gap-3 border-t border-surface-variant">
             <a
               href="/admin"
-              className="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50"
+              className="px-5 py-2.5 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors"
             >
               Cancel
             </a>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-nysc-green text-white text-sm font-bold shadow-md shadow-nysc-green/30 hover:bg-nysc-green-dark"
+              className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold shadow-xs transition-all flex items-center gap-2"
             >
-              Publish Event Photos
+              <span className="material-symbols-outlined text-[18px]">cloud_upload</span>
+              <span>Publish Event Photos</span>
             </button>
           </div>
         </form>
