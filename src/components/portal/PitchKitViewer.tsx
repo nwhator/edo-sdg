@@ -1,52 +1,51 @@
 import React, { useState } from 'react';
 
 const TEMPLATE_SANITARY = `NATIONAL YOUTH SERVICE CORPS
-EDO STATE SECRETARIAT • SUSTAINABLE DEVELOPMENT GOALS (SDGs) CDS GROUP
-NYSC Secretariat, 2 Benin-Agbor Road, Ikpoba Hill, P.M.B. 1384, Benin City, Edo State
+EGOR LOCAL GOVERNMENT AREA • SUSTAINABLE DEVELOPMENT GOALS (SDGs) CDS GROUP
+Egor NYSC Secretariat, Benin City, Edo State
 
-Ref No: NYSC/ED/SDG/2026/08
-Batch: 2024 Stream B / 2025-2026 Service Year
+Ref No: NYSC/ED/EGOR/SDG/2026/01
+Batch: 2025/2026 Service Year
 Date: 24th October, 2026
-Jurisdiction: Oredo / Ikpoba-Okha Local Government Area
+Jurisdiction: Egor Local Government Area, Edo State
 
 The Managing Director / CSR Coordinator,
 [Target Corporate Donor / Foundation / Pharmaceutical Company],
-Benin City Metropolis,
-Edo State, Nigeria.
+Benin City Metropolis, Edo State.
 
-REQUISITION FOR CORPORATE CSR PARTNERSHIP: DONATION OF 2,500 SANITARY HYGIENE PACKS FOR PUBLIC SECONDARY SCHOOL GIRLS IN BENIN METROPOLIS (SDG 3 & 5)
+REQUISITION FOR CORPORATE CSR PARTNERSHIP: DONATION OF 1,500 SANITARY HYGIENE PACKS FOR PUBLIC SECONDARY SCHOOL GIRLS IN EGOR LGA (SDG 3 & 5)
 
 Dear Sir/Madam,
 
-The National Youth Service Corps (NYSC) Edo State Sustainable Development Goals (SDGs) Community Development Service (CDS) Group respectfully presents this urgent requisition for community partnership under our flagship "Dignity for the Girl-Child Project".
+The National Youth Service Corps (NYSC) Egor Local Government Area Sustainable Development Goals (SDGs) Community Development Service (CDS) Group respectfully presents this urgent requisition for community partnership under our flagship "Dignity for the Girl-Child Project".
 
-Our grassroots baseline assessment conducted across municipal schools in Ikpoba-Okha and Oredo LGAs revealed that over 43% of teenage adolescent girls experience periodic absenteeism due to lack of access to hygienic menstrual protection products and adequate reproductive wellness guidance.
+Our grassroots assessment across public secondary schools in Egor Local Government Area revealed that a significant percentage of adolescent girls experience periodic absenteeism due to lack of access to hygienic menstrual protection products and basic reproductive wellness guidance.
 
-PROJECT IMPACT TARGETS:
-1. Direct distribution of 2,500 sanitary pad packages across 10 municipal secondary schools (including Emotan College and Idia College, Benin City).
-2. Free adolescent reproductive hygiene and peer empowerment workshops facilitated alongside qualified NYSC medical doctors and local CSO facilitators.
-3. Establishment of permanent sanitary emergency cabinets in recipient school guidance and counseling offices.
+PROJECT IMPACT TARGETS (EGOR LGA):
+1. Direct distribution of 1,500 sanitary pad packages across secondary schools in Egor LGA.
+2. Free adolescent reproductive hygiene and peer empowerment workshops facilitated alongside qualified NYSC medical corps members.
+3. Establishment of permanent sanitary emergency cabinets in school guidance and counseling offices across Egor.
 
 SUPPORT REQUESTED:
-We formally request your esteemed organization to donate in-kind sanitary packages (or grant financial support of NGN 1,850,000) toward product procurement and logistical deployment. Corporate sponsors will receive prime brand placement on all campaign media, state NYSC press releases, and a certificate of social investment issued by the NYSC State Coordinator.
+We formally request your esteemed organization to support with in-kind sanitary packages (or grant financial support) toward product procurement and logistical deployment. Corporate sponsors will receive prominent brand recognition, official appreciation, and inclusion in our verified project reports.
 
 Designated Official Account Details (NYSC Audited):
 Bank Name: First Bank of Nigeria
 Account Name: NYSC Edo State SDG CDS Special Projects
 Account Number: 2048992011
 
-Thank you for your continuous dedication to communal upliftment and human capital development within Edo State. We look forward to an impactful collaborative outreach.
+Thank you for your continuous dedication to communal upliftment and human capital development within Egor LGA and Edo State.
 
 Yours in National Service,
 
 ____________________________                  ____________________________
-Corps Member Osagie E. Donald                 Mrs. A. M. Okojie
-President, NYSC SDGs CDS Group                Schedule Officer / LGI Oredo Secretariat
-State Code: ED/24B/1209                       NYSC Edo State Secretariat`;
+Corps Member Augusta                          Mrs. A. Osagie
+President, NYSC SDGs CDS Group                Schedule Officer / LGI Egor Secretariat
+Egor LGA Chapter                              NYSC Edo State Secretariat`;
 
-const TEMPLATE_EQUIPMENT = `NATIONAL YOUTH SERVICE CORPS • EDO STATE
+const TEMPLATE_EQUIPMENT = `NATIONAL YOUTH SERVICE CORPS • EGOR LGA
 SUSTAINABLE DEVELOPMENT GOALS CDS • ENVIRONMENTAL SANITATION SUB-COMMITTEE
-Secretariat Hub, Benin City • Ref: NYSC/ED/SDG/ESWMB/2026/03
+Egor NYSC Secretariat Hub, Benin City • Ref: NYSC/ED/EGOR/ESWMB/2026/02
 
 Date: 24th October, 2026
 
@@ -54,52 +53,52 @@ The Managing Director,
 Edo State Waste Management Board (ESWMB),
 Sapele Road Secretariat Complex, Benin City, Edo State.
 
-REQUEST FOR LOGISTICAL ASSISTANCE AND DEPLOYMENT OF HEAVY MACHINERY: CDS THURSDAY MEGA CLEARING AT OBA MARKET & RING ROAD DRAINAGES
+REQUEST FOR LOGISTICAL ASSISTANCE AND DEPLOYMENT OF SANITATION MACHINERY: CDS WEDNESDAY MEGA CLEARING ACROSS EGOR LGA COMMERCE AXIS
 
 Respected Sir,
 
-The NYSC SDGs CDS Group, in alignment with SDG 11 (Sustainable Cities & Communities) and SDG 12 (Responsible Consumption & Sanitation), has scheduled an intensive communal cleanup drive at the historic Oba Market perimeter and adjacent storm drain networks on Thursday, 14th November 2026 from 07:00 AM to 12:00 PM.
+The NYSC SDGs CDS Group of Egor Local Government Area, in alignment with SDG 11 (Sustainable Communities) and SDG 12 (Responsible Consumption & Sanitation), has scheduled an intensive communal cleanup drive within Egor LGA on Wednesday, 18th November 2026 from 07:30 AM to 12:00 PM.
 
-Over 120 Corps Members have been deployed for manual evacuation, desilting of blocked conduits, and market-stall sanitization. To guarantee safe transit and disposal of excavated heavy silt to the designated state dumpsite, we formally requisition the following fleet deployment:
+Over 100 Corps Members deployed to Egor LGA will participate in manual drainage desilting, conduit clearance, and market perimeter sanitization. To guarantee safe transit and disposal of excavated refuse, we formally requisition the following fleet deployment:
 
-REQUESTED MACHINERY & REQUISITION SCHEDULE:
-1. 15-Tonne Tipper Trucks (2 Units) - Transport of excavated silt to Ikhueniro Dumpsite.
-2. Rear-Loading Waste Compactor (1 Unit) - Compacting organic market food waste and discarded single-use plastics.
-3. Heavy Work Gloves, Rubber Boots & Rakes (40 Sets) - Corps member personal occupational safety equipment.
-4. Fumigation / Disinfectant Spray Kits (4 Units) - Gutter perimeter sanitization.
+REQUESTED MACHINERY & LOGISTICS SCHEDULE:
+1. 15-Tonne Tipper Truck (1 Unit) - Evacuation of excavated silt to the approved government dumpsite.
+2. Refuse Compactor Vehicle (1 Unit) - Packing organic commercial market waste and discarded plastics.
+3. Heavy Work Gloves, Rubber Boots & Rakes (35 Sets) - Corps member occupational safety equipment.
+4. Fumigation / Disinfectant Spray Kits (2 Units) - Gutter perimeter sanitization.
 
-Corps logistics liaisons will ensure prompt refueling verification and full security accompaniment by the Nigerian Police Force throughout the Thursday operational hours.
+Corps logistics liaisons will verify fueling and ensure orderly operations throughout the Wednesday community exercise.
 
 Anticipating your usual proactive administrative cooperation.
 
 Yours in National Service,
 
 ____________________________                  ____________________________
-Corps Member Osagie E. Donald                 Dr. (Mrs.) N. Ighodaro
-CDS President • ED/24B/1209                   NYSC State SDGs Desk Officer
-Edo State Secretariat                         NYSC Edo State Secretariat`;
+Corps Member Augusta                          Mrs. A. Osagie
+President, NYSC SDGs CDS Group                Schedule Officer / LGI Egor Secretariat
+Egor LGA Chapter                              NYSC Edo State Secretariat`;
 
-const TEMPLATE_INNOVATION = `NYSC EDO STATE COMMUNITY DEVELOPMENT SERVICE
+const TEMPLATE_INNOVATION = `NYSC EGOR LOCAL GOVERNMENT AREA CDS
 SUSTAINABLE DEVELOPMENT GOALS GROUP • TECH FOR GOOD INITIATIVE
-Strategic Public-Private Partnership Prospectus • Ref: ED/NYSC/CDS/PROPOSAL/2026-V4
+Egor NYSC Secretariat • Strategic Community Prospectus
 
 Date: 24th October, 2026
 
-To the Chief Technology Officer / Foundation Director,
+To the Managing Director / CSR Coordinator,
 Private Enterprise / Tech Ecosystem Partners,
 Benin City Innovation Corridor, Edo State.
 
-EXECUTIVE SUMMARY: STEM & DIGITAL FABRICATION LAB FOR PUBLIC SECONDARY SCHOOLS (SDG 4, 8 & 9)
+COMMUNITY PROPOSAL: STEM & DIGITAL SKILLS WORKSHOP FOR EGOR PUBLIC SECONDARY SCHOOLS (SDG 4, 8 & 9)
 
-In partnership with local educational hubs, the Edo State NYSC SDGs CDS Group is establishing a decentralized computer coding, data literacy, and renewable solar engineering workshop within the Benin City Youth Center to equip 400 underprivileged public school teenagers with digital economy skills.
+In partnership with local educational stakeholders, the NYSC Egor SDG CDS Group is organizing a digital literacy and computer skills workshop at the Egor Secretariat Hub to equip public secondary school students with foundational digital skills.
 
-KEY PARTNERSHIP TIERS:
-- TIER 1 • HARDWARE DONOR: Donation of 15-20 refurbished laptops or desktop workstations + solar inverter battery bank.
-- TIER 2 • CONNECTIVITY & CLOUD: Sponsorship of 12-month high-speed fiber internet subscription and cloud hosting student licenses.
-- TIER 3 • BOOTCAMP GRANTS & PRIZES: Micro-scholarships covering student hardware kits, graduation hackathon awards, and project exhibition prizes.
+PARTNERSHIP TIERS:
+- TIER 1 • HARDWARE SUPPORT: Refurbished laptops or desktop monitors for hands-on student practice.
+- TIER 2 • CONNECTIVITY: 12-month community internet router subscription for student access.
+- TIER 3 • EDUCATIONAL KITS: Notebooks, writing materials, and student participation awards.
 
 CORPS MEMBER VOLUNTEER CADRE:
-The program will be instructed full-time on Thursday mornings and Saturday afternoons by serving NYSC corps members holding specialized degrees in Computer Engineering, Data Science, and Electrical Technology, guaranteeing zero labor overhead and complete technical execution.
+Instruction will be delivered directly by serving NYSC corps members holding university degrees in Computer Science, Engineering, and Education serving in Egor LGA, guaranteeing zero labor overhead and dedicated execution.
 
 Designated Official Account Details (NYSC Audited):
 Bank Name: First Bank of Nigeria
@@ -109,9 +108,9 @@ Account Number: 2048992011
 Yours in National Service,
 
 ____________________________                  ____________________________
-Corps Member Osagie E. Donald                 Engr. P. E. Osawaru
-CDS President • ED/24B/1209                   Director of Youth Development & CDS
-Edo State Secretariat                         Edo State Ministry of Youth and Sports`;
+Corps Member Augusta                          Mrs. A. Osagie
+President, NYSC SDGs CDS Group                Schedule Officer / LGI Egor Secretariat
+Egor LGA Chapter                              NYSC Edo State Secretariat`;
 
 export const PitchKitViewer: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'sanitary' | 'equipment' | 'innovation'>('sanitary');
@@ -122,32 +121,29 @@ export const PitchKitViewer: React.FC = () => {
       case 'sanitary':
         return {
           id: 'letter-sanitary-copy',
-          title: 'Letter Requesting Sanitary Pads for Secondary Schools',
-          target: 'Corporate Brands, Pharmaceutical Distributors, International Donors',
+          title: 'Sanitary Hygiene Outreach Requisition',
+          target: 'Corporate CSR, Foundations, Pharmaceutical Distributors',
           text: TEMPLATE_SANITARY,
           icon: 'sanitizer',
-          color: 'primary',
-          fileName: 'NYSC_ED_Sanitary_Outreach_Pitch.docx',
+          fileName: 'NYSC_Egor_Sanitary_Outreach_Letter.docx',
         };
       case 'equipment':
         return {
           id: 'letter-equipment-copy',
-          title: 'Request for Heavy Sanitation Equipment & Tipper Trucks',
-          target: 'Edo State Waste Management Board (ESWMB) / Ministry of Environment',
+          title: 'Heavy Sanitation Equipment Requisition',
+          target: 'Edo State Waste Management Board (ESWMB)',
           text: TEMPLATE_EQUIPMENT,
           icon: 'front_loader',
-          color: 'tertiary',
-          fileName: 'NYSC_ED_ESWMB_Logistics_Requisition.docx',
+          fileName: 'NYSC_Egor_ESWMB_Logistics_Requisition.docx',
         };
       case 'innovation':
         return {
           id: 'letter-innovation-copy',
-          title: 'Corporate Partnership Proposal: Youth Innovation Labs',
-          target: 'Tech Foundations, Edo Innovates Hubs, Telecoms, STEM Philanthropists',
+          title: 'Digital Skills & STEM Workshop Proposal',
+          target: 'Tech Ecosystem, CSR Foundations, Educational Philanthropists',
           text: TEMPLATE_INNOVATION,
           icon: 'terminal',
-          color: 'secondary',
-          fileName: 'NYSC_Edo_Innovation_Labs_2026.pdf',
+          fileName: 'NYSC_Egor_Digital_Skills_Proposal.pdf',
         };
     }
   };
@@ -165,83 +161,83 @@ export const PitchKitViewer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-space-lg">
-      {/* Template Sub-Navigation Pills */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-space-sm p-1.5 bg-surface-container-low rounded-xl">
+    <div className="space-y-6">
+      {/* Template Selection Pills */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-1.5 bg-surface-container-low rounded-2xl border border-outline-variant/30">
         <button
           onClick={() => setActiveTab('sanitary')}
-          className={`p-space-md rounded-lg text-left transition-all duration-150 flex items-center gap-space-sm ${
+          className={`p-4 rounded-xl text-left transition-all duration-150 flex items-center gap-3 ${
             activeTab === 'sanitary'
-              ? 'bg-surface-container-highest text-primary font-bold shadow-xs'
-              : 'bg-surface-container-low text-on-surface-variant hover:text-on-surface'
+              ? 'bg-surface-container-lowest text-primary font-bold shadow-subtle'
+              : 'text-on-surface-variant hover:text-on-surface'
           }`}
         >
           <span className="material-symbols-outlined text-[24px] text-primary">sanitizer</span>
           <div>
-            <span className="block font-label-lg text-label-lg">Template 01</span>
-            <span className="block font-label-sm text-label-sm opacity-80">Sanitary Pad Outreach</span>
+            <span className="block text-sm font-bold">Template 01</span>
+            <span className="block text-xs opacity-80">Sanitary Pad Outreach (Egor)</span>
           </div>
         </button>
 
         <button
           onClick={() => setActiveTab('equipment')}
-          className={`p-space-md rounded-lg text-left transition-all duration-150 flex items-center gap-space-sm ${
+          className={`p-4 rounded-xl text-left transition-all duration-150 flex items-center gap-3 ${
             activeTab === 'equipment'
-              ? 'bg-surface-container-highest text-primary font-bold shadow-xs'
-              : 'bg-surface-container-low text-on-surface-variant hover:text-on-surface'
+              ? 'bg-surface-container-lowest text-primary font-bold shadow-subtle'
+              : 'text-on-surface-variant hover:text-on-surface'
           }`}
         >
           <span className="material-symbols-outlined text-[24px] text-tertiary">front_loader</span>
           <div>
-            <span className="block font-label-lg text-label-lg">Template 02</span>
-            <span className="block font-label-sm text-label-sm opacity-80">Heavy Sanitation Logistics</span>
+            <span className="block text-sm font-bold">Template 02</span>
+            <span className="block text-xs opacity-80">ESWMB Sanitation Logistics</span>
           </div>
         </button>
 
         <button
           onClick={() => setActiveTab('innovation')}
-          className={`p-space-md rounded-lg text-left transition-all duration-150 flex items-center gap-space-sm ${
+          className={`p-4 rounded-xl text-left transition-all duration-150 flex items-center gap-3 ${
             activeTab === 'innovation'
-              ? 'bg-surface-container-highest text-primary font-bold shadow-xs'
-              : 'bg-surface-container-low text-on-surface-variant hover:text-on-surface'
+              ? 'bg-surface-container-lowest text-primary font-bold shadow-subtle'
+              : 'text-on-surface-variant hover:text-on-surface'
           }`}
         >
           <span className="material-symbols-outlined text-[24px] text-secondary">terminal</span>
           <div>
-            <span className="block font-label-lg text-label-lg">Template 03</span>
-            <span className="block font-label-sm text-label-sm opacity-80">Youth Innovation Lab</span>
+            <span className="block text-sm font-bold">Template 03</span>
+            <span className="block text-xs opacity-80">Youth Digital Skills Lab</span>
           </div>
         </button>
       </div>
 
-      {/* Toolbar & Export Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low">
-        <div className="flex items-center gap-space-sm">
+      {/* Toolbar & Understandable Actions */}
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-subtle">
+        <div className="flex items-center gap-3">
           <span className="material-symbols-outlined text-primary text-[28px]">{current.icon}</span>
           <div>
-            <h3 className="font-title-md text-title-md text-on-surface font-bold">{current.title}</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Recommended for: {current.target}</p>
+            <h3 className="text-sm sm:text-base font-bold text-on-surface">{current.title}</h3>
+            <p className="text-xs text-on-surface-variant">Intended for: {current.target}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-space-sm">
+        <div className="flex items-center gap-2">
           <button
             onClick={handleCopy}
-            className={`px-space-md py-space-xs font-label-lg text-label-lg rounded-lg shadow-xs transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 ${
               copied
-                ? 'bg-tertiary text-on-tertiary'
+                ? 'bg-tertiary text-white'
                 : 'bg-primary hover:bg-primary-container text-on-primary'
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">
               {copied ? 'check_circle' : 'content_copy'}
             </span>
-            <span>{copied ? 'Copied to Clipboard!' : 'Copy Letter Template'}</span>
+            <span>{copied ? 'Copied to Clipboard!' : 'Copy Letter'}</span>
           </button>
 
           <button
             onClick={handlePrint}
-            className="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-lg transition-colors flex items-center gap-1.5"
+            className="px-4 py-2 bg-surface-container-lowest hover:bg-surface-container text-on-surface text-xs sm:text-sm font-bold rounded-xl border border-outline-variant/40 transition-colors flex items-center gap-1.5 active:scale-95 shadow-subtle"
             title="Print or Save as PDF"
           >
             <span className="material-symbols-outlined text-[18px]">print</span>
@@ -251,18 +247,18 @@ export const PitchKitViewer: React.FC = () => {
       </div>
 
       {/* Formal Letter Paper Simulation */}
-      <div className="p-space-xl sm:p-space-2xl rounded-2xl bg-surface-container-lowest shadow-sm border border-outline-variant/30 max-w-4xl mx-auto w-full relative print:shadow-none print:border-none print:p-0">
+      <div className="p-6 sm:p-10 rounded-2xl bg-surface-container-lowest shadow-card border border-outline-variant/30 max-w-4xl mx-auto w-full relative print:shadow-none print:border-none print:p-0">
         {/* Letterhead Banner */}
-        <div className="text-center pb-space-lg mb-space-md border-b border-surface-variant">
-          <div className="inline-block mb-space-xs">
-            <span className="font-title-md text-title-md tracking-widest uppercase font-black text-primary block">
+        <div className="text-center pb-6 mb-6 border-b border-surface-container">
+          <div className="inline-block space-y-1">
+            <span className="text-sm sm:text-base tracking-widest uppercase font-black text-primary block">
               NATIONAL YOUTH SERVICE CORPS
             </span>
-            <span className="font-label-lg text-label-lg tracking-wider text-on-surface block uppercase font-bold mt-1">
-              EDO STATE SECRETARIAT • SUSTAINABLE DEVELOPMENT GOALS (SDGs) CDS GROUP
+            <span className="text-xs sm:text-sm tracking-wider text-on-surface block uppercase font-bold">
+              EGOR LOCAL GOVERNMENT AREA • SUSTAINABLE DEVELOPMENT GOALS (SDGs) CDS GROUP
             </span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant block mt-1">
-              NYSC Secretariat, 2 Benin-Agbor Road, Ikpoba Hill, P.M.B. 1384, Benin City, Edo State
+            <span className="text-xs text-on-surface-variant block">
+              Egor NYSC Secretariat, Benin City, Edo State
             </span>
           </div>
           <div className="w-full h-1 bg-primary rounded-full mt-3"></div>
@@ -275,34 +271,34 @@ export const PitchKitViewer: React.FC = () => {
         </div>
       </div>
 
-      {/* Educational Resources / Guidelines Strip */}
-      <section className="mt-space-xl grid grid-cols-1 md:grid-cols-3 gap-space-lg pt-space-md">
-        <div className="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm border border-outline-variant/20">
-          <span className="material-symbols-outlined text-primary text-[24px]">verified_user</span>
+      {/* Simple Guidance Cards */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-start gap-3">
+          <span className="material-symbols-outlined text-primary text-[22px]">verified_user</span>
           <div>
-            <h4 className="font-title-md text-title-md text-on-surface font-bold">Statutory Compliance</h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-              All letters must carry the official NYSC Secretariat counter-signature and seal of the CDS Schedule Officer prior to physical delivery.
+            <h4 className="text-xs font-bold text-on-surface">LGI Endorsement</h4>
+            <p className="text-[11px] text-on-surface-variant mt-0.5">
+              Every outreach letter must be officially counter-signed at the Egor NYSC Secretariat before physical delivery.
             </p>
           </div>
         </div>
 
-        <div className="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm border border-outline-variant/20">
-          <span className="material-symbols-outlined text-secondary text-[24px]">schedule</span>
+        <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-start gap-3">
+          <span className="material-symbols-outlined text-secondary text-[22px]">schedule</span>
           <div>
-            <h4 className="font-title-md text-title-md text-on-surface font-bold">Turnaround Standards</h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-              Government agencies and ministries in Benin City require 10-14 working days for formal clearance. Submit logistics requests early.
+            <h4 className="text-xs font-bold text-on-surface">Submission Window</h4>
+            <p className="text-[11px] text-on-surface-variant mt-0.5">
+              Submit requisition requests 7-10 working days prior to your target Wednesday community outreach.
             </p>
           </div>
         </div>
 
-        <div className="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm border border-outline-variant/20">
-          <span className="material-symbols-outlined text-tertiary text-[24px]">receipt_long</span>
+        <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-start gap-3">
+          <span className="material-symbols-outlined text-tertiary text-[22px]">receipt_long</span>
           <div>
-            <h4 className="font-title-md text-title-md text-on-surface font-bold">Audit Transparency</h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-              Always retain an officially stamped 'Received Copy' in the Executive CDS Archive Registry for the state audit roll.
+            <h4 className="text-xs font-bold text-on-surface">Keep Acknowledged Copy</h4>
+            <p className="text-[11px] text-on-surface-variant mt-0.5">
+              Always retrieve a stamped acknowledgment copy from the recipient for the Egor CDS file registry.
             </p>
           </div>
         </div>

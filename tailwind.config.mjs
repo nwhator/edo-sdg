@@ -4,31 +4,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        // UI Screens Material Design Tokens
-        "surface": "#faf8ff",
-        "surface-dim": "#d2d9f4",
-        "surface-bright": "#faf8ff",
-        "surface-container-lowest": "#ffffff",
-        "surface-container-low": "#f2f3ff",
-        "surface-container": "#eaedff",
-        "surface-container-high": "#e2e7ff",
-        "surface-container-highest": "#dae2fd",
-        "surface-variant": "#dae2fd",
-        "on-surface": "#131b2e",
-        "on-surface-variant": "#3f4940",
+        // Warm, Organic Civic Theme (FoodThrift "Less is More" inspired)
+        "surface": "#FAF9F5",
+        "surface-dim": "#ECEAE4",
+        "surface-bright": "#FFFFFF",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-container-low": "#F4F2EC",
+        "surface-container": "#E6F0EA",
+        "surface-container-high": "#E2E0D8",
+        "surface-container-highest": "#D6D4CC",
+        "surface-variant": "#E6F0EA",
+        "on-surface": "#17201B",
+        "on-surface-variant": "#445149",
         "inverse-surface": "#283044",
         "inverse-on-surface": "#eef0ff",
-        "outline": "#6f7a6f",
-        "outline-variant": "#bfc9bd",
-        "surface-tint": "#0f6d39",
+        "outline": "#728178",
+        "outline-variant": "#BDC9C1",
+        "surface-tint": "#004b24",
         
         "primary": "#004b24",
         "on-primary": "#ffffff",
-        "primary-container": "#006633",
-        "on-primary-container": "#8ce1a1",
+        "primary-container": "#144E3F",
+        "on-primary-container": "#C4E5D8",
         "inverse-primary": "#84d999",
-        "primary-fixed": "#9ff6b4",
-        "primary-fixed-dim": "#84d999",
+        "primary-fixed": "#C4E5D8",
+        "primary-fixed-dim": "#A3D4C0",
         "on-primary-fixed": "#00210c",
         "on-primary-fixed-variant": "#005228",
 
@@ -55,8 +55,8 @@ export default {
         "error-container": "#ffdad6",
         "on-error-container": "#93000a",
 
-        "background": "#faf8ff",
-        "on-background": "#131b2e",
+        "background": "#FAF9F5",
+        "on-background": "#17201B",
 
         // Institutional NYSC Aliases for Backward Compatibility
         nysc: {
@@ -92,7 +92,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
         display: ['"Plus Jakarta Sans"', 'sans-serif'],
         'display-mobile': ['"Plus Jakarta Sans"', 'sans-serif'],
         'headline-lg': ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -124,6 +124,11 @@ export default {
         'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.04em', fontWeight: '700' }],
         'stat-counter': ['40px', { lineHeight: '48px', letterSpacing: '-0.03em', fontWeight: '800' }],
       },
+      boxShadow: {
+        subtle: '0 2px 8px -1px rgba(0, 75, 36, 0.05)',
+        card: '0 4px 16px -2px rgba(0, 75, 36, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',
+        elevated: '0 12px 32px -4px rgba(0, 75, 36, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06)',
+      },
       spacing: {
         'space-xs': '0.25rem',
         'space-sm': '0.5rem',
@@ -145,7 +150,9 @@ export default {
         'DEFAULT': '0.5rem',
         'md': '0.75rem',
         'lg': '1rem',
-        'xl': '1.5rem',
+        'xl': '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
         'full': '9999px',
       }
     },

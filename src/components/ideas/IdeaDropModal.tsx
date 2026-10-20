@@ -25,7 +25,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [selectedSDGs, setSelectedSDGs] = useState<number[]>([3, 5]);
-  const [location, setLocation] = useState('Benin City, Edo State');
+  const [location, setLocation] = useState('Egor LGA, Benin City');
   const [alias, setAlias] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
@@ -120,10 +120,10 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                 <span>100% Anonymous & Democratic</span>
               </div>
               <h2 className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">
-                Pitch an SDG Project Idea
+                Pitch an SDG Project for Egor
               </h2>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                Share what Edo State communities need. Top-voted ideas get adopted by the CDS executive committee for funding and implementation.
+                Share what Egor LGA communities need. Top-voted ideas get adopted by the CDS executive committee for funding and implementation.
               </p>
             </div>
 
@@ -169,7 +169,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="e.g. Oredo, Ring Road, Ekewan"
+                  placeholder="e.g. Egor Secretariat, Ugbowo, Uwelu, Evbuotubu"
                   className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -248,7 +248,7 @@ export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, o
                 className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold shadow-xs transition-all disabled:opacity-50 flex items-center gap-2"
               >
                 <span className="material-symbols-outlined text-[18px]">send</span>
-                <span>{isSubmitting ? 'Submitting...' : 'Drop Anonymous Idea'}</span>
+                <span>{isSubmitting ? 'Submitting...' : 'Submit Idea Anonymously'}</span>
               </button>
             </div>
           </form>

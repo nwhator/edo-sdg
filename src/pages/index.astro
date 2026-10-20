@@ -11,117 +11,118 @@ const sdgList = Object.values(SDG_METADATA);
 ---
 
 <Layout
-  title="Home"
-  description="Edo State NYSC SDGs Community Development Service (CDS) Group, Benin City. Mobilizing graduate youth and grassroots ideas to achieve the Global Goals across Oredo, Egor, and Ikpoba Okha."
+  title="Home • NYSC Egor SDG CDS Group"
+  description="Official platform of the NYSC Sustainable Development Goals (SDG) CDS Group, Egor Local Government Area. Weekly Plenary every Wednesday at Egor NYSC Secretariat."
 >
-  <div class="flex flex-col w-full">
+  <div class="flex flex-col w-full space-y-12 md:space-y-16">
     
-    <!-- Hero Section with Institutional NYSC Benin Identity -->
-    <section class="relative overflow-hidden py-space-xl md:py-space-3xl bg-surface">
-      <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+    <!-- Hero Section (Clean, Less is More, FoodThrift-inspired) -->
+    <section class="relative pt-6 md:pt-10 pb-8 bg-surface">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- Left Column: Headline & Action Nexus -->
-          <div class="lg:col-span-7 space-y-space-lg">
+          <!-- Left Column: Clear Message & Actions -->
+          <div class="lg:col-span-7 space-y-5">
             
-            <!-- Live Operational Badge -->
-            <div class="inline-flex items-center gap-space-xs bg-surface-container-high px-space-md py-1.5 rounded-full shadow-sm">
-              <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
-              <span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wide">
-                Benin City Mandate • Meeting Every Wednesday @ Secretariat Egor
-              </span>
+            <!-- Live Meeting Schedule Pill -->
+            <div class="inline-flex items-center gap-2 bg-surface-container px-3.5 py-1.5 rounded-full border border-outline-variant/30 text-primary text-xs font-bold shadow-subtle">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span>Egor LGA • Plenary Every Wednesday @ Egor NYSC Secretariat</span>
             </div>
 
             <!-- Main Title -->
-            <h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
-              Driving Sustainable <span class="text-primary underline decoration-secondary-container decoration-4">Development</span> Across Edo State
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-[1.18]">
+              Advancing the Global Goals in <span class="text-primary">Egor LGA</span>
             </h1>
 
             <!-- Subtitle -->
-            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-              Edo State NYSC SDGs Community Development Service (CDS) Group, Benin City. Mobilizing young graduate leaders and grassroots resources to achieve the United Nations Global Goals across Oredo, Egor, and Ikpoba Okha.
+            <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              Official platform of the NYSC Sustainable Development Goals (SDGs) CDS Group, Egor Local Government Area. Corps members sharing community ideas, tracking local interventions, and driving youth-led impact across Egor.
             </p>
 
-            <!-- Dual CTAs -->
-            <div class="pt-space-xs flex flex-wrap items-center gap-space-md">
+            <!-- Clean, Easily Understandable CTAs -->
+            <div class="pt-2 flex flex-wrap items-center gap-3">
               <a
                 href="/ideas#drop"
-                class="inline-flex items-center gap-space-sm px-space-xl py-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-xl shadow-md transition-all hover:translate-y-[-1px]"
+                class="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-card hover:shadow-elevated active:scale-95 transition-all"
               >
                 <span class="material-symbols-outlined text-[20px]">lightbulb</span>
-                <span>Submit Anonymous Idea</span>
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <span>Submit an Idea</span>
               </a>
 
               <a
                 href="/projects"
-                class="inline-flex items-center gap-space-sm px-space-xl py-space-md bg-surface-container-lowest text-primary hover:bg-surface-container font-label-lg text-label-lg rounded-xl shadow-sm transition-all border border-surface-container-high"
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-sm border border-outline-variant/40 shadow-subtle active:scale-95 transition-all"
               >
-                <span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+                <span class="material-symbols-outlined text-[18px]">folder_open</span>
                 <span>View Planned Projects</span>
               </a>
             </div>
 
-            <!-- Micro Verification Strip -->
-            <div class="flex flex-wrap items-center gap-space-lg pt-space-xs text-on-surface-variant">
-              <div class="flex items-center gap-space-xs">
-                <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
-                <span class="font-label-sm text-label-sm">Official CDS Reg #ED/CDS/SDG/24</span>
+            <!-- Simple Trust Metrics -->
+            <div class="flex flex-wrap items-center gap-6 pt-3 text-on-surface-variant text-xs">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                <span class="font-semibold">NYSC Egor LGA Secretariat</span>
               </div>
-              <div class="flex items-center gap-space-xs">
-                <span class="material-symbols-outlined text-secondary text-[20px]">group</span>
-                <span class="font-label-sm text-label-sm">180+ Active Corps Members</span>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary text-[18px]">schedule</span>
+                <span class="font-semibold">Wednesdays @ 9:00 AM</span>
               </div>
             </div>
 
           </div>
 
-          <!-- Right Column: Hero Graphic & CDS Benin Credential Card -->
-          <div class="lg:col-span-5 relative">
-            <div class="absolute -top-10 -right-10 w-72 h-72 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div class="relative bg-surface-container-lowest p-space-xl rounded-2xl shadow-xl space-y-space-md border border-surface-container-high">
+          <!-- Right Column: Institutional Focus Card (Egor NYSC Secretariat) -->
+          <div class="lg:col-span-5">
+            <div class="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl shadow-card border border-outline-variant/30 space-y-4">
+              
               <!-- Insignia Header -->
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-space-sm">
-                  <div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-[32px]">shield</span>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary font-extrabold text-sm shadow-subtle">
+                    SDG
                   </div>
                   <div>
-                    <h3 class="font-title-md text-title-md font-bold text-on-surface">NYSC CDS Edo State</h3>
-                    <p class="font-label-sm text-label-sm text-outline">Batch B Stream II • Benin Chapter</p>
+                    <h3 class="font-headline-sm text-sm font-bold text-on-surface">NYSC Egor SDG CDS</h3>
+                    <p class="font-body-sm text-xs text-on-surface-variant">Edo State Secretariat Hub</p>
                   </div>
                 </div>
-                <span class="px-space-sm py-1 bg-surface-container text-primary font-label-sm text-label-sm rounded-full font-bold">
-                  LIVE CDS
+                <span class="px-2.5 py-1 bg-surface-container text-primary text-[11px] font-bold rounded-full">
+                  Egor Chapter
                 </span>
               </div>
 
-              <!-- Hero Documentary Photo -->
-              <div class="relative h-56 rounded-xl overflow-hidden shadow-sm">
+              <!-- Documentary Photo -->
+              <div class="relative h-52 rounded-xl overflow-hidden shadow-subtle">
                 <img
                   class="w-full h-full object-cover"
-                  alt="NYSC corps members in khaki uniforms organizing community development materials in Benin City"
+                  alt="NYSC corps members in khaki uniforms during plenary assembly in Egor"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6CsW469yAlDdvPvSi6dFxhgMZ28IdBwXSuWXh3-07dIbw2ZSPQXCGRWNu47hRalg6AlnH5iPSkpwZgbZ8_KPW1PwzB0rlvQ6qI6hc1nhDCEm12mYDCURr14LAJp5juFfJEnrho_xJ6NLChH295F0kCK_CTEbQKf6SmrAs8od5gLr7Sr7dZ62qJSMg_2aoKaH9hOy8UsqjX4p9BISivNoTCuZBrm4SMesjsMd3nHPdtfYFubdGEV2uaw"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-on-surface/85 via-transparent to-transparent flex items-end p-space-md">
-                  <p class="font-label-md text-label-md text-surface-container-lowest font-medium">
-                    Secretariat Egor CDS Plenary Assembly & Civic Workshop
+                <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-3">
+                  <p class="text-xs text-white font-medium">
+                    Egor NYSC Secretariat CDS Plenary Assembly
                   </p>
                 </div>
               </div>
 
-              <!-- Metro Reach Progress Indicator -->
-              <div class="bg-surface-container p-space-md rounded-xl space-y-space-xs">
-                <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant font-bold">
-                  <span>BENIN METROPOLITAN REACH</span>
-                  <span class="text-primary">3 LGAs ACTIVE</span>
+              <!-- Quick Info Rows -->
+              <div class="space-y-2 pt-1 font-body-sm text-xs text-on-surface">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+                    Meeting Location
+                  </span>
+                  <span class="font-bold text-primary">Egor NYSC Secretariat</span>
                 </div>
-                <div class="w-full bg-surface-container-highest rounded-full h-2">
-                  <div class="bg-primary h-2 rounded-full w-4/5"></div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px] text-primary">event</span>
+                    Plenary Day
+                  </span>
+                  <span class="font-bold text-on-surface">Every Wednesday @ 9:00 AM</span>
                 </div>
-                <p class="font-body-sm text-body-sm text-outline text-right">Oredo • Egor • Ikpoba Okha</p>
               </div>
 
             </div>
@@ -131,136 +132,143 @@ const sdgList = Object.values(SDG_METADATA);
       </div>
     </section>
 
-    <!-- Bento Impact Stats Bar -->
-    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-md">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+    <!-- Clean Impact Stats Bar -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         
-        <!-- Bento 1: UN Framework -->
-        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
-          <div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
-          <div class="flex items-center justify-between mb-space-xs">
-            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">UN Framework</span>
+        <!-- Stat 1: UN Global Goals -->
+        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">UN Framework</span>
             <span class="material-symbols-outlined text-primary text-[20px]">public</span>
           </div>
-          <div class="font-stat-counter text-stat-counter text-primary">17</div>
-          <p class="font-title-md text-title-md text-on-surface font-semibold">Global Goals</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Guiding all CDS initiatives</p>
+          <div class="text-3xl font-extrabold text-primary font-display">17</div>
+          <p class="text-sm font-bold text-on-surface mt-0.5">Global Goals</p>
+          <p class="text-xs text-on-surface-variant mt-0.5">Guiding all Egor projects</p>
         </div>
 
-        <!-- Bento 2: Anonymous Proposals -->
-        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
-          <div class="absolute top-0 left-0 w-full h-1.5 bg-secondary-container"></div>
-          <div class="flex items-center justify-between mb-space-xs">
-            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Peer Voice</span>
+        <!-- Stat 2: Ideas Dropped -->
+        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-secondary/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Community Voice</span>
             <span class="material-symbols-outlined text-secondary text-[20px]">lightbulb</span>
           </div>
-          <div class="font-stat-counter text-stat-counter text-secondary">{ideas.length}</div>
-          <p class="font-title-md text-title-md text-on-surface font-semibold">Ideas Dropped</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Submitted anonymously</p>
+          <div class="text-3xl font-extrabold text-secondary font-display">{ideas.length}</div>
+          <p class="text-sm font-bold text-on-surface mt-0.5">Ideas Dropped</p>
+          <p class="text-xs text-on-surface-variant mt-0.5">Submitted anonymously</p>
         </div>
 
-        <!-- Bento 3: Active Volunteers -->
-        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
-          <div class="absolute top-0 left-0 w-full h-1.5 bg-tertiary"></div>
-          <div class="flex items-center justify-between mb-space-xs">
-            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Community Force</span>
+        <!-- Stat 3: Active Volunteers -->
+        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-tertiary/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Volunteer Corps</span>
             <span class="material-symbols-outlined text-tertiary text-[20px]">groups</span>
           </div>
-          <div class="font-stat-counter text-stat-counter text-tertiary">180+</div>
-          <p class="font-title-md text-title-md text-on-surface font-semibold">Corps Members</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ready for community deployment</p>
+          <div class="text-3xl font-extrabold text-tertiary font-display">120+</div>
+          <p class="text-sm font-bold text-on-surface mt-0.5">Corps Members</p>
+          <p class="text-xs text-on-surface-variant mt-0.5">Serving across Egor LGA</p>
         </div>
 
-        <!-- Bento 4: Civil Alliances -->
-        <div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-surface-container-high">
-          <div class="absolute top-0 left-0 w-full h-1.5 bg-primary-container"></div>
-          <div class="flex items-center justify-between mb-space-xs">
-            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Civil Alliances</span>
+        <!-- Stat 4: Civil Alliances -->
+        <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Civil Network</span>
             <span class="material-symbols-outlined text-primary text-[20px]">handshake</span>
           </div>
-          <div class="font-stat-counter text-stat-counter text-primary">{partners.length || 8}</div>
-          <p class="font-title-md text-title-md text-on-surface font-semibold">Benin Partners</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Mapped in outreach directory</p>
+          <div class="text-3xl font-extrabold text-primary font-display">{partners.length || 8}</div>
+          <p class="text-sm font-bold text-on-surface mt-0.5">Partner Contacts</p>
+          <p class="text-xs text-on-surface-variant mt-0.5">Mapped for outreach</p>
         </div>
 
       </div>
     </section>
 
-    <!-- Trending Anonymous Community Ideas -->
-    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-xl bg-surface-container-low/60 rounded-3xl my-space-lg border border-surface-container-high">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
-        <div>
-          <div class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider mb-space-xs">
-            <span class="material-symbols-outlined text-[16px]">forum</span> Civic Incubation
+    <!-- Trending Community Ideas for Egor LGA -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="bg-surface-container-low/70 p-6 sm:p-8 rounded-3xl border border-outline-variant/30 space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-primary text-xs font-bold uppercase tracking-wider mb-1">
+              <span class="material-symbols-outlined text-[16px]">forum</span>
+              <span>Grassroots Proposals</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-on-surface">Community Ideas for Egor LGA</h2>
+            <p class="text-xs sm:text-sm text-on-surface-variant mt-0.5">
+              Review and upvote peer proposals to shape upcoming CDS community projects.
+            </p>
           </div>
-          <h2 class="font-headline-lg text-headline-lg text-on-surface">Trending Corps Member Ideas</h2>
-        </div>
-        <div class="flex items-center gap-space-md">
-          <a class="font-label-lg text-label-lg text-primary hover:underline flex items-center gap-1 font-bold" href="/ideas">
-            <span>Explore All Ideas ({ideas.length})</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-        </div>
-      </div>
-
-      {topIdeas.length === 0 ? (
-        <div class="bg-surface-container-lowest rounded-2xl p-space-2xl text-center space-y-space-sm border border-dashed border-outline-variant max-w-xl mx-auto">
-          <div class="w-14 h-14 rounded-2xl bg-secondary-container/30 text-secondary mx-auto flex items-center justify-center text-2xl font-bold">
-            💡
-          </div>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">No Community Ideas Yet</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mx-auto">
-            Be the first corps member to drop an anonymous grassroots solution for Benin City or your host LGA.
-          </p>
-          <div class="pt-space-xs">
+          <div class="flex items-center gap-3 shrink-0">
             <a
-              href="/ideas#drop"
-              class="inline-flex items-center gap-space-xs px-space-lg py-space-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm hover:bg-primary-container transition-all"
+              href="/ideas"
+              class="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-primary hover:underline"
             >
-              <span>+ Propose First Idea</span>
+              <span>View All Ideas ({ideas.length})</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
         </div>
-      ) : (
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-          {topIdeas.map((idea) => (
-            <IdeaCard client:load idea={idea} />
-          ))}
-        </div>
-      )}
+
+        {topIdeas.length === 0 ? (
+          <div class="bg-surface-container-lowest rounded-2xl p-8 text-center space-y-3 border border-dashed border-outline-variant max-w-md mx-auto shadow-subtle">
+            <div class="w-12 h-12 rounded-xl bg-surface-container text-primary mx-auto flex items-center justify-center text-xl font-bold">
+              💡
+            </div>
+            <h3 class="font-headline-sm text-base font-bold text-on-surface">No Ideas Submitted Yet</h3>
+            <p class="font-body-sm text-xs text-on-surface-variant">
+              Be the first corps member to drop an anonymous community proposal for Egor LGA.
+            </p>
+            <div class="pt-1">
+              <a
+                href="/ideas#drop"
+                class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-primary text-on-primary text-xs font-bold rounded-xl shadow-sm hover:bg-primary-container transition-all"
+              >
+                <span>Submit an Idea</span>
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {topIdeas.map((idea) => (
+              <IdeaCard client:load idea={idea} />
+            ))}
+          </div>
+        )}
+
+      </div>
     </section>
 
     <!-- UN 17 SDGs Interactive Grid -->
-    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full py-space-3xl" id="sdg-grid">
-      <div class="text-center max-w-3xl mx-auto mb-space-2xl space-y-space-xs">
-        <span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-widest">
-          Global Framework • Local Edo Execution
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4" id="sdg-grid">
+      <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
+        <span class="text-xs font-bold text-primary uppercase tracking-wider">
+          Global Vision • Local Egor Execution
         </span>
-        <h2 class="font-headline-lg text-headline-lg text-on-surface">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface">
           The 17 Sustainable Development Goals
         </h2>
-        <p class="font-body-md text-body-md text-on-surface-variant">
-          Our CDS committee initiates projects and public awareness drives aligned with each of these global objectives across Edo State.
+        <p class="text-xs sm:text-sm text-on-surface-variant">
+          Every project planned at the Egor NYSC Secretariat directly maps to one or more of these global targets.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-space-sm">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {sdgList.map((sdg) => (
           <div
             style={{ backgroundColor: sdg.color }}
-            class="group relative rounded-xl p-space-md text-surface-container-lowest transition-all hover:scale-[1.03] shadow-sm min-h-[140px] flex flex-col justify-between"
+            class="group relative rounded-2xl p-4 text-white transition-all hover:scale-[1.02] shadow-subtle min-h-[130px] flex flex-col justify-between"
           >
             <div class="flex justify-between items-start">
-              <span class="font-headline-md text-headline-md font-extrabold opacity-70">
+              <span class="text-xl font-extrabold opacity-80 font-display">
                 {String(sdg.number).padStart(2, '0')}
               </span>
-              <span class="material-symbols-outlined text-[20px] opacity-80">public</span>
+              <span class="material-symbols-outlined text-[18px] opacity-80">public</span>
             </div>
             <div>
-              <h5 class="font-title-md text-title-md font-bold leading-tight">
+              <h5 class="text-xs sm:text-sm font-bold leading-tight">
                 {sdg.name}
               </h5>
-              <p class="text-[11px] font-body-sm opacity-90 mt-1 line-clamp-1">
+              <p class="text-[10px] opacity-90 mt-1 line-clamp-1">
                 {sdg.shortDescription}
               </p>
             </div>
@@ -269,32 +277,33 @@ const sdgList = Object.values(SDG_METADATA);
       </div>
     </section>
 
-    <!-- CDS Partnership & Action Banner -->
-    <section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full pb-space-2xl">
-      <div class="bg-primary text-on-primary rounded-3xl p-space-xl md:p-space-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-space-xl shadow-lg">
-        <div class="space-y-space-sm max-w-2xl relative z-10">
-          <span class="px-space-sm py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full font-bold">
-            CALL FOR CIVIL PARTNERS & SPONSORS
+    <!-- Understandable Partnership & Action Banner -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
+      <div class="bg-primary text-on-primary rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-card">
+        <div class="space-y-2 max-w-xl text-center md:text-left">
+          <span class="inline-block px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-extrabold rounded-full">
+            Egor Community Partnership
           </span>
-          <h3 class="font-display-mobile md:font-display text-display-mobile md:text-display font-extrabold leading-tight">
-            Ready to Make an Impact in Benin City?
+          <h3 class="text-2xl sm:text-3xl font-extrabold leading-tight">
+            Want to Collaborate with Egor SDG CDS?
           </h3>
-          <p class="font-body-md text-body-md text-primary-fixed-dim leading-relaxed">
-            Whether you represent an NGO, corporate CSR entity, or you are an incoming NYSC corps member posted to Edo State, join our Wednesday plenary at Secretariat Egor.
+          <p class="text-xs sm:text-sm text-primary-fixed leading-relaxed">
+            Whether you represent a local school, business, or you are a serving corps member in Egor LGA, join our Wednesday plenary at the Egor NYSC Secretariat.
           </p>
         </div>
-        <div class="flex flex-col sm:flex-row gap-space-md relative z-10 shrink-0 w-full md:w-auto">
+
+        <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
           <a
             href="/ideas#drop"
-            class="text-center px-space-xl py-space-md bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-label-lg text-label-lg rounded-xl shadow-md transition-all font-bold"
+            class="text-center px-6 py-3 bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-bold text-xs sm:text-sm rounded-xl shadow-sm transition-all active:scale-95"
           >
-            Submit Project Proposal
+            Submit an Idea
           </a>
           <a
             href="/admin"
-            class="text-center px-space-xl py-space-md bg-on-primary-fixed-variant text-surface-container-lowest hover:bg-primary-container font-label-lg text-label-lg rounded-xl transition-all"
+            class="text-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-white/20 active:scale-95"
           >
-            CDS Executive Portal 🔒
+            Admin Portal 🔒
           </a>
         </div>
       </div>

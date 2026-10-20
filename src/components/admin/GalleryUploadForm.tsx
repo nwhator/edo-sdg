@@ -13,7 +13,7 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
   // New Event fields
   const [eventTitle, setEventTitle] = useState('');
   const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
-  const [eventLocation, setEventLocation] = useState('Benin City, Edo State');
+  const [eventLocation, setEventLocation] = useState('Egor LGA, Benin City');
   const [eventDescription, setEventDescription] = useState('');
   const [coverImageUrl, setCoverImageUrl] = useState('');
 
@@ -196,7 +196,7 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
                     required
                     value={eventLocation}
                     onChange={(e) => setEventLocation(e.target.value)}
-                    placeholder="e.g. Emotan College, Wire Road, Benin City"
+                    placeholder="e.g. Egor NYSC Secretariat, Ugbowo, Uwelu"
                     className="w-full px-3 py-2 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                   />
                 </div>

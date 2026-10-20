@@ -9,16 +9,16 @@ const navItems = [
     title: "Projects & Gallery",
     href: "/projects",
     subLinks: [
-      { title: "Planned Initiatives & Budgets", href: "/projects", desc: "Cost breakdowns, SDGs, & target partners" },
-      { title: "Event Photo Albums", href: "/gallery", desc: "Outreach gallery grouped by events" },
+      { title: "Planned Projects & Budgets", href: "/projects", desc: "Itemized costs, SDGs & partner plans" },
+      { title: "Event Photo Albums", href: "/gallery", desc: "Outreach gallery organized by events" },
     ]
   },
   {
     title: "Ideas Hub",
     href: "/ideas",
     subLinks: [
-      { title: "Browse & Upvote Ideas", href: "/ideas", desc: "Vote on community-driven proposals" },
-      { title: "Drop Anonymous Idea", href: "/ideas#drop", desc: "Pitch community solutions without your name" },
+      { title: "Browse Community Ideas", href: "/ideas", desc: "Vote on peer-submitted proposals" },
+      { title: "Submit an Idea", href: "/ideas#drop", desc: "Pitch an anonymous project for Egor" },
     ]
   },
   {
@@ -26,10 +26,10 @@ const navItems = [
     href: "/admin",
     isProtected: true,
     subLinks: [
-      { title: "Executive Dashboard", href: "/admin", desc: "Project planning, internal files & photos" },
-      { title: "Benin NGO Directory", href: "/admin/funding", desc: "Vetted partners for pads & cleaning materials" },
-      { title: "Sponsorship Pitch Kit", href: "/admin/pitch-kit", desc: "Official NYSC CDS letters & pitch templates" },
-      { title: "Idea Moderation", href: "/admin/ideas", desc: "Review and approve anonymous submissions" },
+      { title: "Executive Dashboard", href: "/admin", desc: "Overview, planning & media uploads" },
+      { title: "NGO Partner Directory", href: "/admin/funding", desc: "Local NGO partners & state boards" },
+      { title: "Official Pitch Kit", href: "/admin/pitch-kit", desc: "Pre-drafted sponsorship & requisition letters" },
+      { title: "Review Submissions", href: "/admin/ideas", desc: "Review and approve community ideas" },
     ]
   }
 ];
@@ -37,29 +37,28 @@ const navItems = [
 const pathname = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/60">
-  <div class="h-20 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop flex items-center justify-between">
+<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-surface-container shadow-subtle">
+  <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
     
     <!-- Brand Identity -->
-    <a href="/" class="flex items-center gap-space-md group">
-      <div class="relative w-11 h-11 rounded-xl bg-primary flex items-center justify-center text-on-primary font-bold shadow-md ring-2 ring-secondary-container transition-transform group-hover:scale-105">
-        <span class="font-display text-lg tracking-tighter">SDG</span>
-        <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-secondary-container border-2 border-surface-container-lowest flex items-center justify-center text-[9px] text-on-secondary-container font-extrabold">E</span>
+    <a href="/" class="flex items-center gap-3 group shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-extrabold shadow-sm ring-2 ring-secondary-container transition-transform group-hover:scale-105">
+        <span class="font-display text-base tracking-tight">SDG</span>
       </div>
       <div class="flex flex-col">
-        <span class="font-title-md text-title-md text-primary font-bold leading-tight group-hover:text-primary-container transition-colors">
-          NYSC Edo SDG CDS
+        <span class="font-headline-sm text-sm sm:text-base text-primary font-bold leading-tight group-hover:text-primary-container transition-colors">
+          NYSC Egor SDG CDS
         </span>
-        <span class="font-label-sm text-label-sm text-on-surface-variant font-medium tracking-normal flex items-center gap-1">
-          <span>Benin City, Edo State</span>
-          <span class="text-secondary-fixed-variant">•</span>
-          <span class="text-secondary font-semibold">Under 2030 Agenda</span>
+        <span class="font-label-sm text-[11px] text-on-surface-variant font-medium flex items-center gap-1">
+          <span>Egor NYSC Secretariat</span>
+          <span class="text-secondary">•</span>
+          <span class="text-secondary font-semibold">2030 Agenda</span>
         </span>
       </div>
     </a>
 
     <!-- Desktop Navigation: EXACTLY 4 MAIN LINKS -->
-    <nav class="hidden lg:flex items-center gap-space-lg xl:gap-space-xl">
+    <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
       {navItems.map((item) => {
         const isActive = item.href === '/' 
           ? pathname === '/' 
@@ -69,10 +68,10 @@ const pathname = Astro.url.pathname;
           <div class="relative group">
             <a
               href={item.href}
-              class={`flex items-center gap-1.5 py-2 font-label-lg text-label-lg transition-colors ${
+              class={`flex items-center gap-1 px-3 py-2 rounded-lg font-label-md text-sm transition-colors ${
                 isActive
-                  ? 'text-primary font-bold'
-                  : 'text-on-surface-variant hover:text-on-surface font-semibold'
+                  ? 'bg-surface-container text-primary font-bold'
+                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 font-semibold'
               }`}
             >
               <span>{item.title}</span>
@@ -88,17 +87,17 @@ const pathname = Astro.url.pathname;
 
             {/* Dropdown Sub-links */}
             {item.subLinks && (
-              <div class="absolute left-0 mt-1 w-72 p-2 bg-surface-container-lowest rounded-xl shadow-xl border border-surface-container-high opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+              <div class="absolute left-0 mt-1 w-64 p-2 bg-surface-container-lowest rounded-xl shadow-card border border-surface-container opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
                 <div class="space-y-1">
                   {item.subLinks.map((sub) => (
                     <a
                       href={sub.href}
-                      class="block px-3 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors group/sub"
+                      class="block px-3 py-2 rounded-lg hover:bg-surface-container-low transition-colors group/sub"
                     >
-                      <div class="font-label-md text-label-md font-bold text-on-surface group-hover/sub:text-primary">
+                      <div class="font-label-md text-xs font-bold text-on-surface group-hover/sub:text-primary">
                         {sub.title}
                       </div>
-                      <div class="font-body-sm text-xs text-on-surface-variant line-clamp-1 mt-0.5">
+                      <div class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">
                         {sub.desc}
                       </div>
                     </a>
@@ -111,29 +110,30 @@ const pathname = Astro.url.pathname;
       })}
     </nav>
 
-    <!-- Header Actions -->
-    <div class="flex items-center gap-space-md">
+    <!-- Header Actions / Understandable CTAs -->
+    <div class="flex items-center gap-2 sm:gap-3">
       <a
         href="/ideas#drop"
-        class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-space-sm bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-lg shadow-sm transition-colors"
+        class="inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs sm:text-sm font-bold shadow-sm active:scale-95 transition-all"
       >
-        <span class="material-symbols-outlined text-[18px]">add</span>
-        <span>Drop Idea</span>
+        <span class="material-symbols-outlined text-[18px]">lightbulb</span>
+        <span>Submit an Idea</span>
       </a>
 
       <a
         href="/admin"
-        class="w-9 h-9 rounded-full bg-primary flex items-center justify-center shadow-sm ring-2 ring-secondary-container hover:opacity-95 transition-opacity"
-        title="Executive Admin Portal"
+        class="inline-flex items-center justify-center gap-1.5 h-10 px-3 rounded-xl border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container text-on-surface text-xs font-bold transition-all shadow-subtle"
+        title="Restricted SDG Executive Portal"
       >
-        <span class="material-symbols-outlined text-on-primary text-[18px]">lock</span>
+        <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
+        <span class="hidden sm:inline">Admin</span>
       </a>
 
       <!-- Mobile Menu Toggle Button -->
       <button
         id="mobile-menu-button"
         type="button"
-        class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high focus:outline-hidden"
+        class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container focus:outline-hidden"
         aria-label="Toggle navigation menu"
       >
         <span class="material-symbols-outlined text-[24px]">menu</span>
@@ -143,7 +143,7 @@ const pathname = Astro.url.pathname;
   </div>
 
   <!-- Mobile Drawer Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-container-high bg-surface-container-lowest px-4 pt-3 pb-6 space-y-4">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-container bg-surface px-4 pt-3 pb-6 space-y-3">
     {navItems.map((item) => (
       <div class="space-y-1">
         <a
@@ -153,11 +153,11 @@ const pathname = Astro.url.pathname;
           {item.title} {item.isProtected && '🔒'}
         </a>
         {item.subLinks && (
-          <div class="pl-4 space-y-1 border-l-2 border-surface-container-high ml-3">
+          <div class="pl-4 space-y-1 border-l-2 border-surface-container ml-3">
             {item.subLinks.map((sub) => (
               <a
                 href={sub.href}
-                class="block px-2 py-1.5 font-body-sm text-xs text-on-surface-variant hover:text-primary"
+                class="block px-2 py-1 font-body-sm text-xs text-on-surface-variant hover:text-primary"
               >
                 {sub.title}
               </a>
@@ -167,18 +167,18 @@ const pathname = Astro.url.pathname;
       </div>
     ))}
 
-    <div class="pt-4 border-t border-surface-container-high flex flex-col gap-2">
+    <div class="pt-3 border-t border-surface-container flex flex-col gap-2">
       <a
         href="/ideas#drop"
-        class="w-full text-center py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-sm"
+        class="w-full text-center py-2.5 px-4 rounded-xl bg-primary text-on-primary font-label-md text-sm font-bold shadow-sm"
       >
-        + Drop Anonymous Idea
+        Submit an Idea
       </a>
       <a
         href="/admin"
-        class="w-full text-center py-2.5 px-4 rounded-lg border border-surface-container-high text-on-surface font-label-lg text-label-lg font-semibold"
+        class="w-full text-center py-2.5 px-4 rounded-xl border border-surface-container bg-surface-container-lowest text-on-surface font-label-md text-sm font-semibold"
       >
-        SDG Executive Portal 🔒
+        Executive Portal 🔒
       </a>
     </div>
   </div>

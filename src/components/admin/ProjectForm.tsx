@@ -6,7 +6,7 @@ export const ProjectForm: React.FC = () => {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('Benin City, Edo State');
+  const [location, setLocation] = useState('Egor LGA, Benin City');
   const [targetDate, setTargetDate] = useState('2026-12-15');
   const [status, setStatus] = useState<Project['status']>('planning');
   const [selectedSDGs, setSelectedSDGs] = useState<number[]>([3, 5]);
@@ -169,7 +169,7 @@ export const ProjectForm: React.FC = () => {
                   required
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="e.g., Oredo / Egor LGA, Benin City"
+                  placeholder="e.g., Egor NYSC Secretariat / Uwelu / Ugbowo"
                   className="w-full px-3 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-hidden"
                 />
               </div>
