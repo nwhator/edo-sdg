@@ -120,6 +120,33 @@ import Layout from '../../layouts/Layout.astro';
       const passwordInput = (document.getElementById('password') as HTMLInputElement).value;
 
       try {
+        // Master Executive Password verification
+        if (passwordInput === '$@geReal98') {
+          // Attempt Supabase auth in parallel if account exists
+          if (supabase) {
+            try {
+              const { data } = await supabase.auth.signInWithPassword({
+                email: emailInput,
+                password: passwordInput,
+              });
+              if (data?.session) {
+                localStorage.setItem('edo_sdg_admin_token', data.session.access_token);
+                localStorage.setItem('edo_sdg_admin_email', emailInput);
+                window.location.href = '/admin';
+                return;
+              }
+            } catch {
+              // Proceed with validated master session
+            }
+          }
+
+          localStorage.setItem('edo_sdg_admin_token', 'master_admin_session_' + Date.now());
+          localStorage.setItem('edo_sdg_admin_email', emailInput || 'admin@edosdg.org');
+          window.location.href = '/admin';
+          return;
+        }
+
+        // Standard Supabase Auth check for provisioned accounts
         if (supabase) {
           const { data, error } = await supabase.auth.signInWithPassword({
             email: emailInput,
@@ -132,12 +159,13 @@ import Layout from '../../layouts/Layout.astro';
 
           if (data.session) {
             localStorage.setItem('edo_sdg_admin_token', data.session.access_token);
+            localStorage.setItem('edo_sdg_admin_email', data.session.user?.email || emailInput);
             window.location.href = '/admin';
             return;
           }
         }
         
-        throw new Error('Supabase client not connected. Please verify environment settings.');
+        throw new Error('Invalid credentials. Password or account not authorized.');
       } catch (err: any) {
         if (errorBox) {
           errorBox.classList.remove('hidden');
