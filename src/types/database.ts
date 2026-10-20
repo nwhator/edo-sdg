@@ -105,3 +105,23 @@ export interface FundingPartner {
   is_benin_city: boolean;
   created_at: string;
 }
+
+export interface CrawledNgo {
+  id: string;
+  name: string;
+  category: string;
+  sdg_goals: number[];
+  address: string;
+  phone?: string;
+  email?: string;
+  website?: string;
+  focus_areas: string[];
+  how_to_reach: string;
+  is_benin_city: boolean;
+  lga_scope: string;
+  partnership_types: string[];
+  verified: boolean;
+  source: string;
+  contact_person?: string;
+  impact_summary?: string;
+}

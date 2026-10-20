@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
+import { NgoRadarCrawler } from '../../components/portal/NgoRadarCrawler';
+import { fetchFundingPartners } from '../../lib/supabase';
+
+const partners = await fetchFundingPartners();
+---
+
+<Layout
+  title="Edo SDG NGO Radar & Crawler (Executive Admin)"
+  description="Intelligent discovery and crawler engine for NGOs, CSR foundations, and state agencies in Edo State supporting UN Sustainable Development Goals."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-space-xl">
+    <AdminHeader />
+
+    <!-- Interactive Component -->
+    <NgoRadarCrawler client:load initialPartners={partners} />
+  </div>
+</Layout>

@@ -108,18 +108,25 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
             Executive research and templates for securing local NGO sponsorships and material donations.
           </p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <a
+            href="/admin/radar"
+            class="px-3.5 py-1.5 rounded-xl bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold hover:bg-secondary transition-colors shadow-xs flex items-center gap-1"
+          >
+            <span class="material-symbols-outlined text-[16px]">radar</span>
+            <span>NGO Radar (25+) →</span>
+          </a>
           <a
             href="/admin/funding"
             class="px-3.5 py-1.5 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm font-bold hover:bg-primary-container transition-colors shadow-xs"
           >
-            Benin NGO Directory →
+            NGO Directory →
           </a>
           <a
             href="/admin/pitch-kit"
-            class="px-3.5 py-1.5 rounded-xl bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold hover:bg-secondary-fixed transition-colors shadow-xs"
+            class="px-3.5 py-1.5 rounded-xl bg-surface-container text-on-surface font-label-sm text-label-sm font-bold hover:bg-surface-container-high transition-colors shadow-xs"
           >
-            Pitch Letter Drafts →
+            Pitch Letters →
           </a>
         </div>
       </div>

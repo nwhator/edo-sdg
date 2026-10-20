@@ -22,12 +22,13 @@ const navItems = [
     ]
   },
   {
-    title: "SDG Portal (Admin)",
+    title: "SDG Portal",
     href: "/admin",
     isProtected: true,
     subLinks: [
       { title: "Executive Dashboard", href: "/admin", desc: "Overview, planning & media uploads" },
       { title: "NGO Partner Directory", href: "/admin/funding", desc: "Local NGO partners & state boards" },
+      { title: "NGO Radar & Crawler", href: "/admin/radar", desc: "Discover & crawl Edo SDG organizations" },
       { title: "Official Pitch Kit", href: "/admin/pitch-kit", desc: "Pre-drafted sponsorship & requisition letters" },
       { title: "Review Submissions", href: "/admin/ideas", desc: "Review and approve community ideas" },
     ]
@@ -126,7 +127,7 @@ const pathname = Astro.url.pathname;
         title="Restricted SDG Executive Portal"
       >
         <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
-        <span>Admin</span>
+        <span>Login</span>
       </a>
 
       <!-- Mobile Menu Toggle Button -->
@@ -181,7 +182,7 @@ const pathname = Astro.url.pathname;
         class="w-full text-center py-2.5 px-4 rounded-xl border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-sm font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all"
       >
         <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
-        <span>Executive Portal (Admin)</span>
+        <span>Login</span>
       </a>
     </div>
   </div>
