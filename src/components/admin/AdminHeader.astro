@@ -26,6 +26,13 @@ const tabs = [
           <span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-space-xs py-0.5 rounded uppercase tracking-wider font-bold">
             Protected Zone
           </span>
+          <span
+            id="admin-user-pill"
+            class="bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm px-space-sm py-0.5 rounded-full font-bold flex items-center gap-1"
+          >
+            <span class="material-symbols-outlined text-[14px]">account_circle</span>
+            <span id="admin-user-name">Executive</span>
+          </span>
         </div>
         <p class="font-body-sm text-body-sm text-on-surface-variant truncate">
           NYSC Edo State Secretariat • Schedule Officer: <span class="text-primary font-medium">Mrs. A. Osagie (NYSC Secretariat, Benin City)</span>
@@ -44,9 +51,10 @@ const tabs = [
       <button
         id="admin-logout-btn"
         type="button"
-        class="px-3.5 py-1.5 rounded-lg bg-error-container text-on-error-container hover:opacity-90 font-label-sm text-label-sm font-bold transition-all"
+        class="px-3.5 py-1.5 rounded-lg bg-error-container text-on-error-container hover:opacity-90 font-label-sm text-label-sm font-bold transition-all flex items-center gap-1"
       >
-        Sign Out 🚪
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+        <span>Sign Out</span>
       </button>
     </div>
   </div>
@@ -78,9 +86,13 @@ const tabs = [
   async function enforceAuth() {
     let isAuthenticated = false;
     if (supabase) {
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        isAuthenticated = true;
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data.session) {
+          isAuthenticated = true;
+        }
+      } catch (err) {
+        // Fallback to token check
       }
     }
 
@@ -93,6 +105,25 @@ const tabs = [
 
     if (!isAuthenticated) {
       window.location.href = '/admin/login';
+      return;
+    }
+
+    // Populate active user badge
+    const userNameEl = document.getElementById('admin-user-name');
+    if (userNameEl) {
+      const name = localStorage.getItem('edo_sdg_admin_name');
+      const role = localStorage.getItem('edo_sdg_admin_role');
+      const email = localStorage.getItem('edo_sdg_admin_email');
+
+      if (name && role) {
+        userNameEl.textContent = `${name} (${role})`;
+      } else if (name) {
+        userNameEl.textContent = name;
+      } else if (email) {
+        userNameEl.textContent = email;
+      } else {
+        userNameEl.textContent = 'Super Admin';
+      }
     }
   }
 
@@ -102,9 +133,16 @@ const tabs = [
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
       if (supabase) {
-        await supabase.auth.signOut();
+        try {
+          await supabase.auth.signOut();
+        } catch {
+          // ignore
+        }
       }
       localStorage.removeItem('edo_sdg_admin_token');
+      localStorage.removeItem('edo_sdg_admin_email');
+      localStorage.removeItem('edo_sdg_admin_name');
+      localStorage.removeItem('edo_sdg_admin_role');
       window.location.href = '/admin/login';
     });
   }

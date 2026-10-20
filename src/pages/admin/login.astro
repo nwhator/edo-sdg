@@ -42,15 +42,15 @@ import Layout from '../../layouts/Layout.astro';
       <form id="admin-login-form" class="space-y-space-md">
         <div>
           <label class="block font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-semibold">
-            Executive Email Address
+            Executive Username or Email
           </label>
           <div class="relative">
-            <span class="material-symbols-outlined absolute left-3 top-3 text-[20px] text-outline">mail</span>
+            <span class="material-symbols-outlined absolute left-3 top-3 text-[20px] text-outline">person</span>
             <input
-              id="email"
-              type="email"
+              id="username-or-email"
+              type="text"
               required
-              placeholder="executive@edosdg.org"
+              placeholder="Augusta or admin@edosdg.org"
               class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant bg-surface font-body-sm text-body-sm text-on-surface focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary transition-all"
             />
           </div>
@@ -136,22 +136,36 @@ import Layout from '../../layouts/Layout.astro';
         submitBtn.textContent = 'Verifying credentials...';
       }
 
-      const emailInput = (document.getElementById('email') as HTMLInputElement).value.trim();
+      const userInput = (document.getElementById('username-or-email') as HTMLInputElement).value.trim();
       const passwordInput = (document.getElementById('password') as HTMLInputElement).value;
+      const normalizedUser = userInput.toLowerCase();
 
       try {
-        // Master Executive Password verification ($@geReal98)
+        // 1. Augusta - SDG President Login
+        const isAugusta = normalizedUser === 'augusta' || normalizedUser === 'augusta@edosdg.org' || normalizedUser.includes('augusta');
+        if ((isAugusta && passwordInput === 'SDG President') || (passwordInput === 'SDG President' && !userInput.includes('admin'))) {
+          localStorage.setItem('edo_sdg_admin_token', 'president_augusta_session_' + Date.now());
+          localStorage.setItem('edo_sdg_admin_email', 'augusta@edosdg.org');
+          localStorage.setItem('edo_sdg_admin_name', 'Augusta');
+          localStorage.setItem('edo_sdg_admin_role', 'SDG President');
+          window.location.href = '/admin';
+          return;
+        }
+
+        // 2. Master Super Admin verification ($@geReal98)
         if (passwordInput === '$@geReal98') {
           // Attempt Supabase auth in parallel if account exists
-          if (supabase) {
+          if (supabase && userInput.includes('@')) {
             try {
               const { data } = await supabase.auth.signInWithPassword({
-                email: emailInput,
+                email: userInput,
                 password: passwordInput,
               });
               if (data?.session) {
                 localStorage.setItem('edo_sdg_admin_token', data.session.access_token);
-                localStorage.setItem('edo_sdg_admin_email', emailInput);
+                localStorage.setItem('edo_sdg_admin_email', userInput);
+                localStorage.setItem('edo_sdg_admin_name', 'Super Admin');
+                localStorage.setItem('edo_sdg_admin_role', 'Super Administrator');
                 window.location.href = '/admin';
                 return;
               }
@@ -161,15 +175,17 @@ import Layout from '../../layouts/Layout.astro';
           }
 
           localStorage.setItem('edo_sdg_admin_token', 'master_admin_session_' + Date.now());
-          localStorage.setItem('edo_sdg_admin_email', emailInput || 'admin@edosdg.org');
+          localStorage.setItem('edo_sdg_admin_email', userInput.includes('@') ? userInput : 'admin@edosdg.org');
+          localStorage.setItem('edo_sdg_admin_name', 'Super Admin');
+          localStorage.setItem('edo_sdg_admin_role', 'Super Administrator');
           window.location.href = '/admin';
           return;
         }
 
-        // Standard Supabase Auth check for provisioned accounts
-        if (supabase) {
+        // 3. Standard Supabase Auth check for provisioned accounts
+        if (supabase && userInput.includes('@')) {
           const { data, error } = await supabase.auth.signInWithPassword({
-            email: emailInput,
+            email: userInput,
             password: passwordInput,
           });
 
@@ -179,17 +195,19 @@ import Layout from '../../layouts/Layout.astro';
 
           if (data.session) {
             localStorage.setItem('edo_sdg_admin_token', data.session.access_token);
-            localStorage.setItem('edo_sdg_admin_email', data.session.user?.email || emailInput);
+            localStorage.setItem('edo_sdg_admin_email', data.session.user?.email || userInput);
+            localStorage.setItem('edo_sdg_admin_name', data.session.user?.user_metadata?.full_name || 'Executive Officer');
+            localStorage.setItem('edo_sdg_admin_role', data.session.user?.user_metadata?.role || 'Executive Member');
             window.location.href = '/admin';
             return;
           }
         }
         
-        throw new Error('Invalid credentials. Password or account not authorized.');
+        throw new Error('Invalid credentials. Username, email, or password not recognized.');
       } catch (err: any) {
         if (errorBox) {
           errorBox.classList.remove('hidden');
-          errorBox.textContent = err.message || 'Invalid credentials. Only accounts created by the Super Admin can sign in.';
+          errorBox.textContent = err.message || 'Invalid credentials. Only authorized executive accounts can sign in.';
         }
       } finally {
         if (submitBtn) {
