@@ -76,32 +76,7 @@ export async function fetchProjects(): Promise<Project[]> {
 }
 
 export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPhoto[] }> {
-  if (supabase) {
-    try {
-      const { data: events, error: evError } = await withTimeout(
-        supabase
-          .from('events')
-          .select('*')
-          .order('event_date', { ascending: false })
-      );
-      
-      const { data: photos, error: phError } = await withTimeout(
-        supabase
-          .from('event_photos')
-          .select('*')
-          .order('display_order', { ascending: true })
-      );
-
-      if (!evError && events && events.length > 0) {
-        return {
-          events: events as Event[],
-          photos: (photos || []) as EventPhoto[],
-        };
-      }
-    } catch (e) {
-      console.warn('Failed to fetch events from Supabase:', e);
-    }
-  }
+  // Authoritative data: Only content of Ogida Market Quality Education Sensitization
   return {
     events: INITIAL_EVENTS,
     photos: INITIAL_PHOTOS,

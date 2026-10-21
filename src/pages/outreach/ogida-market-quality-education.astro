@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { fetchEvents } from '../../lib/supabase';
-import { EventGallery } from '../../components/gallery/EventGallery';
+import { BlogImageCarousel } from '../../components/blog/BlogImageCarousel';
 
 const { events, photos } = await fetchEvents();
 const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
@@ -116,19 +116,8 @@ const articleSchema = {
       </div>
     </header>
 
-    <!-- Featured Cover Photo Plate -->
-    <div class="relative rounded-3xl overflow-hidden aspect-16/9 bg-surface-container shadow-elevated border border-surface-container">
-      <img
-        src="/ogida/photo_2026-10-21_17-41-10.jpg"
-        alt="NYSC corps members sensitizing market traders on Quality Education at Ogida Market, Benin City"
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-6 text-white">
-        <p class="text-xs sm:text-sm font-semibold">
-          Plate #1: NYSC Egor SDG CDS corps members engaging market women on active parental oversight and daily notebook monitoring at Ogida Market.
-        </p>
-      </div>
-    </div>
+    <!-- Featured Photo Carousel (All 28 Plates) -->
+    <BlogImageCarousel client:load photos={ogidaPhotos} />
 
     <!-- Article Narrative & Highlights -->
     <div class="space-y-8 text-on-surface text-sm sm:text-base leading-relaxed">

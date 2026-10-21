@@ -97,43 +97,11 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
         <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify">
           {ogidaEvent.activities || ogidaEvent.description}
         </p>
-
-        <!-- Preview Strip of Gallery Images -->
-        <div class="space-y-2 pt-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-on-surface uppercase tracking-wider">
-              Field Gallery Preview ({ogidaPhotos.length} Plates)
-            </span>
-            <a
-              href="/gallery"
-              class="text-xs font-bold text-primary hover:underline flex items-center gap-1"
-            >
-              <span>Full Interactive Gallery</span>
-              <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
-            </a>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
-            {ogidaPhotos.slice(0, 14).map((photo, idx) => (
-              <div key={photo.id} class="aspect-4/3 rounded-xl overflow-hidden bg-surface-container border border-surface-container-high shadow-2xs group relative">
-                <img
-                  src={photo.image_url}
-                  alt={photo.caption || `Plate ${idx + 1}`}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
-                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-1 text-center">
-                  <span class="text-[10px] text-white font-bold">Plate #{idx + 1}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
     )}
 
-    <!-- Full Event Gallery Component -->
-    <div class="pt-4">
+    <!-- Full Event Gallery Component (All 28 Photos of Ogida Market) -->
+    <div>
       <EventGallery client:load events={events} photos={photos} />
     </div>
 
