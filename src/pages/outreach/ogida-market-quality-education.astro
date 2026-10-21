@@ -88,15 +88,29 @@ const articleSchema = {
           </span>
         </div>
 
-        {/* Quick Report & Share Actions */}
+        {/* Quick Report & Navigation Actions */}
         <div class="flex items-center gap-2">
           <a
             href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-on-primary text-xs font-bold hover:bg-primary-container shadow-xs transition-all"
-            title="Download or print the official statutory report for the Local Government Inspector"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black text-white text-xs font-bold hover:bg-gray-800 shadow-xs transition-all"
+            title="Download or print the official B&W statutory report for the Local Government Inspector"
           >
             <span class="material-symbols-outlined text-[15px]">print</span>
-            <span>Print LGI Report (PDF)</span>
+            <span>Print B&W LGI Report (PDF)</span>
+          </a>
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
+          >
+            <span class="material-symbols-outlined text-[15px]">article</span>
+            <span>Blog</span>
+          </a>
+          <a
+            href="/events"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
+          >
+            <span class="material-symbols-outlined text-[15px]">event</span>
+            <span>Events</span>
           </a>
         </div>
       </div>

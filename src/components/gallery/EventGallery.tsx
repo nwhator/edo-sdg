@@ -135,21 +135,29 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
                       {event.description}
                     </p>
 
-                    {/* Operational Time & Print LGI Report Action */}
+                    {/* Operational Time & Actions */}
                     <div className="flex flex-wrap items-center gap-2.5 pt-2">
                       <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
                         <span className="material-symbols-outlined text-[14px]">schedule</span>
-                        <span>{event.event_time || '10:00 AM – 1:30 PM'}</span>
+                        <span>{event.event_time || '9:00 AM - 11:00 AM'}</span>
                       </span>
+
+                      <a
+                        href="/blog/ogida-market-quality-education"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-primary text-white font-bold text-xs shadow-xs hover:bg-primary-container transition-all"
+                      >
+                        <span className="material-symbols-outlined text-[15px]">article</span>
+                        <span>Read in Blog</span>
+                      </a>
 
                       <button
                         type="button"
                         onClick={() => setReportingEvent({ event, photos: eventPhotos })}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl border border-primary/40 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary font-bold text-xs shadow-subtle transition-all cursor-pointer"
-                        title="Generate official closeout report for the Local Government Inspector"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl border border-gray-400 bg-white hover:bg-gray-100 text-black font-bold text-xs shadow-subtle transition-all cursor-pointer"
+                        title="Generate official B&W closeout report for the Local Government Inspector"
                       >
                         <span className="material-symbols-outlined text-[15px]">print</span>
-                        <span>Print LGI Report</span>
+                        <span>Print B&W LGI Report</span>
                       </button>
 
                       <a

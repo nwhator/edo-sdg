@@ -21,4 +21,6 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
-ogida/
+# Raw staging assets (root only)
+/ogida/
+!public/ogida/

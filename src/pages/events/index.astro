@@ -1,0 +1,141 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { EventGallery } from '../../components/gallery/EventGallery';
+import { fetchEvents } from '../../lib/supabase';
+
+const { events, photos } = await fetchEvents();
+const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
+const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization');
+---
+
+<Layout
+  title="Events & Community Outreaches • NYSC Egor SDG CDS"
+  description="Official timeline and visual photo archive of NYSC Egor SDG Community Development Service (CDS) field outreaches, school sensitizations, and community projects."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
+    
+    <!-- Top Header -->
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+        <span class="material-symbols-outlined text-[16px]">event_available</span>
+        <span>Egor NYSC Secretariat • Verified Field Outreaches</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight">
+        CDS <span class="text-primary">Events & Outreaches</span>
+      </h1>
+      <p class="text-sm sm:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+        Explore visual archives of community development outreaches conducted by corps members across Egor Local Government Area. View all documented field photographs and download official reports.
+      </p>
+
+      <!-- Quick Action Navigation -->
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
+        >
+          <span class="material-symbols-outlined text-[16px] text-primary">article</span>
+          <span>View Stories in Blog Section →</span>
+        </a>
+        <a
+          href="/gallery/report?id=evt-ogida-education-sensitization"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
+        >
+          <span class="material-symbols-outlined text-[16px] text-primary">print</span>
+          <span>Print B&W LGI Report (PDF)</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Event Highlight: Ogida Market Quality Education -->
+    {ogidaEvent && (
+      <section class="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-primary/20 shadow-card space-y-5">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-4 border-b border-surface-container">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-primary text-on-primary text-[11px] font-bold">
+                Latest Outreach
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-[11px] font-bold">
+                Week 3 • 4th Quarter
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-[11px] font-bold">
+                Wednesday, 21st Oct 2026
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">
+              {ogidaEvent.title}
+            </h2>
+            <p class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
+              <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+              <span>{ogidaEvent.location}</span>
+              <span>•</span>
+              <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+              <span>{ogidaEvent.event_time || '9:00 AM - 11:00 AM'}</span>
+              <span>•</span>
+              <span class="font-bold text-primary">{ogidaPhotos.length} Documented Photos</span>
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a
+              href="/blog/ogida-market-quality-education"
+              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold shadow-sm transition-all"
+            >
+              <span class="material-symbols-outlined text-[16px]">menu_book</span>
+              <span>Read in Blog Section</span>
+            </a>
+            <a
+              href={`/gallery/report?id=${ogidaEvent.id}`}
+              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
+            >
+              <span class="material-symbols-outlined text-[16px]">print</span>
+              <span>Print LGI Report (B&W PDF)</span>
+            </a>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify">
+          {ogidaEvent.activities || ogidaEvent.description}
+        </p>
+
+        <!-- Preview Strip of Gallery Images -->
+        <div class="space-y-2 pt-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-on-surface uppercase tracking-wider">
+              Field Gallery Preview ({ogidaPhotos.length} Plates)
+            </span>
+            <a
+              href="/gallery"
+              class="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+            >
+              <span>Full Interactive Gallery</span>
+              <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+            {ogidaPhotos.slice(0, 14).map((photo, idx) => (
+              <div key={photo.id} class="aspect-4/3 rounded-xl overflow-hidden bg-surface-container border border-surface-container-high shadow-2xs group relative">
+                <img
+                  src={photo.image_url}
+                  alt={photo.caption || `Plate ${idx + 1}`}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-1 text-center">
+                  <span class="text-[10px] text-white font-bold">Plate #{idx + 1}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Full Event Gallery Component -->
+    <div class="pt-4">
+      <EventGallery client:load events={events} photos={photos} />
+    </div>
+
+  </div>
+</Layout>

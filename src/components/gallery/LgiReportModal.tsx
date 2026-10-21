@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
-import { SDG_METADATA } from '../../types/database';
 
 interface LgiReportModalProps {
   event: Event;
@@ -18,10 +17,6 @@ export const LgiReportModal: React.FC<LgiReportModalProps> = ({
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
-
-  const targetGoals = event.sdg_goals && event.sdg_goals.length > 0
-    ? event.sdg_goals.map((g) => `SDG ${g}: ${SDG_METADATA[g]?.name || 'Global Goal'}`).join(', ')
-    : 'SDG 4: Quality Education, SDG 1: No Poverty, SDG 5: Gender Equality';
 
   const formattedDate = new Date(event.event_date).toLocaleDateString('en-GB', {
     weekday: 'long',
@@ -56,42 +51,44 @@ export const LgiReportModal: React.FC<LgiReportModalProps> = ({
   const handleCopyMemo = () => {
     const memo = `NATIONAL YOUTH SERVICE CORPS (NYSC)
 EGOR LOCAL GOVERNMENT AREA SECRETARIAT, BENIN CITY, EDO STATE
-SDG COMMUNITY DEVELOPMENT SERVICE (CDS) GROUP
+SUSTAINABLE DEVELOPMENT GOALS (SDGs) COMMUNITY DEVELOPMENT SERVICE (CDS) GROUP
 
-OFFICIAL REPORT TO LOCAL GOVERNMENT INSPECTOR (LGI)
-Reference: ${refNumber}
+OFFICIAL ACTIVITY REPORT TO THE LOCAL GOVERNMENT INSPECTOR (LGI)
 
-NAME OF THE CDS GROUP: Sustainable Development Goals (SDGs)
-TITLE OF THE ACTIVITY: ${event.title}
-COMMUNITY: Benin City
-L.G.A: Egor LGA
-STATE: Edo State
-WEEK: ${weekLabel}
-QUARTER: ${quarterLabel}
+REF NO: ${refNumber}
+TO: The Local Government Inspector (LGI), NYSC Egor LGA, Edo State
+THROUGH: The CDS Schedule Officer, NYSC Egor LGA
+FROM: The Executive President, SDGs CDS Group, Egor LGA
 DATE: ${formattedDate}
 TIME: ${eventTime}
 VENUE: ${event.location}
-CONTACT: Nil
+WEEK & QUARTER: ${weekLabel}, ${quarterLabel}
+NAME OF CDS GROUP: Sustainable Development Goals (SDGs)
+TITLE OF ACTIVITY: ${event.title}
 
-ACTIVITIES:
+1. BACKGROUND AND PREAMBLE:
+On ${formattedDate}, corps members of the Sustainable Development Goals (SDGs) Community Development Service (CDS) Group in Egor Local Government Area conducted an official grassroots community sensitization exercise at ${event.location}. The outreach commenced at ${eventTime.split('-')[0].trim()} and concluded at ${eventTime.split('-')[1]?.trim() || '11:00 AM'} as scheduled for ${weekLabel} of the ${quarterLabel}.
+
+2. ACTIVITIES CONDUCTED:
 ${defaultActivities}
 
-AIMS:
-${aimsList.map((a, i) => `${i + 1}. ${a}`).join('\n')}
+3. SPECIFIC AIMS AND OBJECTIVES:
+${aimsList.map((aim, idx) => `(${String.fromCharCode(97 + idx)}) ${aim}`).join('\n')}
 
-BENEFICIARIES:
+4. TARGET BENEFICIARIES:
 ${event.beneficiaries_reached || 'Traders (Market Women and Men) and Shoppers at Ogida Market.'}
 
-SUSTAINABILITY:
+5. SUSTAINABILITY:
 ${event.sustainability || "Yes, because it's a continuous process."}
 
-PHOTOGRAPHIC EVIDENCE:
-${reportPhotos.length} certified photographic plates attached (of ${photos.length} total captured plates).
+6. PHOTOGRAPHIC EVIDENCE:
+Ten (10) selected field photographs attached (Plates 1 to 10). Complete archive of ${photos.length} photos on file.
 
-CERTIFICATION:
-Augusta / Executive President
-NYSC Egor SDG CDS Group
-Egor NYSC Secretariat, Benin City, Edo State.`;
+7. ATTESTATION & SIGNATURES:
+- General Secretary, SDGs CDS Group
+- Augusta, Executive President, SDGs CDS Group
+- CDS Schedule Officer, NYSC Egor Secretariat
+- Local Government Inspector (LGI), NYSC Egor LGA`;
 
     navigator.clipboard.writeText(memo);
     setCopied(true);
@@ -99,223 +96,165 @@ Egor NYSC Secretariat, Benin City, Edo State.`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 print:p-0 print:bg-white print:fixed-none print:static">
-      <div className="relative w-full max-w-4xl bg-surface-container-lowest rounded-3xl shadow-2xl border border-surface-container overflow-hidden my-4 print:m-0 print:p-0 print:border-none print:shadow-none print:w-full print:max-w-none">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 print:p-0 print:bg-white print:fixed-none">
+      
+      <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-gray-300 overflow-hidden flex flex-col max-h-[96vh] print:max-h-none print:border-none print:shadow-none print:rounded-none">
         
-        {/* ACTION BAR (Hidden when printing) */}
-        <div className="print:hidden sticky top-0 z-10 bg-surface-container-lowest/95 backdrop-blur-md px-6 py-4 border-b border-surface-container flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary text-[24px]">description</span>
-            <div>
-              <h2 className="text-sm sm:text-base font-extrabold text-on-surface">
-                Official Sensitization Report for LGI
-              </h2>
-              <p className="text-[11px] text-on-surface-variant">
-                Formatted with 10 max selected photos for official A4 printout / PDF download. ({photos.length} total on site).
-              </p>
-            </div>
+        {/* MODAL CONTROLS BAR (Hidden on print) */}
+        <div className="print:hidden p-3.5 sm:p-4 bg-gray-100 border-b border-gray-300 flex items-center justify-between gap-3 shrink-0">
+          <div>
+            <h2 className="text-sm sm:text-base font-bold text-gray-900">
+              Official Activity Report (LGI Submission)
+            </h2>
+            <p className="text-[11px] text-gray-600">
+              Simple black & white memorandum format in paragraphs • 10 selected photos
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleCopyMemo}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-surface-container-high bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold transition-all cursor-pointer shadow-subtle"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 text-xs font-semibold cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[16px]">
+              <span className="material-symbols-outlined text-[15px]">
                 {copied ? 'check' : 'content_copy'}
               </span>
-              <span>{copied ? 'Copied Memo!' : 'Copy Text Memo'}</span>
+              <span>{copied ? 'Copied' : 'Copy Text'}</span>
             </button>
 
             <button
               type="button"
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold transition-all cursor-pointer shadow-card"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-black hover:bg-gray-800 text-white text-xs font-bold cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[18px]">print</span>
-              <span>Print Report / Download PDF</span>
+              <span className="material-symbols-outlined text-[16px]">print</span>
+              <span>Print / PDF</span>
             </button>
 
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer"
-              title="Close Report"
+              className="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-200"
+              aria-label="Close modal"
             >
               <span className="material-symbols-outlined text-[20px]">close</span>
             </button>
           </div>
         </div>
 
-        {/* PRINTABLE REPORT DOCUMENT (Exact Statutory NYSC Directorate Format) */}
-        <div id="lgi-printable-document" className="p-6 sm:p-12 print:p-8 space-y-5 text-gray-900 font-sans bg-white text-xs">
+        {/* PRINTABLE BLACK AND WHITE DOCUMENT BODY */}
+        <div className="p-6 sm:p-10 overflow-y-auto print:overflow-visible text-black font-serif leading-relaxed text-sm space-y-4">
           
-          {/* STATUTORY NYSC LETTERHEAD */}
-          <div className="border-b-2 border-[#004b24] pb-4 text-center space-y-1">
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[#004b24] text-[#fccc38] flex items-center justify-center font-extrabold text-sm border-2 border-[#fccc38] shadow-sm shrink-0">
-                <span>NYSC</span>
-              </div>
-              <div className="text-center">
-                <h1 className="text-lg sm:text-xl font-black text-[#004b24] tracking-tight uppercase">
-                  National Youth Service Corps (NYSC)
-                </h1>
-                <h2 className="text-xs sm:text-sm font-bold text-gray-800 tracking-wider uppercase">
-                  Egor Local Government Area Secretariat • Benin City, Edo State
-                </h2>
-                <h3 className="text-xs font-extrabold text-[#fccc38] bg-[#004b24] inline-block px-3 py-0.5 rounded-full mt-1 uppercase tracking-wide">
-                  Sustainable Development Goals (SDG) CDS Group
-                </h3>
-              </div>
-            </div>
-            <p className="text-[10px] text-gray-500 pt-1">
-              Secretariat Hub: Egor NYSC Secretariat, Benin City • Meeting Day: Every Wednesday @ 9:00 AM
+          {/* STATUTORY LETTERHEAD */}
+          <div className="text-center pb-3 border-b-2 border-black space-y-1">
+            <p className="font-bold text-base uppercase tracking-wide">
+              NATIONAL YOUTH SERVICE CORPS (NYSC)
+            </p>
+            <p className="font-semibold text-xs uppercase tracking-wide">
+              EGOR LOCAL GOVERNMENT AREA SECRETARIAT, BENIN CITY, EDO STATE
+            </p>
+            <p className="font-bold text-xs uppercase tracking-wider underline">
+              SUSTAINABLE DEVELOPMENT GOALS (SDGs) COMMUNITY DEVELOPMENT SERVICE (CDS) GROUP
             </p>
           </div>
 
-          {/* REFERENCE & ROUTING BLOCK */}
-          <div className="grid grid-cols-2 text-xs border-b border-gray-300 pb-3 gap-2">
+          {/* MEMORANDUM ROUTING DETAILS */}
+          <div className="pt-3 pb-3 border-b border-black text-xs space-y-1.5">
+            <div className="flex justify-between">
+              <span><strong>REF NO:</strong> {refNumber}</span>
+              <span><strong>DATE:</strong> {formattedDate}</span>
+            </div>
+            <div><strong>TO:</strong> The Local Government Inspector (LGI), NYSC Egor LGA, Edo State</div>
+            <div><strong>THROUGH:</strong> The CDS Schedule Officer, NYSC Egor LGA</div>
+            <div><strong>FROM:</strong> The Executive President, SDGs CDS Group, Egor LGA</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 pt-1">
+              <div><strong>TIME:</strong> {eventTime}</div>
+              <div><strong>VENUE:</strong> {event.location}</div>
+              <div><strong>PERIOD:</strong> {weekLabel}, {quarterLabel}</div>
+              <div><strong>CDS GROUP:</strong> Sustainable Development Goals (SDGs)</div>
+            </div>
+            <div className="pt-2">
+              <p className="font-bold uppercase tracking-tight text-xs sm:text-sm">
+                SUBJECT: OFFICIAL ACTIVITY REPORT — {event.title.toUpperCase()}
+              </p>
+            </div>
+          </div>
+
+          {/* BODY IN NUMBERED PARAGRAPHS */}
+          <div className="py-2 space-y-4 text-xs sm:text-sm leading-relaxed text-justify">
+            
+            {/* Paragraph 1: Background */}
             <div>
-              <p><strong className="text-gray-900">REF NO:</strong> <span className="font-mono text-[#004b24] font-bold">{refNumber}</span></p>
-              <p><strong className="text-gray-900">DATE:</strong> {formattedDate}</p>
-              <p><strong className="text-gray-900">SERVICE YEAR:</strong> 2026/2027</p>
-            </div>
-            <div className="text-right">
-              <p className="font-bold text-gray-900">ROUTING MEMORANDUM</p>
-              <p className="text-gray-700">TO: <strong>The Local Government Inspector (LGI)</strong></p>
-              <p className="text-gray-700">THROUGH: <strong>The CDS Schedule Officer</strong></p>
-              <p className="text-gray-700">FROM: <strong>Executive President / CDS Exco</strong></p>
-            </div>
-          </div>
-
-          {/* OFFICIAL TITLE BLOCK */}
-          <div className="bg-gray-100 p-3.5 rounded-xl border-l-4 border-[#004b24]">
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
-              OFFICIAL ACTIVITY / SENSITIZATION REPORT
-            </span>
-            <h2 className="text-sm sm:text-base font-black text-[#004b24] uppercase tracking-tight">
-              {event.title}
-            </h2>
-          </div>
-
-          {/* STATUTORY PARAMETERS MATRIX */}
-          <div className="space-y-2">
-            <h3 className="font-bold text-[#004b24] uppercase tracking-wider text-[11px]">
-              1. Statutory Overview & Logistical Breakdown
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 border border-gray-300 rounded-xl p-3 bg-gray-50/50">
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">CDS Group:</span>
-                <span className="font-bold text-gray-900">Sustainable Development Goals (SDGs)</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">Community:</span>
-                <span className="font-bold text-gray-900">Benin City</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">L.G.A:</span>
-                <span className="font-bold text-gray-900">Egor LGA</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">State:</span>
-                <span className="font-bold text-gray-900">Edo State</span>
-              </div>
-
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">Week & Quarter:</span>
-                <span className="font-bold text-[#004b24]">{weekLabel}, {quarterLabel}</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">Date of Outreach:</span>
-                <span className="font-bold text-gray-900">{formattedDate}</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">Time of Event:</span>
-                <span className="font-bold text-[#004b24] bg-green-50 px-2 py-0.5 rounded border border-green-200 inline-block">{eventTime}</span>
-              </div>
-              <div>
-                <span className="text-gray-500 font-semibold block text-[10px] uppercase">Venue:</span>
-                <span className="font-bold text-gray-900">{event.location}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* ACTIVITIES SECTION */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#004b24] uppercase tracking-wider text-[11px]">
-              2. Activities Executed
-            </h3>
-            <div className="p-3.5 bg-gray-50 rounded-xl border border-gray-200 text-justify leading-relaxed">
-              {defaultActivities}
-            </div>
-          </div>
-
-          {/* AIM / OBJECTIVES SECTION */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#004b24] uppercase tracking-wider text-[11px]">
-              3. Aims and Objectives of the Sensitization
-            </h3>
-            <div className="p-3.5 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
-              {aimsList.map((aim, idx) => (
-                <div key={idx} className="flex items-start gap-2 leading-relaxed">
-                  <span className="w-4 h-4 rounded-full bg-[#004b24] text-white flex items-center justify-center font-bold text-[9px] shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <p className="text-gray-800 text-xs text-justify">{aim}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* BENEFICIARIES & SUSTAINABILITY */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
-              <span className="font-bold text-[#004b24] uppercase tracking-wider text-[10px] block">
-                Beneficiaries:
-              </span>
-              <p className="font-semibold text-gray-900 text-xs">
-                {event.beneficiaries_reached || 'Traders (Market Women and Men) and Shoppers at Ogida Market.'}
+              <p>
+                <strong>1. Background and Preamble:</strong> On {formattedDate}, corps members of the Sustainable Development Goals (SDGs) Community Development Service (CDS) Group in Egor Local Government Area, Edo State, conducted an official community sensitization outreach at {event.location}. The activity was carried out between {eventTime} as part of the scheduled {weekLabel} activities for the {quarterLabel}. The outreach was aimed at mobilizing community members on foundational education and parental responsibility.
               </p>
             </div>
-            <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
-              <span className="font-bold text-[#004b24] uppercase tracking-wider text-[10px] block">
-                Sustainability:
-              </span>
-              <p className="font-semibold text-gray-900 text-xs">
-                {event.sustainability || "Yes, because it's a continuous process."}
+
+            {/* Paragraph 2: Activities Conducted */}
+            <div>
+              <p>
+                <strong>2. Activities Conducted:</strong> {defaultActivities}
               </p>
             </div>
+
+            {/* Paragraph 3: Specific Aims and Objectives */}
+            <div>
+              <p className="mb-1.5">
+                <strong>3. Specific Aims and Objectives:</strong> The sensitization exercise was guided by four key objectives:
+              </p>
+              <ol className="list-decimal pl-6 space-y-1">
+                {aimsList.map((aim, idx) => (
+                  <li key={idx} className="pl-1">
+                    {aim}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Paragraph 4: Beneficiaries */}
+            <div>
+              <p>
+                <strong>4. Beneficiaries Reached:</strong> The beneficiaries of this intervention were {event.beneficiaries_reached || 'Traders (Market Women and Men) and Shoppers at Ogida Market.'} Corps members directly engaged with market women and men across various trading rows and sheds, emphasizing the critical value of education in poverty eradication.
+              </p>
+            </div>
+
+            {/* Paragraph 5: Sustainability */}
+            <div>
+              <p>
+                <strong>5. Sustainability:</strong> {event.sustainability || "Yes, because it's a continuous process."} The SDGs CDS group will continue monitoring and follow-up engagements during subsequent CDS service meetings and community outreaches in Egor LGA to ensure sustained parental attention to schooling.
+              </p>
+            </div>
+
+            {/* Paragraph 6: Photographic Evidence */}
+            <div>
+              <p>
+                <strong>6. Photographic Documentation (Selected 10 Plates):</strong> In compliance with official reporting requirements, ten (10) selected photographic plates documenting field engagements, market stall dialogues, and corps members at {event.location} are presented below. (The complete archive of {photos.length} photographs is retained in the CDS group digital registry).
+              </p>
+            </div>
+
           </div>
 
-          {/* PHOTOGRAPHIC EVIDENCE: MAX 10 PICTURES FOR REPORT */}
+          {/* 10 SELECTED PHOTOS GRID */}
           {reportPhotos.length > 0 && (
-            <div className="space-y-2 pt-2 break-before-auto">
-              <div className="flex items-center justify-between border-b border-gray-200 pb-1">
-                <h3 className="font-bold text-[#004b24] uppercase tracking-wider text-[11px]">
-                  4. Photographic Evidence & Field Documentation (Official Plates 1 to {reportPhotos.length})
-                </h3>
-                <span className="text-[10px] text-gray-500 italic">
-                  Max 10 certified plates selected for printout ({photos.length} total captured plates in web archive)
-                </span>
-              </div>
-
+            <div className="py-2 space-y-2 break-inside-avoid">
+              <p className="font-bold text-xs uppercase tracking-wider text-center border-t border-black pt-2">
+                Attached Photographic Evidence (Plates 1 to {reportPhotos.length})
+              </p>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
                 {reportPhotos.map((photo, idx) => (
-                  <div key={photo.id} className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-2xs">
-                    <div className="aspect-4/3 overflow-hidden bg-gray-100">
+                  <div key={photo.id} className="border border-black p-1 bg-white">
+                    <div className="aspect-4/3 overflow-hidden bg-gray-100 border border-gray-300">
                       <img
                         src={photo.image_url}
                         alt={`Plate ${idx + 1}`}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
-                    <div className="p-1 bg-gray-50 border-t border-gray-200">
-                      <p className="text-[9px] font-bold text-gray-900 truncate">
+                    <div className="pt-1 text-center">
+                      <p className="text-[10px] font-bold text-black">
                         Plate #{idx + 1}
-                      </p>
-                      <p className="text-[8px] text-gray-500 truncate">
-                        Ogida Market • 21 Oct 2026
                       </p>
                     </div>
                   </div>
@@ -324,72 +263,74 @@ Egor NYSC Secretariat, Benin City, Edo State.`;
             </div>
           )}
 
-          {/* STATUTORY ATTESTATION & SIGNATURE MATRIX */}
-          <div className="pt-4 border-t-2 border-gray-300 space-y-3">
-            <h3 className="font-bold text-[#004b24] uppercase tracking-wider text-[11px] text-center">
-              5. Statutory Certification & Administrative Attestations
-            </h3>
+          {/* ATTESTATION AND SIGNATURES */}
+          <div className="pt-6 mt-4 border-t-2 border-black space-y-4 break-inside-avoid">
+            <p className="font-bold text-xs uppercase tracking-wider text-center">
+              7. Official Attestation and Administrative Endorsements
+            </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-xs pt-2">
+              
               {/* General Secretary */}
-              <div className="border border-gray-200 p-2.5 rounded-xl flex flex-col justify-between h-28">
-                <div className="text-[9px] text-gray-500 uppercase font-semibold">Prepared By:</div>
-                <div className="font-script text-xs font-bold text-gray-700 italic border-b border-gray-300 pb-0.5">
+              <div className="space-y-6">
+                <p className="font-semibold text-[10px] uppercase">Prepared By:</p>
+                <div className="border-b border-black h-8 flex items-end justify-center pb-0.5 italic">
                   General Secretary
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 text-[10px]">General Secretary</div>
-                  <div className="text-[8px] text-gray-500">SDG CDS Group, Egor</div>
+                  <p className="font-bold text-[11px]">General Secretary</p>
+                  <p className="text-[10px] text-gray-700">SDGs CDS Group, Egor</p>
                 </div>
               </div>
 
               {/* President (Augusta) */}
-              <div className="border border-gray-200 p-2.5 rounded-xl flex flex-col justify-between h-28">
-                <div className="text-[9px] text-gray-500 uppercase font-semibold">Certified By:</div>
-                <div className="font-script text-xs font-bold text-[#004b24] italic border-b border-gray-300 pb-0.5">
+              <div className="space-y-6">
+                <p className="font-semibold text-[10px] uppercase">Submitted By:</p>
+                <div className="border-b border-black h-8 flex items-end justify-center pb-0.5 italic font-bold">
                   Augusta (President)
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 text-[10px]">Augusta</div>
-                  <div className="text-[8px] text-gray-500">Executive President, SDG CDS</div>
+                  <p className="font-bold text-[11px]">Augusta</p>
+                  <p className="text-[10px] text-gray-700">Executive President, SDGs CDS</p>
                 </div>
               </div>
 
               {/* Schedule Officer */}
-              <div className="border border-gray-200 p-2.5 rounded-xl flex flex-col justify-between h-28">
-                <div className="text-[9px] text-gray-500 uppercase font-semibold">Endorsed By:</div>
-                <div className="border-b border-gray-300 pb-0.5 text-gray-400 text-[9px] italic">
-                  [Sign & Date]
+              <div className="space-y-6">
+                <p className="font-semibold text-[10px] uppercase">Endorsed By:</p>
+                <div className="border-b border-black h-8 flex items-end justify-center pb-0.5 text-gray-400">
+                  [Signature & Date]
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 text-[10px]">Schedule Officer</div>
-                  <div className="text-[8px] text-gray-500">NYSC Egor Secretariat</div>
+                  <p className="font-bold text-[11px]">CDS Schedule Officer</p>
+                  <p className="text-[10px] text-gray-700">NYSC Egor LGA Secretariat</p>
                 </div>
               </div>
 
               {/* Local Government Inspector (LGI) */}
-              <div className="border-2 border-[#004b24] bg-green-50/50 p-2.5 rounded-xl flex flex-col justify-between h-28">
-                <div className="text-[9px] font-bold text-[#004b24] uppercase">Approved & Received:</div>
-                <div className="border-b border-dashed border-[#004b24] pb-0.5 text-gray-400 text-[8px] italic">
-                  [Official LGI Stamp & Remarks]
+              <div className="space-y-6 border border-black p-2">
+                <p className="font-bold text-[10px] uppercase">Approved / Received:</p>
+                <div className="border-b border-dashed border-black h-8 flex items-end justify-center pb-0.5 text-gray-400 text-[10px]">
+                  [Official Stamp & Date]
                 </div>
                 <div>
-                  <div className="font-black text-[#004b24] text-[10px]">Local Government Inspector</div>
-                  <div className="text-[8px] text-gray-600 font-semibold">NYSC Egor LGA, Edo State</div>
+                  <p className="font-bold text-[11px]">Local Government Inspector</p>
+                  <p className="text-[10px] text-gray-700">NYSC Egor LGA, Edo State</p>
                 </div>
               </div>
+
             </div>
           </div>
 
           {/* FOOTER */}
-          <div className="pt-2 border-t border-gray-200 text-center text-[9px] text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-1">
-            <span>NYSC Egor SDG CDS Civic Archive • Document Registry Verified</span>
-            <span>Generated from https://edo-sdg.vercel.app/gallery/report</span>
+          <div className="pt-3 mt-3 border-t border-gray-400 text-center text-[10px] text-gray-600">
+            <p>National Youth Service Corps (NYSC) • Egor Local Government Area, Edo State • Official CDS Activity Document</p>
           </div>
 
         </div>
 
       </div>
+
     </div>
   );
 };

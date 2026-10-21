@@ -1,18 +1,32 @@
 ---
-// Exactly 4 Main Nav Links with dropdown sub-links
+// Navigation Links with dropdown sub-links
 const navItems = [
   {
     title: "Home",
     href: "/",
   },
   {
-    title: "Projects & Gallery",
+    title: "Events",
+    href: "/events",
+    subLinks: [
+      { title: "Community Outreaches", href: "/events", desc: "Outreach events and photo archives" },
+      { title: "Ogida Market Sensitization", href: "/events#evt-ogida-education-sensitization", desc: "SDG 4 outreach & 28 photo plates" },
+      { title: "Printable LGI Reports", href: "/gallery/report", desc: "Simple B&W statutory reports for LGI" },
+    ]
+  },
+  {
+    title: "Blog",
+    href: "/blog",
+    subLinks: [
+      { title: "All Stories & Articles", href: "/blog", desc: "Impact reports, sensitizations & press" },
+      { title: "Ogida Market SDG 4 Story", href: "/blog/ogida-market-quality-education", desc: "Debunking 'education is a scam' narrative" },
+    ]
+  },
+  {
+    title: "Projects",
     href: "/projects",
     subLinks: [
       { title: "Planned Projects & Budgets", href: "/projects", desc: "Itemized costs, SDGs & partner plans" },
-      { title: "Event Photo Albums", href: "/gallery", desc: "Outreach gallery organized by events" },
-      { title: "Printable LGI Reports", href: "/gallery/report", desc: "Statutory sensitization reports for LGI" },
-      { title: "Ogida Sensitization Story", href: "/outreach/ogida-market-quality-education", desc: "SDG 4 outreach at Ogida Market (28 Photos)" },
     ]
   },
   {
