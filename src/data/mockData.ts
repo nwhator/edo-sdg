@@ -149,31 +149,41 @@ const OGIDA_PHOTO_FILENAMES = [
 
 export const INITIAL_EVENTS: Event[] = [
   {
-    id: 'evt-ogida-outreach',
-    title: 'Ogida Community Sensitization & Environmental Sanitation Outreach',
+    id: 'evt-ogida-education-sensitization',
+    title: 'Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City',
     event_date: '2026-10-21',
-    event_time: '10:00 AM – 1:30 PM',
-    location: 'Ogida Market & Surrounding Communities, Egor LGA',
-    description: `The NYSC Egor SDG Community Development Service (CDS) group conducted a comprehensive grassroots sensitization and public sanitation outreach across Ogida Market and adjoining streets in Egor Local Government Area.
-
-Corps members actively engaged local traders, market executives, transport operators, and community residents on environmental sustainability (SDG 11 & 13), proper solid waste disposal to eliminate drain blockage and seasonal flooding, and disease prevention through clean water and hygiene practices (SDG 3 & 6). 
-
-The team distributed heavy-duty waste collection bins, public health pamphlets, and demonstrated hygienic waste separation techniques with overwhelming community participation and commendation from local market elders.`,
-    cover_image: '/ogida/photo_2026-10-21_17-41-10.jpg',
-    sdg_goals: [3, 6, 11, 12, 13],
+    event_time: '9:00 AM - 11:00 AM',
+    location: 'Ogida Market, Benin City, Egor LGA',
+    week: 'Week 3',
+    quarter: '4th Quarter',
+    sdg_goals: [4, 1, 5, 10],
     photos_count: 28,
-    beneficiaries_reached: '250+ Market Traders, Shoppers & Local Residents',
-    corps_members_present: '35 Serving Corps Members, CDS President Augusta & CDS Executive Council',
-    materials_distributed: '50 Heavy-duty Waste Receptacles, Disinfectants, Hand Sanitizers & Public Health Flyers',
-    created_at: '2026-10-21T10:00:00Z',
+    beneficiaries_reached: 'Traders (Market Women and Men) and Shoppers at Ogida Market',
+    corps_members_present: 'Serving Corps Members, CDS President Augusta & CDS Executive Council',
+    materials_distributed: 'Quality Education Guides, Student Daily Log Checklists & SDG 4 Pamphlets',
+    sustainability: "Yes, because it's a continuous process.",
+    activities: `To sensitize market women and men on Sustainable Development Goal 4 (Quality Education), featuring one-on-one and group engagements across market stalls on the foundational value of education. The outreach focused on dismantling the popular misconception that "education is a scam," emphasizing the critical role of active parenting in academic success, and guiding parents and guardians on how to closely monitor their children's schoolwork, daily assignments, and overall educational growth.`,
+    aims: [
+      'To create awareness among market women and men about Sustainable Development Goal 4 (Quality Education) and its vital role in community development and poverty eradication.',
+      'To debunk the widespread narrative that "education is a scam" by highlighting how formal education equips children with critical thinking, literacy, and lifelong opportunities alongside vocational and entrepreneurial skills.',
+      'To encourage parents and guardians to pay closer attention to their children\'s academic lives by regularly checking their school notebooks, assisting with or supervising daily assignments, and communicating with their teachers.',
+      'To educate traders on the importance of balancing household or market chores with study time, ensuring children are given a conducive environment and adequate time to focus on their studies after school hours.',
+    ],
+    description: `Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement held at Ogida Market, Benin City, Egor LGA, Edo State.
+
+Corps members of the NYSC Egor SDG Community Development Service (CDS) group conducted active field sensitization across market stalls, engaging market women, men, and shoppers on the irreplaceable value of formal education. 
+
+The outreach focused on debunking the dangerous misconception that "education is a scam", emphasizing how basic literacy, numeracy, and critical thinking unlock lifelong opportunities for children. Parents were guided on practical ways to track daily academic progress, inspect school notebooks, communicate regularly with classroom teachers, and protect study hours from excessive household or stall trading chores.`,
+    cover_image: '/ogida/photo_2026-10-21_17-41-10.jpg',
+    created_at: '2026-10-21T09:00:00Z',
   },
 ];
 
 export const INITIAL_PHOTOS: EventPhoto[] = OGIDA_PHOTO_FILENAMES.map((filename, idx) => ({
   id: `ogida-photo-${idx + 1}`,
-  event_id: 'evt-ogida-outreach',
+  event_id: 'evt-ogida-education-sensitization',
   image_url: `/ogida/${filename}`,
-  caption: `Ogida Community Outreach Plate #${idx + 1} — NYSC Egor SDG CDS field sensitization`,
+  caption: `Ogida Market Quality Education Sensitization Plate #${idx + 1} — NYSC Egor SDG CDS field engagement with market traders`,
   display_order: idx + 1,
-  created_at: '2026-10-21T10:00:00Z',
+  created_at: '2026-10-21T09:00:00Z',
 }));

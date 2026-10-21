@@ -1,0 +1,294 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchEvents } from '../../lib/supabase';
+import { EventGallery } from '../../components/gallery/EventGallery';
+
+const { events, photos } = await fetchEvents();
+const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
+const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization');
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City",
+  "image": [
+    "https://edo-sdg.vercel.app/ogida/photo_2026-10-21_17-41-10.jpg"
+  ],
+  "datePublished": "2026-10-21T09:00:00+01:00",
+  "dateModified": "2026-10-21T11:00:00+01:00",
+  "author": {
+    "@type": "Organization",
+    "name": "NYSC Egor SDG Community Development Service (CDS) Group",
+    "url": "https://edo-sdg.vercel.app"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "National Youth Service Corps (NYSC) Nigeria",
+    "url": "https://www.nysc.gov.ng"
+  },
+  "description": "Comprehensive report on NYSC Egor SDG CDS outreach at Ogida Market, Benin City. Debunking 'education is a scam', promoting parental involvement, daily notebook checks, and SDG 4.",
+  "articleBody": "On Wednesday, 21st October 2026, corps members of the Sustainable Development Goals (SDGs) Community Development Service (CDS) Group in Egor LGA carried out a comprehensive sensitization campaign at Ogida Market, Benin City. The outreach addressed the vital need for Quality Education (SDG 4) and active parental oversight.",
+  "about": [
+    { "@type": "Thing", "name": "Sustainable Development Goal 4: Quality Education" },
+    { "@type": "Place", "name": "Ogida Market, Benin City, Egor Local Government Area, Edo State" }
+  ]
+};
+---
+
+<Layout
+  title="Sensitization on Quality Education (SDG 4) at Ogida Market • NYSC Egor CDS"
+  description="Official coverage of the NYSC Egor SDG CDS outreach at Ogida Market, Benin City. Debunking the 'education is a scam' narrative and empowering market parents for academic success."
+>
+  <!-- Injected Structured Data for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
+
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 space-y-10">
+    
+    <!-- Breadcrumb & Tag Strip -->
+    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-medium">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <a href="/gallery" class="hover:text-primary transition-colors">Outreaches</a>
+      <span>/</span>
+      <span class="text-primary font-bold">Ogida Market (SDG 4)</span>
+    </nav>
+
+    <!-- Main Header -->
+    <header class="space-y-4 border-b border-surface-container pb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-1 rounded-full bg-[#C5192D] text-white text-xs font-black shadow-xs">
+          SDG 4: Quality Education
+        </span>
+        <span class="px-3 py-1 rounded-full bg-surface-container text-primary text-xs font-bold">
+          Week 3 • 4th Quarter
+        </span>
+        <span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-xs font-bold">
+          Egor LGA, Edo State
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-on-surface tracking-tight leading-tight">
+        Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City
+      </h1>
+
+      <!-- Metadata Byline -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-2 text-xs text-on-surface-variant border-t border-surface-container/60">
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5 font-semibold">
+            <span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span>
+            <span>Wednesday, 21st October, 2026</span>
+          </span>
+          <span class="flex items-center gap-1.5 font-semibold">
+            <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+            <span>9:00 AM - 11:00 AM</span>
+          </span>
+          <span class="flex items-center gap-1.5 font-semibold">
+            <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+            <span>Ogida Market, Benin City</span>
+          </span>
+        </div>
+
+        {/* Quick Report & Share Actions */}
+        <div class="flex items-center gap-2">
+          <a
+            href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-on-primary text-xs font-bold hover:bg-primary-container shadow-xs transition-all"
+            title="Download or print the official statutory report for the Local Government Inspector"
+          >
+            <span class="material-symbols-outlined text-[15px]">print</span>
+            <span>Print LGI Report (PDF)</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured Cover Photo Plate -->
+    <div class="relative rounded-3xl overflow-hidden aspect-16/9 bg-surface-container shadow-elevated border border-surface-container">
+      <img
+        src="/ogida/photo_2026-10-21_17-41-10.jpg"
+        alt="NYSC corps members sensitizing market traders on Quality Education at Ogida Market, Benin City"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-6 text-white">
+        <p class="text-xs sm:text-sm font-semibold">
+          Plate #1: NYSC Egor SDG CDS corps members engaging market women on active parental oversight and daily notebook monitoring at Ogida Market.
+        </p>
+      </div>
+    </div>
+
+    <!-- Article Narrative & Highlights -->
+    <div class="space-y-8 text-on-surface text-sm sm:text-base leading-relaxed">
+      
+      <!-- Key Executive Summary -->
+      <section class="bg-surface-container-low p-6 sm:p-8 rounded-3xl border border-surface-container space-y-3">
+        <h2 class="text-base sm:text-lg font-extrabold text-[#004b24] uppercase tracking-wide flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]">campaign</span>
+          <span>Executive Summary & Activities</span>
+        </h2>
+        <p class="text-justify text-on-surface-variant leading-relaxed">
+          On Wednesday, 21st October, 2026, corps members of the <strong>Sustainable Development Goals (SDGs) Community Development Service (CDS) Group</strong>, Egor Local Government Area, executed an intensive grassroots sensitization at <strong>Ogida Market, Benin City</strong>. The outreach featured one-on-one dialogues and group engagements across busy market stalls, emphasizing the foundational value of education in modern society.
+        </p>
+        <p class="text-justify text-on-surface-variant leading-relaxed">
+          The primary mission focused on <strong>dismantling the popular misconception that "education is a scam"</strong>, reinforcing that basic literacy, numeracy, and formal schooling provide the essential launchpad for critical thinking, self-reliance, and poverty eradication.
+        </p>
+      </section>
+
+      <!-- 4 Core Aims Grid -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-on-surface">
+          Four Strategic Pillars of the Sensitization
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant">
+          Corps members methodically addressed core challenges identified among trading families in Egor Local Government Area:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Aim 1 -->
+          <div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-subtle space-y-2">
+            <div class="w-8 h-8 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-xs">
+              1
+            </div>
+            <h3 class="font-bold text-on-surface text-sm sm:text-base">
+              Quality Education & Poverty Eradication (SDG 4)
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed text-justify">
+              Creating awareness among market women and men regarding UN Sustainable Development Goal 4 and how foundational schooling accelerates long-term community development, hygiene awareness, and household economic stability.
+            </p>
+          </div>
+
+          <!-- Aim 2 -->
+          <div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-subtle space-y-2">
+            <div class="w-8 h-8 rounded-xl bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs">
+              2
+            </div>
+            <h3 class="font-bold text-on-surface text-sm sm:text-base">
+              Debunking the "Education is a Scam" Myth
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed text-justify">
+              Discrediting the dangerous narrative spreading across social media and streets. Corps members demonstrated how formal education synergizes with vocational craftsmanship, business management, and technological literacy.
+            </p>
+          </div>
+
+          <!-- Aim 3 -->
+          <div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-subtle space-y-2">
+            <div class="w-8 h-8 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center font-bold text-xs">
+              3
+            </div>
+            <h3 class="font-bold text-on-surface text-sm sm:text-base">
+              Active Daily Notebook & Homework Monitoring
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed text-justify">
+              Encouraging parents and guardians to routinely inspect their children's school notebooks daily, assist with or supervise homework assignments, and sustain open communication channels with classroom teachers.
+            </p>
+          </div>
+
+          <!-- Aim 4 -->
+          <div class="p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-subtle space-y-2">
+            <div class="w-8 h-8 rounded-xl bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs">
+              4
+            </div>
+            <h3 class="font-bold text-on-surface text-sm sm:text-base">
+              Balancing Market Chores with Home Study Hours
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed text-justify">
+              Educating market traders on the necessity of shielding children from excessive commercial hawking and domestic chores after school hours, creating a quiet, conducive environment for evening revision and reading.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Beneficiaries & Continuous Sustainability -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-surface-container-low border border-surface-container space-y-1.5">
+          <span class="text-xs font-bold text-primary uppercase tracking-wider block">Target Beneficiaries</span>
+          <h4 class="font-bold text-on-surface text-sm sm:text-base">Ogida Market Community</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Directly engaged market women, male traders, apprentice youths, and shoppers across textile, foodstuff, and provisions sections at Ogida Market, Benin City.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-container-low border border-surface-container space-y-1.5">
+          <span class="text-xs font-bold text-secondary uppercase tracking-wider block">Sustainability Plan</span>
+          <h4 class="font-bold text-on-surface text-sm sm:text-base">Continuous Civic Process</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Continuous outreach by subsequent NYSC batches through periodic market monitoring visits, school-based parent forums, and community educational leaflets.
+          </p>
+        </div>
+      </section>
+
+      <!-- Complete Photo Exhibition (All 28 Photos) -->
+      <section class="space-y-4 pt-4 border-t border-surface-container">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold text-primary uppercase tracking-wider">Field Photo Archive</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-on-surface">
+              Documentary Photo Gallery (All 28 Plates)
+            </h2>
+            <p class="text-xs text-on-surface-variant">
+              Every captured moment of corps members sensitizing traders at Ogida Market.
+            </p>
+          </div>
+          <a
+            href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline shrink-0"
+          >
+            <span class="material-symbols-outlined text-[16px]">print</span>
+            <span>Generate LGI Printout (10 Photos)</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {ogidaPhotos.map((photo, index) => (
+            <div key={photo.id} className="group relative aspect-4/3 rounded-2xl overflow-hidden bg-surface-container border border-surface-container shadow-xs hover:shadow-md transition-all">
+              <img
+                src={photo.image_url}
+                alt={photo.caption || `Ogida Market Outreach photo ${index + 1}`}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-2.5 flex flex-col justify-end text-white">
+                <span className="text-[10px] font-bold">Plate #{index + 1}</span>
+                <span className="text-[9px] text-gray-300 line-clamp-1">Ogida Market, Benin City</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Statutory LGI Printout Callout Box -->
+      <section class="p-6 sm:p-8 rounded-3xl bg-[#004b24] text-white space-y-4 shadow-elevated">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#fccc38]">
+              Statutory NYSC Compliance
+            </span>
+            <h3 class="text-xl font-extrabold text-white">
+              Official Sensitization Report Ready for LGI
+            </h3>
+            <p class="text-xs text-white/80 max-w-xl">
+              This activity report has been compiled and formatted with statutory letterhead, Week 3/Q4 routing memorandum, 10 selected photographic plates, and signature spaces for the Local Government Inspector.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
+            <a
+              href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
+              class="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#fccc38] text-gray-950 font-bold text-xs sm:text-sm hover:bg-yellow-400 text-center shadow-card transition-all active:scale-95 flex items-center justify-center gap-1.5"
+            >
+              <span class="material-symbols-outlined text-[18px]">print</span>
+              <span>Print LGI Report (PDF)</span>
+            </a>
+            <a
+              href="/gallery"
+              class="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 text-center transition-all"
+            >
+              Back to Gallery
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </article>
+</Layout>

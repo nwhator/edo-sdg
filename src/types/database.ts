@@ -85,6 +85,11 @@ export interface Event {
   corps_members_present?: string;
   officials_present?: string;
   materials_distributed?: string;
+  week?: string;
+  quarter?: string;
+  activities?: string;
+  aims?: string[];
+  sustainability?: string;
   created_at: string;
 }
 
