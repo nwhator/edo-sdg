@@ -88,29 +88,21 @@ const articleSchema = {
           </span>
         </div>
 
-        {/* Quick Report & Navigation Actions */}
+        {/* Navigation Actions */}
         <div class="flex items-center gap-2">
           <a
-            href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black text-white text-xs font-bold hover:bg-gray-800 shadow-xs transition-all"
-            title="Download or print the official B&W statutory report for the Local Government Inspector"
+            href="/events"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
           >
-            <span class="material-symbols-outlined text-[15px]">print</span>
-            <span>Print B&W LGI Report (PDF)</span>
+            <span class="material-symbols-outlined text-[15px]">event</span>
+            <span>Events Gallery</span>
           </a>
           <a
             href="/blog"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
           >
-            <span class="material-symbols-outlined text-[15px]">article</span>
+            <span class="material-symbols-outlined text-[15px]">newspaper</span>
             <span>Blog</span>
-          </a>
-          <a
-            href="/events"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container border border-surface-container-high transition-all"
-          >
-            <span class="material-symbols-outlined text-[15px]">event</span>
-            <span>Events</span>
           </a>
         </div>
       </div>
@@ -255,34 +247,34 @@ const articleSchema = {
         </div>
       </section>
 
-      <!-- Statutory LGI Printout Callout Box -->
+      <!-- Community Outreach Callout Box -->
       <section class="p-6 sm:p-8 rounded-3xl bg-[#004b24] text-white space-y-4 shadow-elevated">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="space-y-1">
             <span class="text-xs font-bold uppercase tracking-wider text-[#fccc38]">
-              Statutory NYSC Compliance
+              Community Action & SDG 4
             </span>
             <h3 class="text-xl font-extrabold text-white">
-              Official Sensitization Report Ready for LGI
+              Advancing Quality Education in Egor LGA
             </h3>
             <p class="text-xs text-white/80 max-w-xl">
-              This activity report has been compiled and formatted with statutory letterhead, Week 3/Q4 routing memorandum, 10 selected photographic plates, and signature spaces for the Local Government Inspector.
+              This outreach forms part of ongoing grassroots civic interventions led by corps members of the Sustainable Development Goals (SDG) CDS Group in Egor Local Government Area.
             </p>
           </div>
 
           <div class="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
             <a
-              href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
+              href="/events"
               class="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#fccc38] text-gray-950 font-bold text-xs sm:text-sm hover:bg-yellow-400 text-center shadow-card transition-all active:scale-95 flex items-center justify-center gap-1.5"
             >
-              <span class="material-symbols-outlined text-[18px]">print</span>
-              <span>Print LGI Report (PDF)</span>
+              <span class="material-symbols-outlined text-[18px]">photo_library</span>
+              <span>View Full 28-Photo Gallery</span>
             </a>
             <a
-              href="/gallery"
+              href="/blog"
               class="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 text-center transition-all"
             >
-              Back to Gallery
+              Back to Blog
             </a>
           </div>
         </div>

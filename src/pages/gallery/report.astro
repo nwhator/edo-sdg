@@ -1,24 +1,4 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { fetchEvents } from '../../lib/supabase';
-import { LgiReportView } from '../../components/gallery/LgiReportView';
-
-const { events, photos } = await fetchEvents();
+// Restricted to Executive Admin only
+return Astro.redirect('/admin/report');
 ---
-
-<Layout
-  title="Official Outreach Report to LGI • NYSC Egor SDG CDS"
-  description="Official community sensitization and activity report prepared for the NYSC Local Government Inspector (LGI), Egor LGA Secretariat, Benin City."
->
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 md:py-10 print:p-0 print:m-0 print:max-w-none">
-    <LgiReportView client:load initialEvents={events} initialPhotos={photos} />
-  </div>
-</Layout>
-
-<style is:global>
-  @media print {
-    header, footer, nav, .no-print {
-      display: none !important;
-    }
-  }
-</style>

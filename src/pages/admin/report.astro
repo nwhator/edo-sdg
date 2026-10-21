@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminHeader from '../../components/admin/AdminHeader.astro';
+import { fetchEvents } from '../../lib/supabase';
+import { LgiReportView } from '../../components/gallery/LgiReportView';
+
+const { events, photos } = await fetchEvents();
+---
+
+<Layout
+  title="Printable LGI Report (Executive Admin)"
+  description="Official community sensitization and activity report prepared for the NYSC Local Government Inspector (LGI), Egor LGA Secretariat."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 md:py-10 space-y-6 print:p-0 print:m-0 print:max-w-none">
+    <div class="print:hidden no-print">
+      <AdminHeader />
+    </div>
+
+    <LgiReportView client:load initialEvents={events} initialPhotos={photos} />
+  </div>
+</Layout>
+
+<style is:global>
+  @media print {
+    header, footer, nav, .no-print, [data-no-print] {
+      display: none !important;
+    }
+  }
+</style>

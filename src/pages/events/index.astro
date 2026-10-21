@@ -24,24 +24,17 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
         CDS <span class="text-primary">Events & Outreaches</span>
       </h1>
       <p class="text-sm sm:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-        Explore visual archives of community development outreaches conducted by corps members across Egor Local Government Area. View all documented field photographs and download official reports.
+        Explore visual archives of community development outreaches conducted by corps members across Egor Local Government Area. View all documented field photographs and community impacts.
       </p>
 
       <!-- Quick Action Navigation -->
       <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
         <a
           href="/blog"
-          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
+          class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold shadow-sm transition-all"
         >
-          <span class="material-symbols-outlined text-[16px] text-primary">article</span>
+          <span class="material-symbols-outlined text-[16px]">article</span>
           <span>View Stories in Blog Section →</span>
-        </a>
-        <a
-          href="/gallery/report?id=evt-ogida-education-sensitization"
-          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
-        >
-          <span class="material-symbols-outlined text-[16px] text-primary">print</span>
-          <span>Print B&W LGI Report (PDF)</span>
         </a>
       </div>
     </div>
@@ -79,17 +72,10 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
           <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a
               href="/blog/ogida-market-quality-education"
-              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold shadow-sm transition-all"
+              class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold shadow-sm transition-all"
             >
               <span class="material-symbols-outlined text-[16px]">menu_book</span>
               <span>Read in Blog Section</span>
-            </a>
-            <a
-              href={`/gallery/report?id=${ogidaEvent.id}`}
-              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold border border-surface-container-high transition-all"
-            >
-              <span class="material-symbols-outlined text-[16px]">print</span>
-              <span>Print LGI Report (B&W PDF)</span>
             </a>
           </div>
         </div>

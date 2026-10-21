@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 import { SDG_METADATA } from '../../types/database';
-import { LgiReportModal } from './LgiReportModal';
 
 interface EventGalleryProps {
   events: Event[];
@@ -19,7 +18,6 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
   );
 
   const [activePhoto, setActivePhoto] = useState<EventPhoto | null>(null);
-  const [reportingEvent, setReportingEvent] = useState<{ event: Event; photos: EventPhoto[] } | null>(null);
 
   if (!ogidaEvent) {
     return (
@@ -48,26 +46,10 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
         <div className="pt-2 flex flex-wrap justify-center gap-2.5">
           <a
             href="/blog/ogida-market-quality-education"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs hover:bg-primary-container transition-all"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs hover:bg-primary-container transition-all"
           >
             <span className="material-symbols-outlined text-[16px]">article</span>
-            <span>Read in Blog Section</span>
-          </a>
-
-          <button
-            type="button"
-            onClick={() => setReportingEvent({ event: ogidaEvent, photos: ogidaPhotos })}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-gray-400 bg-white hover:bg-gray-100 text-black font-bold text-xs shadow-subtle transition-all cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[16px]">print</span>
-            <span>Print B&W LGI Report (10 Selected Photos)</span>
-          </button>
-
-          <a
-            href={`/gallery/report?id=${ogidaEvent.id}`}
-            className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-semibold"
-          >
-            <span>Full Report Page ↗</span>
+            <span>Read Outreach Story in Blog</span>
           </a>
         </div>
       </div>
@@ -210,16 +192,6 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
             </div>
           </div>
         </div>
-      )}
-
-      {/* B&W LGI Report Modal */}
-      {reportingEvent && (
-        <LgiReportModal
-          event={reportingEvent.event}
-          photos={reportingEvent.photos}
-          isOpen={true}
-          onClose={() => setReportingEvent(null)}
-        />
       )}
     </div>
   );
