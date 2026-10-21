@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 import { uploadEventClient } from '../../lib/supabase';
+import { LgiReportModal } from '../gallery/LgiReportModal';
 
 interface GalleryUploadFormProps {
   initialEvents?: Event[];
@@ -67,9 +68,18 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
   // New Event fields
   const [eventTitle, setEventTitle] = useState('');
   const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
+  const [eventTime, setEventTime] = useState('10:00 AM – 1:30 PM');
   const [eventLocation, setEventLocation] = useState('Egor LGA, Benin City');
   const [eventDescription, setEventDescription] = useState('');
   const [selectedSDGs, setSelectedSDGs] = useState<number[]>([3, 5, 6]);
+
+  // LGI Report fields
+  const [beneficiariesReached, setBeneficiariesReached] = useState('120 female secondary students & 12 staff');
+  const [corpsMembersPresent, setCorpsMembersPresent] = useState('35 serving corps members and CDS Exco');
+  const [materialsDistributed, setMaterialsDistributed] = useState('150 sanitary pad packs, disinfectant kits, informative pamphlets');
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [savedEvent, setSavedEvent] = useState<Event | null>(null);
+  const [savedPhotos, setSavedPhotos] = useState<EventPhoto[]>([]);
 
   // Batch photos state
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
@@ -294,11 +304,15 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
         id: targetId,
         title: eventTitle.trim(),
         event_date: eventDate,
+        event_time: eventTime.trim(),
         location: eventLocation.trim(),
         description: eventDescription.trim() || `Outreach gallery album with ${photos.length} verified photos.`,
         cover_image: coverPhoto,
         sdg_goals: selectedSDGs,
         photos_count: photos.length,
+        beneficiaries_reached: beneficiariesReached.trim(),
+        corps_members_present: corpsMembersPresent.trim(),
+        materials_distributed: materialsDistributed.trim(),
         created_at: new Date().toISOString(),
       };
 
@@ -336,6 +350,9 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
 
       // Supabase async cloud sync if available
       uploadEventClient(newEvent, newPhotos);
+
+      setSavedEvent(newEvent);
+      setSavedPhotos(newPhotos);
     } else {
       // Adding photos to existing event
       const newPhotos: EventPhoto[] = photos.map((p, idx) => ({
@@ -353,27 +370,73 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
       } catch (err) {
         console.warn('Storage error:', err);
       }
+
+      const existingEvt = eventsList.find((e) => e.id === targetId) || {
+        id: targetId,
+        title: 'Community Outreach Album',
+        event_date: eventDate,
+        event_time: eventTime,
+        location: eventLocation,
+        created_at: new Date().toISOString(),
+      };
+      setSavedEvent(existingEvt);
+      setSavedPhotos(newPhotos);
     }
 
     setIsSaved(true);
-    setTimeout(() => {
-      window.location.href = `/gallery#event-${targetId}`;
-    }, 1200);
   };
 
   return (
     <div className="bg-surface-container-lowest rounded-3xl border border-surface-container shadow-card p-6 sm:p-10 max-w-4xl mx-auto space-y-8">
       {isSaved ? (
-        <div className="py-16 text-center space-y-4">
+        <div className="py-12 text-center space-y-6">
           <div className="w-20 h-20 rounded-full bg-primary/10 text-primary mx-auto flex items-center justify-center shadow-subtle animate-bounce">
             <span className="material-symbols-outlined text-[42px]">check_circle</span>
           </div>
-          <h3 className="text-2xl font-extrabold text-on-surface">
-            {photos.length} Photos Published Successfully!
-          </h3>
-          <p className="text-sm text-on-surface-variant max-w-md mx-auto">
-            Album has been grouped and indexed. Redirecting you to the public event gallery...
-          </p>
+
+          <div className="space-y-2 max-w-lg mx-auto">
+            <span className="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-xs font-bold uppercase tracking-wider">
+              Document & Album Indexed
+            </span>
+            <h3 className="text-2xl font-extrabold text-on-surface">
+              {photos.length} Photos Published & LGI Report Generated!
+            </h3>
+            <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              The outreach event <strong>"{eventTitle}"</strong> held on <strong>{eventDate} ({eventTime})</strong> at <strong>{eventLocation}</strong> is officially archived and formatted for submission to the Local Government Inspector.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setShowReportModal(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-card active:scale-95 transition-all cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[20px]">print</span>
+              <span>Print Official Report for LGI Now</span>
+            </button>
+
+            <a
+              href={`/gallery#event-${savedEvent?.id || selectedEventId}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container text-on-surface font-bold text-sm shadow-subtle transition-all"
+            >
+              <span className="material-symbols-outlined text-[18px]">photo_library</span>
+              <span>View in Public Gallery</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsSaved(false);
+                setPhotos([]);
+                setEventTitle('');
+                setEventDescription('');
+              }}
+              className="w-full sm:w-auto px-4 py-3 text-xs font-bold text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+            >
+              + Upload Another Event
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -445,7 +508,7 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-on-surface mb-1">
                     Event Date *
@@ -460,6 +523,35 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
                 </div>
 
                 <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-bold text-on-surface">
+                      Time of Event *
+                    </label>
+                    <span className="text-[10px] text-primary font-bold">For LGI Report</span>
+                  </div>
+                  <input
+                    type="text"
+                    required
+                    value={eventTime}
+                    onChange={(e) => setEventTime(e.target.value)}
+                    placeholder="e.g. 10:00 AM – 1:30 PM"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-surface-container-high bg-surface-container-lowest text-xs sm:text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                  <div className="flex gap-1.5 mt-1.5 overflow-x-auto pb-0.5">
+                    {['9:00 AM – 12:00 PM', '10:00 AM – 1:30 PM', '11:00 AM – 2:00 PM'].map((t) => (
+                      <button
+                        type="button"
+                        key={t}
+                        onClick={() => setEventTime(t)}
+                        className="px-2 py-0.5 rounded-md text-[10px] bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium shrink-0"
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
                   <label className="block text-xs font-bold text-on-surface mb-1">
                     Location in Edo State *
                   </label>
@@ -468,7 +560,7 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
                     required
                     value={eventLocation}
                     onChange={(e) => setEventLocation(e.target.value)}
-                    placeholder="e.g. Egor NYSC Secretariat / Uselu Market / Evbore"
+                    placeholder="e.g. Idia College / Egor NYSC Secretariat"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-surface-container-high bg-surface-container-lowest text-xs sm:text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
@@ -499,15 +591,76 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
                 </div>
               </div>
 
+              {/* Statutory LGI Report Logistical Parameters */}
+              <div className="p-4 rounded-xl bg-surface-container-lowest border border-surface-container space-y-3">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider">
+                  <span className="material-symbols-outlined text-[16px]">assignment</span>
+                  <span>Statutory LGI Sensitization Report Parameters</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-on-surface mb-1">
+                      Direct Beneficiaries Reached
+                    </label>
+                    <input
+                      type="text"
+                      value={beneficiariesReached}
+                      onChange={(e) => setBeneficiariesReached(e.target.value)}
+                      placeholder="e.g. 120 female students & 12 staff"
+                      className="w-full px-3 py-2 rounded-xl border border-surface-container-high bg-surface-container-low text-xs text-on-surface focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-on-surface mb-1">
+                      Corps Members Deployed
+                    </label>
+                    <input
+                      type="text"
+                      value={corpsMembersPresent}
+                      onChange={(e) => setCorpsMembersPresent(e.target.value)}
+                      placeholder="e.g. 35 serving corps members and Exco"
+                      className="w-full px-3 py-2 rounded-xl border border-surface-container-high bg-surface-container-low text-xs text-on-surface focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-on-surface mb-1">
+                      Materials / Kits Distributed
+                    </label>
+                    <input
+                      type="text"
+                      value={materialsDistributed}
+                      onChange={(e) => setMaterialsDistributed(e.target.value)}
+                      placeholder="e.g. 150 pad packs, brochures, bins"
+                      className="w-full px-3 py-2 rounded-xl border border-surface-container-high bg-surface-container-low text-xs text-on-surface focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div>
-                <label className="block text-xs font-bold text-on-surface mb-1">
-                  Brief Outreach Narrative
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-bold text-on-surface">
+                    Brief Outreach Narrative / Sensitization Report Summary *
+                  </label>
+                  {eventTitle.trim() && (
+                    <button
+                      type="button"
+                      onClick={() => setShowReportModal(true)}
+                      className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">visibility</span>
+                      <span>Preview LGI Report Draft</span>
+                    </button>
+                  )}
+                </div>
                 <textarea
-                  rows={2}
+                  rows={3}
                   value={eventDescription}
                   onChange={(e) => setEventDescription(e.target.value)}
-                  placeholder="Summary of objectives, community attendance, and impact achieved during this CDS activity..."
+                  placeholder="Detailed narrative summary of what was achieved during this outreach, student reception, and community impact for the Local Government Inspector..."
                   className="w-full px-3.5 py-2.5 rounded-xl border border-surface-container-high bg-surface-container-lowest text-xs sm:text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                 />
               </div>
@@ -806,26 +959,73 @@ export const GalleryUploadForm: React.FC<GalleryUploadFormProps> = ({ initialEve
               Cancel
             </a>
 
-            <button
-              type="submit"
-              disabled={photos.length === 0 || isProcessing}
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-8 rounded-xl font-bold text-sm shadow-card transition-all cursor-pointer ${
-                photos.length === 0 || isProcessing
-                  ? 'bg-surface-container text-outline cursor-not-allowed opacity-60'
-                  : 'bg-primary hover:bg-primary-container text-on-primary active:scale-95'
-              }`}
-            >
-              <span className="material-symbols-outlined text-[20px]">cloud_upload</span>
-              <span>
-                {photos.length === 0
-                  ? 'Add Photos to Publish'
-                  : `Publish ${photos.length} Photos to Album`}
-              </span>
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto">
+              {eventTitle.trim() && (
+                <button
+                  type="button"
+                  onClick={() => setShowReportModal(true)}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 h-12 px-5 rounded-xl border border-primary/40 bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-xs shadow-subtle transition-all cursor-pointer"
+                  title="Preview official report for the Local Government Inspector"
+                >
+                  <span className="material-symbols-outlined text-[18px]">visibility</span>
+                  <span>Preview LGI Report</span>
+                </button>
+              )}
+
+              <button
+                type="submit"
+                disabled={photos.length === 0 || isProcessing}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-8 rounded-xl font-bold text-sm shadow-card transition-all cursor-pointer ${
+                  photos.length === 0 || isProcessing
+                    ? 'bg-surface-container text-outline cursor-not-allowed opacity-60'
+                    : 'bg-primary hover:bg-primary-container text-on-primary active:scale-95'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[20px]">cloud_upload</span>
+                <span>
+                  {photos.length === 0
+                    ? 'Add Photos to Publish'
+                    : `Publish ${photos.length} Photos to Album`}
+                </span>
+              </button>
+            </div>
           </div>
 
         </form>
       )}
+
+      {/* LGI Report Modal (for Preview or Post-Publish Print) */}
+      <LgiReportModal
+        event={
+          savedEvent || {
+            id: selectedEventId || 'evt-preview',
+            title: eventTitle.trim() || 'Community Sensitization Outreach',
+            event_date: eventDate,
+            event_time: eventTime.trim(),
+            location: eventLocation.trim(),
+            description: eventDescription.trim(),
+            sdg_goals: selectedSDGs,
+            beneficiaries_reached: beneficiariesReached.trim(),
+            corps_members_present: corpsMembersPresent.trim(),
+            materials_distributed: materialsDistributed.trim(),
+            created_at: new Date().toISOString(),
+          }
+        }
+        photos={
+          savedPhotos.length > 0
+            ? savedPhotos
+            : photos.map((p, idx) => ({
+                id: p.id,
+                event_id: selectedEventId || 'evt-preview',
+                image_url: p.url,
+                caption: p.caption,
+                display_order: idx + 1,
+                created_at: new Date().toISOString(),
+              }))
+        }
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+      />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Idea, Project, Event, EventPhoto, FundingPartner } from '../types/database';
-import { INITIAL_FUNDING_PARTNERS } from '../data/mockData';
+import { INITIAL_FUNDING_PARTNERS, INITIAL_EVENTS, INITIAL_PHOTOS } from '../data/mockData';
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
@@ -92,7 +92,7 @@ export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPho
           .order('display_order', { ascending: true })
       );
 
-      if (!evError && events) {
+      if (!evError && events && events.length > 0) {
         return {
           events: events as Event[],
           photos: (photos || []) as EventPhoto[],
@@ -103,8 +103,8 @@ export async function fetchEvents(): Promise<{ events: Event[]; photos: EventPho
     }
   }
   return {
-    events: [],
-    photos: [],
+    events: INITIAL_EVENTS,
+    photos: INITIAL_PHOTOS,
   };
 }
 

@@ -75,11 +75,16 @@ export interface Event {
   id: string;
   title: string;
   event_date: string;
+  event_time?: string;
   location: string;
   description?: string;
   cover_image?: string;
   sdg_goals?: number[];
   photos_count?: number;
+  beneficiaries_reached?: string;
+  corps_members_present?: string;
+  officials_present?: string;
+  materials_distributed?: string;
   created_at: string;
 }
 

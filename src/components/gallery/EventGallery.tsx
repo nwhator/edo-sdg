@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 import { SDG_METADATA } from '../../types/database';
+import { LgiReportModal } from './LgiReportModal';
 
 interface EventGalleryProps {
   events: Event[];
@@ -12,6 +13,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
   const [photosList, setPhotosList] = useState<EventPhoto[]>(initialPhotos);
   const [selectedEventId, setSelectedEventId] = useState<string>('all');
   const [activePhoto, setActivePhoto] = useState<EventPhoto | null>(null);
+  const [reportingEvent, setReportingEvent] = useState<{ event: Event; photos: EventPhoto[] } | null>(null);
 
   useEffect(() => {
     try {
@@ -132,6 +134,32 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
                     <p className="font-body-sm text-body-sm text-on-surface-variant">
                       {event.description}
                     </p>
+
+                    {/* Operational Time & Print LGI Report Action */}
+                    <div className="flex flex-wrap items-center gap-2.5 pt-2">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
+                        <span className="material-symbols-outlined text-[14px]">schedule</span>
+                        <span>{event.event_time || '10:00 AM – 1:30 PM'}</span>
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() => setReportingEvent({ event, photos: eventPhotos })}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl border border-primary/40 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary font-bold text-xs shadow-subtle transition-all cursor-pointer"
+                        title="Generate official closeout report for the Local Government Inspector"
+                      >
+                        <span className="material-symbols-outlined text-[15px]">print</span>
+                        <span>Print LGI Report</span>
+                      </button>
+
+                      <a
+                        href={`/gallery/report?id=${event.id}`}
+                        className="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary text-[11px] font-medium"
+                        title="View printable standalone report"
+                      >
+                        <span>Full Report View ↗</span>
+                      </a>
+                    </div>
                   </div>
 
                   {/* SDG Badges */}
@@ -213,7 +241,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
               />
               <button
                 onClick={() => setActivePhoto(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
                 title="Close"
               >
                 ✕
@@ -228,6 +256,16 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
             )}
           </div>
         </div>
+      )}
+
+      {/* Official LGI Sensitization Report Modal */}
+      {reportingEvent && (
+        <LgiReportModal
+          event={reportingEvent.event}
+          photos={reportingEvent.photos}
+          isOpen={Boolean(reportingEvent)}
+          onClose={() => setReportingEvent(null)}
+        />
       )}
     </div>
   );

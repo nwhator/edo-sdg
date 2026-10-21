@@ -307,12 +307,22 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
                     <span>📍 {e.location}</span>
                   </div>
                 </div>
-                <a
-                  href={`/gallery#event-${e.id}`}
-                  class="px-3 py-1 rounded-lg bg-surface-container-lowest border border-surface-container-high font-label-sm text-label-sm font-bold text-on-surface hover:bg-surface-container"
-                >
-                  Gallery
-                </a>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <a
+                    href={`/gallery/report?id=${e.id}`}
+                    class="px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20 text-primary font-label-sm text-xs font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-1"
+                    title="Print official report for LGI"
+                  >
+                    <span class="material-symbols-outlined text-[14px]">print</span>
+                    <span>LGI Report</span>
+                  </a>
+                  <a
+                    href={`/gallery#event-${e.id}`}
+                    class="px-3 py-1 rounded-lg bg-surface-container-lowest border border-surface-container-high font-label-sm text-label-sm font-bold text-on-surface hover:bg-surface-container"
+                  >
+                    Gallery
+                  </a>
+                </div>
               </div>
             ))}
           </div>

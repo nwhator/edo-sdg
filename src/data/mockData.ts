@@ -110,8 +110,70 @@ export const INITIAL_FUNDING_PARTNERS: FundingPartner[] = [
   },
 ];
 
-// No static dummy ideas or projects - platform strictly reflects live database
 export const INITIAL_IDEAS: Idea[] = [];
 export const INITIAL_PROJECTS: Project[] = [];
-export const INITIAL_EVENTS: Event[] = [];
-export const INITIAL_PHOTOS: EventPhoto[] = [];
+
+// ==============================================================================
+// VERIFIED COMMUNITY OUTREACH ALBUMS (Egor LGA)
+// ==============================================================================
+const OGIDA_PHOTO_FILENAMES = [
+  'photo_2026-10-21_17-41-10.jpg',
+  'photo_2026-10-21_17-41-12.jpg',
+  'photo_2026-10-21_17-41-14.jpg',
+  'photo_2026-10-21_17-41-15.jpg',
+  'photo_2026-10-21_17-41-16.jpg',
+  'photo_2026-10-21_17-41-18.jpg',
+  'photo_2026-10-21_17-41-19.jpg',
+  'photo_2026-10-21_17-41-20.jpg',
+  'photo_2026-10-21_17-41-21.jpg',
+  'photo_2026-10-21_17-41-23.jpg',
+  'photo_2026-10-21_17-41-24.jpg',
+  'photo_2026-10-21_17-41-26.jpg',
+  'photo_2026-10-21_17-41-28.jpg',
+  'photo_2026-10-21_17-41-30.jpg',
+  'photo_2026-10-21_17-41-31.jpg',
+  'photo_2026-10-21_17-41-33.jpg',
+  'photo_2026-10-21_17-41-59.jpg',
+  'photo_2026-10-21_17-42-10.jpg',
+  'photo_2026-10-21_17-42-11.jpg',
+  'photo_2026-10-21_17-42-12.jpg',
+  'photo_2026-10-21_17-42-14.jpg',
+  'photo_2026-10-21_17-42-15.jpg',
+  'photo_2026-10-21_17-42-20.jpg',
+  'photo_2026-10-21_17-42-22.jpg',
+  'photo_2026-10-21_17-42-26.jpg',
+  'photo_2026-10-21_17-42-28.jpg',
+  'photo_2026-10-21_17-42-29.jpg',
+  'photo_2026-10-21_17-42-31.jpg',
+];
+
+export const INITIAL_EVENTS: Event[] = [
+  {
+    id: 'evt-ogida-outreach',
+    title: 'Ogida Community Sensitization & Environmental Sanitation Outreach',
+    event_date: '2026-10-21',
+    event_time: '10:00 AM – 1:30 PM',
+    location: 'Ogida Market & Surrounding Communities, Egor LGA',
+    description: `The NYSC Egor SDG Community Development Service (CDS) group conducted a comprehensive grassroots sensitization and public sanitation outreach across Ogida Market and adjoining streets in Egor Local Government Area.
+
+Corps members actively engaged local traders, market executives, transport operators, and community residents on environmental sustainability (SDG 11 & 13), proper solid waste disposal to eliminate drain blockage and seasonal flooding, and disease prevention through clean water and hygiene practices (SDG 3 & 6). 
+
+The team distributed heavy-duty waste collection bins, public health pamphlets, and demonstrated hygienic waste separation techniques with overwhelming community participation and commendation from local market elders.`,
+    cover_image: '/ogida/photo_2026-10-21_17-41-10.jpg',
+    sdg_goals: [3, 6, 11, 12, 13],
+    photos_count: 28,
+    beneficiaries_reached: '250+ Market Traders, Shoppers & Local Residents',
+    corps_members_present: '35 Serving Corps Members, CDS President Augusta & CDS Executive Council',
+    materials_distributed: '50 Heavy-duty Waste Receptacles, Disinfectants, Hand Sanitizers & Public Health Flyers',
+    created_at: '2026-10-21T10:00:00Z',
+  },
+];
+
+export const INITIAL_PHOTOS: EventPhoto[] = OGIDA_PHOTO_FILENAMES.map((filename, idx) => ({
+  id: `ogida-photo-${idx + 1}`,
+  event_id: 'evt-ogida-outreach',
+  image_url: `/ogida/${filename}`,
+  caption: `Ogida Community Outreach Plate #${idx + 1} — NYSC Egor SDG CDS field sensitization`,
+  display_order: idx + 1,
+  created_at: '2026-10-21T10:00:00Z',
+}));
