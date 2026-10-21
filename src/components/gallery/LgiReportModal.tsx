@@ -64,12 +64,12 @@ Yes, because it's a continuous process.`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 print:p-0 print:bg-white print:fixed-none">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 print:p-0 print:bg-white print:fixed-none print:static">
       
-      <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-gray-300 overflow-hidden flex flex-col max-h-[96vh] print:max-h-none print:border-none print:shadow-none print:rounded-none">
+      <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-gray-300 overflow-hidden flex flex-col max-h-[96vh] print:max-h-none print:border-none print:shadow-none print:rounded-none print:w-full print:max-w-full">
         
         {/* MODAL CONTROLS BAR (Hidden on print) */}
-        <div className="print:hidden p-3.5 sm:p-4 bg-gray-100 border-b border-gray-300 flex items-center justify-between gap-3 shrink-0">
+        <div className="no-print print-hidden print:hidden p-3.5 sm:p-4 bg-gray-100 border-b border-gray-300 flex items-center justify-between gap-3 shrink-0">
           <div>
             <h2 className="text-sm sm:text-base font-bold text-gray-900">
               LGI Sensitization Report • Ogida Market
@@ -112,7 +112,7 @@ Yes, because it's a continuous process.`;
         </div>
 
         {/* PRINTABLE BLACK AND WHITE REPORT IN PARAGRAPHS */}
-        <div className="p-6 sm:p-10 overflow-y-auto print:overflow-visible text-black font-serif leading-relaxed text-sm space-y-4">
+        <div className="printable-document-container p-6 sm:p-10 overflow-y-auto print:overflow-visible text-black font-serif leading-relaxed text-sm space-y-4 print:p-0">
           
           {/* HEADER */}
           <div className="border-b border-black pb-3 space-y-0.5">

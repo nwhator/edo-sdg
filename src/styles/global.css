@@ -45,3 +45,57 @@
   color: #ffffff;
   border-bottom: 2px solid #F4C430;
 }
+
+/* ==============================================================================
+   PRINT STYLES: Pure document content only (No page headers, footers, navs)
+   ============================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+
+  /* Force hide all website headers, navbars, footers, toolbars, and controls */
+  header,
+  footer,
+  nav,
+  #mobile-menu,
+  #mobile-menu-button,
+  .no-print,
+  .print-hidden,
+  .print\:hidden,
+  [data-no-print] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Times New Roman', Times, Georgia, serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Reset layout constraints for print */
+  main, div, section, article {
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+
+  .printable-document-container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

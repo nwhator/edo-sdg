@@ -64,10 +64,10 @@ Yes, because it's a continuous process.`;
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print:space-y-0 print:m-0 print:p-0">
       
       {/* SCREEN TOOLBAR (Hidden completely on print) */}
-      <div className="print:hidden bg-white p-4 sm:p-5 rounded-2xl border border-gray-300 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+      <div className="no-print print-hidden print:hidden bg-white p-4 sm:p-5 rounded-2xl border border-gray-300 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-base sm:text-lg font-bold text-gray-900">
             LGI Sensitization Report • Ogida Market
@@ -101,7 +101,7 @@ Yes, because it's a continuous process.`;
       </div>
 
       {/* PRINTABLE BLACK AND WHITE REPORT IN PARAGRAPHS */}
-      <div className="bg-white p-8 sm:p-12 print:p-0 border border-gray-300 print:border-none shadow-sm print:shadow-none text-black font-serif leading-relaxed text-sm max-w-4xl mx-auto space-y-4">
+      <div id="printable-report-content" className="printable-document-container bg-white p-8 sm:p-12 print:p-0 border border-gray-300 print:border-none shadow-sm print:shadow-none text-black font-serif leading-relaxed text-sm max-w-4xl mx-auto space-y-4">
         
         {/* HEADER */}
         <div className="border-b border-black pb-3 space-y-0.5">
