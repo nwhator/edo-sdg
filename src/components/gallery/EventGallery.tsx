@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 import { SDG_METADATA } from '../../types/database';
 
@@ -7,20 +7,43 @@ interface EventGalleryProps {
   photos: EventPhoto[];
 }
 
-export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) => {
+export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvents, photos: initialPhotos }) => {
+  const [eventsList, setEventsList] = useState<Event[]>(initialEvents);
+  const [photosList, setPhotosList] = useState<EventPhoto[]>(initialPhotos);
   const [selectedEventId, setSelectedEventId] = useState<string>('all');
   const [activePhoto, setActivePhoto] = useState<EventPhoto | null>(null);
 
+  useEffect(() => {
+    try {
+      const storedEvents = JSON.parse(localStorage.getItem('edo_sdg_custom_events') || '[]');
+      const storedPhotos = JSON.parse(localStorage.getItem('edo_sdg_custom_photos') || '[]');
+
+      const mergedEvents = [
+        ...storedEvents,
+        ...initialEvents.filter((ie) => !storedEvents.some((se: Event) => se.id === ie.id)),
+      ];
+      const mergedPhotos = [
+        ...storedPhotos,
+        ...initialPhotos.filter((ip) => !storedPhotos.some((sp: EventPhoto) => sp.id === ip.id)),
+      ];
+
+      setEventsList(mergedEvents);
+      setPhotosList(mergedPhotos);
+    } catch {
+      // ignore
+    }
+  }, [initialEvents, initialPhotos]);
+
   // Group photos by event
-  const photosByEvent = photos.reduce((acc, photo) => {
+  const photosByEvent = photosList.reduce((acc, photo) => {
     if (!acc[photo.event_id]) acc[photo.event_id] = [];
     acc[photo.event_id].push(photo);
     return acc;
   }, {} as Record<string, EventPhoto[]>);
 
   const displayedEvents = selectedEventId === 'all'
-    ? events
-    : events.filter((e) => e.id === selectedEventId);
+    ? eventsList
+    : eventsList.filter((e) => e.id === selectedEventId);
 
   return (
     <div className="space-y-space-2xl">
@@ -38,7 +61,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) =>
         </p>
 
         {/* Event Filter Pills */}
-        {events.length > 0 && (
+        {eventsList.length > 0 && (
           <div className="pt-space-md flex flex-wrap justify-center gap-2">
             <button
               onClick={() => setSelectedEventId('all')}
@@ -48,9 +71,9 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) =>
                   : 'bg-surface-container-lowest text-on-surface border border-surface-container-high hover:bg-surface-container'
               }`}
             >
-              All Events ({events.length})
+              All Events ({eventsList.length})
             </button>
-            {events.map((ev) => (
+            {eventsList.map((ev) => (
               <button
                 key={ev.id}
                 onClick={() => setSelectedEventId(ev.id)}
@@ -69,7 +92,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events, photos }) =>
 
       {/* Events Stream (Grouped strictly by Event) */}
       <div className="space-y-space-2xl">
-        {events.length === 0 ? (
+        {eventsList.length === 0 ? (
           <div className="bg-surface-container-lowest rounded-2xl border border-dashed border-outline-variant p-space-2xl text-center space-y-space-sm max-w-2xl mx-auto shadow-xs">
             <div className="w-16 h-16 rounded-2xl bg-surface-container text-primary mx-auto flex items-center justify-center text-3xl font-bold">
               <span className="material-symbols-outlined text-[36px]">photo_library</span>

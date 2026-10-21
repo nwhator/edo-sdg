@@ -170,3 +170,18 @@ export async function submitIdeaClient(newIdea: Idea): Promise<boolean> {
   }
   return false;
 }
+
+export async function uploadEventClient(event: Event, photos: EventPhoto[]): Promise<boolean> {
+  if (supabase) {
+    try {
+      await supabase.from('events').insert([event]);
+      if (photos.length > 0) {
+        await supabase.from('event_photos').insert(photos);
+      }
+      return true;
+    } catch (err) {
+      console.warn('Supabase event upload error:', err);
+    }
+  }
+  return false;
+}
