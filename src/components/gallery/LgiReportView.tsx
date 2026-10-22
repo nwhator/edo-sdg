@@ -193,16 +193,16 @@ Yes, because it's a continuous process.`;
           </p>
         </div>
 
-        {/* ATTACHED 10 PICTURES FOR THE REPORT PDF (Plate #1 is Featured Bigger) */}
+        {/* ATTACHED 10 PICTURES FOR THE REPORT PDF (Continues naturally directly after sustainability text without forcing a new page) */}
         {reportPhotos.length > 0 && (
-          <div className="pt-4 space-y-3 border-t border-black break-inside-avoid">
+          <div className="pt-4 space-y-3 border-t border-black break-inside-auto print:break-inside-auto">
             <p className="font-bold text-xs uppercase tracking-wider text-center">
               Photographic Plates (10 Selected Photos for Report Printout)
             </p>
 
             {/* Featured Plate #1 (Bigger Lead Photo) */}
             {reportPhotos[0] && (
-              <div className="max-w-md mx-auto border border-black p-1 bg-white mb-2">
+              <div className="max-w-md mx-auto border border-black p-1 bg-white mb-2 break-inside-avoid">
                 <div className="aspect-16/10 overflow-hidden bg-gray-100 border border-gray-300">
                   <img
                     src={reportPhotos[0].image_url}
@@ -221,9 +221,9 @@ Yes, because it's a continuous process.`;
 
             {/* Plates #2 through #10 (Clean 3x3 Grid of 9 Photos) */}
             {reportPhotos.length > 1 && (
-              <div className="grid grid-cols-3 gap-2 pt-1">
+              <div className="grid grid-cols-3 gap-2 pt-1 break-inside-auto">
                 {reportPhotos.slice(1).map((photo, idx) => (
-                  <div key={photo.id} className="border border-black p-1 bg-white">
+                  <div key={photo.id} className="border border-black p-1 bg-white break-inside-avoid">
                     <div className="aspect-4/3 overflow-hidden bg-gray-100 border border-gray-300">
                       <img
                         src={photo.image_url}

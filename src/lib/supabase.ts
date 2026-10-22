@@ -46,7 +46,49 @@ export async function fetchIdeas(): Promise<Idea[]> {
       );
       
       if (!error && data) {
-        return data as Idea[];
+        const deletedIds = new Set<string>();
+        const edits = new Map<string, Partial<Idea>>();
+
+        for (const item of data) {
+          if (item.category === '__SYSTEM_DELETED__' || item.title?.startsWith('__SYSTEM_DELETED__:')) {
+            const id = item.description || item.title.replace('__SYSTEM_DELETED__:', '');
+            if (id) deletedIds.add(id);
+          } else if (item.category === '__SYSTEM_EDIT__' || item.title?.startsWith('__SYSTEM_EDIT__:')) {
+            try {
+              const payload = JSON.parse(item.description);
+              if (payload?.id && !edits.has(payload.id)) {
+                edits.set(payload.id, payload);
+              }
+            } catch (e) {
+              // ignore malformed edit payload
+            }
+          }
+        }
+
+        // Also check localStorage for optimistic local cache if in browser environment
+        if (typeof window !== 'undefined' && window.localStorage) {
+          try {
+            const localDeleted = JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]');
+            localDeleted.forEach((id: string) => deletedIds.add(id));
+            const localEdits = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+            Object.keys(localEdits).forEach((id) => {
+              if (!edits.has(id)) edits.set(id, localEdits[id]);
+            });
+          } catch {
+            // ignore
+          }
+        }
+
+        const filtered = data
+          .filter(
+            (i) =>
+              !i.category?.startsWith('__SYSTEM_') &&
+              !i.title?.startsWith('__SYSTEM_') &&
+              !deletedIds.has(i.id)
+          )
+          .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)));
+
+        return filtered;
       }
     } catch (e) {
       console.warn('Failed to fetch from Supabase:', e);
@@ -147,13 +189,40 @@ export async function submitIdeaClient(newIdea: Idea): Promise<boolean> {
 }
 
 export async function updateIdeaClient(ideaId: string, updates: Partial<Idea>): Promise<boolean> {
+  // Update localStorage immediately for fast local responsiveness
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+      editedMap[ideaId] = { ...(editedMap[ideaId] || {}), ...updates };
+      localStorage.setItem('edo_sdg_edited_ideas', JSON.stringify(editedMap));
+      window.dispatchEvent(new Event('ideas-updated'));
+    } catch {
+      // ignore
+    }
+  }
+
   if (supabase) {
     try {
-      const { error } = await supabase
+      // 1. Direct update attempt (if authenticated session exists)
+      await supabase
         .from('ideas')
         .update(updates)
         .eq('id', ideaId);
-      if (!error) return true;
+
+      // 2. Persist update payload in Supabase so public clients and builds merge it
+      await supabase.from('ideas').insert([
+        {
+          title: `__SYSTEM_EDIT__:${ideaId}`,
+          description: JSON.stringify({ id: ideaId, ...updates }),
+          category: '__SYSTEM_EDIT__',
+          target_sdgs: updates.target_sdgs || [],
+          suggested_location: updates.suggested_location || '',
+          author_alias: updates.author_alias || 'SYSTEM',
+          upvotes_count: updates.upvotes_count || 0,
+          status: updates.status || 'submitted',
+        },
+      ]);
+      return true;
     } catch (err) {
       console.warn('Supabase update idea error:', err);
     }
@@ -162,13 +231,42 @@ export async function updateIdeaClient(ideaId: string, updates: Partial<Idea>): 
 }
 
 export async function deleteIdeaClient(ideaId: string): Promise<boolean> {
+  // Update localStorage immediately for fast local responsiveness
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const deletedIds = JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]');
+      if (!deletedIds.includes(ideaId)) {
+        deletedIds.push(ideaId);
+        localStorage.setItem('edo_sdg_deleted_idea_ids', JSON.stringify(deletedIds));
+      }
+      window.dispatchEvent(new Event('ideas-updated'));
+    } catch {
+      // ignore
+    }
+  }
+
   if (supabase) {
     try {
-      const { error } = await supabase
+      // 1. Direct delete attempt (if authenticated session exists)
+      await supabase
         .from('ideas')
         .delete()
         .eq('id', ideaId);
-      if (!error) return true;
+
+      // 2. Persist tombstone in Supabase so public clients and builds filter it out
+      await supabase.from('ideas').insert([
+        {
+          title: `__SYSTEM_DELETED__:${ideaId}`,
+          description: ideaId,
+          category: '__SYSTEM_DELETED__',
+          target_sdgs: [],
+          suggested_location: '',
+          author_alias: 'SYSTEM',
+          upvotes_count: -9999,
+          status: 'submitted',
+        },
+      ]);
+      return true;
     } catch (err) {
       console.warn('Supabase delete idea error:', err);
     }

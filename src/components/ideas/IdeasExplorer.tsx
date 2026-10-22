@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Idea } from '../../types/database';
 import { IdeaCard } from './IdeaCard';
 import { IdeaDropModal } from './IdeaDropModal';
+import { fetchIdeas } from '../../lib/supabase';
 
 interface IdeasExplorerProps {
   initialIdeas: Idea[];
@@ -16,27 +17,54 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
-      const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
-      const stored = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
+    let isMounted = true;
 
-      setIdeas((prev) => {
-        const existingIds = new Set(prev.map((i) => i.id));
-        const newOnes = stored.filter((s: Idea) => !existingIds.has(s.id));
-        let combined = [...newOnes, ...prev];
+    const loadLiveIdeas = async () => {
+      try {
+        const live = await fetchIdeas();
+        if (isMounted && live.length > 0) {
+          setIdeas(live);
+          return;
+        }
+      } catch {
+        // ignore
+      }
 
-        // Filter out ideas deleted from admin area
-        combined = combined.filter((i) => !deletedIds.has(i.id));
+      // Fallback to local storage if offline or error
+      try {
+        const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
+        const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+        const stored = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
 
-        // Apply edits made from admin area
-        combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+        if (isMounted) {
+          setIdeas((prev) => {
+            const existingIds = new Set(prev.map((i) => i.id));
+            const newOnes = stored.filter((s: Idea) => !existingIds.has(s.id));
+            let combined = [...newOnes, ...prev];
+            combined = combined.filter((i) => !deletedIds.has(i.id));
+            combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+            return combined;
+          });
+        }
+      } catch {
+        // Ignore localStorage error
+      }
+    };
 
-        return combined;
-      });
-    } catch {
-      // Ignore localStorage error
-    }
+    loadLiveIdeas();
+
+    const handleUpdate = () => {
+      loadLiveIdeas();
+    };
+
+    window.addEventListener('ideas-updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener('ideas-updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
   }, []);
 
   const handleVoteSuccess = (id: string, newCount: number) => {

@@ -32,10 +32,10 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
             <span>Community Ideas</span>
             <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
           </span>
-          <div class="font-stat-counter text-stat-counter text-on-surface mt-1">
+          <div id="admin-ideas-stat-counter" class="font-stat-counter text-stat-counter text-on-surface mt-1">
             {ideas.length}
           </div>
-          <span class="font-label-sm text-label-sm text-primary font-bold">
+          <span id="admin-ideas-sub-counter" class="font-label-sm text-label-sm text-primary font-bold">
             {ideas.filter(i => i.status === 'submitted').length} pending review • Edit / Delete →
           </span>
         </div>
@@ -344,3 +344,26 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
 
   </div>
 </Layout>
+
+<script>
+  import { fetchIdeas } from '../../lib/supabase';
+
+  async function updateAdminMetrics() {
+    try {
+      const ideas = await fetchIdeas();
+      const el = document.getElementById('admin-ideas-stat-counter');
+      if (el) el.textContent = String(ideas.length);
+      const subEl = document.getElementById('admin-ideas-sub-counter');
+      if (subEl) {
+        const pending = ideas.filter((i) => i.status === 'submitted').length;
+        subEl.textContent = `${pending} pending review • Edit / Delete →`;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  updateAdminMetrics();
+  window.addEventListener('ideas-updated', updateAdminMetrics);
+  window.addEventListener('storage', updateAdminMetrics);
+</script>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Idea, CrawledNgo } from '../../types/database';
 import { SDG_METADATA } from '../../types/database';
 import { EDO_NGO_REGISTRY } from '../../data/edoNgoDirectory';
-import { updateIdeaClient, deleteIdeaClient } from '../../lib/supabase';
+import { updateIdeaClient, deleteIdeaClient, fetchIdeas } from '../../lib/supabase';
 
 interface IdeaModeratorProps {
   initialIdeas: Idea[];
@@ -51,29 +51,49 @@ export const IdeaModerator: React.FC<IdeaModeratorProps> = ({ initialIdeas }) =>
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Sync with Local Storage on Mount (Custom ideas, edited ideas, and deleted ideas)
+  // Sync with Supabase & Local Storage on Mount
   useEffect(() => {
-    try {
-      const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
-      const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
-      const customIdeas = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
+    let isMounted = true;
+    const syncIdeas = async () => {
+      try {
+        const live = await fetchIdeas();
+        if (isMounted && live.length > 0) {
+          setIdeas(live);
+          return;
+        }
+      } catch {
+        // ignore
+      }
 
-      setIdeas((prev) => {
-        const existingIds = new Set(prev.map((i) => i.id));
-        const newOnes = customIdeas.filter((s: Idea) => !existingIds.has(s.id));
-        let combined = [...newOnes, ...prev];
+      try {
+        const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
+        const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+        const customIdeas = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
 
-        // Filter out deleted
-        combined = combined.filter((i) => !deletedIds.has(i.id));
+        if (isMounted) {
+          setIdeas((prev) => {
+            const existingIds = new Set(prev.map((i) => i.id));
+            const newOnes = customIdeas.filter((s: Idea) => !existingIds.has(s.id));
+            let combined = [...newOnes, ...prev];
 
-        // Apply edits
-        combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+            // Filter out deleted
+            combined = combined.filter((i) => !deletedIds.has(i.id));
 
-        return combined;
-      });
-    } catch (e) {
-      console.warn('Storage sync error:', e);
-    }
+            // Apply edits
+            combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+
+            return combined;
+          });
+        }
+      } catch (e) {
+        console.warn('Storage sync error:', e);
+      }
+    };
+
+    syncIdeas();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const updateStatus = async (id: string, newStatus: Idea['status']) => {
@@ -164,7 +184,10 @@ export const IdeaModerator: React.FC<IdeaModeratorProps> = ({ initialIdeas }) =>
       // Update state
       setIdeas((prev) => prev.map((i) => (i.id === updated.id ? updated : i)));
       setEditingIdea(null);
-      showToast('Proposal updated successfully!');
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('ideas-updated'));
+      }
+      showToast('Proposal updated successfully in Supabase!');
     } catch (err) {
       console.error(err);
       showToast('Failed to update proposal. Please try again.');
@@ -179,7 +202,7 @@ export const IdeaModerator: React.FC<IdeaModeratorProps> = ({ initialIdeas }) =>
     const targetId = deletingIdea.id;
 
     try {
-      // 1. Supabase delete
+      // 1. Supabase delete & tombstone persistence
       await deleteIdeaClient(targetId);
 
       // 2. Local storage persistence
@@ -197,10 +220,13 @@ export const IdeaModerator: React.FC<IdeaModeratorProps> = ({ initialIdeas }) =>
       delete editedMap[targetId];
       localStorage.setItem('edo_sdg_edited_ideas', JSON.stringify(editedMap));
 
-      // 3. State update
+      // 3. State update & cross-component event
       setIdeas((prev) => prev.filter((i) => i.id !== targetId));
       setDeletingIdea(null);
-      showToast('Proposal permanently deleted.');
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('ideas-updated'));
+      }
+      showToast('Proposal permanently deleted from Supabase.');
     } catch (err) {
       console.error(err);
       showToast('Failed to delete proposal.');
