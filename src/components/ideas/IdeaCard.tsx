@@ -9,9 +9,13 @@ interface IdeaCardProps {
 }
 
 export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
-  const [upvotes, setUpvotes] = useState(idea.upvotes_count || 0);
+  const [upvotes, setUpvotes] = useState(idea.upvotes_count ?? 0);
   const [hasVoted, setHasVoted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setUpvotes(idea.upvotes_count ?? 0);
+  }, [idea.upvotes_count]);
 
   useEffect(() => {
     try {

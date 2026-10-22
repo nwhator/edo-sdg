@@ -42,7 +42,7 @@ export async function fetchIdeas(): Promise<Idea[]> {
         supabase
           .from('ideas')
           .select('*')
-          .order('upvotes_count', { ascending: false })
+          .order('created_at', { ascending: false })
       );
       
       if (!error && data) {
@@ -86,7 +86,8 @@ export async function fetchIdeas(): Promise<Idea[]> {
               !i.title?.startsWith('__SYSTEM_') &&
               !deletedIds.has(i.id)
           )
-          .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)));
+          .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)))
+          .sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0));
 
         return filtered;
       }
