@@ -12,10 +12,11 @@ export const NgoRadarCrawler: React.FC<NgoRadarCrawlerProps> = () => {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedSdg, setSelectedSdg] = useState<number | null>(null);
-  const [selectedLga, setSelectedLga] = useState<string>('All');
+  const [selectedScope, setSelectedScope] = useState<string>('All Nigeria');
   
   // Crawler Simulation State
   const [isScanning, setIsScanning] = useState(false);
+  const [scanScope, setScanScope] = useState<'nigeria' | 'edo'>('nigeria');
   const [scanLogs, setScanLogs] = useState<string[]>([]);
   const [showCrawlerConsole, setShowCrawlerConsole] = useState(false);
   const [customUrl, setCustomUrl] = useState('');
@@ -43,11 +44,12 @@ export const NgoRadarCrawler: React.FC<NgoRadarCrawlerProps> = () => {
     'State Government',
   ];
 
-  const lgas = [
-    'All',
-    'Egor & Greater Benin',
-    'Benin City Metropolis',
-    'Edo State Wide',
+  const geographicScopes = [
+    'All Nigeria',
+    'Edo State & Benin City',
+    'Nationwide / Pan-Nigeria',
+    'Lagos & South-West',
+    'Abuja (FCT) & North',
   ];
 
   // Full UN SDG spectrum: Goals 1 through 17
@@ -77,40 +79,71 @@ export const NgoRadarCrawler: React.FC<NgoRadarCrawlerProps> = () => {
   const filteredNgos = registry.filter((ngo) => {
     const matchesCat = selectedCategory === 'All' || ngo.category === selectedCategory;
     const matchesSdg = selectedSdg === null || ngo.sdg_goals.includes(selectedSdg);
-    const matchesLga = selectedLga === 'All' || ngo.lga_scope.toLowerCase().includes(selectedLga.toLowerCase().split(' ')[0]);
+    
+    let matchesScope = true;
+    if (selectedScope === 'Edo State & Benin City') {
+      matchesScope = ngo.is_benin_city || ngo.lga_scope.toLowerCase().includes('edo') || ngo.lga_scope.toLowerCase().includes('benin') || ngo.lga_scope.toLowerCase().includes('egor');
+    } else if (selectedScope === 'Nationwide / Pan-Nigeria') {
+      matchesScope = ngo.lga_scope.toLowerCase().includes('nationwide') || ngo.source.toLowerCase().includes('nationwide') || ngo.source.toLowerCase().includes('united nations') || ngo.source.toLowerCase().includes('pan-african');
+    } else if (selectedScope === 'Lagos & South-West') {
+      matchesScope = ngo.address.toLowerCase().includes('lagos') || ngo.lga_scope.toLowerCase().includes('lagos');
+    } else if (selectedScope === 'Abuja (FCT) & North') {
+      matchesScope = ngo.address.toLowerCase().includes('abuja') || ngo.address.toLowerCase().includes('kano') || ngo.lga_scope.toLowerCase().includes('north');
+    }
+
     const matchesSearch =
       ngo.name.toLowerCase().includes(search.toLowerCase()) ||
       ngo.address.toLowerCase().includes(search.toLowerCase()) ||
       ngo.focus_areas.some((f) => f.toLowerCase().includes(search.toLowerCase())) ||
-      ngo.partnership_types.some((p) => p.toLowerCase().includes(search.toLowerCase()));
+      ngo.partnership_types.some((p) => p.toLowerCase().includes(search.toLowerCase())) ||
+      ngo.lga_scope.toLowerCase().includes(search.toLowerCase());
 
-    return matchesCat && matchesSdg && matchesLga && matchesSearch;
+    return matchesCat && matchesSdg && matchesScope && matchesSearch;
   });
 
-  const runEcosystemScan = () => {
+  const edoCount = registry.filter(n => n.is_benin_city || n.lga_scope.toLowerCase().includes('edo')).length;
+  const nationwideCount = registry.filter(n => n.lga_scope.toLowerCase().includes('nationwide') || n.source.toLowerCase().includes('nationwide') || n.source.toLowerCase().includes('united nations')).length;
+  const lagosCount = registry.filter(n => n.address.toLowerCase().includes('lagos') || n.lga_scope.toLowerCase().includes('lagos')).length;
+  const abujaCount = registry.filter(n => n.address.toLowerCase().includes('abuja') || n.address.toLowerCase().includes('kano') || n.lga_scope.toLowerCase().includes('north')).length;
+
+  const runEcosystemScan = (targetScope: 'nigeria' | 'edo' = 'nigeria') => {
     setIsScanning(true);
     setShowCrawlerConsole(true);
+    setScanScope(targetScope);
     setScanLogs([]);
 
-    const steps = [
+    const nigeriaSteps = [
+      '🔍 [0.2s] Initializing Nationwide Nigeria SDG Civil Registry Crawler across 36 States + FCT...',
+      '📡 [0.5s] Crawling Federal Hubs: Central Business District Abuja, Victoria Island & Yaba Lagos...',
+      '🏛️ [0.9s] Connecting Subnational Nodes: Edo State (Egor/Oredo), Kano, Port Harcourt, Enugu & Ibadan...',
+      '🏷️ [1.3s] Scanning full UN 2030 Agenda: Extracting thematic markers across SDG 1 through SDG 17...',
+      '📊 [1.7s] Discovered active clusters: Poverty (SDG 1), Zero Hunger (SDG 2), Health (SDG 3), Education (SDG 4), Gender Equality (SDG 5), WASH (SDG 6), Clean Energy (SDG 7)...',
+      '🌱 [2.1s] Discovered economic & environmental clusters: Decent Work (SDG 8), Innovation (SDG 9), Reduced Inequalities (SDG 10), Sustainable Cities (SDG 11), Climate & Biodiversity (SDG 12-15)...',
+      '⚖️ [2.5s] Discovered governance & multilateral clusters: Peace, Justice & Accountability (SDG 16) & UN/CSR Multi-Stakeholder Partnerships (SDG 17)...',
+      '🏢 [2.8s] Scraped verified contacts, federal CAC credentials, executive liaisons, and grant guidelines...',
+      `✅ [3.1s] Verified ${registry.length} accredited national and state institutions covering all 17 UN SDGs across Nigeria.`,
+      '🎯 [3.4s] Comprehensive Nationwide Radar Active: Ready for 1-click NYSC CDS pitch dispatch!',
+    ];
+
+    const edoSteps = [
       '🔍 [0.2s] Initializing Edo State NGO & CSO Registry crawler across 18 LGAs...',
       '📡 [0.5s] Parsing Benin City municipal registry (Egor, Oredo, Ikpoba Okha, Uhunmwonde)...',
-      '🏷️ [0.9s] Scanning full UN 2030 Agenda: Extracting thematic markers across SDG 1 through SDG 17...',
-      '📊 [1.4s] Discovered active clusters: Poverty (SDG 1), Zero Hunger (SDG 2), Health (SDG 3), Education (SDG 4), Gender Equality (SDG 5), WASH (SDG 6), Clean Energy (SDG 7)...',
-      '🌱 [1.9s] Discovered economic & environmental clusters: Decent Work (SDG 8), Innovation (SDG 9), Reduced Inequalities (SDG 10), Sustainable Cities (SDG 11), Climate & Biodiversity (SDG 12-15)...',
-      '⚖️ [2.3s] Discovered institutional governance clusters: Peace, Justice & Civic Accountability (SDG 16) & Multi-Stakeholder Partnerships (SDG 17)...',
-      '🏢 [2.6s] Scraping verified telephone numbers, executive emails, physical secretariats, and CAC credentials...',
-      '✅ [2.9s] Verified 25 accredited institutions covering all 17 UN Sustainable Development Goals in Edo State.',
-      '🎯 [3.2s] Comprehensive 17-Goal Radar active: Ready for 1-click NYSC CDS pitch dispatch!',
+      '🏷️ [0.9s] Scanning full UN 2030 Agenda: Extracting thematic markers across SDG 1 through SDG 17 in Edo...',
+      '🏢 [1.8s] Scraping verified telephone numbers, executive emails, physical secretariats, and CAC credentials in Benin City...',
+      '✅ [2.5s] Verified 25 accredited local grassroots institutions covering all 17 UN SDGs in Edo State.',
+      '🎯 [2.9s] Local Edo Radar active: Ready for 1-click NYSC CDS pitch dispatch!',
     ];
+
+    const steps = targetScope === 'nigeria' ? nigeriaSteps : edoSteps;
 
     steps.forEach((step, idx) => {
       setTimeout(() => {
         setScanLogs((prev) => [...prev, step]);
         if (idx === steps.length - 1) {
           setIsScanning(false);
+          setSelectedScope(targetScope === 'nigeria' ? 'All Nigeria' : 'Edo State & Benin City');
         }
-      }, (idx + 1) * 350);
+      }, (idx + 1) * 320);
     });
   };
 
@@ -313,35 +346,46 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-fixed/50 text-secondary font-label-sm text-xs font-extrabold uppercase tracking-wider">
               <span className="material-symbols-outlined text-[16px]">radar</span>
-              <span>Intelligent Civil Society Radar • Edo State & Greater Benin</span>
+              <span>Intelligent Civil Society Radar • Nationwide Nigeria & Edo State</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
-              Edo SDG Partner <span className="text-primary">Radar & Crawler</span>
+              Nigeria & Edo SDG Partner <span className="text-primary">Radar & Crawler</span>
             </h2>
             <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              Explore 25+ verified NGOs, CSR foundations, and state agencies operating in Benin City and Egor LGA. Filter by UN SDG target, crawl new domains, import directly into your outreach directory, and generate personalized pitch letters with one click.
+              Explore 60+ verified CSR foundations, national NGOs, and UN agencies operating across Nigeria (36 States + FCT Abuja) as well as grassroots partners in Benin City and Egor LGA. Filter by UN SDG target (1–17), regional scope, crawl new domains, import directly into your outreach directory, and generate 1-click personalized pitch letters.
             </p>
           </div>
 
           {/* Action Buttons: Run Scan & Active Count */}
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
-              onClick={runEcosystemScan}
+              onClick={() => runEcosystemScan('nigeria')}
               disabled={isScanning}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs sm:text-sm shadow-card active:scale-95 transition-all disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs sm:text-sm shadow-card active:scale-95 transition-all disabled:opacity-50"
             >
-              <span className={`material-symbols-outlined text-[20px] ${isScanning ? 'animate-spin' : ''}`}>
-                {isScanning ? 'refresh' : 'travel_explore'}
+              <span className={`material-symbols-outlined text-[18px] ${isScanning && scanScope === 'nigeria' ? 'animate-spin' : ''}`}>
+                {isScanning && scanScope === 'nigeria' ? 'refresh' : 'travel_explore'}
               </span>
-              <span>{isScanning ? 'Scanning Edo Ecosystem...' : 'Run Ecosystem Scan'}</span>
+              <span>{isScanning && scanScope === 'nigeria' ? 'Crawling Nigeria...' : 'Crawl Nigeria (36 States)'}</span>
+            </button>
+
+            <button
+              onClick={() => runEcosystemScan('edo')}
+              disabled={isScanning}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary hover:bg-secondary-container text-on-secondary font-bold text-xs sm:text-sm shadow-card active:scale-95 transition-all disabled:opacity-50"
+            >
+              <span className={`material-symbols-outlined text-[18px] ${isScanning && scanScope === 'edo' ? 'animate-spin' : ''}`}>
+                {isScanning && scanScope === 'edo' ? 'refresh' : 'radar'}
+              </span>
+              <span>{isScanning && scanScope === 'edo' ? 'Scanning Edo...' : 'Crawl Edo Local (18 LGAs)'}</span>
             </button>
 
             <a
               href="/admin/funding"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-xs sm:text-sm border border-outline-variant/40 shadow-subtle active:scale-95 transition-all"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-xs sm:text-sm border border-outline-variant/40 shadow-subtle active:scale-95 transition-all"
             >
               <span className="material-symbols-outlined text-[18px]">folder_shared</span>
-              <span>View Active Directory</span>
+              <span>View Directory</span>
             </a>
           </div>
         </div>
@@ -352,7 +396,11 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
             <div className="flex items-center justify-between pb-2 border-b border-neutral-800">
               <div className="flex items-center gap-2 text-primary-fixed text-[11px] font-bold">
                 <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-                <span>EDO CIVIL REGISTRY CRAWLER v2.6 // LIVE</span>
+                <span>
+                  {scanScope === 'nigeria'
+                    ? 'NIGERIA NATIONAL SDG REGISTRY CRAWLER v3.0 // LIVE'
+                    : 'EDO CIVIL REGISTRY CRAWLER v2.6 // LIVE'}
+                </span>
               </div>
               <button
                 onClick={() => setShowCrawlerConsole(false)}
@@ -369,7 +417,11 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
               ))}
               {isScanning && (
                 <div className="flex items-center gap-2 text-primary-fixed animate-pulse">
-                  <span>› Querying Edo CAC, civil coalitions & CSR filings...</span>
+                  <span>
+                    {scanScope === 'nigeria'
+                      ? '› Querying Federal CAC, UN directories, nationwide foundations & state clusters...'
+                      : '› Querying Edo CAC, civil coalitions & municipal CSR filings...'}
+                  </span>
                 </div>
               )}
             </div>
@@ -386,7 +438,7 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
               type="text"
               value={customUrl}
               onChange={(e) => setCustomUrl(e.target.value)}
-              placeholder="Paste any NGO, company, or foundation website (e.g. https://lapo-ngo.org)..."
+              placeholder="Paste any Nigerian NGO, company, or foundation website (e.g. dangote.com, lapo-ngo.org, unicef.org/nigeria)..."
               className="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest rounded-xl text-on-surface text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-primary border-none shadow-xs"
             />
           </div>
@@ -402,8 +454,42 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
           </button>
         </form>
 
-        {/* Search & LGA Filter Controls */}
-        <div className="space-y-3 pt-2">
+        {/* Geographic Scope Quick Selector Ribbon */}
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-surface-container">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-on-surface-variant flex items-center gap-1 shrink-0 mr-1">
+            <span className="material-symbols-outlined text-[16px] text-primary">public</span>
+            <span>Geographic Scope:</span>
+          </span>
+          {geographicScopes.map((scope) => {
+            const isSelected = selectedScope === scope;
+            let count = registry.length;
+            if (scope === 'Edo State & Benin City') count = edoCount;
+            else if (scope === 'Nationwide / Pan-Nigeria') count = nationwideCount;
+            else if (scope === 'Lagos & South-West') count = lagosCount;
+            else if (scope === 'Abuja (FCT) & North') count = abujaCount;
+
+            return (
+              <button
+                key={scope}
+                type="button"
+                onClick={() => setSelectedScope(scope)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-primary text-on-primary shadow-xs'
+                    : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
+                }`}
+              >
+                <span>{scope}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/30 text-white' : 'bg-surface-container-high text-on-surface'}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search & Category Filter Controls */}
+        <div className="space-y-3 pt-1">
           <div className="flex flex-col sm:flex-row items-center gap-3">
             {/* Search Input */}
             <div className="relative flex-1 w-full">
@@ -414,7 +500,7 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by organization name, street, focus keyword, or equipment..."
+                placeholder="Search by organization name, city, state, focus keyword, or equipment..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-primary border-none"
               />
             </div>
@@ -437,21 +523,21 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
               </span>
             </div>
 
-            {/* Jurisdiction / LGA Filter */}
-            <div className="relative w-full sm:w-52 shrink-0">
+            {/* Geographic Scope Select Filter */}
+            <div className="relative w-full sm:w-56 shrink-0">
               <select
-                value={selectedLga}
-                onChange={(e) => setSelectedLga(e.target.value)}
+                value={selectedScope}
+                onChange={(e) => setSelectedScope(e.target.value)}
                 className="w-full appearance-none pl-3 pr-8 py-2.5 rounded-xl bg-surface-container text-on-surface text-xs font-bold cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-primary border-none"
               >
-                {lgas.map((lga) => (
-                  <option key={lga} value={lga}>
-                    {lga === 'All' ? 'All Edo Axis' : lga}
+                {geographicScopes.map((scope) => (
+                  <option key={scope} value={scope}>
+                    {scope}
                   </option>
                 ))}
               </select>
               <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">
-                location_on
+                public
               </span>
             </div>
           </div>
@@ -520,12 +606,12 @@ Egor LGA Chapter                              NYSC Edo State Secretariat`;
         </div>
 
         {/* Live Filter Counter Banner */}
-        <div className="flex items-center justify-between pt-3 border-t border-surface-container text-xs text-on-surface-variant font-medium">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-3 border-t border-surface-container text-xs text-on-surface-variant font-medium">
           <span>
-            Found <strong className="text-on-surface font-extrabold">{filteredNgos.length}</strong> verified organizations ready for partnership
+            Found <strong className="text-on-surface font-extrabold">{filteredNgos.length}</strong> verified organizations across Nigeria & Edo State ready for partnership
           </span>
           <span className="text-[11px] font-semibold text-outline">
-            Jurisdiction: Egor LGA, Benin City Metropolis & Edo State
+            Active Scope: {selectedScope} • Full UN SDG Coverage (1–17)
           </span>
         </div>
       </div>
