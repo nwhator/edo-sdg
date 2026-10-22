@@ -18,9 +18,10 @@ const blogPosts = [
     sdgName: 'Quality Education',
     category: 'Field Outreach',
     readTime: '4 min read',
-    coverImage: '/ogida/photo_2026-10-21_17-41-10.jpg',
+    coverImage: '/ogida/1.jpg',
     excerpt: 'Sensitizing market women and men on SDG 4 (Quality Education), dismantling the misconception that "education is a scam," encouraging active parental homework checks, and balancing market chores with home study hours.',
-    photosCount: ogidaPhotos.length || 28,
+    photosCount: ogidaPhotos.length || 37,
+    hasVideo: true,
   }
 ];
 ---
@@ -77,6 +78,12 @@ const blogPosts = [
               <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-[11px] font-bold">
                 {post.quarter}
               </span>
+              {post.hasVideo && (
+                <span class="px-2.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold shadow-sm flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">videocam</span>
+                  <span>Video Included</span>
+                </span>
+              )}
             </div>
             <div class="absolute bottom-3 left-4 text-white text-xs font-semibold flex items-center gap-1.5">
               <span class="material-symbols-outlined text-[16px] text-tertiary">photo_camera</span>

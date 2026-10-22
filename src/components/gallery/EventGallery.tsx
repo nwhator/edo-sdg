@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Event, EventPhoto } from '../../types/database';
 import { SDG_METADATA } from '../../types/database';
+import { LightshowModal } from './LightshowModal';
 
 interface EventGalleryProps {
   events: Event[];
@@ -17,7 +18,7 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
     (p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization' || p.image_url.includes('ogida')
   );
 
-  const [activePhoto, setActivePhoto] = useState<EventPhoto | null>(null);
+  const [lightshowIndex, setLightshowIndex] = useState<number | null>(null);
 
   if (!ogidaEvent) {
     return (
@@ -44,9 +45,18 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
 
         {/* Action Pills */}
         <div className="pt-2 flex flex-wrap justify-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => setLightshowIndex(0)}
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs hover:bg-primary-container transition-all cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[16px]">slideshow</span>
+            <span>Launch Lightshow (Auto-move)</span>
+          </button>
+
           <a
             href="/blog/ogida-market-quality-education"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs hover:bg-primary-container transition-all"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-surface-container-lowest text-on-surface border border-surface-container-high font-bold text-xs shadow-xs hover:bg-surface-container transition-all"
           >
             <span className="material-symbols-outlined text-[16px]">article</span>
             <span>Read Outreach Story in Blog</span>
@@ -109,22 +119,32 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
           )}
         </div>
 
-        {/* Photos Grid (All 28 Photos of Ogida Market) */}
+        {/* Photos Grid (All 37 Numbered Photos of Ogida Market) */}
         <div>
-          <div className="flex items-center justify-between pb-3">
-            <span className="text-xs font-bold text-on-surface uppercase tracking-wider">
-              Documentary Plates (All {ogidaPhotos.length} Photos)
-            </span>
-            <span className="text-xs text-on-surface-variant">
-              Click any photo to view full size
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 gap-2">
+            <div>
+              <span className="text-xs font-bold text-on-surface uppercase tracking-wider block">
+                Documentary Plates (All {ogidaPhotos.length} Photos)
+              </span>
+              <span className="text-xs text-on-surface-variant">
+                Numbered in sequential chronological order • Click any photo to launch auto-moving lightshow
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setLightshowIndex(0)}
+              className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[16px]">play_circle</span>
+              <span>Play Lightshow</span>
+            </button>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {ogidaPhotos.map((photo, index) => (
               <div
                 key={photo.id}
-                onClick={() => setActivePhoto(photo)}
+                onClick={() => setLightshowIndex(index)}
                 className="group relative aspect-4/3 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-2xs hover:shadow-lg transition-all duration-300 border border-surface-container hover:border-primary/50"
               >
                 <img
@@ -143,56 +163,13 @@ export const EventGallery: React.FC<EventGalleryProps> = ({ events: initialEvent
         </div>
       </section>
 
-      {/* Lightbox Photo Preview Modal */}
-      {activePhoto && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setActivePhoto(null)}
-        >
-          <div
-            className="max-w-4xl w-full bg-surface-container-lowest rounded-3xl overflow-hidden shadow-2xl space-y-3"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative aspect-16/10 bg-black flex items-center justify-center overflow-hidden">
-              <img
-                src={activePhoto.image_url}
-                alt={activePhoto.caption || 'Field photo'}
-                className="max-h-[75vh] w-auto max-w-full object-contain"
-              />
-              <button
-                type="button"
-                onClick={() => setActivePhoto(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center transition-all cursor-pointer"
-                aria-label="Close photo preview"
-              >
-                <span className="material-symbols-outlined text-[20px]">close</span>
-              </button>
-            </div>
-
-            <div className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-surface-container-lowest">
-              <div className="space-y-0.5">
-                <p className="text-xs font-bold text-primary uppercase">
-                  Plate #{ogidaPhotos.findIndex((p) => p.id === activePhoto.id) + 1} of {ogidaPhotos.length}
-                </p>
-                <p className="text-sm font-semibold text-on-surface">
-                  {activePhoto.caption || 'Ogida Market Sensitization on Quality Education (SDG 4)'}
-                </p>
-              </div>
-
-              <a
-                href={activePhoto.image_url}
-                target="_blank"
-                rel="noreferrer"
-                download
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-bold transition-all shrink-0"
-              >
-                <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-                <span>Open Full Image</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Auto-moving Fullscreen Lightshow Modal */}
+      <LightshowModal
+        photos={ogidaPhotos}
+        initialIndex={lightshowIndex ?? 0}
+        isOpen={lightshowIndex !== null}
+        onClose={() => setLightshowIndex(null)}
+      />
     </div>
   );
 };

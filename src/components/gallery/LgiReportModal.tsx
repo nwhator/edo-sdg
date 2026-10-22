@@ -204,31 +204,54 @@ Yes, because it's a continuous process.`;
             </p>
           </div>
 
-          {/* ATTACHED 10 PICTURES FOR THE REPORT PDF */}
+          {/* ATTACHED 10 PICTURES FOR THE REPORT PDF (Plate #1 is Featured Bigger) */}
           {reportPhotos.length > 0 && (
-            <div className="pt-4 space-y-2 border-t border-black break-inside-avoid">
+            <div className="pt-4 space-y-3 border-t border-black break-inside-avoid">
               <p className="font-bold text-xs uppercase tracking-wider text-center">
                 Photographic Plates (10 Selected Photos for Report Printout)
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
-                {reportPhotos.map((photo, idx) => (
-                  <div key={photo.id} className="border border-black p-1 bg-white">
-                    <div className="aspect-4/3 overflow-hidden bg-gray-100 border border-gray-300">
-                      <img
-                        src={photo.image_url}
-                        alt={`Plate ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="pt-1 text-center">
-                      <p className="text-[10px] font-bold text-black">
-                        Plate #{idx + 1}
-                      </p>
-                    </div>
+
+              {/* Featured Plate #1 (Bigger Lead Photo) */}
+              {reportPhotos[0] && (
+                <div className="max-w-md mx-auto border border-black p-1 bg-white mb-2">
+                  <div className="aspect-16/10 overflow-hidden bg-gray-100 border border-gray-300">
+                    <img
+                      src={reportPhotos[0].image_url}
+                      alt="Plate 1 (Lead Photograph)"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
-                ))}
-              </div>
+                  <div className="pt-1.5 pb-0.5 text-center">
+                    <p className="text-xs font-bold text-black uppercase tracking-wide">
+                      Plate #1 (Primary Lead Photograph — Ogida Market Outreach)
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Plates #2 through #10 (Clean 3x3 Grid of 9 Photos) */}
+              {reportPhotos.length > 1 && (
+                <div className="grid grid-cols-3 gap-2 pt-1">
+                  {reportPhotos.slice(1).map((photo, idx) => (
+                    <div key={photo.id} className="border border-black p-1 bg-white">
+                      <div className="aspect-4/3 overflow-hidden bg-gray-100 border border-gray-300">
+                        <img
+                          src={photo.image_url}
+                          alt={`Plate ${idx + 2}`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="pt-1 text-center">
+                        <p className="text-[10px] font-bold text-black">
+                          Plate #{idx + 2}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

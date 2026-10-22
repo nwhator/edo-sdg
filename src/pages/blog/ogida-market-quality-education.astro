@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { fetchEvents } from '../../lib/supabase';
 import { BlogImageCarousel } from '../../components/blog/BlogImageCarousel';
+import { BlogPhotoGrid } from '../../components/blog/BlogPhotoGrid';
 
 const { events, photos } = await fetchEvents();
 const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
@@ -12,7 +13,7 @@ const articleSchema = {
   "@type": "NewsArticle",
   "headline": "Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City",
   "image": [
-    "https://edo-sdg.vercel.app/ogida/photo_2026-10-21_17-41-10.jpg"
+    "https://edo-sdg.vercel.app/ogida/1.jpg"
   ],
   "datePublished": "2026-10-21T09:00:00+01:00",
   "dateModified": "2026-10-21T11:00:00+01:00",
@@ -108,8 +109,43 @@ const articleSchema = {
       </div>
     </header>
 
-    <!-- Featured Photo Carousel (All 28 Plates) -->
+    <!-- Featured Photo Carousel (All 37 Plates with Lightshow) -->
     <BlogImageCarousel client:load photos={ogidaPhotos} />
+
+    <!-- Dedicated Field Video Documentary Section -->
+    <section class="bg-surface-container-low p-6 sm:p-8 rounded-3xl border border-surface-container space-y-4 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-container pb-3">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[18px]">videocam</span>
+            <span>Field Video Documentary</span>
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">
+            Live Field Video: Sensitization at Ogida Market
+          </h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold self-start sm:self-auto">
+          ogida.mp4 • Live Coverage
+        </span>
+      </div>
+
+      <div class="relative aspect-16/9 rounded-2xl overflow-hidden bg-black shadow-elevated border border-surface-container">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="/ogida/1.jpg"
+          class="w-full h-full object-contain bg-black"
+        >
+          <source src="/ogida/ogida.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+        Live field documentary recording capturing corps members of the NYSC Egor SDG CDS group actively engaging market women, traders, and guardians across Ogida Market stalls on the foundational importance of Quality Education (SDG 4) and active parental oversight.
+      </p>
+    </section>
 
     <!-- Article Narrative & Highlights -->
     <div class="space-y-8 text-on-surface text-sm sm:text-base leading-relaxed">
@@ -208,43 +244,19 @@ const articleSchema = {
         </div>
       </section>
 
-      <!-- Complete Photo Exhibition (All 28 Photos) -->
+      <!-- Complete Photo Exhibition (All 37 Photos with Lightshow) -->
       <section class="space-y-4 pt-4 border-t border-surface-container">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-          <div>
-            <span class="text-xs font-bold text-primary uppercase tracking-wider">Field Photo Archive</span>
-            <h2 class="text-xl sm:text-2xl font-bold text-on-surface">
-              Documentary Photo Gallery (All {ogidaPhotos.length} Plates)
-            </h2>
-            <p class="text-xs text-on-surface-variant">
-              Every captured moment of corps members sensitizing traders at Ogida Market.
-            </p>
-          </div>
-          <a
-            href={`/gallery/report?id=${ogidaEvent?.id || 'evt-ogida-education-sensitization'}`}
-            class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline shrink-0"
-          >
-            <span class="material-symbols-outlined text-[16px]">print</span>
-            <span>Print B&W LGI Report (10 Selected Photos)</span>
-          </a>
+        <div>
+          <span class="text-xs font-bold text-primary uppercase tracking-wider">Field Photo Archive</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-on-surface">
+            Documentary Photo Gallery (All {ogidaPhotos.length} Plates)
+          </h2>
+          <p class="text-xs text-on-surface-variant">
+            Every captured moment of corps members sensitizing traders at Ogida Market. Click any photo to launch auto-moving lightshow.
+          </p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          {ogidaPhotos.map((photo, index) => (
-            <div key={photo.id} className="group relative aspect-4/3 rounded-2xl overflow-hidden bg-surface-container border border-surface-container shadow-xs hover:shadow-md transition-all">
-              <img
-                src={photo.image_url}
-                alt={photo.caption || `Ogida Market Outreach photo ${index + 1}`}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-2.5 flex flex-col justify-end text-white">
-                <span className="text-[10px] font-bold">Plate #{index + 1}</span>
-                <span className="text-[9px] text-gray-300 line-clamp-1">Ogida Market, Benin City</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <BlogPhotoGrid client:load photos={ogidaPhotos} />
       </section>
 
       <!-- Community Outreach Callout Box -->
@@ -268,7 +280,7 @@ const articleSchema = {
               class="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#fccc38] text-gray-950 font-bold text-xs sm:text-sm hover:bg-yellow-400 text-center shadow-card transition-all active:scale-95 flex items-center justify-center gap-1.5"
             >
               <span class="material-symbols-outlined text-[18px]">photo_library</span>
-              <span>View Full 28-Photo Gallery</span>
+              <span>View Full {ogidaPhotos.length}-Photo Gallery</span>
             </a>
             <a
               href="/blog"
