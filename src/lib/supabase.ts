@@ -146,6 +146,36 @@ export async function submitIdeaClient(newIdea: Idea): Promise<boolean> {
   return false;
 }
 
+export async function updateIdeaClient(ideaId: string, updates: Partial<Idea>): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from('ideas')
+        .update(updates)
+        .eq('id', ideaId);
+      if (!error) return true;
+    } catch (err) {
+      console.warn('Supabase update idea error:', err);
+    }
+  }
+  return false;
+}
+
+export async function deleteIdeaClient(ideaId: string): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from('ideas')
+        .delete()
+        .eq('id', ideaId);
+      if (!error) return true;
+    } catch (err) {
+      console.warn('Supabase delete idea error:', err);
+    }
+  }
+  return false;
+}
+
 export async function uploadEventClient(event: Event, photos: EventPhoto[]): Promise<boolean> {
   if (supabase) {
     try {

@@ -17,14 +17,23 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
 
   useEffect(() => {
     try {
+      const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
+      const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
       const stored = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
-      if (stored.length > 0) {
-        setIdeas((prev) => {
-          const existingIds = new Set(prev.map((i) => i.id));
-          const newOnes = stored.filter((s: Idea) => !existingIds.has(s.id));
-          return [...newOnes, ...prev];
-        });
-      }
+
+      setIdeas((prev) => {
+        const existingIds = new Set(prev.map((i) => i.id));
+        const newOnes = stored.filter((s: Idea) => !existingIds.has(s.id));
+        let combined = [...newOnes, ...prev];
+
+        // Filter out ideas deleted from admin area
+        combined = combined.filter((i) => !deletedIds.has(i.id));
+
+        // Apply edits made from admin area
+        combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+
+        return combined;
+      });
     } catch {
       // Ignore localStorage error
     }

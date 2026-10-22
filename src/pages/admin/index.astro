@@ -22,22 +22,27 @@ const totalBudget = projects.reduce((acc, p) => acc + (Number(p.estimated_cost) 
     <!-- Metrics Ribbon Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
       <!-- Card 1: Ideas -->
-      <div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-space-lg shadow-sm flex items-center justify-between">
+      <a
+        href="/admin/ideas"
+        class="bg-surface-container-lowest rounded-2xl border border-surface-container-high hover:border-primary/50 p-space-lg shadow-sm flex items-center justify-between group transition-all"
+        title="Manage, Edit & Delete Community Ideas"
+      >
         <div>
-          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">
-            Community Ideas
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold flex items-center gap-1 group-hover:text-primary transition-colors">
+            <span>Community Ideas</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
           </span>
           <div class="font-stat-counter text-stat-counter text-on-surface mt-1">
             {ideas.length}
           </div>
           <span class="font-label-sm text-label-sm text-primary font-bold">
-            {ideas.filter(i => i.status === 'submitted').length} pending review
+            {ideas.filter(i => i.status === 'submitted').length} pending review • Edit / Delete →
           </span>
         </div>
-        <div class="w-12 h-12 rounded-2xl bg-secondary-container/30 text-secondary flex items-center justify-center text-xl font-bold">
+        <div class="w-12 h-12 rounded-2xl bg-secondary-container/30 text-secondary group-hover:bg-primary group-hover:text-on-primary flex items-center justify-center text-xl font-bold transition-colors">
           <span class="material-symbols-outlined text-[28px]">lightbulb</span>
         </div>
-      </div>
+      </a>
 
       <!-- Card 2: Planned Projects -->
       <div class="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-space-lg shadow-sm flex items-center justify-between">
