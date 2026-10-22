@@ -7,16 +7,26 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
   activeDriveBanner?: boolean;
 }
 
 const { 
   title, 
   description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Egor Local Government Area, Edo State. Youth community proposals, transparent project planning, and localizing global goals.",
+  image = "/ogida/1.jpg",
+  type = "website",
   activeDriveBanner = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.vercel.app');
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://edo-sdg.vercel.app';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+
+// Ensure absolute URL for social sharing preview images (WhatsApp, Facebook, Twitter, LinkedIn)
+const resolvedImageUrl = image.startsWith('http')
+  ? image
+  : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
 ---
 
 <!doctype html>
@@ -33,18 +43,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://edo-sdg.
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- OpenGraph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="NYSC Edo SDG CDS Platform" />
+    <!-- OpenGraph / Social Sharing (WhatsApp, Facebook, LinkedIn, Telegram) -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="NYSC Egor SDG CDS Platform" />
     <meta property="og:title" content={`${title} | NYSC Edo SDG CDS`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_NG" />
+    <meta property="og:image" content={resolvedImageUrl} />
+    <meta property="og:image:secure_url" content={resolvedImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title} - NYSC Egor SDG CDS Platform`} />
 
-    <!-- Twitter -->
+    <!-- Twitter / X Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | NYSC Edo SDG CDS`} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedImageUrl} />
+    <meta name="twitter:image:alt" content={`${title} - NYSC Egor SDG CDS Platform`} />
 
     <!-- Structured Data JSON-LD -->
     <JsonLd title={title} description={description} url={canonicalURL.toString()} />
