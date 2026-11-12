@@ -93,8 +93,10 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
     'Women Health & Hygiene',
     'Sanitation & Environment',
     'Quality Education',
-    'Clean Energy',
     'Youth Empowerment',
+    'Zero Hunger',
+    'Skills Acquisition & Youth',
+    'Clean Energy',
   ];
 
   const filteredIdeas = ideas
@@ -109,7 +111,9 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
     })
     .sort((a, b) => {
       if (sortBy === 'upvotes') {
-        return (b.upvotes_count || 0) - (a.upvotes_count || 0);
+        const diff = (b.upvotes_count || 0) - (a.upvotes_count || 0);
+        if (diff !== 0) return diff;
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       }
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });

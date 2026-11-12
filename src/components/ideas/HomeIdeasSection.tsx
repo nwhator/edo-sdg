@@ -18,7 +18,7 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
   const loadLiveIdeas = async () => {
     try {
       const liveIdeas = await fetchIdeas();
-      const sorted = [...liveIdeas].sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0));
+      const sorted = [...liveIdeas].sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
       setTopIdeas(sorted.slice(0, 3));
       setTotalCount(liveIdeas.length);
     } catch {
@@ -34,7 +34,7 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
           let combined = [...newOnes, ...prev];
           combined = combined.filter((i) => !deletedIds.has(i.id));
           combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
-          combined.sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0));
+          combined.sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
           return combined.slice(0, 3);
         });
       } catch {

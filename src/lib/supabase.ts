@@ -2,8 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import type { Idea, Project, Event, EventPhoto, FundingPartner } from '../types/database';
 import { INITIAL_FUNDING_PARTNERS, INITIAL_EVENTS, INITIAL_PHOTOS } from '../data/mockData';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://wjvtecwgofhvjjuakyqh.supabase.co';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqdnRlY3dnb2ZodmpqdWFreXFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0ODI2NDgsImV4cCI6MjEwODA1ODY0OH0.vao6j4snLminh0Y8-a8KdDI7ta3v9BhHXE2NzsVU6aQ';
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && 
@@ -87,7 +87,7 @@ export async function fetchIdeas(): Promise<Idea[]> {
               !deletedIds.has(i.id)
           )
           .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)))
-          .sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0));
+          .sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
 
         return filtered;
       }

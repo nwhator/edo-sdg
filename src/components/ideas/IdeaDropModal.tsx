@@ -14,10 +14,12 @@ const CATEGORIES = [
   'Sanitation & Environment',
   'Good Health',
   'Quality Education',
+  'Youth Empowerment',
   'Zero Hunger',
-  'Community Advocacy',
   'Skills Acquisition & Youth',
+  'Community Advocacy',
   'Partnerships & Outreach',
+  'Clean Energy',
 ];
 
 export const IdeaDropModal: React.FC<IdeaDropModalProps> = ({ isOpen, onClose, onIdeaCreated }) => {

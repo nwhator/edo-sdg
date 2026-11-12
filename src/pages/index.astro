@@ -10,7 +10,7 @@ const partners = await fetchFundingPartners();
 const { events, photos } = await fetchEvents();
 const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
 const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization');
-const topIdeas = [...ideas].sort((a, b) => (b.upvotes_count || 0) - (a.upvotes_count || 0)).slice(0, 3);
+const topIdeas = [...ideas].sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime())).slice(0, 3);
 const sdgList = Object.values(SDG_METADATA);
 ---
 

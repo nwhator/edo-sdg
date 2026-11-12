@@ -13,9 +13,10 @@ const CATEGORIES = [
   'Sanitation & Environment',
   'Good Health',
   'Quality Education',
+  'Youth Empowerment',
   'Zero Hunger',
-  'Community Advocacy',
   'Skills Acquisition & Youth',
+  'Community Advocacy',
   'Partnerships & Outreach',
   'Clean Energy',
 ];
