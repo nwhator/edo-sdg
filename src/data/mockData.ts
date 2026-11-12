@@ -110,7 +110,68 @@ export const INITIAL_FUNDING_PARTNERS: FundingPartner[] = [
   },
 ];
 
-export const INITIAL_IDEAS: Idea[] = [];
+export const INITIAL_IDEAS: Idea[] = [
+  {
+    id: '23e003ed-9a81-4275-9aab-9cdc74ec7ae0',
+    title: 'Sanitary Pad Vending / Emergency Dispensary in Public Schools',
+    description: 'Install simple wall-mounted emergency sanitary pad dispensers in female rest rooms across 5 public schools in Benin City so no girl goes home during unexpected periods.',
+    category: 'Women Health & Hygiene',
+    target_sdgs: [3, 5, 4],
+    suggested_location: 'Oredo & Egor LGAs',
+    author_alias: 'Anonymous Corper #42',
+    upvotes_count: 30,
+    status: 'approved_for_planning',
+    created_at: '2026-10-20T09:23:10.608876+00:00',
+  },
+  {
+    id: '5f725a3a-231a-4c2f-b4ec-86105f0132b9',
+    title: 'Tom-Brown Infant Nutrition Outreach: Combating Early Childhood Malnutrition in Egor',
+    description: 'Establish a community-driven complementary feeding intervention targeted at infants and toddlers in low-income households across Egor. This project trains nursing mothers at local Primary Healthcare Centres (PHCs) to prepare affordable, high-protein "Tom-Brown" pap (made from locally roasted soya beans, guinea corn, and groundnuts) and distributes starter packs to 100 vulnerable mothers. It directly combats infant hunger and malnutrition at the grassroots level. Materials needed: Raw soya beans, guinea corn, groundnuts, milling/roasting services, airtight packaging pouches, and demo cooking stoves.',
+    category: 'Zero Hunger',
+    target_sdgs: [3, 1, 2],
+    suggested_location: 'Egor LGA, Benin City',
+    author_alias: 'Anonymous Corper #53',
+    upvotes_count: 1,
+    status: 'submitted',
+    created_at: '2026-10-30T03:52:10.834335+00:00',
+  },
+  {
+    id: '3068efd2-604a-4462-9c44-4ea03cb5e12a',
+    title: 'HEALTH FIRST; Community Preventive Health & Wellness Outreach',
+    description: 'You cannot fight what you do not know. Many people are walking around with health conditions they have never detected. Project HEALTH FIRST brings awareness closer to the people, encouraging them to know their numbers and take informed steps towards better health. A few minutes of screening and education could become the beginning of a healthier future.',
+    category: 'Good Health',
+    target_sdgs: [3, 10],
+    suggested_location: 'Egor LGA, Benin City',
+    author_alias: 'Faith Ebireri',
+    upvotes_count: 1,
+    status: 'submitted',
+    created_at: '2026-11-11T15:50:00+00:00',
+  },
+  {
+    id: '7de45782-6635-49b2-acd5-7b9fdf0641d8',
+    title: 'Youth Digital Skills and Employability Initiative',
+    description: 'The future of work is digital, but not every young person has been given the opportunity to prepare for it. Project DIGITAL BRIDGE will help close that gap. We are not simply teaching young people to nurse technology; we are helping them use technology to create, compete, earn and communicate.',
+    category: 'Youth Empowerment',
+    target_sdgs: [4, 8, 9],
+    suggested_location: 'Egor LGA, Benin City',
+    author_alias: 'Faith Ebireri',
+    upvotes_count: 1,
+    status: 'submitted',
+    created_at: '2026-11-11T15:50:00+00:00',
+  },
+  {
+    id: 'd24140c1-8a2a-4c1e-b75f-4736e9397035',
+    title: 'PROJECT READ (Reading, Education, Access and Development): Community literacy and learning hub',
+    description: 'Community literacy and learning hub dedicated to advancing grassroots education, promoting a healthy reading culture, and providing underserved students and youth in Egor LGA with direct access to books, learning aids, and foundational academic development.',
+    category: 'Quality Education',
+    target_sdgs: [4, 10],
+    suggested_location: 'Egor LGA, Benin City',
+    author_alias: 'Faith Ebireri',
+    upvotes_count: 1,
+    status: 'submitted',
+    created_at: '2026-11-11T15:50:00+00:00',
+  },
+];
 export const INITIAL_PROJECTS: Project[] = [];
 
 // ==============================================================================

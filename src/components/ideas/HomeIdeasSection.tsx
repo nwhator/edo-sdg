@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Idea } from '../../types/database';
 import { IdeaCard } from './IdeaCard';
+import { IdeaOverviewModal } from './IdeaOverviewModal';
 import { fetchIdeas } from '../../lib/supabase';
 
 interface HomeIdeasSectionProps {
@@ -13,33 +14,51 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
   initialTotalCount,
 }) => {
   const [topIdeas, setTopIdeas] = useState<Idea[]>(initialIdeas);
-  const [totalCount, setTotalCount] = useState<number>(initialTotalCount);
+  const [totalCount, setTotalCount] = useState<number>(initialTotalCount || initialIdeas.length);
+  const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
 
   const loadLiveIdeas = async () => {
     try {
       const liveIdeas = await fetchIdeas();
-      const sorted = [...liveIdeas].sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
-      setTopIdeas(sorted.slice(0, 3));
-      setTotalCount(liveIdeas.length);
-    } catch {
-      // Fallback: check localStorage
-      try {
-        const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
-        const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
-        const customIdeas = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
-
-        setTopIdeas((prev) => {
-          const existingIds = new Set(prev.map((i) => i.id));
-          const newOnes = customIdeas.filter((s: Idea) => !existingIds.has(s.id));
-          let combined = [...newOnes, ...prev];
-          combined = combined.filter((i) => !deletedIds.has(i.id));
-          combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
-          combined.sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
-          return combined.slice(0, 3);
-        });
-      } catch {
-        // ignore
+      if (liveIdeas && liveIdeas.length > 0) {
+        const sorted = [...liveIdeas].sort(
+          (a, b) =>
+            (b.upvotes_count || 0) - (a.upvotes_count || 0) ||
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        setTopIdeas(sorted.slice(0, 6));
+        setTotalCount(liveIdeas.length);
+        return;
       }
+    } catch (e) {
+      console.warn('Home ideas live load fallback:', e);
+    }
+
+    // Fallback: check localStorage & initialIdeas
+    try {
+      const deletedIds = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
+      const editedMap = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+      const customIdeas = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
+
+      setTopIdeas((prev) => {
+        const base = prev.length > 0 ? prev : initialIdeas;
+        const existingIds = new Set(base.map((i) => i.id));
+        const newOnes = customIdeas.filter((s: Idea) => !existingIds.has(s.id));
+        let combined = [...newOnes, ...base];
+        combined = combined.filter((i) => !deletedIds.has(i.id));
+        combined = combined.map((i) => (editedMap[i.id] ? { ...i, ...editedMap[i.id] } : i));
+        combined.sort(
+          (a, b) =>
+            (b.upvotes_count || 0) - (a.upvotes_count || 0) ||
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        if (combined.length > 0) {
+          setTotalCount(combined.length);
+        }
+        return combined.slice(0, 6);
+      });
+    } catch {
+      // ignore
     }
   };
 
@@ -63,6 +82,9 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
     setTopIdeas((prev) =>
       prev.map((item) => (item.id === id ? { ...item, upvotes_count: newCount } : item))
     );
+    if (selectedIdea && selectedIdea.id === id) {
+      setSelectedIdea((prev) => (prev ? { ...prev, upvotes_count: newCount } : null));
+    }
   };
 
   return (
@@ -78,7 +100,7 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-on-surface">Community Ideas for Egor LGA</h2>
             <p className="text-xs sm:text-sm text-on-surface-variant mt-0.5">
-              Review and upvote peer proposals to shape upcoming CDS community projects.
+              Review and upvote peer proposals to shape upcoming CDS community projects. Click any idea to read the full overview.
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
@@ -112,14 +134,27 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
             {topIdeas.map((idea) => (
-              <IdeaCard key={idea.id} idea={idea} onVoteSuccess={handleVoteSuccess} />
+              <IdeaCard
+                key={idea.id}
+                idea={idea}
+                onVoteSuccess={handleVoteSuccess}
+                onSelect={(selected) => setSelectedIdea(selected)}
+              />
             ))}
           </div>
         )}
 
       </div>
+
+      {/* Idea Overview Modal */}
+      <IdeaOverviewModal
+        idea={selectedIdea}
+        isOpen={Boolean(selectedIdea)}
+        onClose={() => setSelectedIdea(null)}
+        onVoteSuccess={handleVoteSuccess}
+      />
     </section>
   );
 };

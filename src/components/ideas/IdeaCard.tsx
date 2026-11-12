@@ -6,9 +6,10 @@ import { upvoteIdeaClient } from '../../lib/supabase';
 interface IdeaCardProps {
   idea: Idea;
   onVoteSuccess?: (id: string, newCount: number) => void;
+  onSelect?: (idea: Idea) => void;
 }
 
-export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
+export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess, onSelect }) => {
   const [upvotes, setUpvotes] = useState(idea.upvotes_count ?? 0);
   const [hasVoted, setHasVoted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,13 +77,19 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
   const currentStatus = statusBadges[idea.status] || statusBadges.submitted;
 
   return (
-    <article className="idea-card group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-lg shadow-xs hover:shadow-md transition-all duration-200 border border-surface-container-high overflow-hidden">
+    <article
+      onClick={() => onSelect?.(idea)}
+      className="idea-card group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-lg shadow-xs hover:shadow-md transition-all duration-200 border border-surface-container-high overflow-hidden cursor-pointer"
+    >
       <div>
         {/* Top Action & Meta Row */}
         <div className="flex items-center justify-between gap-space-xs mb-space-md">
           {/* Upvote Pill Button */}
           <button
-            onClick={handleVote}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleVote();
+            }}
             disabled={hasVoted || isSubmitting}
             className={`upvote-btn inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full font-label-sm text-label-sm font-extrabold tracking-wide transition-all cursor-pointer shadow-xs ${
               hasVoted
@@ -135,9 +142,24 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess }) => {
         </h3>
 
         {/* Description */}
-        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-md line-clamp-3">
+        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-xs line-clamp-3">
           {idea.description}
         </p>
+
+        {/* Read Overview Button */}
+        <div className="mb-space-md">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect?.(idea);
+            }}
+            className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-container hover:underline cursor-pointer group/link"
+          >
+            <span>Read Overview</span>
+            <span className="material-symbols-outlined text-[15px] group-hover/link:translate-x-0.5 transition-transform">arrow_forward</span>
+          </button>
+        </div>
 
         {/* SDG Indicators */}
         {idea.target_sdgs && idea.target_sdgs.length > 0 && (

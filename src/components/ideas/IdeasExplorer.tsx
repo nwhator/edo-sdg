@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Idea } from '../../types/database';
 import { IdeaCard } from './IdeaCard';
 import { IdeaDropModal } from './IdeaDropModal';
+import { IdeaOverviewModal } from './IdeaOverviewModal';
 import { fetchIdeas } from '../../lib/supabase';
 
 interface IdeasExplorerProps {
@@ -15,6 +16,7 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState<'upvotes' | 'newest'>('upvotes');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -24,6 +26,16 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
         const live = await fetchIdeas();
         if (isMounted && live.length > 0) {
           setIdeas(live);
+
+          // Check if URL specifies an idea id to auto-open
+          if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const targetId = params.get('id') || window.location.hash.replace('#', '');
+            if (targetId) {
+              const matched = live.find((i) => i.id === targetId);
+              if (matched) setSelectedIdea(matched);
+            }
+          }
           return;
         }
       } catch {
@@ -71,6 +83,9 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
     setIdeas((prev) =>
       prev.map((item) => (item.id === id ? { ...item, upvotes_count: newCount } : item))
     );
+    if (selectedIdea && selectedIdea.id === id) {
+      setSelectedIdea((prev) => (prev ? { ...prev, upvotes_count: newCount } : null));
+    }
   };
 
   const handleIdeaCreated = (newIdea: Idea) => {
@@ -231,10 +246,23 @@ export const IdeasExplorer: React.FC<IdeasExplorerProps> = ({ initialIdeas }) =>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredIdeas.map((idea) => (
-            <IdeaCard key={idea.id} idea={idea} onVoteSuccess={handleVoteSuccess} />
+            <IdeaCard
+              key={idea.id}
+              idea={idea}
+              onVoteSuccess={handleVoteSuccess}
+              onSelect={(selected) => setSelectedIdea(selected)}
+            />
           ))}
         </div>
       )}
+
+      {/* Idea Overview Modal */}
+      <IdeaOverviewModal
+        idea={selectedIdea}
+        isOpen={Boolean(selectedIdea)}
+        onClose={() => setSelectedIdea(null)}
+        onVoteSuccess={handleVoteSuccess}
+      />
 
       {/* Drop Idea Modal */}
       <IdeaDropModal

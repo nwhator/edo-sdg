@@ -14,20 +14,28 @@ export const IdeasStatCounter: React.FC<IdeasStatCounterProps> = ({ initialCount
     const loadLiveCount = async () => {
       try {
         const live = await fetchIdeas();
-        if (isMounted) {
+        if (isMounted && live.length > 0) {
           setCount(live.length);
+          return;
         }
       } catch (e) {
-        // Fallback to local storage count
-        try {
+        console.warn('Live ideas count fetch fallback:', e);
+      }
+
+      // Fallback to local storage count
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
           const deleted = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
           const custom = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
           if (isMounted) {
-            setCount(Math.max(0, initialCount - deleted.size + custom.length));
+            const computed = Math.max(0, (initialCount || 5) - deleted.size + custom.length);
+            if (computed > 0) {
+              setCount(computed);
+            }
           }
-        } catch {
-          // ignore
         }
+      } catch {
+        // ignore
       }
     };
 

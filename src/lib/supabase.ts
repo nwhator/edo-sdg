@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Idea, Project, Event, EventPhoto, FundingPartner } from '../types/database';
-import { INITIAL_FUNDING_PARTNERS, INITIAL_EVENTS, INITIAL_PHOTOS } from '../data/mockData';
+import { INITIAL_IDEAS, INITIAL_FUNDING_PARTNERS, INITIAL_EVENTS, INITIAL_PHOTOS } from '../data/mockData';
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://wjvtecwgofhvjjuakyqh.supabase.co';
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqdnRlY3dnb2ZodmpqdWFreXFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0ODI2NDgsImV4cCI6MjEwODA1ODY0OH0.vao6j4snLminh0Y8-a8KdDI7ta3v9BhHXE2NzsVU6aQ';
@@ -17,7 +17,7 @@ export const supabase = isSupabaseConfigured
   : null;
 
 // Helper to prevent build hangs if Supabase project is asleep or slow
-async function withTimeout<T>(promise: PromiseLike<T>, ms = 2500): Promise<T> {
+async function withTimeout<T>(promise: PromiseLike<T>, ms = 8000): Promise<T> {
   let timer: any;
   const timeoutPromise = new Promise<never>((_, reject) => {
     timer = setTimeout(() => reject(new Error('Supabase request timed out')), ms);
@@ -32,10 +32,12 @@ async function withTimeout<T>(promise: PromiseLike<T>, ms = 2500): Promise<T> {
 }
 
 // ==============================================================================
-// DATA FETCHING (Live Supabase - No static fake data fallbacks)
+// DATA FETCHING (Live Supabase with Reliable Fallbacks)
 // ==============================================================================
 
 export async function fetchIdeas(): Promise<Idea[]> {
+  let ideasList: Idea[] = [];
+
   if (supabase) {
     try {
       const { data, error } = await withTimeout(
@@ -45,7 +47,7 @@ export async function fetchIdeas(): Promise<Idea[]> {
           .order('created_at', { ascending: false })
       );
       
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         const deletedIds = new Set<string>();
         const edits = new Map<string, Partial<Idea>>();
 
@@ -65,37 +67,44 @@ export async function fetchIdeas(): Promise<Idea[]> {
           }
         }
 
-        // Also check localStorage for optimistic local cache if in browser environment
-        if (typeof window !== 'undefined' && window.localStorage) {
-          try {
-            const localDeleted = JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]');
-            localDeleted.forEach((id: string) => deletedIds.add(id));
-            const localEdits = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
-            Object.keys(localEdits).forEach((id) => {
-              if (!edits.has(id)) edits.set(id, localEdits[id]);
-            });
-          } catch {
-            // ignore
-          }
-        }
-
-        const filtered = data
+        ideasList = data
           .filter(
             (i) =>
               !i.category?.startsWith('__SYSTEM_') &&
               !i.title?.startsWith('__SYSTEM_') &&
               !deletedIds.has(i.id)
           )
-          .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)))
-          .sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
-
-        return filtered;
+          .map((i) => (edits.has(i.id) ? ({ ...i, ...edits.get(i.id) } as Idea) : (i as Idea)));
       }
     } catch (e) {
       console.warn('Failed to fetch from Supabase:', e);
     }
   }
-  return [];
+
+  // Fallback to static seed if Supabase is offline or empty
+  if (ideasList.length === 0) {
+    ideasList = [...INITIAL_IDEAS];
+  }
+
+  // Check localStorage for client-side custom ideas, deletions, and edits
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const localDeleted = new Set(JSON.parse(localStorage.getItem('edo_sdg_deleted_idea_ids') || '[]'));
+      const localEdits = JSON.parse(localStorage.getItem('edo_sdg_edited_ideas') || '{}');
+      const customIdeas: Idea[] = JSON.parse(localStorage.getItem('edo_sdg_custom_ideas') || '[]');
+
+      const existingIds = new Set(ideasList.map((i) => i.id));
+      const newCustom = customIdeas.filter((s: Idea) => !existingIds.has(s.id));
+      ideasList = [...newCustom, ...ideasList];
+
+      ideasList = ideasList.filter((i) => !localDeleted.has(i.id));
+      ideasList = ideasList.map((i) => (localEdits[i.id] ? { ...i, ...localEdits[i.id] } : i));
+    } catch {
+      // ignore
+    }
+  }
+
+  return ideasList.sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
 }
 
 export async function fetchProjects(): Promise<Project[]> {
