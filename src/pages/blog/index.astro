@@ -8,8 +8,8 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
 
 const blogPosts = [
   {
-    slug: 'weekly-meeting-nov-11-2026',
-    title: 'Weekly CDS Meeting: Newcomers Reception, Biodigester Project Progress & Solidarity Baby Visit',
+    slug: 'minutes-sdg-cds-meeting-nov-11-2026',
+    title: 'Minutes of the SDG CDS Meeting (Nov 11, 2026) — Uwelu Market Sanitation, Biodigester Roadmap & Welfare Visit',
     date: 'Wednesday, 11th November, 2026',
     time: '9:00 AM - 1:00 PM',
     quarter: 'Week 6 • 4th Quarter',
@@ -17,13 +17,13 @@ const blogPosts = [
     sdgGoal: 7,
     sdgName: 'Clean Energy & Welfare',
     sdgColor: '#FCC30B',
-    category: 'General Meeting & Welfare',
+    category: 'Official Meeting Minutes',
     readTime: '4 min read',
-    coverImage: '/nov11_babyvisit/sdg_01.jpg',
-    excerpt: 'Welcoming newly deployed corps members to Egor SDG CDS, review and engineering updates on the School Biodigester Project (SDG 7 & 12), and a heartfelt solidarity visit to celebrate our colleague’s newborn baby. [DRAFT - Official evening minutes pending].',
+    coverImage: '/nov11_babyvisit/compilation-thumbnail.jpg',
+    excerpt: 'Itemized official minutes and compilation video of the NYSC Egor SDG CDS meeting: welcoming newly deployed corps members, approval of Uwelu Market environmental sanitation (SDG 11), ₦12,200 welfare baby visit, financial report, SDG website launch, POP honors, biodigester technical repair roadmap for January, and December 5 picnic group colors.',
     photosCount: 37,
     hasVideo: true,
-    isDraft: true,
+    isDraft: false,
   },
   {
     slug: 'ogida-market-quality-education',
@@ -91,6 +91,13 @@ const blogPosts = [
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
+            {post.hasVideo && (
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-elevated group-hover:scale-110 transition-transform">
+                  <span class="material-symbols-outlined text-[28px] sm:text-[32px] ml-0.5">play_arrow</span>
+                </div>
+              </div>
+            )}
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:hidden"></div>
             <div class="absolute top-4 left-4 flex flex-wrap gap-2">
               <span

@@ -8,6 +8,9 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  video?: string;
+  videoWidth?: number;
+  videoHeight?: number;
   type?: 'website' | 'article';
   activeDriveBanner?: boolean;
 }
@@ -16,6 +19,9 @@ const {
   title, 
   description = "Official platform for the National Youth Service Corps (NYSC) Sustainable Development Goals (SDG) CDS Group in Egor Local Government Area, Edo State. Youth community proposals, transparent project planning, and localizing global goals.",
   image = "/ogida/1.jpg",
+  video,
+  videoWidth = 1200,
+  videoHeight = 630,
   type = "website",
   activeDriveBanner = false,
 } = Astro.props;
@@ -27,6 +33,10 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const resolvedImageUrl = image.startsWith('http')
   ? image
   : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
+
+const resolvedVideoUrl = video
+  ? (video.startsWith('http') ? video : `${siteUrl}${video.startsWith('/') ? '' : '/'}${video}`)
+  : undefined;
 ---
 
 <!doctype html>
@@ -56,6 +66,15 @@ const resolvedImageUrl = image.startsWith('http')
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${title} - NYSC Egor SDG CDS Platform`} />
+    {resolvedVideoUrl && (
+      <>
+        <meta property="og:video" content={resolvedVideoUrl} />
+        <meta property="og:video:secure_url" content={resolvedVideoUrl} />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content={String(videoWidth)} />
+        <meta property="og:video:height" content={String(videoHeight)} />
+      </>
+    )}
 
     <!-- Twitter / X Cards -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -63,9 +82,18 @@ const resolvedImageUrl = image.startsWith('http')
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedImageUrl} />
     <meta name="twitter:image:alt" content={`${title} - NYSC Egor SDG CDS Platform`} />
+    {resolvedVideoUrl && (
+      <>
+        <meta name="twitter:player" content={resolvedVideoUrl} />
+        <meta name="twitter:player:width" content={String(videoWidth)} />
+        <meta name="twitter:player:height" content={String(videoHeight)} />
+      </>
+    )}
 
     <!-- Structured Data JSON-LD -->
     <JsonLd title={title} description={description} url={canonicalURL.toString()} />
+
+    <slot name="head" />
 
     <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
