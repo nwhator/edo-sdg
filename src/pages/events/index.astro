@@ -4,8 +4,11 @@ import { EventGallery } from '../../components/gallery/EventGallery';
 import { fetchEvents } from '../../lib/supabase';
 
 const { events, photos } = await fetchEvents();
-const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[0];
-const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization');
+const latestEvent = events[0];
+const latestPhotos = photos.filter((p) => p.event_id === latestEvent?.id);
+const latestBlogSlug = latestEvent?.id === 'evt-nov11-weekly-meeting-biodigester-babyvisit'
+  ? 'weekly-meeting-nov-11-2026'
+  : 'ogida-market-quality-education';
 ---
 
 <Layout
@@ -40,39 +43,39 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
       </div>
     </div>
 
-    <!-- Featured Event Highlight: Ogida Market Quality Education -->
-    {ogidaEvent && (
+    <!-- Featured Event Highlight -->
+    {latestEvent && (
       <section class="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-primary/20 shadow-card space-y-5">
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-4 border-b border-surface-container">
           <div class="space-y-1">
             <div class="flex flex-wrap items-center gap-2">
               <span class="px-2.5 py-0.5 rounded-full bg-primary text-on-primary text-[11px] font-bold">
-                Latest Outreach
+                Latest Event
               </span>
               <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-[11px] font-bold">
-                Week 3 • 4th Quarter
+                {latestEvent.week || 'Week 6'} • {latestEvent.quarter || '4th Quarter'}
               </span>
               <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-[11px] font-bold">
-                Wednesday, 21st Oct 2026
+                {latestEvent.event_date === '2026-11-11' ? 'Wednesday, 11th Nov 2026' : 'Wednesday, 21st Oct 2026'}
               </span>
             </div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">
-              {ogidaEvent.title}
+              {latestEvent.title}
             </h2>
             <p class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
               <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
-              <span>{ogidaEvent.location}</span>
+              <span>{latestEvent.location}</span>
               <span>•</span>
               <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
-              <span>{ogidaEvent.event_time || '9:00 AM - 11:00 AM'}</span>
+              <span>{latestEvent.event_time || '9:00 AM'}</span>
               <span>•</span>
-              <span class="font-bold text-primary">{ogidaPhotos.length} Documented Photos</span>
+              <span class="font-bold text-primary">{latestPhotos.length} Documented Photos</span>
             </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a
-              href="/blog/ogida-market-quality-education"
+              href={`/blog/${latestBlogSlug}`}
               class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold shadow-sm transition-all"
             >
               <span class="material-symbols-outlined text-[16px]">menu_book</span>
@@ -82,7 +85,7 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
         </div>
 
         <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify">
-          {ogidaEvent.activities || ogidaEvent.description}
+          {latestEvent.activities || latestEvent.description}
         </p>
       </section>
     )}

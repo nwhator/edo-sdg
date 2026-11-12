@@ -158,6 +158,31 @@ const OGIDA_PHOTO_FILENAMES = [
 
 export const INITIAL_EVENTS: Event[] = [
   {
+    id: 'evt-nov11-weekly-meeting-biodigester-babyvisit',
+    title: 'Weekly CDS Meeting: Newcomers Reception, School Biodigester Project Update & Welfare Baby Visit',
+    event_date: '2026-11-11',
+    event_time: '9:00 AM - 1:00 PM',
+    location: 'Egor NYSC Secretariat, Benin City, Edo State',
+    week: 'Week 6',
+    quarter: '4th Quarter',
+    sdg_goals: [7, 12, 3, 17],
+    photos_count: 37,
+    beneficiaries_reached: 'Newly Deployed Corps Members, School Biodigester Pilot Beneficiaries, and Celebrant Colleague',
+    corps_members_present: 'Serving Corps Members, CDS President Augusta & CDS Executive Council',
+    materials_distributed: 'Orientation Guides, Project Technical Sheets, and Maternal Welfare Gift Basket',
+    sustainability: 'Continuous weekly CDS project execution, committee monitoring, and welfare support.',
+    activities: 'Welcoming newly deployed corps members, detailed technical review on the School Biodigester clean energy project, and a solidarity welfare visit to celebrate our colleague who gave birth.',
+    aims: [
+      'To warmly induct newly deployed corps members into the NYSC Egor SDG CDS group, assigning them to functional project committees.',
+      'To review engineering plans, waste feedstocks, and safety metrics for the proposed community School Biodigester initiative (SDG 7 & 12).',
+      'To foster corps welfare, unity, and morale through a collective celebratory visit and gift presentation to our member who welcomed a newborn baby (SDG 3).',
+      'To coordinate upcoming 4th Quarter outreach schedules and mobilize resources for ongoing civic projects.'
+    ],
+    description: `On Wednesday, 11th November 2026, the NYSC Egor SDG Community Development Service (CDS) group held its weekly meeting at the Egor NYSC Secretariat in Benin City. The session commenced at 9:00 AM with a warm welcome and orientation for newly deployed corps members, followed by an in-depth progress review of the School Biodigester Clean Energy Project. Following the formal deliberations, a CDS delegation embarked on a joyous solidarity welfare visit to celebrate with our colleague who recently gave birth. [DRAFT REPORT - Awaiting Detailed Evening Minutes Sign-Off]`,
+    cover_image: '/nov11_babyvisit/sdg_01.jpg',
+    created_at: '2026-11-11T09:00:00Z',
+  },
+  {
     id: 'evt-ogida-education-sensitization',
     title: 'Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City',
     event_date: '2026-10-21',
@@ -188,11 +213,65 @@ The outreach focused on debunking the dangerous misconception that "education is
   },
 ];
 
-export const INITIAL_PHOTOS: EventPhoto[] = OGIDA_PHOTO_FILENAMES.map((filename, idx) => ({
-  id: `ogida-photo-${idx + 1}`,
-  event_id: 'evt-ogida-education-sensitization',
-  image_url: `/ogida/${filename}`,
-  caption: `Ogida Market Quality Education Sensitization Plate #${idx + 1} — NYSC Egor SDG CDS field engagement with market traders`,
-  display_order: idx + 1,
-  created_at: '2026-10-21T09:00:00Z',
-}));
+const NOV11_PHOTO_ITEMS: { filename: string; caption: string; category: string }[] = [
+  // Welcoming Newcomers
+  { filename: 'newcomers_01.jpg', caption: 'Welcoming newly deployed corps members to Egor SDG CDS - Group orientation session', category: 'Newcomers Reception' },
+  { filename: 'newcomers_02.jpg', caption: 'New corps members introducing themselves to the SDG family at Egor Secretariat', category: 'Newcomers Reception' },
+  { filename: 'newcomers_03.jpg', caption: 'Executive council welcoming Batch B newcomers into CDS functional committees', category: 'Newcomers Reception' },
+  { filename: 'newcomers_04.jpg', caption: 'Interactive ice-breaker and SDG orientation briefing for new corpers', category: 'Newcomers Reception' },
+  { filename: 'newcomers_05.jpg', caption: 'General group session introducing SDG core values and weekly CDS schedule', category: 'Newcomers Reception' },
+  { filename: 'newcomers_06.jpg', caption: 'CDS executive address highlighting community impact and attendance standards', category: 'Newcomers Reception' },
+  { filename: 'newcomers_07.jpg', caption: 'New members participating in morning CDS roll-call and welcome remarks', category: 'Newcomers Reception' },
+  { filename: 'newcomers_08.jpg', caption: 'Group photograph of newly integrated corps members with SDG executives', category: 'Newcomers Reception' },
+  // Biodigester Project
+  { filename: 'biodigester_01.jpg', caption: 'School Biodigester Project review - Technical specifications and clean energy design', category: 'Biodigester Project' },
+  { filename: 'biodigester_02.jpg', caption: 'Review of organic waste conversion mechanics and anaerobic digester feasibility', category: 'Biodigester Project' },
+  { filename: 'biodigester_03.jpg', caption: 'Engineering sub-committee presentation on school site selection and safety standards', category: 'Biodigester Project' },
+  { filename: 'biodigester_04.jpg', caption: 'Discussion on biogas output, burner connectivity, and bio-fertilizer distribution', category: 'Biodigester Project' },
+  { filename: 'biodigester_05.jpg', caption: 'CDS members reviewing pipeline schematics and community school partnerships', category: 'Biodigester Project' },
+  { filename: 'biodigester_06.jpg', caption: 'Project planning committee addressing logistics, plumbing, and digester casing', category: 'Biodigester Project' },
+  { filename: 'biodigester_07.jpg', caption: 'Technical evaluation of feedstock sourcing and student waste segregation training', category: 'Biodigester Project' },
+  { filename: 'biodigester_08.jpg', caption: 'Budget and sponsorship review for pilot school installation in Egor LGA', category: 'Biodigester Project' },
+  { filename: 'biodigester_09.jpg', caption: 'Finalizing technical proposal for stakeholder submission to Ministry of Energy', category: 'Biodigester Project' },
+  // Baby Visit (Welfare)
+  { filename: 'baby_01.jpg', caption: 'Welfare delegation arriving to congratulate fellow corps member on her newborn baby', category: 'Baby Visit' },
+  { filename: 'baby_02.jpg', caption: 'Presenting gifts and maternal welfare provisions on behalf of Egor SDG CDS', category: 'Baby Visit' },
+  { filename: 'baby_03.jpg', caption: 'SDG corps members celebrating with the new mother and praying for baby and family', category: 'Baby Visit' },
+  { filename: 'baby_04.jpg', caption: 'Heartwarming moments holding the newborn baby during the welfare visit', category: 'Baby Visit' },
+  { filename: 'baby_05.jpg', caption: 'Delivering maternal support items and sharing fraternal CDS joy with the family', category: 'Baby Visit' },
+  { filename: 'baby_6.jpg', caption: 'Group picture with the mother and baby, reaffirming NYSC camaraderie and care', category: 'Baby Visit' },
+  // General Meeting & Field Cadre
+  { filename: 'sdg_01.jpg', caption: 'General CDS assembly opening session at Egor NYSC Secretariat', category: 'General Meeting' },
+  { filename: 'sdg_02.jpg', caption: 'Corps members seated during project updates and committee reports', category: 'General Meeting' },
+  { filename: 'sdg_03.jpg', caption: 'Active deliberation on upcoming 4th Quarter community outreach dates', category: 'General Meeting' },
+  { filename: 'sdg_04.jpg', caption: 'Discussion on grassroots advocacy, school visits, and community sensitizations', category: 'General Meeting' },
+  { filename: 'sdg_05.jpg', caption: 'CDS members exchanging ideas and coordinating logistics for outreach materials', category: 'General Meeting' },
+  { filename: 'sdg_06.jpg', caption: 'Review of attendance records and committee project milestones', category: 'General Meeting' },
+  { filename: 'sdg_07.jpg', caption: 'Engaging plenary session highlighting SDG 7 clean energy and school partnerships', category: 'General Meeting' },
+  { filename: 'sdg_08.jpg', caption: 'Members sharing feedback on previous marketplace quality education campaign', category: 'General Meeting' },
+  { filename: 'sdg_09.jpg', caption: 'Coordinating welfare visits and voluntary donations for colleague celebration', category: 'General Meeting' },
+  { filename: 'sdg_10.jpg', caption: 'Corps members listening attentively to welfare announcements and next steps', category: 'General Meeting' },
+  { filename: 'sdg_11.jpg', caption: 'Group interactions during the adjournment of the morning plenary session', category: 'General Meeting' },
+  { filename: 'sdg_12.jpg', caption: 'Members organizing into committees to prepare the welfare delegation movement', category: 'General Meeting' },
+  { filename: 'sdg_13.jpg', caption: 'Preparing outreach gifts and departure for the solidarity baby visit', category: 'General Meeting' },
+  { filename: 'sdg_14.jpg', caption: 'Corps members gathering for group photograph at the conclusion of meeting', category: 'General Meeting' },
+];
+
+export const INITIAL_PHOTOS: EventPhoto[] = [
+  ...OGIDA_PHOTO_FILENAMES.map((filename, idx) => ({
+    id: `ogida-photo-${idx + 1}`,
+    event_id: 'evt-ogida-education-sensitization',
+    image_url: `/ogida/${filename}`,
+    caption: `Ogida Market Quality Education Sensitization Plate #${idx + 1} — NYSC Egor SDG CDS field engagement with market traders`,
+    display_order: idx + 1,
+    created_at: '2026-10-21T09:00:00Z',
+  })),
+  ...NOV11_PHOTO_ITEMS.map((item, idx) => ({
+    id: `nov11-photo-${idx + 1}`,
+    event_id: 'evt-nov11-weekly-meeting-biodigester-babyvisit',
+    image_url: `/nov11_babyvisit/${item.filename}`,
+    caption: `${item.caption} (${item.category})`,
+    display_order: idx + 1,
+    created_at: '2026-11-11T09:00:00Z',
+  })),
+];

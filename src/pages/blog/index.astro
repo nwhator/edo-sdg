@@ -8,6 +8,24 @@ const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.even
 
 const blogPosts = [
   {
+    slug: 'weekly-meeting-nov-11-2026',
+    title: 'Weekly CDS Meeting: Newcomers Reception, Biodigester Project Progress & Solidarity Baby Visit',
+    date: 'Wednesday, 11th November, 2026',
+    time: '9:00 AM - 1:00 PM',
+    quarter: 'Week 6 • 4th Quarter',
+    location: 'Egor NYSC Secretariat, Benin City',
+    sdgGoal: 7,
+    sdgName: 'Clean Energy & Welfare',
+    sdgColor: '#FCC30B',
+    category: 'General Meeting & Welfare',
+    readTime: '4 min read',
+    coverImage: '/nov11_babyvisit/sdg_01.jpg',
+    excerpt: 'Welcoming newly deployed corps members to Egor SDG CDS, review and engineering updates on the School Biodigester Project (SDG 7 & 12), and a heartfelt solidarity visit to celebrate our colleague’s newborn baby. [DRAFT - Official evening minutes pending].',
+    photosCount: 37,
+    hasVideo: true,
+    isDraft: true,
+  },
+  {
     slug: 'ogida-market-quality-education',
     title: 'Sensitization on the Importance of Quality Education (SDG 4) and Parental Involvement at Ogida Market, Benin City',
     date: 'Wednesday, 21st October, 2026',
@@ -16,12 +34,14 @@ const blogPosts = [
     location: 'Ogida Market, Benin City, Egor LGA',
     sdgGoal: 4,
     sdgName: 'Quality Education',
+    sdgColor: '#C5192D',
     category: 'Field Outreach',
     readTime: '4 min read',
     coverImage: '/ogida/1.jpg',
     excerpt: 'Sensitizing market women and men on SDG 4 (Quality Education), dismantling the misconception that "education is a scam," encouraging active parental homework checks, and balancing market chores with home study hours.',
     photosCount: ogidaPhotos.length || 37,
     hasVideo: true,
+    isDraft: false,
   }
 ];
 ---
@@ -58,8 +78,8 @@ const blogPosts = [
       </div>
     </div>
 
-    <!-- Featured Lead Story (Ogida Market Sensitization) -->
-    <section class="max-w-5xl mx-auto">
+    <!-- Featured Lead Stories -->
+    <section class="max-w-5xl mx-auto space-y-8">
       {blogPosts.map((post) => (
         <article class="bg-surface-container-lowest rounded-3xl border border-primary/20 shadow-elevated overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 group">
           
@@ -73,7 +93,10 @@ const blogPosts = [
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:hidden"></div>
             <div class="absolute top-4 left-4 flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full bg-[#C5192D] text-white text-[11px] font-black shadow-sm">
+              <span
+                style={{ backgroundColor: post.sdgColor || '#004b24' }}
+                class="px-3 py-1 rounded-full text-white text-[11px] font-black shadow-sm"
+              >
                 SDG {post.sdgGoal}: {post.sdgName}
               </span>
               <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-[11px] font-bold">
@@ -83,6 +106,12 @@ const blogPosts = [
                 <span class="px-2.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold shadow-sm flex items-center gap-1">
                   <span class="material-symbols-outlined text-[13px]">videocam</span>
                   <span>Video Included</span>
+                </span>
+              )}
+              {post.isDraft && (
+                <span class="px-2.5 py-1 rounded-full bg-amber-500 text-white text-[11px] font-black shadow-sm flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">edit_note</span>
+                  <span>Draft Post</span>
                 </span>
               )}
             </div>
