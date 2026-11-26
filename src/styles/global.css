@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased selection:bg-nysc-gold selection:text-nysc-green-deep;
+    @apply bg-surface text-on-surface antialiased selection:bg-secondary-container selection:text-on-secondary-fixed;
   }
 }
 
@@ -20,30 +20,46 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #EFECE2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #B8B2A2;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #044624;
 }
 
-/* Glassmorphism & Cards */
+/* Editorial & Civic Ledger Surfaces */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(14, 26, 19, 0.1);
+}
+
+.bg-ledger-grid {
+  background-image:
+    linear-gradient(to right, rgba(4, 70, 36, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(4, 70, 36, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-dot-matrix {
+  background-image: radial-gradient(rgba(4, 70, 36, 0.11) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 .nysc-badge {
-  background: linear-gradient(135deg, #006633 0%, #004724 100%);
+  background: linear-gradient(135deg, #044624 0%, #022E17 100%);
   color: #ffffff;
-  border-bottom: 2px solid #F4C430;
+  border-bottom: 2px solid #F5C438;
 }
 
 /* ==============================================================================
@@ -55,7 +71,6 @@
     margin: 12mm 15mm;
   }
 
-  /* Force hide all website headers, navbars, footers, toolbars, and controls */
   header,
   footer,
   nav,
@@ -82,7 +97,6 @@
     padding: 0 !important;
   }
 
-  /* Reset layout constraints for print */
   main, div, section, article {
     box-shadow: none !important;
     background-color: transparent !important;

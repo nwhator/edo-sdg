@@ -1,0 +1,16 @@
+---
+import { SDG_METADATA } from '../types/database';
+
+interface Props {
+  heightClass?: string;
+}
+
+const { heightClass = 'h-1' } = Astro.props;
+const goals = Object.values(SDG_METADATA);
+---
+
+<div class={`w-full grid grid-cols-17 ${heightClass} overflow-hidden`} style="grid-template-columns: repeat(17, minmax(0, 1fr));" aria-hidden="true">
+  {goals.map((sdg) => (
+    <div style={{ backgroundColor: sdg.color }} title={`SDG ${sdg.number}: ${sdg.name}`} />
+  ))}
+</div>

@@ -89,26 +89,28 @@ export const HomeIdeasSection: React.FC<HomeIdeasSectionProps> = ({
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div className="bg-surface-container-low/70 p-6 sm:p-8 rounded-3xl border border-outline-variant/30 space-y-6">
+      <div className="bg-surface-container-low p-6 sm:p-8 rounded-2xl border border-on-surface/12 space-y-6">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-on-surface/10">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-primary text-xs font-bold uppercase tracking-wider mb-1">
-              <span className="material-symbols-outlined text-[16px]">forum</span>
-              <span>Grassroots Proposals</span>
+            <div className="inline-flex items-center gap-1.5 text-primary font-mono text-[11px] font-bold uppercase tracking-widest mb-1">
+              <span className="material-symbols-outlined text-[15px]">forum</span>
+              <span>Grassroots Ideation Ledger</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-on-surface">Community Ideas for Egor LGA</h2>
-            <p className="text-xs sm:text-sm text-on-surface-variant mt-0.5">
-              Review and upvote peer proposals to shape upcoming CDS community projects. Click any idea to read the full overview.
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
+              Community Ideas for <span className="font-serif italic font-normal text-primary">Egor LGA</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-on-surface-variant mt-1">
+              Review and upvote peer proposals to shape upcoming CDS community projects. Click any card to inspect the full brief.
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <a
               href="/ideas"
-              className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-primary hover:underline"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-surface-container-lowest border border-on-surface/15 text-xs font-bold text-primary hover:bg-primary hover:text-on-primary transition-all"
             >
-              <span>View All Ideas ({totalCount})</span>
+              <span>View All ({totalCount})</span>
               <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>

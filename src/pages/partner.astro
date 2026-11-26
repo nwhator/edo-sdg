@@ -92,17 +92,17 @@ const tiers = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 space-y-16">
     
     <!-- Hero Section -->
-    <div class="relative bg-surface-container-low p-6 sm:p-12 rounded-3xl border border-surface-container-high space-y-6 shadow-card overflow-hidden">
+    <div class="relative bg-ledger-grid p-6 sm:p-12 rounded-2xl border border-on-surface/15 space-y-6 shadow-card overflow-hidden">
       <div class="absolute -top-12 -right-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/30 text-primary text-xs font-bold uppercase tracking-wider shadow-subtle">
-        <span class="material-symbols-outlined text-[16px] text-secondary">handshake</span>
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest border border-on-surface/15 text-primary font-mono text-[11px] font-bold uppercase tracking-wider shadow-subtle">
+        <span class="material-symbols-outlined text-[15px] text-secondary">handshake</span>
         <span>Corporate Social Responsibility (CSR) & Donor Gateway</span>
       </div>
 
       <div class="max-w-3xl space-y-3">
         <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
-          Multiply Your CSR Impact in <span class="text-primary">Egor LGA</span>
+          Multiply Your CSR <span class="font-serif italic font-normal text-primary">Impact</span> in Egor LGA
         </h1>
         <p class="text-base sm:text-lg text-on-surface-variant leading-relaxed">
           The National Youth Service Corps (NYSC) Egor SDG CDS Group provides corporate bodies, donor agencies, and philanthropists with a direct, transparent channel to fund vetted grassroots interventions.
@@ -307,24 +307,24 @@ const tiers = [
     </div>
 
     <!-- Final CTA Banner -->
-    <div class="bg-primary text-on-primary p-8 sm:p-12 rounded-3xl text-center space-y-5 shadow-elevated">
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
-        Ready to Transform Lives in Egor LGA?
+    <div class="bg-inverse-surface text-inverse-on-surface p-8 sm:p-12 rounded-2xl text-center space-y-5 shadow-elevated border border-white/10">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+        Ready to Transform Lives in <span class="font-serif italic font-normal text-secondary-container">Egor LGA</span>?
       </h2>
-      <p class="text-sm sm:text-base text-on-primary/80 max-w-2xl mx-auto leading-relaxed">
+      <p class="text-sm sm:text-base text-white/75 max-w-2xl mx-auto leading-relaxed">
         Let us co-design a CSR initiative that meets your corporate sustainability objectives while delivering tangible, life-saving impact to students and residents across Egor.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
         <a
           href="#calculator"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-surface-container-lowest hover:bg-surface text-primary font-bold text-sm shadow-card transition-all active:scale-95"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-extrabold text-sm shadow-card transition-all active:scale-95"
         >
           <span class="material-symbols-outlined text-[18px]">calculate</span>
           <span>Open Impact Calculator</span>
         </a>
         <a
           href="/admin"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary-container hover:bg-primary-container/80 text-on-primary font-bold text-sm border border-white/20 transition-all"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all"
         >
           <span class="material-symbols-outlined text-[18px]">lock</span>
           <span>Executive Portal Login</span>

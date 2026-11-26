@@ -79,11 +79,11 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess, onSelec
   return (
     <article
       onClick={() => onSelect?.(idea)}
-      className="idea-card group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-lg shadow-xs hover:shadow-md transition-all duration-200 border border-surface-container-high overflow-hidden cursor-pointer"
+      className="idea-card group flex flex-col justify-between rounded-xl bg-surface-container-lowest p-5 shadow-subtle hover:shadow-card hover:border-primary/40 transition-all duration-200 border border-on-surface/12 overflow-hidden cursor-pointer"
     >
       <div>
         {/* Top Action & Meta Row */}
-        <div className="flex items-center justify-between gap-space-xs mb-space-md">
+        <div className="flex items-center justify-between gap-space-xs mb-4">
           {/* Upvote Pill Button */}
           <button
             onClick={(e) => {
@@ -91,15 +91,15 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onVoteSuccess, onSelec
               handleVote();
             }}
             disabled={hasVoted || isSubmitting}
-            className={`upvote-btn inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full font-label-sm text-label-sm font-extrabold tracking-wide transition-all cursor-pointer shadow-xs ${
+            className={`upvote-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-lg font-mono text-[11px] font-bold tracking-tight transition-all cursor-pointer border ${
               hasVoted
-                ? 'bg-primary text-on-primary'
-                : 'bg-primary-fixed text-on-primary-fixed hover:bg-primary hover:text-on-primary'
+                ? 'bg-primary text-on-primary border-primary'
+                : 'bg-surface-container-low text-on-surface border-on-surface/15 hover:bg-primary hover:text-on-primary hover:border-primary'
             }`}
             title={hasVoted ? 'You have upvoted this idea' : 'Click to upvote anonymously'}
           >
-            <span className="material-symbols-outlined text-[16px] font-bold">arrow_upward</span>
-            <span>{upvotes} Upvotes</span>
+            <span className="material-symbols-outlined text-[15px] font-bold">arrow_upward</span>
+            <span className="tabular-nums">{upvotes}</span>
           </button>
 
           {/* Actions & Location Pill */}

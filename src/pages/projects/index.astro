@@ -22,30 +22,29 @@ const statusLabels: Record<string, { label: string; bg: string; text: string }> 
   <div class="flex flex-col w-full pb-space-3xl">
     
     <!-- Operational Tracker Header Block -->
-    <div class="w-full bg-surface-container-low px-margin-mobile md:px-margin-desktop py-space-2xl border-b border-surface-container-high">
+    <div class="w-full bg-ledger-grid px-margin-mobile md:px-margin-desktop py-space-2xl border-b border-on-surface/12">
       <div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
         
         <!-- Metadata Tag & Live Indicator -->
         <div class="flex flex-wrap items-center justify-between gap-space-sm">
-          <div class="flex items-center gap-space-xs">
-            <span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm tracking-wide">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-lowest border border-on-surface/15 text-primary font-mono text-[11px] font-bold tracking-wider uppercase">
               <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              ACTIVE FINANCIAL YEAR 2026
+              FY 2026 LEDGER
             </span>
-            <span class="text-outline text-label-sm font-label-sm font-semibold">|</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">EDO STATE CDS TRACKING NO. ED/CDS/SDG/24-B</span>
+            <span class="font-mono text-[11px] text-on-surface-variant font-medium">TRACKING NO. ED/CDS/SDG/24-B</span>
           </div>
           <div class="flex items-center gap-space-xs">
             <span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
-            <span class="font-label-sm text-label-sm text-primary font-bold">State Coordinator Certified Registry</span>
+            <span class="font-mono text-[11px] text-primary font-bold uppercase tracking-wider">State Coordinator Certified</span>
           </div>
         </div>
 
         <!-- Title & Civic Manifesto -->
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
           <div class="max-w-3xl space-y-space-xs">
-            <h1 class="font-display text-display text-on-surface tracking-tight leading-tight">
-              Planned Projects & <span class="text-primary">Community Budget</span> Tracker
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-tight">
+              Planned Projects & <span class="font-serif italic font-normal text-primary">Budget Ledger</span>
             </h1>
             <p class="font-body-lg text-body-lg text-on-surface-variant">
               Transparent accountability of all upcoming NYSC SDG CDS initiatives across Egor Local Government Area. Itemized budgets, partner outreach, and community impact goals.

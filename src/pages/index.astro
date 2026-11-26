@@ -4,14 +4,13 @@ import { fetchIdeas, fetchFundingPartners, fetchEvents } from '../lib/supabase';
 import { SDG_METADATA } from '../types/database';
 import { IdeasStatCounter } from '../components/ideas/IdeasStatCounter';
 import { HomeIdeasSection } from '../components/ideas/HomeIdeasSection';
+import SdgSpectrumBar from '../components/SdgSpectrumBar.astro';
 
 const ideas = await fetchIdeas();
 const partners = await fetchFundingPartners();
 const { events, photos } = await fetchEvents();
 const nov11Event = events.find((e) => e.id === 'evt-nov11-weekly-meeting-biodigester-babyvisit') || events[0];
 const nov11Photos = photos.filter((p) => p.event_id === nov11Event?.id || p.image_url.includes('nov11_babyvisit'));
-const ogidaEvent = events.find((e) => e.id === 'evt-ogida-education-sensitization') || events[1];
-const ogidaPhotos = photos.filter((p) => p.event_id === ogidaEvent?.id || p.event_id === 'evt-ogida-education-sensitization');
 const topIdeas = [...ideas].sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime())).slice(0, 6);
 const sdgList = Object.values(SDG_METADATA);
 ---
@@ -20,122 +19,142 @@ const sdgList = Object.values(SDG_METADATA);
   title="Home • NYSC Egor SDG CDS Group"
   description="Official platform of the NYSC Sustainable Development Goals (SDG) CDS Group, Egor Local Government Area. Weekly Meeting every Wednesday at Egor NYSC Secretariat."
 >
-  <div class="flex flex-col w-full space-y-12 md:space-y-16">
+  <div class="flex flex-col w-full">
     
-    <!-- Hero Section (Clean, Less is More, FoodThrift-inspired) -->
-    <section class="relative pt-6 md:pt-10 pb-8 bg-surface">
+    <!-- Editorial Civic Hero -->
+    <section class="relative bg-ledger-grid border-b border-on-surface/10 pt-8 md:pt-14 pb-12 md:pb-16 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          <!-- Left Column: Clear Message & Actions -->
-          <div class="lg:col-span-7 space-y-5">
+          <!-- Left Column: Civic Statement & Actions -->
+          <div class="lg:col-span-7 space-y-6">
             
-            <!-- Live Meeting Schedule Pill -->
-            <div class="inline-flex items-center gap-2 bg-surface-container px-3.5 py-1.5 rounded-full border border-outline-variant/30 text-primary text-xs font-bold shadow-subtle">
+            <!-- Dispatch Status Pill -->
+            <div class="inline-flex flex-wrap items-center gap-2.5 bg-surface-container-lowest px-3.5 py-1.5 rounded-lg border border-on-surface/15 shadow-subtle">
               <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              <span>Egor LGA • Meeting Every Wednesday @ Egor NYSC Secretariat</span>
+              <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
+                Egor LGA • Chapter ED/CDS/SDG/24-B
+              </span>
+              <span class="text-outline-variant">|</span>
+              <span class="font-mono text-[11px] text-on-surface-variant">
+                Wednesdays @ 09:00 WAT
+              </span>
             </div>
 
-            <!-- Main Title -->
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-[1.18]">
-              Advancing the Global Goals in <span class="text-primary">Egor LGA</span>
+            <!-- Main Headline with Editorial Serif Contrast -->
+            <h1 class="text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-on-surface tracking-tight leading-[1.08]">
+              Localizing the <span class="font-serif italic font-normal text-primary">2030 Agenda</span> across Egor LGA
             </h1>
 
             <!-- Subtitle -->
             <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-              Official platform of the NYSC Sustainable Development Goals (SDGs) CDS Group, Egor Local Government Area. Corps members sharing community ideas, tracking local interventions, and driving youth-led impact across Egor.
+              The public civic ledger and ideation hub for the NYSC Sustainable Development Goals (SDG) CDS Group in Benin City. Serving corps members pitching community solutions, publishing itemized budgets, and executing grassroots impact.
             </p>
 
-            <!-- Clean, Easily Understandable CTAs -->
-            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <!-- Primary & Secondary Actions -->
+            <div class="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <a
                 href="/ideas#drop"
-                class="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-card hover:shadow-elevated active:scale-95 transition-all"
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-sm shadow-ledger hover:translate-y-[-1px] active:translate-y-0 transition-all"
               >
-                <span class="material-symbols-outlined text-[20px]">lightbulb</span>
-                <span>Submit an Idea</span>
+                <span class="material-symbols-outlined text-[19px]">lightbulb</span>
+                <span>Pitch a Community Idea</span>
               </a>
 
               <a
                 href="/projects"
-                class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-primary font-bold text-sm border border-outline-variant/40 shadow-subtle active:scale-95 transition-all"
+                class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-bold text-sm border border-on-surface/15 transition-all"
               >
-                <span class="material-symbols-outlined text-[18px]">folder_open</span>
-                <span>Projects</span>
+                <span class="material-symbols-outlined text-[18px] text-primary">account_balance_wallet</span>
+                <span>Open Budget Ledger</span>
               </a>
 
               <a
                 href="/partner"
-                class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-bold text-sm border border-secondary/30 shadow-subtle active:scale-95 transition-all"
+                class="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-secondary-container/30 hover:bg-secondary-container/50 text-on-secondary-fixed font-bold text-sm border border-secondary/30 transition-all"
               >
                 <span class="material-symbols-outlined text-[18px] text-secondary">handshake</span>
                 <span>Partner / CSR</span>
               </a>
             </div>
 
-            <!-- Simple Trust Metrics -->
-            <div class="flex flex-wrap items-center gap-6 pt-3 text-on-surface-variant text-xs">
-              <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
-                <span class="font-semibold">NYSC Egor LGA Secretariat</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-secondary text-[18px]">schedule</span>
-                <span class="font-semibold">Wednesdays @ 9:00 AM</span>
+            <!-- Architectural Ledger Metrics Strip -->
+            <div class="pt-4">
+              <div class="grid grid-cols-2 sm:grid-cols-4 bg-surface-container-lowest rounded-xl border border-on-surface/12 divide-y sm:divide-y-0 sm:divide-x divide-on-surface/10 shadow-subtle overflow-hidden">
+                <div class="p-3.5 sm:p-4">
+                  <div class="font-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Framework</div>
+                  <div class="text-2xl font-extrabold text-primary font-display tabular-nums mt-0.5">17</div>
+                  <div class="text-[11px] font-semibold text-on-surface">UN Global Goals</div>
+                </div>
+                <div class="p-3.5 sm:p-4">
+                  <div class="font-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Civic Voice</div>
+                  <div class="mt-0.5">
+                    <IdeasStatCounter client:load initialCount={ideas.length || 5} />
+                  </div>
+                  <div class="text-[11px] font-semibold text-on-surface">Ideas Dropped</div>
+                </div>
+                <div class="p-3.5 sm:p-4">
+                  <div class="font-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Volunteer Corps</div>
+                  <div class="text-2xl font-extrabold text-tertiary font-display tabular-nums mt-0.5">120+</div>
+                  <div class="text-[11px] font-semibold text-on-surface">Active Members</div>
+                </div>
+                <div class="p-3.5 sm:p-4">
+                  <div class="font-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Alliances</div>
+                  <div class="text-2xl font-extrabold text-secondary font-display tabular-nums mt-0.5">{partners.length || 8}</div>
+                  <div class="text-[11px] font-semibold text-on-surface">Mapped Partners</div>
+                </div>
               </div>
             </div>
 
           </div>
 
-          <!-- Right Column: Institutional Focus Card (Egor NYSC Secretariat) -->
+          <!-- Right Column: Field Dossier Card -->
           <div class="lg:col-span-5">
-            <div class="bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-card border border-outline-variant/30 space-y-4">
+            <div class="bg-surface-container-lowest rounded-2xl border border-on-surface/15 shadow-elevated overflow-hidden">
               
-              <!-- Insignia Header -->
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary font-extrabold text-sm shadow-subtle">
-                    SDG
-                  </div>
-                  <div>
-                    <h3 class="font-headline-sm text-sm font-bold text-on-surface">NYSC Egor SDG CDS</h3>
-                    <p class="font-body-sm text-xs text-on-surface-variant">Edo State Secretariat Hub</p>
-                  </div>
+              <!-- Dossier Top Bar -->
+              <div class="px-4 py-3 bg-surface-container-low border-b border-on-surface/10 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                  <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-on-surface">
+                    Field Dossier • Egor Secretariat
+                  </span>
                 </div>
-                <span class="px-2.5 py-1 bg-surface-container text-primary text-[11px] font-bold rounded-full">
-                  Egor Chapter
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">
+                  VERIFIED CDS
                 </span>
               </div>
 
-              <!-- Documentary Photo -->
-              <div class="relative h-52 rounded-xl overflow-hidden shadow-subtle">
+              <!-- Real Local Documentary Photo -->
+              <div class="relative h-60 sm:h-64 overflow-hidden bg-inverse-surface group">
                 <img
-                  class="w-full h-full object-cover"
-                  alt="NYSC corps members in khaki uniforms during weekly assembly in Egor"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6CsW469yAlDdvPvSi6dFxhgMZ28IdBwXSuWXh3-07dIbw2ZSPQXCGRWNu47hRalg6AlnH5iPSkpwZgbZ8_KPW1PwzB0rlvQ6qI6hc1nhDCEm12mYDCURr14LAJp5juFfJEnrho_xJ6NLChH295F0kCK_CTEbQKf6SmrAs8od5gLr7Sr7dZ62qJSMg_2aoKaH9hOy8UsqjX4p9BISivNoTCuZBrm4SMesjsMd3nHPdtfYFubdGEV2uaw"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="NYSC Egor SDG CDS corps members during Ogida Market SDG 4 field sensitization"
+                  src="/ogida/1.jpg"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-3">
-                  <p class="text-xs text-white font-medium">
-                    Egor NYSC Secretariat CDS Weekly Assembly
+                <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-inverse-surface/20 to-transparent flex flex-col justify-end p-4">
+                  <span class="font-mono text-[10px] text-secondary-container uppercase tracking-widest font-bold">
+                    Field Archive • Ogida Market Outreach
+                  </span>
+                  <p class="text-sm text-white font-bold leading-snug mt-0.5">
+                    Corps Members Mobilizing Grassroots SDG Action in Benin City
                   </p>
                 </div>
               </div>
 
-              <!-- Quick Info Rows -->
-              <div class="space-y-2 pt-1 font-body-sm text-xs text-on-surface">
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low gap-2">
-                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5 shrink-0">
-                    <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
-                    Meeting Location
-                  </span>
-                  <span class="font-bold text-primary text-right">Egor NYSC Secretariat</span>
+              <!-- Secretariat Schedule Ledger -->
+              <div class="p-4 bg-inverse-surface text-inverse-on-surface space-y-2.5">
+                <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
+                  <span class="font-mono text-[11px] text-white/65 uppercase">Assembly Venue</span>
+                  <span class="font-bold text-white">Egor NYSC Secretariat</span>
                 </div>
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low gap-2">
-                  <span class="text-on-surface-variant font-medium flex items-center gap-1.5 shrink-0">
-                    <span class="material-symbols-outlined text-[16px] text-primary">event</span>
-                    Meeting Day
-                  </span>
-                  <span class="font-bold text-on-surface text-right">Every Wednesday @ 9:00 AM</span>
+                <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
+                  <span class="font-mono text-[11px] text-white/65 uppercase">Weekly Schedule</span>
+                  <span class="font-bold text-secondary-container tabular-nums">Every Wednesday • 9:00 AM</span>
+                </div>
+                <div class="flex items-center justify-between text-xs pt-0.5">
+                  <span class="font-mono text-[11px] text-white/65 uppercase">Jurisdiction</span>
+                  <span class="font-semibold text-primary-fixed">Egor LGA, Edo State</span>
                 </div>
               </div>
 
@@ -146,317 +165,255 @@ const sdgList = Object.values(SDG_METADATA);
       </div>
     </section>
 
-    <!-- Clean Impact Stats Bar -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-        
-        <!-- Stat 1: UN Global Goals -->
-        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
-          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
-            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">UN Framework</span>
-            <span class="material-symbols-outlined text-primary text-[18px] sm:text-[20px]">public</span>
-          </div>
-          <div class="text-2xl sm:text-3xl font-extrabold text-primary font-display">17</div>
-          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Global Goals</p>
-          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Guiding all Egor projects</p>
-        </div>
+    <!-- Main Content Flow -->
+    <div class="flex flex-col w-full space-y-14 md:space-y-20 py-12 md:py-16">
 
-        <!-- Stat 2: Ideas Dropped (Dynamic live count from Supabase) -->
-        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-secondary/40 transition-colors">
-          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
-            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Community Voice</span>
-            <span class="material-symbols-outlined text-secondary text-[18px] sm:text-[20px]">lightbulb</span>
-          </div>
-          <IdeasStatCounter client:load initialCount={ideas.length || 5} />
-          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Ideas Dropped</p>
-          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Submitted anonymously</p>
-        </div>
-
-        <!-- Stat 3: Active Volunteers -->
-        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-tertiary/40 transition-colors">
-          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
-            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Volunteer Corps</span>
-            <span class="material-symbols-outlined text-tertiary text-[18px] sm:text-[20px]">groups</span>
-          </div>
-          <div class="text-2xl sm:text-3xl font-extrabold text-tertiary font-display">120+</div>
-          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Corps Members</p>
-          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Serving across Egor LGA</p>
-        </div>
-
-        <!-- Stat 4: Civil Alliances -->
-        <div class="bg-surface-container-lowest p-3.5 sm:p-5 rounded-2xl shadow-subtle border border-outline-variant/30 hover:border-primary/40 transition-colors">
-          <div class="flex items-center justify-between mb-1.5 sm:mb-2">
-            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Civil Network</span>
-            <span class="material-symbols-outlined text-primary text-[18px] sm:text-[20px]">handshake</span>
-          </div>
-          <div class="text-2xl sm:text-3xl font-extrabold text-primary font-display">{partners.length || 8}</div>
-          <p class="text-xs sm:text-sm font-bold text-on-surface mt-0.5">Partner Contacts</p>
-          <p class="text-[11px] sm:text-xs text-on-surface-variant mt-0.5">Mapped for outreach</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Featured Latest Community Event & Meeting Minutes with Video (Nov 11, 2026) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div class="bg-gradient-to-br from-surface-container-lowest via-surface-container-low to-surface-container-lowest p-6 sm:p-10 rounded-3xl border border-primary/20 shadow-card space-y-6">
-        
-        <!-- Section Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-outline-variant/30 pb-4">
-          <div>
-            <div class="inline-flex items-center gap-1.5 text-primary text-xs font-bold uppercase tracking-wider mb-1">
-              <span class="material-symbols-outlined text-[18px]">movie</span>
-              <span>Featured Latest Story • Official Minutes & Compilation Video</span>
-            </div>
-            <h2 class="text-xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
-              Minutes of the SDG CDS Meeting (Nov 11, 2026)
-            </h2>
-          </div>
-          <span class="px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold self-start sm:self-auto border border-primary/20 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <span>Live Compilation Video Included (0:38 HD)</span>
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <!-- Featured Latest Field Dispatch & Compilation Video (Nov 11, 2026) -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-surface-container-lowest rounded-2xl border border-on-surface/15 shadow-card overflow-hidden">
           
-          <!-- Left Column: Vertical Video Player Container (complilation.mp4) -->
-          <div class="lg:col-span-5 space-y-3 flex flex-col items-center">
-            <div class="relative w-full max-w-[320px] aspect-[464/832] rounded-3xl overflow-hidden bg-black shadow-elevated border-2 border-primary/30 group">
-              <video
-                controls
-                playsinline
-                preload="metadata"
-                poster="/nov11_babyvisit/compilation-poster.jpg"
-                class="w-full h-full object-cover bg-black"
-              >
-                <source src="/nov11_babyvisit/complilation.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              
-              <!-- Badges on Video -->
-              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
-                <span class="px-2.5 py-1 bg-[#FCC30B] text-black text-[11px] font-black rounded-full shadow-md">
-                  SDG 7 Clean Energy
-                </span>
-                <span class="px-2.5 py-1 bg-[#4C9F38] text-white text-[11px] font-black rounded-full shadow-md">
-                  SDG 3 Welfare
-                </span>
-                <span class="px-2.5 py-1 bg-black/70 backdrop-blur text-white text-[11px] font-bold rounded-full">
-                  Week 6
-                </span>
-              </div>
+          <!-- Dispatch Header Strip -->
+          <div class="px-6 py-4 bg-inverse-surface text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-mono text-[11px] font-bold uppercase tracking-wider">
+                Dispatch #06
+              </span>
+              <span class="font-mono text-xs text-white/80">
+                WED 11 NOV 2026 • OFFICIAL MINUTES & REEL
+              </span>
             </div>
-
-            <!-- Video Caption -->
-            <p class="text-xs text-on-surface-variant text-center max-w-[320px] leading-relaxed">
-              🎥 <strong>Official CDS Compilation Reel:</strong> Documenting the 11th Nov 2026 general assembly, newcomers orientation, biodigester technical review, and colleague welfare baby visit.
-            </p>
+            <div class="inline-flex items-center gap-2 font-mono text-[11px] text-primary-fixed">
+              <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+              <span>COMPILATION VIDEO (0:38 HD)</span>
+            </div>
           </div>
 
-          <!-- Right Column: Narrative Details, 8 Agendas, Photo Previews & Actions -->
-          <div class="lg:col-span-7 space-y-4">
+          <div class="p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <div class="space-y-1.5">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="px-2.5 py-0.5 rounded-full bg-[#004b24] text-white text-[10px] font-black uppercase tracking-wider">
-                  Official Record
-                </span>
-                <span class="text-xs font-bold text-primary">
-                  Egor NYSC Secretariat, Benin City
-                </span>
+            <!-- Left Column: Cinema Frame Vertical Video -->
+            <div class="lg:col-span-5 flex flex-col items-center space-y-3">
+              <div class="relative w-full max-w-[310px] aspect-[464/832] rounded-2xl overflow-hidden bg-black shadow-elevated border-2 border-on-surface/20">
+                <video
+                  controls
+                  playsinline
+                  preload="metadata"
+                  poster="/nov11_babyvisit/compilation-poster.jpg"
+                  class="w-full h-full object-cover bg-black"
+                >
+                  <source src="/nov11_babyvisit/complilation.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
+                  <span class="px-2.5 py-0.5 bg-[#FCC30B] text-black text-[10px] font-extrabold rounded font-mono uppercase">
+                    SDG 7
+                  </span>
+                  <span class="px-2.5 py-0.5 bg-[#4C9F38] text-white text-[10px] font-extrabold rounded font-mono uppercase">
+                    SDG 3
+                  </span>
+                  <span class="px-2.5 py-0.5 bg-black/75 backdrop-blur text-white text-[10px] font-mono rounded">
+                    WEEK 6
+                  </span>
+                </div>
               </div>
-              <h3 class="text-lg sm:text-2xl font-extrabold text-on-surface leading-snug">
-                Resolutions, Uwelu Market Sanitation, Colleague Baby Visit, Biodigester Repairs & Dec 5 Picnic
-              </h3>
-            </div>
-
-            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify">
-              The General Assembly convened on Wednesday, 11th November 2026 at the Egor Secretariat. Deliberations covered 8 substantive agendas: welcoming newly deployed corps members, approving Uwelu Market for environmental sanitation (SDG 11), monetizing the welfare gift for a fellow member's newborn, presenting the Financial Secretary report, launching the SDG website platform, POP honors, the biodigester repair roadmap for January 2027, and grouping members into 5 dress code colors for the December 5th annual picnic.
-            </p>
-
-            <!-- Metadata Cards Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 py-1 text-xs">
-              <div class="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/30">
-                <span class="text-on-surface-variant block text-[10px] uppercase font-bold">Date</span>
-                <span class="font-bold text-on-surface">Wed, 11 Nov 2026</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/30">
-                <span class="text-on-surface-variant block text-[10px] uppercase font-bold">Next Sanitation</span>
-                <span class="font-bold text-primary">Uwelu Market (Nov 18)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/30">
-                <span class="text-on-surface-variant block text-[10px] uppercase font-bold">Welfare Action</span>
-                <span class="font-bold text-[#4C9F38]">Monetized Gift</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/30">
-                <span class="text-on-surface-variant block text-[10px] uppercase font-bold">Picnic Date</span>
-                <span class="font-bold text-secondary">Dec 5 (5 Colors)</span>
-              </div>
-            </div>
-
-            <!-- 8 Key Agendas Summary Badges -->
-            <div class="p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 space-y-2">
-              <span class="text-[10px] font-bold text-primary uppercase tracking-wider block">
-                Adopted Meeting Agendas at a Glance
-              </span>
-              <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-on-surface">
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">1. Newcomers Welcome</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">2. Uwelu Market Sanitation</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">3. Welfare Baby Visit</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">4. Financial Report</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">5. SDG Website Launch</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">6. POP Gifts & Certs</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">7. Biodigester (Jan 2027)</span>
-                <span class="px-2 py-0.5 rounded-md bg-surface-container-high">8. Dec 5 Picnic (5 Colors)</span>
-              </div>
-            </div>
-
-            <!-- Mini Photo Plate Preview Strip (November 11 Photos) -->
-            <div class="space-y-1.5 pt-1">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-on-surface text-[11px] uppercase tracking-wider">
-                  Visual Documentation ({nov11Photos.length || 37} Plates in Archive)
-                </span>
-                <a href="/events" class="text-primary font-bold hover:underline text-[11px]">
-                  View All Photos →
-                </a>
-              </div>
-              <div class="grid grid-cols-5 gap-2">
-                {nov11Photos.slice(0, 5).map((photo, idx) => (
-                  <a
-                    key={photo.id}
-                    href="/blog/minutes-sdg-cds-meeting-nov-11-2026#photo-exhibition"
-                    class="relative aspect-4/3 rounded-lg overflow-hidden border border-outline-variant/40 hover:border-primary transition-all group/item shadow-2xs"
-                    title={`Plate #${idx + 1}`}
-                  >
-                    <img
-                      src={photo.image_url}
-                      alt={`Nov 11 Meeting Plate ${idx + 1}`}
-                      class="w-full h-full object-cover group-hover/item:scale-105 transition-transform"
-                      loading="lazy"
-                    />
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-[10px] font-bold text-white opacity-0 group-hover/item:opacity-100 transition-opacity">
-                      #{idx + 1}
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href="/blog/minutes-sdg-cds-meeting-nov-11-2026"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95"
-              >
-                <span>Read Official Minutes & Watch Video</span>
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </a>
-
-              <a
-                href="/events"
-                class="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface border border-outline-variant/40 text-xs sm:text-sm font-bold shadow-subtle transition-all"
-              >
-                <span class="material-symbols-outlined text-[18px] text-primary">photo_library</span>
-                <span>View {nov11Photos.length || 37} Photos in Gallery</span>
-              </a>
-
-              <a
-                href="/blog/ogida-market-quality-education"
-                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-on-surface-variant hover:text-primary text-xs font-semibold transition-colors"
-              >
-                <span class="material-symbols-outlined text-[16px]">history_edu</span>
-                <span>Previous Story: Ogida Market (SDG 4)</span>
-              </a>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Trending Community Ideas for Egor LGA (Dynamic Live from Supabase) -->
-    <HomeIdeasSection client:load initialIdeas={topIdeas} initialTotalCount={ideas.length || topIdeas.length} />
-
-    <!-- UN 17 SDGs Interactive Grid -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4" id="sdg-grid">
-      <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
-        <span class="text-xs font-bold text-primary uppercase tracking-wider">
-          Global Vision • Local Egor Execution
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface">
-          The 17 Sustainable Development Goals
-        </h2>
-        <p class="text-xs sm:text-sm text-on-surface-variant">
-          Every project planned at the Egor NYSC Secretariat directly maps to one or more of these global targets.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        {sdgList.map((sdg) => (
-          <div
-            style={{ backgroundColor: sdg.color }}
-            class="group relative rounded-2xl p-4 text-white transition-all hover:scale-[1.02] shadow-subtle min-h-[130px] flex flex-col justify-between"
-          >
-            <div class="flex justify-between items-start">
-              <span class="text-xl font-extrabold opacity-80 font-display">
-                {String(sdg.number).padStart(2, '0')}
-              </span>
-              <span class="material-symbols-outlined text-[18px] opacity-80">public</span>
-            </div>
-            <div>
-              <h5 class="text-xs sm:text-sm font-bold leading-tight">
-                {sdg.name}
-              </h5>
-              <p class="text-[10px] opacity-90 mt-1 line-clamp-1">
-                {sdg.shortDescription}
+              <p class="text-xs text-on-surface-variant text-center max-w-[310px] leading-relaxed">
+                <strong class="text-on-surface">Official CDS Reel:</strong> General assembly, newcomers orientation, biodigester technical review, and colleague welfare baby visit.
               </p>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
 
-    <!-- Understandable Partnership & Action Banner -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8">
-      <div class="bg-primary text-on-primary rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-card">
-        <div class="space-y-2 max-w-xl text-center md:text-left">
-          <span class="inline-block px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-extrabold rounded-full">
-            Egor Community Partnership
-          </span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold leading-tight">
-            Want to Collaborate with Egor SDG CDS?
-          </h3>
-          <p class="text-xs sm:text-sm text-primary-fixed leading-relaxed">
-            Whether you represent a local school, business, or you are a serving corps member in Egor LGA, join our Wednesday meeting at the Egor NYSC Secretariat.
+            <!-- Right Column: Editorial Narrative & 8-Point Agenda Ledger -->
+            <div class="lg:col-span-7 space-y-5">
+              <div class="space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight leading-tight">
+                  Uwelu Market Sanitation, Biodigester Roadmap & Welfare Visit
+                </h2>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                  Convened at the Egor NYSC Secretariat on Wednesday, 11th November 2026. Deliberations covered 8 substantive resolutions—from environmental sanitation at Uwelu Market (SDG 11) to the January 2027 biodigester repair roadmap and launching this public digital ledger.
+                </p>
+              </div>
+
+              <!-- 4-Cell Key Facts Strip -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Session Date</span>
+                  <span class="font-bold text-on-surface mt-0.5 block">11 Nov 2026</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Sanitation</span>
+                  <span class="font-bold text-primary mt-0.5 block">Uwelu Market</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Welfare</span>
+                  <span class="font-bold text-on-surface mt-0.5 block">Monetized Gift</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Annual Picnic</span>
+                  <span class="font-bold text-secondary mt-0.5 block">Dec 5 (5 Colors)</span>
+                </div>
+              </div>
+
+              <!-- 8-Point Agenda Index -->
+              <div class="p-4 rounded-xl bg-surface border border-on-surface/10 space-y-2.5">
+                <span class="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block">
+                  Adopted Meeting Agendas (01 — 08)
+                </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-semibold text-on-surface">
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">01</span><span>Newcomers Orientation</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">02</span><span>Uwelu Market Sanitation</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">03</span><span>Welfare Baby Visit</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">04</span><span>Financial Secretary Report</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">05</span><span>SDG Website Launch</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">06</span><span>POP Gifts & Certificates</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">07</span><span>Biodigester (Jan 2027)</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">08</span><span>Dec 5 Picnic Grouping</span></div>
+                </div>
+              </div>
+
+              <!-- Contact Sheet Photo Preview Strip -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-mono text-[11px] font-bold text-on-surface uppercase tracking-wider">
+                    Contact Sheet ({nov11Photos.length || 37} Plates)
+                  </span>
+                  <a href="/events" class="text-primary font-bold hover:underline text-xs">
+                    Open Full Archive →
+                  </a>
+                </div>
+                <div class="grid grid-cols-5 gap-2">
+                  {nov11Photos.slice(0, 5).map((photo, idx) => (
+                    <a
+                      key={photo.id}
+                      href="/blog/minutes-sdg-cds-meeting-nov-11-2026#photo-exhibition"
+                      class="relative aspect-4/3 rounded-lg overflow-hidden border border-on-surface/15 hover:border-primary transition-all group/item"
+                      title={`Plate #${idx + 1}`}
+                    >
+                      <img
+                        src={photo.image_url}
+                        alt={`Nov 11 Meeting Plate ${idx + 1}`}
+                        class="w-full h-full object-cover group-hover/item:scale-105 transition-transform"
+                        loading="lazy"
+                      />
+                      <div class="absolute bottom-1 right-1 px-1 py-0.5 bg-black/70 text-[9px] font-mono font-bold text-white rounded">
+                        #{String(idx + 1).padStart(2, '0')}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="pt-1 flex flex-wrap items-center gap-3">
+                <a
+                  href="/blog/minutes-sdg-cds-meeting-nov-11-2026"
+                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs sm:text-sm font-bold shadow-subtle transition-all active:scale-95"
+                >
+                  <span>Read Full Official Minutes</span>
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </a>
+                <a
+                  href="/events"
+                  class="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface border border-on-surface/15 text-xs sm:text-sm font-bold transition-all"
+                >
+                  <span class="material-symbols-outlined text-[18px] text-primary">photo_library</span>
+                  <span>Gallery ({nov11Photos.length || 37})</span>
+                </a>
+                <a
+                  href="/blog/ogida-market-quality-education"
+                  class="inline-flex items-center gap-1.5 px-3 py-2 text-on-surface-variant hover:text-primary text-xs font-semibold transition-colors"
+                >
+                  <span class="material-symbols-outlined text-[16px]">history_edu</span>
+                  <span>Ogida Market (SDG 4)</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trending Community Ideas for Egor LGA -->
+      <HomeIdeasSection client:load initialIdeas={topIdeas} initialTotalCount={ideas.length || topIdeas.length} />
+
+      <!-- UN 17 SDGs Architectural Matrix -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" id="sdg-grid">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-on-surface/12">
+          <div class="space-y-1.5">
+            <span class="font-mono text-[11px] font-bold text-primary uppercase tracking-widest">
+              UN 2030 Agenda • Local Egor Mandate
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-on-surface tracking-tight">
+              The 17 Sustainable <span class="font-serif italic font-normal text-primary">Development Goals</span>
+            </h2>
+          </div>
+          <p class="text-xs sm:text-sm text-on-surface-variant max-w-md">
+            Every project planned at the Egor NYSC Secretariat is mapped directly to one or more of these 17 global targets.
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
-          <a
-            href="/partner"
-            class="text-center px-6 py-3 bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-bold text-xs sm:text-sm rounded-xl shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5"
-          >
-            <span class="material-symbols-outlined text-[18px]">handshake</span>
-            <span>Partner / CSR</span>
-          </a>
-          <a
-            href="/ideas#drop"
-            class="text-center px-5 py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-white/20 active:scale-95"
-          >
-            Submit an Idea
-          </a>
-          <a
-            href="/admin"
-            class="text-center px-4 py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-white/20 active:scale-95"
-          >
-            Login 🔒
-          </a>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          {sdgList.map((sdg) => (
+            <div
+              style={{ backgroundColor: sdg.color }}
+              class="group relative rounded-xl p-4 text-white transition-all hover:-translate-y-1 shadow-subtle hover:shadow-card min-h-[132px] flex flex-col justify-between overflow-hidden"
+            >
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xl font-extrabold opacity-90 tracking-tighter">
+                  {String(sdg.number).padStart(2, '0')}
+                </span>
+                <span class="font-mono text-[9px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-black/20">
+                  SDG
+                </span>
+              </div>
+              <div class="pt-3">
+                <h3 class="text-xs sm:text-sm font-extrabold leading-tight">
+                  {sdg.name}
+                </h3>
+                <p class="text-[10px] opacity-85 mt-1 line-clamp-1">
+                  {sdg.shortDescription}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- High-Contrast Partnership & CSR Callout -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-inverse-surface text-inverse-on-surface rounded-2xl overflow-hidden border border-white/10 shadow-elevated">
+          <SdgSpectrumBar heightClass="h-1" />
+          <div class="p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div class="space-y-3 max-w-2xl">
+              <span class="inline-block px-3 py-1 bg-secondary-container text-on-secondary-container font-mono text-[11px] font-bold uppercase tracking-wider rounded">
+                0% Overhead • 100% Grassroots Delivery
+              </span>
+              <h3 class="text-2xl sm:text-4xl font-extrabold leading-tight text-white">
+                Co-Sponsor Verified <span class="font-serif italic font-normal text-secondary-container">Impact</span> in Egor LGA
+              </h3>
+              <p class="text-xs sm:text-sm text-white/75 leading-relaxed">
+                Serving corps members provide 100% of volunteer labor. Corporate CSR partners, NGOs, and philanthropists fund physical materials with full photographic closeout and LGI oversight.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full lg:w-auto">
+              <a
+                href="/partner"
+                class="text-center px-6 py-3.5 bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-extrabold text-xs sm:text-sm rounded-xl shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2"
+              >
+                <span class="material-symbols-outlined text-[18px]">handshake</span>
+                <span>Partner / CSR Gateway</span>
+              </a>
+              <a
+                href="/ideas#drop"
+                class="text-center px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm rounded-xl transition-all border border-white/20"
+              >
+                Submit an Idea
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
 
   </div>
 </Layout>

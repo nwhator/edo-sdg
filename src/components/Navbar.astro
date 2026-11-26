@@ -1,5 +1,6 @@
 ---
-// Navigation Links with dropdown sub-links
+import SdgSpectrumBar from './SdgSpectrumBar.astro';
+
 const navItems = [
   {
     title: "Home",
@@ -10,7 +11,7 @@ const navItems = [
     href: "/events",
     subLinks: [
       { title: "Community Outreaches", href: "/events", desc: "Outreach events and photo archives" },
-      { title: "Ogida Market Sensitization", href: "/events#evt-ogida-education-sensitization", desc: "SDG 4 outreach & 28 photo plates" },
+      { title: "Ogida Market Sensitization", href: "/events#evt-ogida-education-sensitization", desc: "SDG 4 outreach & photo plates" },
     ]
   },
   {
@@ -63,28 +64,30 @@ const navItems = [
 const pathname = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-surface-container shadow-subtle print:hidden no-print">
+<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-on-surface/10 print:hidden no-print">
+  <SdgSpectrumBar heightClass="h-[3px]" />
   <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
     
     <!-- Brand Identity -->
     <a href="/" class="flex items-center gap-3 group shrink-0">
-      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-extrabold shadow-sm ring-2 ring-secondary-container transition-transform group-hover:scale-105">
-        <span class="font-display text-base tracking-tight">SDG</span>
+      <div class="relative w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-extrabold shadow-subtle border border-secondary-container/70 transition-transform group-hover:-translate-y-0.5">
+        <span class="font-display text-sm tracking-tighter">SDG</span>
+        <span class="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-secondary-container border-2 border-surface"></span>
       </div>
       <div class="flex flex-col">
-        <span class="font-headline-sm text-sm sm:text-base text-primary font-bold leading-tight group-hover:text-primary-container transition-colors">
+        <span class="font-display text-sm sm:text-[15px] text-on-surface font-extrabold tracking-tight leading-tight group-hover:text-primary transition-colors">
           NYSC Egor SDG CDS
         </span>
-        <span class="font-label-sm text-[11px] text-on-surface-variant font-medium flex items-center gap-1">
-          <span>Egor NYSC Secretariat</span>
+        <span class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+          <span>Edo State</span>
           <span class="text-secondary">•</span>
-          <span class="text-secondary font-semibold">2030 Agenda</span>
+          <span class="text-primary font-bold">2030 Agenda</span>
         </span>
       </div>
     </a>
 
-    <!-- Desktop Navigation: EXACTLY 4 MAIN LINKS -->
-    <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1">
       {navItems.map((item) => {
         const isActive = item.href === '/' 
           ? pathname === '/' 
@@ -94,18 +97,18 @@ const pathname = Astro.url.pathname;
           <div class="relative group">
             <a
               href={item.href}
-              class={`flex items-center gap-1 px-3 py-2 rounded-lg font-label-md text-sm transition-colors ${
+              class={`flex items-center gap-1 px-3 py-2 rounded-lg text-[13px] transition-all ${
                 isActive
-                  ? 'bg-surface-container text-primary font-bold'
-                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 font-semibold'
+                  ? 'bg-primary text-on-primary font-bold shadow-subtle'
+                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-semibold'
               }`}
             >
               <span>{item.title}</span>
               {item.isProtected && (
-                <span class="material-symbols-outlined text-[15px] text-secondary">lock</span>
+                <span class={`material-symbols-outlined text-[14px] ${isActive ? 'text-secondary-container' : 'text-secondary'}`}>lock</span>
               )}
               {item.subLinks && (
-                <span class="material-symbols-outlined text-[18px] text-outline group-hover:text-primary transition-transform duration-200 group-hover:rotate-180">
+                <span class={`material-symbols-outlined text-[16px] transition-transform duration-200 group-hover:rotate-180 ${isActive ? 'text-on-primary/80' : 'text-outline'}`}>
                   expand_more
                 </span>
               )}
@@ -113,17 +116,18 @@ const pathname = Astro.url.pathname;
 
             {/* Dropdown Sub-links */}
             {item.subLinks && (
-              <div class="absolute left-0 mt-1 w-64 p-2 bg-surface-container-lowest rounded-xl shadow-card border border-surface-container opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                <div class="space-y-1">
+              <div class="absolute left-0 mt-1.5 w-68 p-2 bg-surface-container-lowest rounded-xl shadow-elevated border border-on-surface/10 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                <div class="space-y-0.5">
                   {item.subLinks.map((sub) => (
                     <a
                       href={sub.href}
                       class="block px-3 py-2 rounded-lg hover:bg-surface-container-low transition-colors group/sub"
                     >
-                      <div class="font-label-md text-xs font-bold text-on-surface group-hover/sub:text-primary">
-                        {sub.title}
+                      <div class="text-xs font-bold text-on-surface group-hover/sub:text-primary flex items-center justify-between">
+                        <span>{sub.title}</span>
+                        <span class="material-symbols-outlined text-[14px] opacity-0 group-hover/sub:opacity-100 transition-opacity text-primary">arrow_forward</span>
                       </div>
-                      <div class="font-body-sm text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">
+                      <div class="text-[11px] text-on-surface-variant line-clamp-1 mt-0.5">
                         {sub.desc}
                       </div>
                     </a>
@@ -136,54 +140,54 @@ const pathname = Astro.url.pathname;
       })}
     </nav>
 
-    <!-- Header Actions / Understandable CTAs -->
-    <div class="flex items-center gap-2 sm:gap-3">
+    <!-- Header Actions -->
+    <div class="flex items-center gap-2">
       <a
         href="/ideas#drop"
-        class="hidden lg:inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs sm:text-sm font-bold shadow-sm active:scale-95 transition-all"
+        class="hidden lg:inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-lg bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container text-xs font-extrabold tracking-tight shadow-subtle active:scale-95 transition-all border border-secondary/20"
       >
-        <span class="material-symbols-outlined text-[18px]">lightbulb</span>
-        <span>Submit an Idea</span>
+        <span class="material-symbols-outlined text-[16px]">lightbulb</span>
+        <span>Submit Idea</span>
       </a>
 
       <a
         href="/admin"
-        class="hidden lg:inline-flex items-center justify-center gap-1.5 h-10 px-3 rounded-xl border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container text-on-surface text-xs font-bold transition-all shadow-subtle"
+        class="hidden lg:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-lg border border-on-surface/15 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface text-xs font-bold transition-all"
         title="Restricted SDG Executive Portal"
       >
-        <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
-        <span>Login</span>
+        <span class="material-symbols-outlined text-[15px] text-primary">lock</span>
+        <span>Portal</span>
       </a>
 
       <!-- Mobile Menu Toggle Button -->
       <button
         id="mobile-menu-button"
         type="button"
-        class="lg:hidden p-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container focus:outline-hidden"
+        class="lg:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container-low border border-on-surface/10 focus:outline-hidden"
         aria-label="Toggle navigation menu"
       >
-        <span class="material-symbols-outlined text-[26px]">menu</span>
+        <span class="material-symbols-outlined text-[24px]">menu</span>
       </button>
     </div>
 
   </div>
 
   <!-- Mobile Drawer Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-container bg-surface/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-3 shadow-lg">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-on-surface/10 bg-surface/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-3 shadow-elevated max-h-[82vh] overflow-y-auto">
     {navItems.map((item) => (
       <div class="space-y-1">
         <a
           href={item.href}
-          class="block px-3 py-2 rounded-lg font-headline-sm text-sm font-bold text-on-surface hover:text-primary hover:bg-surface-container-low"
+          class="block px-3 py-2 rounded-lg font-display text-sm font-bold text-on-surface hover:text-primary hover:bg-surface-container-low"
         >
           {item.title} {item.isProtected && '🔒'}
         </a>
         {item.subLinks && (
-          <div class="pl-4 space-y-1 border-l-2 border-surface-container ml-3">
+          <div class="pl-4 space-y-1 border-l-2 border-primary/20 ml-3">
             {item.subLinks.map((sub) => (
               <a
                 href={sub.href}
-                class="block px-2 py-1.5 font-body-sm text-xs text-on-surface-variant hover:text-primary"
+                class="block px-2 py-1.5 text-xs text-on-surface-variant hover:text-primary font-medium"
               >
                 {sub.title}
               </a>
@@ -194,20 +198,20 @@ const pathname = Astro.url.pathname;
     ))}
 
     <!-- Mobile CTAs inside dropdown -->
-    <div class="pt-3 mt-2 border-t border-surface-container flex flex-col gap-2.5">
+    <div class="pt-3 mt-2 border-t border-on-surface/10 flex flex-col gap-2.5">
       <a
         href="/ideas#drop"
-        class="w-full text-center py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-sm font-bold shadow-sm flex items-center justify-center gap-2 active:scale-98 transition-all"
+        class="w-full text-center py-3 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary text-sm font-bold shadow-subtle flex items-center justify-center gap-2 transition-all"
       >
         <span class="material-symbols-outlined text-[18px]">lightbulb</span>
         <span>Submit an Idea</span>
       </a>
       <a
         href="/admin"
-        class="w-full text-center py-2.5 px-4 rounded-xl border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-sm font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all"
+        class="w-full text-center py-2.5 px-4 rounded-lg border border-on-surface/15 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface text-sm font-semibold flex items-center justify-center gap-2 transition-all"
       >
-        <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
-        <span>Login</span>
+        <span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+        <span>Executive Portal Login</span>
       </a>
     </div>
   </div>
