@@ -217,7 +217,67 @@ const OGIDA_PHOTO_FILENAMES = [
   '38.jpg',
 ];
 
+const UWELU_PHOTO_FILENAMES = [
+  '001.jpg',
+  '002.jpg',
+  '003.jpg',
+  'photo_1_2026-11-26_08-31-58.jpg',
+  'photo_2_2026-11-26_08-31-58.jpg',
+  'photo_5_2026-11-26_08-31-58.jpg',
+  'photo_6_2026-11-26_08-31-58.jpg',
+  'photo_7_2026-11-26_08-31-58.jpg',
+  'photo_8_2026-11-26_08-31-58.jpg',
+  'photo_9_2026-11-26_08-31-58.jpg',
+  'photo_10_2026-11-26_08-31-58.jpg',
+  'photo_11_2026-11-26_08-31-58.jpg',
+  'photo_12_2026-11-26_08-31-58.jpg',
+  'photo_13_2026-11-26_08-31-58.jpg',
+  'photo_14_2026-11-26_08-31-58.jpg',
+  'photo_15_2026-11-26_08-31-58.jpg',
+  'photo_16_2026-11-26_08-31-58.jpg',
+  'photo_17_2026-11-26_08-31-58.jpg',
+  'photo_18_2026-11-26_08-31-58.jpg',
+  'photo_19_2026-11-26_08-31-58.jpg',
+  'photo_20_2026-11-26_08-31-58.jpg',
+  'photo_21_2026-11-26_08-31-58.jpg',
+  'photo_22_2026-11-26_08-31-58.jpg',
+  'photo_23_2026-11-26_08-31-58.jpg',
+  'photo_24_2026-11-26_08-31-58.jpg',
+  'photo_25_2026-11-26_08-31-58.jpg',
+  'photo_26_2026-11-26_08-31-58.jpg',
+  'photo_28_2026-11-26_08-31-58.jpg',
+  'photo_29_2026-11-26_08-31-58.jpg',
+  'photo_30_2026-11-26_08-31-58.jpg',
+  'photo_31_2026-11-26_08-31-58.jpg',
+  'photo_32_2026-11-26_08-31-58.jpg',
+];
+
 export const INITIAL_EVENTS: Event[] = [
+  {
+    id: 'evt-uwelu-market-sanitation-sdg6',
+    title: 'Promoting Clean Water and Sanitation Through Community Action: Environmental Sanitation at Uwelu Market',
+    event_date: '2026-11-25',
+    event_time: '8:00 AM - 12:00 PM',
+    location: 'Uwelu Market, near Water Road, Uwasota Road, Edo State',
+    week: 'Week 8',
+    quarter: '4th Quarter',
+    sdg_goals: [6, 11, 3],
+    photos_count: 32,
+    beneficiaries_reached: 'Traders, Shoppers & Residents around Uwelu Market, Water Road & Uwasota Road',
+    corps_members_present: 'Edo State NYSC SDG CDS Volunteers, Project Manager & Executive Council',
+    materials_distributed: 'Heavy-Duty Refuse Bags (>10 bags evacuated), Sanitation Tools & Public Health Sensitization',
+    sustainability: 'Consistent awareness, collective responsibility, and sustained community participation in public market hygiene.',
+    activities: 'Environmental cleaning of allocated Uwelu Market section, roadside sanitation, collection and evacuation of over 10 bags of waste, community sensitization on responsible waste disposal, and public health awareness on preventing waterborne diseases (SDG 6).',
+    aims: [
+      'To promote Sustainable Development Goal 6 (Clean Water and Sanitation) by protecting water sources and preventing environmental pollution.',
+      'To clean an allocated section of Uwelu Market and surrounding roadside areas near Water Road and Uwasota Road.',
+      'To collect and evacuate more than 10 bags of accumulated market waste.',
+      'To sensitize traders, residents, and market users on personal hygiene, proper waste disposal, and collective environmental responsibility.'
+    ],
+    description: `In a continued effort to promote environmental sustainability and improve public health, members of the Edo State NYSC Sustainable Development Goals (SDG) CDS Group carried out a community sensitization and environmental sanitation exercise at Uwelu Market, near Water Road, Uwasota Road, Edo State on Wednesday, 25 November 2026.`,
+    cover_image: '/uwelu_market/001.jpg',
+    created_at: '2026-11-25T09:00:00Z',
+  },
   {
     id: 'evt-nov11-weekly-meeting-biodigester-babyvisit',
     title: 'Minutes of the SDG CDS Meeting (Nov 11, 2026): Uwelu Sanitation, Biodigester Repairs & Baby Visit',
@@ -321,6 +381,14 @@ const NOV11_PHOTO_ITEMS: { filename: string; caption: string; category: string }
 ];
 
 export const INITIAL_PHOTOS: EventPhoto[] = [
+  ...UWELU_PHOTO_FILENAMES.map((filename, idx) => ({
+    id: `uwelu-photo-${idx + 1}`,
+    event_id: 'evt-uwelu-market-sanitation-sdg6',
+    image_url: `/uwelu_market/${filename}`,
+    caption: `Uwelu Market SDG 6 Environmental Sanitation Plate #${String(idx + 1).padStart(3, '0')} — NYSC Edo SDG Volunteers near Water Road & Uwasota Road`,
+    display_order: idx + 1,
+    created_at: '2026-11-25T09:00:00Z',
+  })),
   ...OGIDA_PHOTO_FILENAMES.map((filename, idx) => ({
     id: `ogida-photo-${idx + 1}`,
     event_id: 'evt-ogida-education-sensitization',

@@ -113,18 +113,18 @@ Website: https://edo-sdg.vercel.app/partner`;
 
   const handleWhatsAppContact = () => {
     const text = encodeURIComponent(
-      `Hello NYSC Egor SDG CDS Executive Council, my organization (${donorCompany || 'Corporate Partner'}) is interested in co-sponsoring a ${formatNaira(
+      `Hello NYSC Egor SDG CDS Project Manager, my organization (${donorCompany || 'Corporate Partner'}) is interested in co-sponsoring a ${formatNaira(
         budget
       )} community project in Egor LGA. Let us discuss modalities.`
     );
-    window.open(`https://api.whatsapp.com/send?phone=2348000000000&text=${text}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=2347048812719&text=${text}`, '_blank');
   };
 
   const handleInKindPledge = () => {
     const text = encodeURIComponent(
-      `Hello NYSC Egor SDG CDS Executive, I want to pledge in-kind material donation (${inKindCategory}) to support SDG community outreach at Egor NYSC Secretariat.`
+      `Hello NYSC Egor SDG CDS Project Manager, I want to pledge in-kind material donation (${inKindCategory}) to support SDG community outreach at Egor NYSC Secretariat.`
     );
-    window.open(`https://api.whatsapp.com/send?phone=2348000000000&text=${text}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=2347048812719&text=${text}`, '_blank');
   };
 
   return (

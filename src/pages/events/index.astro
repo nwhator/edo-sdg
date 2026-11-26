@@ -6,9 +6,11 @@ import { fetchEvents } from '../../lib/supabase';
 const { events, photos } = await fetchEvents();
 const latestEvent = events[0];
 const latestPhotos = photos.filter((p) => p.event_id === latestEvent?.id);
-const latestBlogSlug = latestEvent?.id === 'evt-nov11-weekly-meeting-biodigester-babyvisit'
-  ? 'minutes-sdg-cds-meeting-nov-11-2026'
-  : 'ogida-market-quality-education';
+const latestBlogSlug = latestEvent?.id === 'evt-uwelu-market-sanitation-sdg6'
+  ? 'uwelu-market-environmental-sanitation-sdg-6'
+  : latestEvent?.id === 'evt-nov11-weekly-meeting-biodigester-babyvisit'
+    ? 'minutes-sdg-cds-meeting-nov-11-2026'
+    : 'ogida-market-quality-education';
 ---
 
 <Layout
@@ -56,7 +58,7 @@ const latestBlogSlug = latestEvent?.id === 'evt-nov11-weekly-meeting-biodigester
                 {latestEvent.week || 'Week 6'} • {latestEvent.quarter || '4th Quarter'}
               </span>
               <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-[11px] font-bold">
-                {latestEvent.event_date === '2026-11-11' ? 'Wednesday, 11th Nov 2026' : 'Wednesday, 21st Oct 2026'}
+                {latestEvent.event_date === '2026-11-25' ? 'Wednesday, 25th Nov 2026' : latestEvent.event_date === '2026-11-11' ? 'Wednesday, 11th Nov 2026' : 'Wednesday, 21st Oct 2026'}
               </span>
             </div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface">

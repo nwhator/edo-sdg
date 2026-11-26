@@ -9,8 +9,8 @@ import SdgSpectrumBar from '../components/SdgSpectrumBar.astro';
 const ideas = await fetchIdeas();
 const partners = await fetchFundingPartners();
 const { events, photos } = await fetchEvents();
-const nov11Event = events.find((e) => e.id === 'evt-nov11-weekly-meeting-biodigester-babyvisit') || events[0];
-const nov11Photos = photos.filter((p) => p.event_id === nov11Event?.id || p.image_url.includes('nov11_babyvisit'));
+const uweluEvent = events.find((e) => e.id === 'evt-uwelu-market-sanitation-sdg6') || events[0];
+const uweluPhotos = photos.filter((p) => p.event_id === uweluEvent?.id || p.image_url.includes('uwelu_market'));
 const topIdeas = [...ideas].sort((a, b) => ((b.upvotes_count || 0) - (a.upvotes_count || 0)) || (new Date(b.created_at).getTime() - new Date(a.created_at).getTime())).slice(0, 6);
 const sdgList = Object.values(SDG_METADATA);
 ---
@@ -168,23 +168,23 @@ const sdgList = Object.values(SDG_METADATA);
     <!-- Main Content Flow -->
     <div class="flex flex-col w-full space-y-14 md:space-y-20 py-12 md:py-16">
 
-      <!-- Featured Latest Field Dispatch & Compilation Video (Nov 11, 2026) -->
+      <!-- Featured Latest Field Dispatch & Video (Uwelu Market SDG 6 - Nov 25, 2026) -->
       <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="bg-surface-container-lowest rounded-2xl border border-on-surface/15 shadow-card overflow-hidden">
           
           <!-- Dispatch Header Strip -->
           <div class="px-6 py-4 bg-inverse-surface text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-              <span class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-mono text-[11px] font-bold uppercase tracking-wider">
-                Dispatch #06
+              <span class="px-2.5 py-1 rounded bg-[#26BDE2] text-white font-mono text-[11px] font-bold uppercase tracking-wider">
+                Dispatch #08 • SDG 6
               </span>
               <span class="font-mono text-xs text-white/80">
-                WED 11 NOV 2026 • OFFICIAL MINUTES & REEL
+                WED 25 NOV 2026 • UWELU MARKET SANITATION
               </span>
             </div>
             <div class="inline-flex items-center gap-2 font-mono text-[11px] text-primary-fixed">
               <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
-              <span>COMPILATION VIDEO (0:38 HD)</span>
+              <span>FIELD VIDEO & 32 PLATES</span>
             </div>
           </div>
 
@@ -192,109 +192,106 @@ const sdgList = Object.values(SDG_METADATA);
             
             <!-- Left Column: Cinema Frame Vertical Video -->
             <div class="lg:col-span-5 flex flex-col items-center space-y-3">
-              <div class="relative w-full max-w-[310px] aspect-[464/832] rounded-2xl overflow-hidden bg-black shadow-elevated border-2 border-on-surface/20">
+              <div class="relative w-full max-w-[310px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-elevated border-2 border-on-surface/20">
                 <video
                   controls
                   playsinline
                   preload="metadata"
-                  poster="/nov11_babyvisit/compilation-poster.jpg"
+                  poster="/uwelu_market/001.jpg"
                   class="w-full h-full object-cover bg-black"
                 >
-                  <source src="/nov11_babyvisit/complilation.mp4" type="video/mp4" />
+                  <source src="/uwelu_market/uwelu_video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 
                 <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
-                  <span class="px-2.5 py-0.5 bg-[#FCC30B] text-black text-[10px] font-extrabold rounded font-mono uppercase">
-                    SDG 7
+                  <span class="px-2.5 py-0.5 bg-[#26BDE2] text-white text-[10px] font-extrabold rounded font-mono uppercase">
+                    SDG 6
                   </span>
-                  <span class="px-2.5 py-0.5 bg-[#4C9F38] text-white text-[10px] font-extrabold rounded font-mono uppercase">
-                    SDG 3
+                  <span class="px-2.5 py-0.5 bg-[#FD9D24] text-white text-[10px] font-extrabold rounded font-mono uppercase">
+                    SDG 11
                   </span>
                   <span class="px-2.5 py-0.5 bg-black/75 backdrop-blur text-white text-[10px] font-mono rounded">
-                    WEEK 6
+                    WEEK 8
                   </span>
                 </div>
               </div>
               <p class="text-xs text-on-surface-variant text-center max-w-[310px] leading-relaxed">
-                <strong class="text-on-surface">Official CDS Reel:</strong> General assembly, newcomers orientation, biodigester technical review, and colleague welfare baby visit.
+                <strong class="text-on-surface">Field Action Reel:</strong> Edo State NYSC SDG volunteers carrying out environmental sanitation & sensitization at Uwelu Market.
               </p>
             </div>
 
-            <!-- Right Column: Editorial Narrative & 8-Point Agenda Ledger -->
+            <!-- Right Column: Editorial Narrative & Outcomes -->
             <div class="lg:col-span-7 space-y-5">
               <div class="space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight leading-tight">
-                  Uwelu Market Sanitation, Biodigester Roadmap & Welfare Visit
+                  Promoting Clean Water & Sanitation Through Community Action at Uwelu Market
                 </h2>
                 <p class="text-sm text-on-surface-variant leading-relaxed">
-                  Convened at the Egor NYSC Secretariat on Wednesday, 11th November 2026. Deliberations covered 8 substantive resolutions—from environmental sanitation at Uwelu Market (SDG 11) to the January 2027 biodigester repair roadmap and launching this public digital ledger.
+                  On Wednesday, 25 November 2026, Edo State NYSC SDG CDS volunteers mobilized at Uwelu Market, near Water Road and Uwasota Road, Edo State—cleaning market sections, sanitizing roadsides, evacuating over 10 bags of waste, and sensitizing traders on SDG 6 and public health.
                 </p>
               </div>
 
               <!-- 4-Cell Key Facts Strip -->
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
                 <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
-                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Session Date</span>
-                  <span class="font-bold text-on-surface mt-0.5 block">11 Nov 2026</span>
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Exercise Date</span>
+                  <span class="font-bold text-on-surface mt-0.5 block">25 Nov 2026</span>
                 </div>
                 <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
-                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Sanitation</span>
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Location</span>
                   <span class="font-bold text-primary mt-0.5 block">Uwelu Market</span>
                 </div>
                 <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
-                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Welfare</span>
-                  <span class="font-bold text-on-surface mt-0.5 block">Monetized Gift</span>
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Waste Cleared</span>
+                  <span class="font-bold text-on-surface mt-0.5 block">10+ Bags</span>
                 </div>
                 <div class="p-3 rounded-xl bg-surface-container-low border border-on-surface/10">
-                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Annual Picnic</span>
-                  <span class="font-bold text-secondary mt-0.5 block">Dec 5 (5 Colors)</span>
+                  <span class="font-mono text-[10px] text-on-surface-variant uppercase block">Primary Focus</span>
+                  <span class="font-bold text-[#0A97D9] mt-0.5 block">SDG 6 (WASH)</span>
                 </div>
               </div>
 
-              <!-- 8-Point Agenda Index -->
+              <!-- 5 Key Activities -->
               <div class="p-4 rounded-xl bg-surface border border-on-surface/10 space-y-2.5">
                 <span class="font-mono text-[10px] font-bold text-primary uppercase tracking-widest block">
-                  Adopted Meeting Agendas (01 — 08)
+                  Field Activities & Community Engagement (09:00 AM Kickoff)
                 </span>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-semibold text-on-surface">
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">01</span><span>Newcomers Orientation</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">02</span><span>Uwelu Market Sanitation</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">03</span><span>Welfare Baby Visit</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">04</span><span>Financial Secretary Report</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">05</span><span>SDG Website Launch</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">06</span><span>POP Gifts & Certificates</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">07</span><span>Biodigester (Jan 2027)</span></div>
-                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">08</span><span>Dec 5 Picnic Grouping</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">01</span><span>Environmental Market Cleaning</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">02</span><span>Roadside Sanitation (Water Rd)</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">03</span><span>10+ Bags Waste Evacuated</span></div>
+                  <div class="flex items-center gap-2"><span class="font-mono text-[10px] text-primary">04</span><span>Trader Hygiene Sensitization</span></div>
+                  <div class="flex items-center gap-2 sm:col-span-2"><span class="font-mono text-[10px] text-primary">05</span><span>Public Health & Waterborne Disease Prevention</span></div>
                 </div>
               </div>
 
-              <!-- Contact Sheet Photo Preview Strip -->
+              <!-- Contact Sheet Photo Preview Strip (001, 002, 003 + next 2) -->
               <div class="space-y-2">
                 <div class="flex items-center justify-between text-xs">
                   <span class="font-mono text-[11px] font-bold text-on-surface uppercase tracking-wider">
-                    Contact Sheet ({nov11Photos.length || 37} Plates)
+                    Contact Sheet ({uweluPhotos.length || 32} Plates • 001–003 Lead)
                   </span>
                   <a href="/events" class="text-primary font-bold hover:underline text-xs">
                     Open Full Archive →
                   </a>
                 </div>
                 <div class="grid grid-cols-5 gap-2">
-                  {nov11Photos.slice(0, 5).map((photo, idx) => (
+                  {uweluPhotos.slice(0, 5).map((photo, idx) => (
                     <a
                       key={photo.id}
-                      href="/blog/minutes-sdg-cds-meeting-nov-11-2026#photo-exhibition"
+                      href="/blog/uwelu-market-environmental-sanitation-sdg-6#photo-gallery"
                       class="relative aspect-4/3 rounded-lg overflow-hidden border border-on-surface/15 hover:border-primary transition-all group/item"
-                      title={`Plate #${idx + 1}`}
+                      title={`Plate #${String(idx + 1).padStart(3, '0')}`}
                     >
                       <img
                         src={photo.image_url}
-                        alt={`Nov 11 Meeting Plate ${idx + 1}`}
+                        alt={`Uwelu Market Sanitation Plate ${idx + 1}`}
                         class="w-full h-full object-cover group-hover/item:scale-105 transition-transform"
                         loading="lazy"
                       />
                       <div class="absolute bottom-1 right-1 px-1 py-0.5 bg-black/70 text-[9px] font-mono font-bold text-white rounded">
-                        #{String(idx + 1).padStart(2, '0')}
+                        #{String(idx + 1).padStart(3, '0')}
                       </div>
                     </a>
                   ))}
@@ -304,10 +301,10 @@ const sdgList = Object.values(SDG_METADATA);
               <!-- Action Buttons -->
               <div class="pt-1 flex flex-wrap items-center gap-3">
                 <a
-                  href="/blog/minutes-sdg-cds-meeting-nov-11-2026"
+                  href="/blog/uwelu-market-environmental-sanitation-sdg-6"
                   class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs sm:text-sm font-bold shadow-subtle transition-all active:scale-95"
                 >
-                  <span>Read Full Official Minutes</span>
+                  <span>Read Full Uwelu Market Report</span>
                   <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>
                 <a
@@ -315,14 +312,14 @@ const sdgList = Object.values(SDG_METADATA);
                   class="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface border border-on-surface/15 text-xs sm:text-sm font-bold transition-all"
                 >
                   <span class="material-symbols-outlined text-[18px] text-primary">photo_library</span>
-                  <span>Gallery ({nov11Photos.length || 37})</span>
+                  <span>Gallery ({uweluPhotos.length || 32})</span>
                 </a>
                 <a
-                  href="/blog/ogida-market-quality-education"
+                  href="/blog/minutes-sdg-cds-meeting-nov-11-2026"
                   class="inline-flex items-center gap-1.5 px-3 py-2 text-on-surface-variant hover:text-primary text-xs font-semibold transition-colors"
                 >
                   <span class="material-symbols-outlined text-[16px]">history_edu</span>
-                  <span>Ogida Market (SDG 4)</span>
+                  <span>Nov 11 Meeting Minutes</span>
                 </a>
               </div>
 

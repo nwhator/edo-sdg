@@ -1,0 +1,420 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchEvents } from '../../lib/supabase';
+import { BlogPhotoGrid } from '../../components/blog/BlogPhotoGrid';
+
+const { photos } = await fetchEvents();
+const uweluPhotos = photos.filter(
+  (p) => p.event_id === 'evt-uwelu-market-sanitation-sdg6' || p.image_url.includes('uwelu_market')
+);
+
+const highlightPhotos = uweluPhotos.slice(0, 3); // 001.jpg, 002.jpg, 003.jpg
+const galleryPhotos = uweluPhotos.slice(3); // photo_1..photo_32
+
+const siteUrl = 'https://edo-sdg.vercel.app';
+const articleUrl = `${siteUrl}/blog/uwelu-market-environmental-sanitation-sdg-6`;
+const videoUrl = `${siteUrl}/uwelu_market/uwelu_video.mp4`;
+const coverUrl = `${siteUrl}/uwelu_market/001.jpg`;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NewsArticle",
+      "@id": `${articleUrl}#article`,
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": `${siteUrl}#website`,
+        "name": "NYSC Egor SDG CDS Platform",
+        "url": siteUrl
+      },
+      "headline": "Promoting Clean Water and Sanitation Through Community Action: Edo SDG Volunteers Carry Out Environmental Sanitation at Uwelu Market",
+      "image": [
+        `${siteUrl}/uwelu_market/001.jpg`,
+        `${siteUrl}/uwelu_market/002.jpg`,
+        `${siteUrl}/uwelu_market/003.jpg`
+      ],
+      "datePublished": "2026-11-25T09:00:00+01:00",
+      "dateModified": "2026-11-26T08:30:00+01:00",
+      "author": {
+        "@type": "Organization",
+        "name": "Edo State NYSC SDG Community Development Service (CDS) Group",
+        "url": siteUrl
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "National Youth Service Corps (NYSC) Nigeria",
+        "url": "https://www.nysc.gov.ng"
+      },
+      "description": "On Wednesday, 25 November 2026, Edo State NYSC SDG CDS volunteers carried out a community sensitization and environmental sanitation exercise at Uwelu Market, near Water Road, Uwasota Road, Edo State, advancing SDG 6 (Clean Water and Sanitation) and evacuating over 10 bags of waste.",
+      "articleSection": "Environmental Sanitation & SDG 6",
+      "keywords": "Uwelu Market sanitation, NYSC Edo SDG CDS, SDG 6 Clean Water and Sanitation, Water Road Uwasota Road Benin City, Egor LGA environmental sanitation, Edo State NYSC",
+      "inLanguage": "en-NG",
+      "about": [
+        { "@type": "Thing", "name": "Sustainable Development Goal 6: Clean Water and Sanitation" },
+        { "@type": "Thing", "name": "Sustainable Development Goal 11: Sustainable Cities and Communities" },
+        { "@type": "Thing", "name": "Sustainable Development Goal 3: Good Health and Well-being" },
+        { "@type": "Place", "name": "Uwelu Market, near Water Road, Uwasota Road, Edo State, Nigeria" }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "@id": `${articleUrl}#video`,
+      "name": "Uwelu Market Environmental Sanitation & SDG 6 Sensitization Reel",
+      "description": "Field video documentation of Edo State NYSC SDG CDS volunteers carrying out environmental sanitation and community sensitization at Uwelu Market, near Water Road, Uwasota Road, Edo State on 25 November 2026.",
+      "thumbnailUrl": [coverUrl],
+      "uploadDate": "2026-11-25T12:00:00+01:00",
+      "contentUrl": videoUrl,
+      "embedUrl": articleUrl
+    }
+  ]
+};
+---
+
+<Layout
+  title="Uwelu Market Environmental Sanitation (SDG 6) • Nov 25, 2026"
+  description="Promoting Clean Water and Sanitation Through Community Action: Edo State NYSC SDG CDS volunteers carried out environmental sanitation and community sensitization at Uwelu Market, near Water Road, Uwasota Road on 25 November 2026."
+  image="/uwelu_market/001.jpg"
+  video="/uwelu_market/uwelu_video.mp4"
+  videoWidth={720}
+  videoHeight={1280}
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
+
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14 space-y-10">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex flex-wrap items-center gap-2 text-xs text-on-surface-variant font-medium">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <a href="/blog" class="hover:text-primary transition-colors">Blog</a>
+      <span>/</span>
+      <span class="text-primary font-bold">Uwelu Market Sanitation (SDG 6)</span>
+    </nav>
+
+    <!-- Dispatch Header -->
+    <header class="space-y-5 border-b border-on-surface/12 pb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-1 rounded-lg bg-[#26BDE2] text-white font-mono text-[11px] font-bold uppercase tracking-wider shadow-subtle">
+          SDG 6 • Clean Water & Sanitation
+        </span>
+        <span class="px-3 py-1 rounded-lg bg-[#FD9D24] text-white font-mono text-[11px] font-bold uppercase tracking-wider shadow-subtle">
+          SDG 11 • Sustainable Communities
+        </span>
+        <span class="px-3 py-1 rounded-lg bg-surface-container-low border border-on-surface/15 text-primary font-mono text-[11px] font-bold uppercase">
+          Week 8 • 4th Quarter
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-[42px] font-extrabold text-on-surface tracking-tight leading-[1.15]">
+        Promoting Clean Water and Sanitation Through Community Action: <span class="font-serif italic font-normal text-primary">Edo SDG Volunteers</span> Carry Out Environmental Sanitation at Uwelu Market
+      </h1>
+
+      <!-- Metadata Ledger -->
+      <div class="p-4 sm:p-5 rounded-xl bg-surface-container-lowest border border-on-surface/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs shadow-subtle">
+        <div>
+          <span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block">Date</span>
+          <span class="font-bold text-on-surface flex items-center gap-1.5 mt-0.5">
+            <span class="material-symbols-outlined text-[15px] text-primary">calendar_today</span>
+            Wed, 25 Nov 2026
+          </span>
+        </div>
+        <div>
+          <span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block">Location</span>
+          <span class="font-bold text-on-surface flex items-center gap-1.5 mt-0.5">
+            <span class="material-symbols-outlined text-[15px] text-primary">location_on</span>
+            Uwelu Market, Water Rd / Uwasota Rd
+          </span>
+        </div>
+        <div>
+          <span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block">Activity</span>
+          <span class="font-bold text-on-surface flex items-center gap-1.5 mt-0.5">
+            <span class="material-symbols-outlined text-[15px] text-primary">cleaning_services</span>
+            Sensitization & Sanitation
+          </span>
+        </div>
+        <div>
+          <span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block">Organised By</span>
+          <span class="font-bold text-primary flex items-center gap-1.5 mt-0.5">
+            <span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+            Edo NYSC SDG CDS Group
+          </span>
+        </div>
+      </div>
+
+      <!-- Social Share Bar -->
+      <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-mono text-[11px] font-bold text-on-surface-variant uppercase">Share Dispatch:</span>
+          <a
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent('Promoting Clean Water and Sanitation Through Community Action: Edo SDG Volunteers at Uwelu Market (25 Nov 2026) — https://edo-sdg.vercel.app/blog/uwelu-market-environmental-sanitation-sdg-6')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-xs font-bold transition-all border border-[#25D366]/30"
+          >
+            <span class="material-symbols-outlined text-[15px]">share</span>
+            <span>WhatsApp</span>
+          </a>
+          <button
+            type="button"
+            onclick="navigator.clipboard.writeText('https://edo-sdg.vercel.app/blog/uwelu-market-environmental-sanitation-sdg-6'); alert('Uwelu Market SDG 6 dispatch link copied!');"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container transition-all border border-on-surface/15"
+          >
+            <span class="material-symbols-outlined text-[15px]">content_copy</span>
+            <span>Copy Link</span>
+          </button>
+        </div>
+
+        <a
+          href="#photo-gallery"
+          class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary text-on-primary text-xs font-bold hover:bg-primary-container transition-all"
+        >
+          <span class="material-symbols-outlined text-[15px]">photo_library</span>
+          <span>Jump to {uweluPhotos.length} Photos</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- 1. VIDEO FIRST: Uwelu Market Field Video -->
+    <section id="field-video" class="bg-inverse-surface text-inverse-on-surface p-6 sm:p-8 rounded-2xl border border-white/10 shadow-elevated space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+        <div>
+          <span class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-secondary-container uppercase tracking-widest">
+            <span class="material-symbols-outlined text-[16px]">videocam</span>
+            <span>01 • Field Action Video</span>
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">
+            Uwelu Market Sanitation & Sensitization Reel
+          </h2>
+        </div>
+        <span class="px-3 py-1 rounded bg-white/10 text-primary-fixed font-mono text-[11px] font-bold self-start sm:self-auto">
+          uwelu_video.mp4
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-6 flex justify-center">
+          <div class="relative w-full max-w-[340px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border-2 border-white/20 shadow-elevated">
+            <video
+              controls
+              playsinline
+              preload="metadata"
+              poster="/uwelu_market/001.jpg"
+              class="w-full h-full object-cover bg-black"
+            >
+              <source src="/uwelu_market/uwelu_video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <div class="md:col-span-6 space-y-4">
+          <span class="inline-block px-2.5 py-1 rounded bg-[#26BDE2] text-white font-mono text-[11px] font-bold uppercase">
+            SDG 6 • Field Documentation
+          </span>
+          <h3 class="text-xl font-bold text-white leading-snug">
+            Volunteers in Action at Uwelu Market, Benin City
+          </h3>
+          <p class="text-sm text-white/75 leading-relaxed">
+            Arriving at 8:45 AM and commencing at 9:00 AM on Wednesday, 25 November 2026, Edo State NYSC SDG CDS volunteers mobilized across Uwelu Market near Water Road and Uwasota Road—clearing accumulated waste, sanitizing roadside corridors, and engaging traders on SDG 6.
+          </p>
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-mono text-[10px] text-white/60 uppercase">Waste Evacuated</div>
+              <div class="text-lg font-extrabold text-secondary-container mt-0.5">10+ Bags</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-mono text-[10px] text-white/60 uppercase">Commencement</div>
+              <div class="text-lg font-extrabold text-white mt-0.5">9:00 AM WAT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. FEATURED PLATES: 001.jpg, 002.jpg, 003.jpg -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-on-surface/10 pb-2">
+        <span class="font-mono text-[11px] font-bold text-primary uppercase tracking-widest">
+          02 • Lead Field Plates (001 — 003)
+        </span>
+        <span class="font-mono text-[11px] text-on-surface-variant">Uwelu Market, Edo State</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {highlightPhotos.map((photo, idx) => (
+          <figure class="rounded-xl overflow-hidden bg-surface-container-lowest border border-on-surface/15 shadow-subtle group">
+            <div class="relative aspect-4/3 overflow-hidden">
+              <img
+                src={photo.image_url}
+                alt={`Uwelu Market environmental sanitation by Edo NYSC SDG volunteers — Plate 00${idx + 1}`}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="eager"
+              />
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-inverse-surface/85 text-white font-mono text-[10px] font-bold">
+                PLATE 00{idx + 1}
+              </span>
+            </div>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <!-- Narrative Report Body -->
+    <div class="space-y-8 text-on-surface leading-relaxed">
+      
+      <!-- Overview -->
+      <section class="bg-surface-container-lowest p-6 sm:p-8 rounded-2xl border border-on-surface/12 shadow-subtle space-y-3">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface tracking-tight">
+          Overview
+        </h2>
+        <p class="text-sm sm:text-base text-on-surface-variant">
+          In a continued effort to promote environmental sustainability and improve public health, members of the Edo State NYSC Sustainable Development Goals (SDG) CDS Group carried out a community sensitization and environmental sanitation exercise at Uwelu Market, near Water Road, Uwasota Road, Edo State.
+        </p>
+        <p class="text-sm sm:text-base text-on-surface-variant">
+          The exercise focused on <strong class="text-on-surface">Sustainable Development Goal 6 (Clean Water and Sanitation)</strong>, highlighting the importance of access to clean water, proper sanitation, responsible waste disposal, and maintaining a healthy environment.
+        </p>
+        <p class="text-sm sm:text-base text-on-surface-variant">
+          The initiative was designed to encourage traders, residents, and other market users to take collective responsibility for maintaining a cleaner and safer environment.
+        </p>
+      </section>
+
+      <!-- Activities and Community Engagement -->
+      <section class="bg-surface-container-lowest p-6 sm:p-8 rounded-2xl border border-on-surface/12 shadow-subtle space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-on-surface/10 pb-3">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-on-surface tracking-tight">
+            Activities and Community Engagement
+          </h2>
+          <span class="font-mono text-[11px] font-bold text-primary bg-primary/10 px-2.5 py-1 rounded">
+            08:00 AM Arrival • 09:00 AM Kickoff
+          </span>
+        </div>
+        <p class="text-sm sm:text-base text-on-surface-variant">
+          The team arrived at the designated meeting point at approximately 8:00 AM and proceeded to Uwelu Market, arriving around 8:45 AM. The sanitation exercise officially commenced at 9:00 AM.
+        </p>
+        <ul class="space-y-3 text-sm sm:text-base text-on-surface-variant">
+          <li class="flex items-start gap-3">
+            <span class="font-mono text-xs font-bold text-primary mt-1">01</span>
+            <span><strong class="text-on-surface">Environmental Cleaning:</strong> Volunteers cleaned an allocated section of Uwelu Market, removing accumulated dirt, litter, and other forms of waste.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-mono text-xs font-bold text-primary mt-1">02</span>
+            <span><strong class="text-on-surface">Roadside Sanitation:</strong> The team extended the cleanup to surrounding road sections, clearing litter and improving the general appearance of the market environment.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-mono text-xs font-bold text-primary mt-1">03</span>
+            <span><strong class="text-on-surface">Waste Collection and Disposal:</strong> More than 10 bags of collected waste were gathered during the exercise and evacuated from the area to prevent further environmental pollution.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-mono text-xs font-bold text-primary mt-1">04</span>
+            <span><strong class="text-on-surface">Community Sensitization:</strong> The exercise provided an opportunity to reinforce awareness about proper waste disposal, personal hygiene, environmental cleanliness, and the importance of maintaining clean surroundings.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="font-mono text-xs font-bold text-primary mt-1">05</span>
+            <span><strong class="text-on-surface">Public Health Awareness:</strong> Volunteers highlighted the relationship between poor sanitation, environmental pollution, contaminated water sources, and the spread of preventable diseases.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Advancing SDG 6 & Impact Outcomes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section class="bg-surface-container-low p-6 rounded-2xl border border-on-surface/12 space-y-3">
+          <h2 class="text-lg sm:text-xl font-extrabold text-on-surface">
+            Advancing Sustainable Development Goal 6
+          </h2>
+          <p class="text-sm text-on-surface-variant">
+            Clean water and proper sanitation are essential to healthy communities. However, achieving SDG 6 goes beyond providing access to safe drinking water. It also involves protecting water sources, preventing pollution, improving sanitation practices, and encouraging responsible environmental behaviour.
+          </p>
+          <p class="text-sm text-on-surface-variant">
+            Through this initiative, the Edo SDG CDS Group demonstrated that achieving sustainable development requires practical community participation and individual responsibility. By taking action within a busy commercial environment like Uwelu Market, the volunteers reinforced the message that keeping public spaces clean is a shared responsibility.
+          </p>
+        </section>
+
+        <section class="bg-surface-container-lowest p-6 rounded-2xl border border-on-surface/12 space-y-3">
+          <h2 class="text-lg sm:text-xl font-extrabold text-on-surface">
+            Impact and Outcomes
+          </h2>
+          <ul class="space-y-2 text-sm text-on-surface-variant">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span>Improved environmental cleanliness within the targeted section of Uwelu Market.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span>Collection and evacuation of over 10 bags of waste.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span>Cleaner roadside areas and reduced visible litter.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span>Increased awareness of proper sanitation and responsible waste management.</span></li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span>Strengthened community participation in environmental sustainability initiatives.</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Conclusion -->
+      <section class="bg-inverse-surface text-inverse-on-surface p-6 sm:p-8 rounded-2xl border border-white/10 space-y-4">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white">Conclusion</h2>
+        <p class="text-sm text-white/80">
+          The Uwelu Market sanitation exercise reflects the commitment of the Edo State NYSC SDG CDS Group to translating the Sustainable Development Goals into practical community action. While one sanitation exercise cannot solve every environmental challenge, consistent awareness, collective responsibility, and sustained community participation can create lasting improvements.
+        </p>
+        <p class="text-sm text-white/80">
+          A cleaner environment begins with individual responsibility, and a sustainable community begins with collective action. Together, we can make clean water, proper sanitation, and a healthy environment a reality for everyone.
+        </p>
+        <p class="font-serif italic text-xl sm:text-2xl text-secondary-container pt-2">
+          “From Ideas to Impact – Empowering People, Transforming Communities.”
+        </p>
+      </section>
+
+      <!-- Direct Leadership Contact Card -->
+      <section class="bg-surface-container-lowest p-6 rounded-2xl border border-on-surface/15 shadow-subtle flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <span class="font-mono text-[10px] font-bold text-primary uppercase tracking-widest">
+            Direct Project & Media Contact
+          </span>
+          <h3 class="text-base sm:text-lg font-extrabold text-on-surface">
+            Connect with Edo State NYSC SDG CDS Leadership
+          </h3>
+          <p class="text-xs text-on-surface-variant">
+            <strong>Project Manager:</strong> +234 704 881 2719 (WhatsApp) &nbsp;•&nbsp; <strong>President:</strong> +234 810 252 5374
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2.5 shrink-0">
+          <a
+            href="https://api.whatsapp.com/send?phone=2347048812719&text=Hello%20NYSC%20Edo%20SDG%20Project%20Manager%2C%20I%20would%20like%20to%20connect%20regarding%20the%20Uwelu%20Market%20SDG%206%20Sanitation."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1fb857] text-white text-xs font-extrabold shadow-subtle transition-all"
+          >
+            <span class="material-symbols-outlined text-[16px]">chat</span>
+            <span>WhatsApp Project Manager</span>
+          </a>
+          <a
+            href="tel:+2348102525374"
+            class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface border border-on-surface/15 text-xs font-bold transition-all"
+          >
+            <span class="material-symbols-outlined text-[16px] text-primary">call</span>
+            <span>Call President</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 3. FULL PHOTO EXHIBITION: Remaining 29 Photos -->
+    <section id="photo-gallery" class="space-y-6 pt-4 border-t border-on-surface/12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-bold text-primary uppercase tracking-widest">
+            03 • Complete Field Photo Archive ({uweluPhotos.length} Plates)
+          </span>
+          <h2 class="text-2xl font-extrabold text-on-surface">
+            Full Uwelu Market Photo Documentation
+          </h2>
+        </div>
+        <span class="font-mono text-xs text-on-surface-variant">
+          Click any photograph to open lightbox
+        </span>
+      </div>
+
+      <BlogPhotoGrid
+        client:load
+        photos={galleryPhotos}
+        title="Field Photographs (Plates 004 — 032)"
+        description="Additional field documentation from Uwelu Market, near Water Road and Uwasota Road, Edo State."
+      />
+    </section>
+
+  </article>
+</Layout>
